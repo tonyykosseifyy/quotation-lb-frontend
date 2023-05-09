@@ -1,0 +1,19 @@
+.container {
+    border-radius: 3px;
+    background: transparent;
+    color: var(--secondary-text-clr);
+    border: 1px solid var(--primary-clr);
+    padding: 7px 25px;
+    font-weight: 500;
+    line-height: 15px;
+    /*box-shadow: 4px 5px 24px rgba(180, 180, 180, 0.1);*/
+}
+
+.fillBackground {
+    background: var(--primary-clr);
+    color: white;
+}
+
+.roundedBorder {
+    border-radius: 7px;
+}

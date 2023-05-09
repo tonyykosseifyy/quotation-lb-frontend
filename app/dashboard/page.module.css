@@ -1,0 +1,9 @@
+.container {
+    display: flex;
+    height: 100%;
+}
+
+.main {
+    background: var(--primary-background-clr);
+    width: 100%;
+}

@@ -1,0 +1,24 @@
+.container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.childContainer {
+    width: 11px;
+    aspect-ratio: 1/1;
+    border-radius: 100%;
+    border: none;
+}
+
+.warning {
+    background-color: #FFB31F;
+}
+
+.success {
+    background-color: #1CC600;
+}
+
+.danger {
+    background-color: #DB2323;
+}
