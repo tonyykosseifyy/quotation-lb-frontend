@@ -1,10 +1,10 @@
 import AnalyticsOverview from "@/components/AnalyticsOverview/AnalyticsOverview";
 import React from "react";
-import DashboardLayout from "@/app/dashboard/layout";
+import styles from "./page.module.css";
 
 const Dashboard = () => {
     return (
-        <div>
+        <div className={styles.container}>
             <AnalyticsOverview />
         </div>
     );

@@ -1,45 +1,49 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import styles from "./Table.module.css";
 import Button from "@/components/UI/Button/Button";
 import { Status } from "@/components/Table/Status";
 import { formatId } from "@/helpers/formatId";
 import { formatDate } from "@/helpers/formatDate";
+import { formatRevenue } from "@/helpers/formatRevenue";
 
-const Table = (props) => {
-    const [state, setState] = useState({
-        query: "",
-        list: props.data,
-    });
-    const handleSearch = (e) => {
-        setState((prevState) => {
-            let results = [];
-            if (e.target.value === "") results = props.data;
-            else {
-                results = prevState.list.filter((data) => {
-                    const searchParam = props.searchParam;
-                    if (e.target.value === "") return props.data;
-                    return data[searchParam]
-                        .toLowerCase()
-                        .includes(e.target.value.toLowerCase());
-                });
-            }
-            return {
-                query: e.target.value,
-                list: results,
-            };
+const Table = ({
+    title,
+    headings,
+    data,
+    canSearch = false,
+    searchParam = null,
+    showDetails = false,
+    showUnit = false,
+    centerStatus = false,
+    showCreatedAt = false,
+}) => {
+    const [search, setSearch] = useState("");
+    let list = filterArray(data);
+
+    function filterArray(arr) {
+        return arr.filter((obj) => {
+            const searchParamKeyword = searchParam;
+            if (search === "") return obj;
+            return obj[searchParamKeyword]
+                .toLowerCase()
+                .includes(search.toLowerCase());
         });
+    }
+
+    const handleSearch = (e) => {
+        setSearch(e.target.value);
     };
 
     return (
         <div className={styles.container}>
             <div className={styles.header}>
-                <div className={styles.title}>{props.title}</div>
-                {props.canSearch && (
+                <div className={styles.title}>{title}</div>
+                {canSearch && (
                     <div className={styles.searchInputDiv}>
                         <input
-                            value={state.query}
+                            value={search}
                             type="search"
                             onChange={handleSearch}
                             className={styles.searchInput}
@@ -53,9 +57,9 @@ const Table = (props) => {
                     <thead>
                         <tr
                             className={styles.headingsRow}
-                            data-no-details={props.showDetails}
+                            data-no-details={showDetails}
                         >
-                            {props.headings.map((header, i) => {
+                            {headings.map((header, i) => {
                                 return (
                                     <th className={styles.tableHeader} key={i}>
                                         {header}
@@ -66,9 +70,12 @@ const Table = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {state.list.map((dataRow) => {
+                        {list.map((dataRow, i) => {
                             return (
-                                <tr key={dataRow.id} className={styles.bodyRow}>
+                                <tr
+                                    key={dataRow.id ? dataRow.id : i}
+                                    className={styles.bodyRow}
+                                >
                                     {Object.keys(dataRow).map((keyName, i) => (
                                         <td className={styles.dataText} key={i}>
                                             {keyName === "id" ? (
@@ -78,19 +85,20 @@ const Table = (props) => {
                                             ) : keyName === "status" ? (
                                                 <Status
                                                     status={dataRow[keyName]}
-                                                    centerStatus={
-                                                        props.centerStatus
-                                                    }
+                                                    centerStatus={centerStatus}
                                                 />
-                                            ) : keyName === "revenue" &&
-                                              props.showUnit ? (
-                                                `$` + dataRow[keyName]
+                                            ) : keyName === "revenue" ? (
+                                                (showUnit ? "$" : "") +
+                                                formatRevenue(dataRow[keyName])
+                                            ) : keyName === "createdAt" &&
+                                              !showCreatedAt ? (
+                                                ""
                                             ) : (
                                                 dataRow[keyName]
                                             )}
                                         </td>
                                     ))}
-                                    {props.showDetails && (
+                                    {showDetails && (
                                         <td>
                                             <Button
                                                 title="Details"
