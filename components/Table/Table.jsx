@@ -52,7 +52,7 @@ const Table = ({
                     </div>
                 )}
             </div>
-            <div className={styles.tableDiv}>
+            <div className={`table-responsive ${styles.tableDiv}`}>
                 <table className={styles.table}>
                     <thead>
                         <tr
@@ -66,7 +66,9 @@ const Table = ({
                                     </th>
                                 );
                             })}
-                            <th className={styles.hidden}>hi</th>
+                            {showDetails && (
+                                <th className={styles.hidden}>hi</th>
+                            )}
                         </tr>
                     </thead>
                     <tbody>
@@ -104,6 +106,8 @@ const Table = ({
                                                 title="Details"
                                                 fillBackground={false}
                                                 rounded={true}
+                                                fontSize={12}
+                                                fontWeight={600}
                                             />
                                         </td>
                                     )}

@@ -1,6 +1,5 @@
 .container {
     background-color: white;
-    width: 180px;
     border-radius: 5px;
     padding: 11px;
     display: flex;
@@ -33,7 +32,7 @@
 
 .cardValue {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 17px;
     color: var(--primary-text-clr);
 }
 

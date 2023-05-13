@@ -3,7 +3,7 @@ import styles from "./DateFilter.module.css";
 
 const DateFilter = (props) => {
     return (
-        <div className={styles.container}>
+        <>
             <div className={styles.generalFilters}>
                 <a
                     onClick={() => props.onHandleDateChange("day")}
@@ -31,7 +31,7 @@ const DateFilter = (props) => {
                 </a>
             </div>
             <div></div>
-        </div>
+        </>
     );
 };
 

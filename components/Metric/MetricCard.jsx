@@ -3,7 +3,7 @@ import styles from "./MetricCard.module.css";
 
 const MetricCard = (props) => {
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container}`}>
             <div className={styles.cardHeader}>
                 <div className={styles.logoContainer}>
                     <svg

@@ -72,12 +72,14 @@
     --card-border-rgb: 200, 200, 200;
   }
 } */
+@import "~bootstrap/dist/css/bootstrap.min.css";
 
 :root {
     --primary-clr: #4472c4;
     --primary-background-clr: #fafafa;
     --primary-text-clr: #535353;
     --secondary-text-clr: #7D7D7D;
+    --placeholder-text-clr: #C8C8C8
 }
 
 @font-face {
@@ -97,7 +99,7 @@
 }
 
 body {
-    height: 100%;
+    min-height: 100vh;
     font-family: 'Open Sans', sans-serif;
     color: var(--primary-text-clr);
 }

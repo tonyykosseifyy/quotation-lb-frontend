@@ -1,0 +1,96 @@
+.container {
+    padding: 40px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.circle {
+    margin-top: 40px;
+}
+
+.bigCircle {
+    width: 108px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background: rgba(191, 219, 238, 0.3);
+    display: grid;
+}
+
+.smallCircle {
+    place-self: center;
+    display: grid;
+    width: 80px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 1px dashed #0071BC;
+    place-items: center;
+}
+
+.clientType {
+    margin-top: 35px;
+}
+
+.clientInfo {
+    margin-top: 46px;
+    display: flex;
+    flex-direction: column;
+    gap: 70px;
+}
+
+
+.inputRow {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.inputRow2 {
+    margin-top: 15px;
+}
+
+.extraInfo {
+    margin-top: 68px;
+}
+
+.extraInfoButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.extraInfoDetails {
+    margin-top: 46px;
+    background-color: white;
+    border-radius: 8px;
+    border-top: 2px solid var(--primary-clr);
+    padding: 38px;
+
+}
+
+
+@media only screen and (min-width: 1200px) {
+    .clientInfo {
+        flex-direction: row;
+    }
+
+    .inputRow {
+        width: 40%;
+    }
+
+}
+
+@media only screen and (min-width: 991px) {
+    .inputRow2 {
+        margin-top: 0;
+    }
+}
+
+@media only screen and (min-width: 820px) {
+    .extraInfoButtons {
+        flex-direction: row;
+    }
+}

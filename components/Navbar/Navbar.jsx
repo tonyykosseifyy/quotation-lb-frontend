@@ -2,12 +2,15 @@ import React from "react";
 
 const Navbar = () => {
     return (
-        <div>
-            <div>
-                {/*<img src="/assets/svg/bell-icon.svg" alt="Report" />*/}
-            </div>
-            <div></div>
-        </div>
+        // <div>
+        //     <div>
+        //         <img src="/assets/svg/bell-icon.svg" alt="Report" />
+        //     </div>
+        //     <div></div>
+        // </div>
+        <nav className="navbar navbar-expand-md navbar-light">
+            <div className="container">Navbar</div>
+        </nav>
     );
 };
 

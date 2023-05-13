@@ -8,7 +8,10 @@ const Button = (props) => {
             ${styles.container}
             ${props.fillBackground ? styles.fillBackground : ""}
             ${props.rounded ? styles.roundedBorder : ""}
+            
          `}
+            style={{ fontSize: props.fontSize, fontWeight: props.fontWeight }}
+            onClick={props.onClick}
         >
             {props.title}
         </button>

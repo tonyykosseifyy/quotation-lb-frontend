@@ -54,60 +54,86 @@ const AnalyticsOverview = () => {
 
     return (
         <div className={styles.main}>
-            <div className={styles.container}>
-                <div className={styles.heading}>Dashboard</div>
-                <div className={styles.container2}>
-                    <div className={styles.container}>
-                        <DateFilter onHandleDateChange={handleDateChange} />
-                        <MetricContainer />
-                        <Table
-                            title="Top Quotations"
-                            headings={tableHeadings1}
-                            data={state.topQuotations}
-                            canSearch={true}
-                            searchParam="customer"
-                            showDetails={true}
-                        />
+            <div className="container m-0">
+                <div className={`row ${styles.heading}`}>Dashboard</div>
+                <div className="row">
+                    <div
+                        className={`col-lg-9 col-md-12 p-0 ${styles.container}`}
+                    >
+                        <div className="row" style={{ marginTop: 10 }}>
+                            <DateFilter onHandleDateChange={handleDateChange} />
+                        </div>
+                        <div style={{ marginTop: 5 }}>
+                            <MetricContainer />
+                        </div>
+                        <div className="row" style={{ marginTop: 36 }}>
+                            <div className="col-12">
+                                <Table
+                                    title="Top Quotations"
+                                    headings={tableHeadings1}
+                                    data={state.topQuotations}
+                                    canSearch={true}
+                                    searchParam="customer"
+                                    showDetails={true}
+                                />
+                            </div>
+                        </div>
                     </div>
-                    <div className={styles.chartContainer}>Chart 1</div>
+                    <div
+                        className={`col-lg-3 col-md-12 ${styles.chartContainer}`}
+                    >
+                        Chart 1
+                    </div>
                 </div>
             </div>
-            <div className={styles.container2}>
-                <div className={styles.half}>Chart 2</div>
-                <Table
-                    title="Top Sales Order"
-                    headings={tableHeadings2}
-                    data={state.topSalesOrders}
-                    canSearch={false}
-                    showDetails={false}
-                    showUnit={true}
-                />
+            <div className="container m-0">
+                <div className="row">
+                    <div className="col-lg-6 col-md-12">Chart 2</div>
+                    <div className="col-lg-6 col-md-12">
+                        <Table
+                            title="Top Sales Order"
+                            headings={tableHeadings2}
+                            data={state.topSalesOrders}
+                            canSearch={false}
+                            showDetails={false}
+                            showUnit={true}
+                        />
+                    </div>
+                </div>
             </div>
-            <div className={styles.container2}>
-                <Table
-                    title="Top Countries"
-                    headings={tableHeadings3}
-                    data={state.topCountries}
-                    canSearch={false}
-                    showDetails={false}
-                    showUnit={true}
-                />
-                <Table
-                    title="Top Products"
-                    headings={tableHeadings4}
-                    data={state.topProducts}
-                    canSearch={false}
-                    showDetails={false}
-                    showUnit={true}
-                />
-                <Table
-                    title="Top Customers"
-                    headings={tableHeadings5}
-                    data={state.topCustomers}
-                    canSearch={false}
-                    showDetails={false}
-                    showUnit={true}
-                />
+            <div className="container m-0">
+                <div className="row">
+                    <div className="col-lg-4 col-md-6 col-sm-12">
+                        <Table
+                            title="Top Countries"
+                            headings={tableHeadings3}
+                            data={state.topCountries}
+                            canSearch={false}
+                            showDetails={false}
+                            showUnit={true}
+                        />
+                    </div>
+                    <div className="col-lg-4 col-md-6 col-sm-12">
+                        <Table
+                            title="Top Products"
+                            headings={tableHeadings4}
+                            data={state.topProducts}
+                            canSearch={false}
+                            showDetails={false}
+                            showUnit={true}
+                        />
+                    </div>
+                    <div className="col-lg-4 col-md-6 col-sm-12">
+                        <Table
+                            title="Top Customers"
+                            headings={tableHeadings5}
+                            data={state.topCustomers}
+                            canSearch={false}
+                            showDetails={false}
+                            showUnit={true}
+                        />
+                    </div>
+                </div>
             </div>
         </div>
     );

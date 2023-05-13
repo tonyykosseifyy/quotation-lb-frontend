@@ -1,15 +1,16 @@
 .container {
     display: flex;
-    height: 100%;
-    width: 100%
+    min-height: 100vh;
 }
 
-.content {
-    width: 100%
+.box {
+    display: flex;
+    flex-flow: column;
+    flex: 1 1 auto;
 }
 
 .main {
-    padding: 38px;
+    padding: 40px 20px 40px 40px;
+    min-height: 100vh;
     background: var(--primary-background-clr);
-    width: 100%;
 }
