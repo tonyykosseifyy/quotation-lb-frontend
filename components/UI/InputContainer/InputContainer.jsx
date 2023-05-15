@@ -7,12 +7,26 @@ const InputContainer = ({
     isRequired,
     inputPlaceholder = "",
     inputType,
+    codeName,
     inputName,
     selectOptions,
     inputId,
+    height,
+    heightUnit,
+    width,
+    widthUnit,
+    alignLabelInput = true,
+    spaceBetween = true,
+    register,
+    control,
 }) => {
     return (
-        <div className={styles.container}>
+        <div
+            className={`${styles.container} 
+                ${!alignLabelInput ? styles.alignItemsStart : ""}
+                ${!spaceBetween ? styles.justifyStart : ""}
+            }`}
+        >
             <label className={styles.labelText}>
                 {label} {isRequired && "*"}
             </label>
@@ -20,9 +34,16 @@ const InputContainer = ({
                 isRequired={isRequired}
                 inputPlaceholder={inputPlaceholder}
                 inputType={inputType}
+                codeName={codeName}
                 inputName={inputName}
                 selectOptions={selectOptions}
-                inputId
+                inputId={inputId}
+                height={height}
+                heightUnit={heightUnit}
+                width={width}
+                widthUnit={widthUnit}
+                register={register}
+                control={control}
             />
         </div>
     );

@@ -30,14 +30,13 @@
 }
 
 .clientType {
-    margin-top: 35px;
+    margin: 46px 0;
 }
 
-.clientInfo {
-    margin-top: 46px;
+.infoDiv {
     display: flex;
     flex-direction: column;
-    gap: 70px;
+    gap: 15px;
 }
 
 
@@ -46,6 +45,10 @@
     display: flex;
     flex-direction: column;
     gap: 15px;
+}
+
+.inputTextArea {
+    width: 100%;
 }
 
 .inputRow2 {
@@ -71,10 +74,34 @@
 
 }
 
+.contactDivButtons {
+    margin-bottom: 46px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 33px;
+}
+
+.actionButtons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 58px;
+    gap: 26px;
+}
+
+.discard {
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--primary-clr);
+    text-decoration: underline;
+    cursor: pointer;
+}
 
 @media only screen and (min-width: 1200px) {
-    .clientInfo {
+    .infoDiv {
         flex-direction: row;
+        gap: 70px;
     }
 
     .inputRow {

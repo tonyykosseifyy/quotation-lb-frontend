@@ -1,18 +1,44 @@
-.input {
-
+.input:focus-visible {
+    border: none;
 }
 
 .inputText {
-    height: 37px;
+    font-weight: 400;
+    font-size: 14px;
+    padding: 10px;
+    height: 100%;
     border-radius: 5px;
     border: 1px solid rgba(68, 114, 196, 0.2);
-    width: 208px;
+    width: 100%;
+    background-color: transparent;
 }
 
-.input:focus {
-    border: 1px solid rgba(68, 114, 196, 0.2);
+.inputText:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(68, 114, 196, 0.2);
+    border-color: transparent;
 }
+
 
 .indicationContainer {
     color: var(--primary-text-clr);
+}
+
+.phoneContainer {
+    display: flex;
+    gap: 5px;
+}
+
+.countrySelect {
+    font-size: 12px;
+    font-weight: 400;
+    border-radius: 5px;
+    border: 1px solid rgba(68, 114, 196, 0.2);
+    background-color: transparent;
+}
+
+.countrySelect:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(68, 114, 196, 0.2);
+    border-color: transparent;
 }

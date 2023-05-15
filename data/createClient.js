@@ -12,10 +12,6 @@ export const clients = [
         name: "Bernard Ashley",
     },
     {
-        id: 9,
-        name: "Charlie James",
-    },
-    {
         id: 25,
         name: "Jaylene Mcclure",
     },

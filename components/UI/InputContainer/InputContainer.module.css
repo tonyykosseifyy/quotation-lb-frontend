@@ -3,6 +3,11 @@
     flex-direction: column;
     justify-content: space-between;
     gap: 10px;
+    align-items: start;
+}
+
+.alignItemsStart {
+    align-items: start !important;
 }
 
 .labelText {
@@ -10,10 +15,16 @@
     font-weight: 600;
 }
 
+
 @media only screen and (min-width: 768px) {
     .container {
         flex-direction: row;
         align-items: center;
         gap: 0
+    }
+
+    .justifyStart {
+        justify-content: start;
+        gap: 48px;
     }
 }

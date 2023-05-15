@@ -5,16 +5,20 @@ const RadioButton = ({
     labelText,
     value,
     inputName,
-    isChecked = false,
+    isChecked = undefined,
     inputId,
+    onChange,
 }) => {
     return (
         <div className={styles.container}>
             <input
                 name={inputName}
+                value={value}
                 type="radio"
                 className={styles.input}
                 id={inputId}
+                onChange={onChange}
+                checked={isChecked}
             />
             <label htmlFor={inputId} className={styles.label}>
                 {labelText}

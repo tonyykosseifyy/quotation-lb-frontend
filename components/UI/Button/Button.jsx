@@ -10,8 +10,17 @@ const Button = (props) => {
             ${props.rounded ? styles.roundedBorder : ""}
             
          `}
-            style={{ fontSize: props.fontSize, fontWeight: props.fontWeight }}
+            style={{
+                fontSize: props.fontSize,
+                fontWeight: props.fontWeight,
+                paddingTop: props.paddingTop,
+                paddingBottom: props.paddingBottom,
+                paddingLeft: props.paddingLeft,
+                paddingRight: props.paddingRight,
+            }}
             onClick={props.onClick}
+            value={props.value}
+            type={props.type ? props.type : "submit"}
         >
             {props.title}
         </button>

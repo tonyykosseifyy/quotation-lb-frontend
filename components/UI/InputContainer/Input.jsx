@@ -1,19 +1,35 @@
 "use client";
 
-import React, { useId } from "react";
+import React from "react";
 import styles from "./Input.module.css";
 import Select from "react-select";
+import { Controller } from "react-hook-form";
+import { countries } from "@/data/countries";
 
 const Input = ({
     inputPlaceholder = "",
+    codeName,
     inputName,
     isRequired = false,
     inputType,
     selectOptions,
     inputId,
+    height = 37,
+    heightUnit = "px",
+    width = 208,
+    widthUnit = "px",
+    canResize,
+    register,
+    control,
 }) => {
     return (
-        <div className={styles.input}>
+        <div
+            className={`${styles.input}`}
+            style={{
+                height: `${height}${heightUnit}`,
+                width: `${width}${widthUnit}`,
+            }}
+        >
             {inputType === "text" && (
                 <input
                     required={isRequired}
@@ -21,49 +37,87 @@ const Input = ({
                     name={inputName}
                     type="text"
                     id={inputId}
+                    {...register(inputName, { required: isRequired })}
+                />
+            )}
+            {inputType === "textarea" && (
+                <textarea
+                    required={isRequired}
+                    className={styles.inputText}
+                    name={inputName}
+                    id={inputId}
+                    style={{ resize: canResize ? "" : "none" }}
+                    {...register(inputName, { required: isRequired })}
                 />
             )}
             {inputType === "select" && (
-                <Select
-                    styles={{
-                        control: (baseStyles, state) => ({
-                            ...baseStyles,
-                            width: 208,
-                            height: 37,
-                            borderRadius: 5,
-                            borderColor: "rgba(68, 114, 196, 0.2)",
-                            "&:hover": {
-                                borderColor: "none",
-                            },
-                            "&:focus": {
-                                borderColor: "rgba(68, 114, 196, 0.2)",
-                            },
-                            "&:active": {
-                                borderColor: "rgba(68, 114, 196, 0.2)",
-                            },
-                        }),
-                        valueContainer: (baseStyles, state) => ({
-                            ...baseStyles,
-                            fontSize: 14,
-                            fontWeight: 400,
-                            fontStyle: "italic",
-                        }),
-                        placeholder: (baseStyles, state) => ({
-                            ...baseStyles,
-                            color: "#C8C8C8",
-                        }),
-                    }}
-                    placeholder={inputPlaceholder}
-                    options={selectOptions}
-                    getOptionLabel={(option) => option.name}
-                    getOptionValue={(option) => option.id}
-                    id={inputId}
-                    components={{
-                        IndicatorSeparator: () => null,
-                    }}
+                <Controller
                     name={inputName}
-                    required={isRequired}
+                    control={control}
+                    defaultValue={null}
+                    render={({ field }) => (
+                        <Select
+                            {...field}
+                            styles={{
+                                control: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    borderRadius: 5,
+                                    borderColor: "rgba(68, 114, 196, 0.2)",
+                                    "&:hover": {
+                                        borderColor: "none",
+                                    },
+                                    "&:focus": {
+                                        borderColor: "rgba(68, 114, 196, 0.2)",
+                                    },
+                                    "&:active": {
+                                        borderColor: "rgba(68, 114, 196, 0.2)",
+                                    },
+                                    backgroundColor: "transparent",
+                                }),
+                                valueContainer: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    fontSize: 14,
+                                    fontWeight: 400,
+                                }),
+                                placeholder: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    color: "#C8C8C8",
+                                    fontStyle: "italic",
+                                }),
+                            }}
+                            placeholder={inputPlaceholder}
+                            options={selectOptions}
+                            getOptionLabel={(option) => option.name}
+                            getOptionValue={(option) => option.id}
+                            components={{
+                                IndicatorSeparator: () => null,
+                            }}
+                            required={isRequired}
+                        />
+                    )}
                 />
+            )}
+            {inputType === "phone" && (
+                <div className={styles.phoneContainer}>
+                    <select
+                        className={styles.countrySelect}
+                        {...register(codeName, { required: isRequired })}
+                    >
+                        {countries.map((country) => (
+                            <option
+                                value={country.dial_code}
+                            >{`${country.code} ${country.dial_code}`}</option>
+                        ))}
+                    </select>
+                    <input
+                        required={isRequired}
+                        className={styles.inputText}
+                        name={inputName}
+                        type="text"
+                        id={inputId}
+                        {...register(inputName, { required: isRequired })}
+                    />
+                </div>
             )}
         </div>
     );
