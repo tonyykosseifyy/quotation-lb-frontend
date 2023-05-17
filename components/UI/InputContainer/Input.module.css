@@ -8,14 +8,14 @@
     padding: 10px;
     height: 100%;
     border-radius: 5px;
-    border: 1px solid rgba(68, 114, 196, 0.2);
+    border: 1px solid var(--input-border);
     width: 100%;
     background-color: transparent;
 }
 
 .inputText:focus {
     outline: none;
-    box-shadow: 0 0 0 2px rgba(68, 114, 196, 0.2);
+    box-shadow: 0 0 0 2px var(--input-border);
     border-color: transparent;
 }
 
@@ -25,20 +25,11 @@
 }
 
 .phoneContainer {
+    position: relative;
     display: flex;
     gap: 5px;
 }
 
 .countrySelect {
-    font-size: 12px;
-    font-weight: 400;
-    border-radius: 5px;
-    border: 1px solid rgba(68, 114, 196, 0.2);
-    background-color: transparent;
-}
-
-.countrySelect:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px rgba(68, 114, 196, 0.2);
-    border-color: transparent;
+    width: 45%;
 }

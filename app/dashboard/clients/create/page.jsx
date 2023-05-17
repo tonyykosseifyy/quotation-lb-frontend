@@ -9,6 +9,7 @@ import { countries } from "@/data/countries";
 
 import { clients } from "@/data/createClient";
 import { useForm } from "react-hook-form";
+import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
 
 const options = [
     { id: "chocolate", name: "Chocolate" },
@@ -35,6 +36,10 @@ const CreateClient = () => {
             ...data,
             clientType: state.clientType,
             addressType: state.addressType,
+            phoneCode: codes["phoneCode"],
+            mobileCode: codes["mobileCode"],
+            phoneContactCode: codes["phoneContactCode"],
+            mobileContactCode: codes["mobileContactCode"],
         };
         console.log(payload);
     };
@@ -45,6 +50,17 @@ const CreateClient = () => {
         addressType: "contact",
     });
 
+    const codes = {
+        phoneCode: "+961",
+        mobileCode: "+961",
+        phoneContactCode: "+961",
+        mobileContactCode: "+961",
+    };
+
+    const changeCodeValue = (codeName, value) => {
+        codes[codeName] = value;
+    };
+
     const handleClientTypeChange = (e) => {
         setState((prevState) => ({
             clientType: e.target.value,
@@ -53,13 +69,11 @@ const CreateClient = () => {
         }));
     };
     const handleExtraInfoChange = (e) => {
-        setState((prevState) => {
-            return {
-                clientType: prevState.clientType,
-                extraInfo: e.target.value,
-                addressType: prevState.addressType,
-            };
-        });
+        setState((prevState) => ({
+            clientType: prevState.clientType,
+            extraInfo: e.target.value,
+            addressType: prevState.addressType,
+        }));
     };
 
     const handleAddressTypeChange = (e) => {
@@ -211,6 +225,7 @@ const CreateClient = () => {
                             inputPlaceholder=""
                             inputType="phone"
                             codeName="phoneCode"
+                            changeCodeValue={changeCodeValue}
                             inputName="phone"
                             selectOptions={options}
                             register={register}
@@ -222,6 +237,7 @@ const CreateClient = () => {
                             inputPlaceholder=""
                             inputType="phone"
                             codeName="mobileCode"
+                            changeCodeValue={changeCodeValue}
                             inputName="mobile"
                             selectOptions={options}
                             register={register}
@@ -313,12 +329,12 @@ const CreateClient = () => {
                                     <div className="">
                                         <RadioButton
                                             inputName="addressType"
-                                            labelText="Invoice Address"
-                                            inputId="invoiceAddress"
-                                            value="invoice"
                                             isChecked={
                                                 state.extraInfo === "invoice"
                                             }
+                                            labelText="Invoice Address"
+                                            inputId="invoiceAddress"
+                                            value="invoice"
                                             onChange={handleAddressTypeChange}
                                         />
                                     </div>
@@ -430,11 +446,12 @@ const CreateClient = () => {
                                             register={register}
                                         />
                                         <InputContainer
-                                            label="Phone"
+                                            label="Phone1"
                                             isRequired={true}
                                             inputPlaceholder=""
                                             inputType="phone"
                                             codeName="phoneContactCode"
+                                            changeCodeValue={changeCodeValue}
                                             inputName="phoneContact"
                                             register={register}
                                             selectOptions={options}
@@ -446,6 +463,7 @@ const CreateClient = () => {
                                             inputPlaceholder=""
                                             inputType="phone"
                                             codeName="mobileContactCode"
+                                            changeCodeValue={changeCodeValue}
                                             inputName="mobileContact"
                                             selectOptions={options}
                                             register={register}

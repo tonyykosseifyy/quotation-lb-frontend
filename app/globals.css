@@ -79,7 +79,9 @@
     --primary-background-clr: #fafafa;
     --primary-text-clr: #535353;
     --secondary-text-clr: #7D7D7D;
-    --placeholder-text-clr: #C8C8C8
+    --placeholder-text-clr: #C8C8C8;
+    --input-border: rgba(68, 114, 196, 0.2);
+    --select-option-background-clr: #E8ECF5;
 }
 
 @font-face {

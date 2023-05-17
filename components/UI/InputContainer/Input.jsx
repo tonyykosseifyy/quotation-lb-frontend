@@ -5,10 +5,12 @@ import styles from "./Input.module.css";
 import Select from "react-select";
 import { Controller } from "react-hook-form";
 import { countries } from "@/data/countries";
+import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
 
 const Input = ({
     inputPlaceholder = "",
     codeName,
+    changeCodeValue,
     inputName,
     isRequired = false,
     inputType,
@@ -99,16 +101,13 @@ const Input = ({
             )}
             {inputType === "phone" && (
                 <div className={styles.phoneContainer}>
-                    <select
-                        className={styles.countrySelect}
-                        {...register(codeName, { required: isRequired })}
-                    >
-                        {countries.map((country) => (
-                            <option
-                                value={country.dial_code}
-                            >{`${country.code} ${country.dial_code}`}</option>
-                        ))}
-                    </select>
+                    <div className={styles.countrySelect}>
+                        <PhoneCodeSelect
+                            codeName={codeName}
+                            changeCodeValue={changeCodeValue}
+                        />
+                    </div>
+
                     <input
                         required={isRequired}
                         className={styles.inputText}

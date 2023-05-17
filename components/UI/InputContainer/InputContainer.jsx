@@ -8,6 +8,7 @@ const InputContainer = ({
     inputPlaceholder = "",
     inputType,
     codeName,
+    changeCodeValue,
     inputName,
     selectOptions,
     inputId,
@@ -35,6 +36,7 @@ const InputContainer = ({
                 inputPlaceholder={inputPlaceholder}
                 inputType={inputType}
                 codeName={codeName}
+                changeCodeValue={changeCodeValue}
                 inputName={inputName}
                 selectOptions={selectOptions}
                 inputId={inputId}
