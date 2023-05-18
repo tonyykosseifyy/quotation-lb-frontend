@@ -321,7 +321,7 @@ const CreateClient = () => {
                                             inputId="contact"
                                             value="contact"
                                             isChecked={
-                                                state.extraInfo === "contact"
+                                                state.addressType === "contact"
                                             }
                                             onChange={handleAddressTypeChange}
                                         />
@@ -330,7 +330,7 @@ const CreateClient = () => {
                                         <RadioButton
                                             inputName="addressType"
                                             isChecked={
-                                                state.extraInfo === "invoice"
+                                                state.addressType === "invoice"
                                             }
                                             labelText="Invoice Address"
                                             inputId="invoiceAddress"
@@ -345,7 +345,7 @@ const CreateClient = () => {
                                             inputId="deliveryAddress"
                                             value="delivery"
                                             isChecked={
-                                                state.extraInfo === "delivery"
+                                                state.addressType === "delivery"
                                             }
                                             onChange={handleAddressTypeChange}
                                         />
@@ -357,7 +357,7 @@ const CreateClient = () => {
                                             inputId="privateAddress"
                                             value="private"
                                             isChecked={
-                                                state.extraInfo === "private"
+                                                state.addressType === "private"
                                             }
                                             onChange={handleAddressTypeChange}
                                         />
@@ -369,7 +369,7 @@ const CreateClient = () => {
                                             inputId="followUpAddress"
                                             value="followUp"
                                             isChecked={
-                                                state.extraInfo === "followUp"
+                                                state.addressType === "followUp"
                                             }
                                             onChange={handleAddressTypeChange}
                                         />
@@ -381,7 +381,7 @@ const CreateClient = () => {
                                             inputId="other"
                                             value="other"
                                             isChecked={
-                                                state.extraInfo === "other"
+                                                state.addressType === "other"
                                             }
                                             onChange={handleAddressTypeChange}
                                         />
