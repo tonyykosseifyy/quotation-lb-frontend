@@ -9,7 +9,7 @@ const Navbar = () => {
         //     <div></div>
         // </div>
         <nav className="navbar navbar-expand-md navbar-light">
-            <div className="container">Navbar</div>
+            <div className="">Navbar</div>
         </nav>
     );
 };
