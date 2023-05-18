@@ -1,0 +1,26 @@
+.searchInputDiv {
+    background-color: var(--primary-background-clr);
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.roundedBorder {
+    border-radius: 7px;
+}
+
+.searchInput {
+    border: none;
+    background-color: transparent;
+    font-weight: 500;
+    font-size: 12px;
+    color: var(--primary-text-clr);
+    width: 100%;
+}
+
+.searchInput::placeholder {
+    color: var(--placeholder-text-clr);
+}
+
+.searchInput:focus {
+    outline: none;
+}

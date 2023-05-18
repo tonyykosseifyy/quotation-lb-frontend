@@ -1,24 +1,27 @@
 import styles from "./Status.module.css";
 
-export const Status = (props) => {
+export const Status = ({ centerStatus, status, statusText }) => {
     return (
         <div
             className={`
     ${styles.container}
+    ${centerStatus ? styles.justifyCenter : ""}
   
     `}
         >
             <div
                 className={`
-                ${styles.childContainer}
+                ${statusText ? styles.textStatus : styles.emptyStatus}
                 ${
-                    props.status === 0
+                    status === 0
                         ? styles.warning
-                        : props.status === 1
+                        : status === 1
                         ? styles.success
                         : styles.danger
                 }`}
-            ></div>
+            >
+                {statusText && statusText[status]}
+            </div>
         </div>
     );
 };

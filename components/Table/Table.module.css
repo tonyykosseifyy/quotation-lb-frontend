@@ -20,24 +20,6 @@
     font-size: 15px;
 }
 
-.searchInputDiv {
-    background-color: var(--primary-background-clr);
-    padding: 10px;
-    border-radius: 5px;
-}
-
-.searchInput {
-    border: none;
-    background-color: var(--primary-background-clr);
-    font-weight: 500;
-    font-size: 12px;
-    color: #BBBBBD;
-}
-
-.searchInput:focus {
-    outline: none;
-}
-
 .tableHeader {
     color: var(--primary-clr);
     font-weight: 700;
@@ -58,7 +40,6 @@
     position: relative;
     border: none;
     overflow: hidden;
-    border-top: 1px solid #E9E9E9;
 }
 
 .hidden {
@@ -76,6 +57,16 @@
 }
 
 .dataText {
+    color: var(--primary-text-clr);
     font-size: 12px;
     font-weight: 500;
+}
+
+.alignItems {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.dataText {
 }

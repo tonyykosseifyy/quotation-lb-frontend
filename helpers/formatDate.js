@@ -1,4 +1,4 @@
-export const formatDate = (date) => {
+export const formatDate = (date, seperator) => {
     const parts = date.split("-");
-    return `${parts[2]}.${parts[1]}.${parts[0]}`;
+    return `${parts[2]}${seperator}${parts[1]}${seperator}${parts[0]}`;
 };
