@@ -11,7 +11,6 @@ const Search = ({
     paddingBottom,
     paddingLeft,
     paddingRight,
-    fontStyle,
     backgroundColor,
     rounded,
     handleSearch,
@@ -39,7 +38,6 @@ const Search = ({
                 onChange={handleSearch}
                 className={styles.searchInput}
                 placeholder={placeholder}
-                style={{ fontStyle: fontStyle }}
             />
         </div>
     );
