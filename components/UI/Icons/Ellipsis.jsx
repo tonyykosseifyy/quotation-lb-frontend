@@ -1,6 +1,6 @@
 import React from "react";
 
-const Ellipsis = () => {
+const Ellipsis = ({ onClick }) => {
     return (
         <svg
             width="15"
@@ -8,6 +8,7 @@ const Ellipsis = () => {
             viewBox="0 0 15 4"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
+            onClick={onClick}
         >
             <path
                 d="M2 4C3.10457 4 4 3.10457 4 2C4 0.895431 3.10457 0 2 0C0.895431 0 0 0.895431 0 2C0 3.10457 0.895431 4 2 4Z"

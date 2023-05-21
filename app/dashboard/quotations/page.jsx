@@ -4,11 +4,133 @@ import React, { useState } from "react";
 import styles from "./page.module.css";
 import Button from "@/components/UI/Button/Button";
 import Search from "@/components/UI/Search/Search";
-import { tableHeadings1 } from "@/data/tableData";
-import Table from "@/components/Table/Table";
+import DataTable from "react-data-table-component";
 import Clock from "@/components/UI/Icons/Clock";
 import Ellipsis from "@/components/UI/Icons/Ellipsis";
 import Trashcan from "@/components/UI/Icons/Trashcan";
+import { formatId } from "@/helpers/formatId";
+import { formatDate } from "@/helpers/formatDate";
+import { Status } from "@/components/Table/Status";
+
+const quotations = [
+    {
+        id: 1,
+        createdAt: "2021-05-10",
+        customer: "Malek Majzoub",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 1,
+    },
+    {
+        id: 2,
+        createdAt: "2023-04-16",
+        customer: "Abed Nahouli",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 1,
+    },
+    {
+        id: 3,
+        createdAt: "2023-03-16",
+        customer: "John Smith",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 2,
+    },
+    {
+        id: 4,
+        createdAt: "2023-05-16",
+        customer: "Jane Doe",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 0,
+    },
+    {
+        id: 5,
+        createdAt: "2023-04-18",
+        customer: "Robert Downey Jr",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 0,
+    },
+    {
+        id: 6,
+        createdAt: "2023-04-18",
+        customer: "Chris Hemsworth",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 0,
+    },
+    {
+        id: 7,
+        createdAt: "2023-04-18",
+        customer: "Johnny Depp",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 0,
+    },
+    {
+        id: 8,
+        createdAt: "2023-04-18",
+        customer: "Johnny Depp",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 0,
+    },
+    {
+        id: 9,
+        createdAt: "2023-04-18",
+        customer: "John Smith",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 0,
+    },
+    {
+        id: 10,
+        createdAt: "2023-04-18",
+        customer: "Abed Nahouli",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 0,
+    },
+    {
+        id: 11,
+        createdAt: "2023-04-18",
+        customer: "Malek Majzoub",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 0,
+    },
+    {
+        id: 12,
+        createdAt: "2023-04-18",
+        customer: "Malek Majzoub",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 0,
+    },
+    {
+        id: 13,
+        createdAt: "2023-04-18",
+        customer: "Malek Majzoub",
+        salesperson: "Jad Al Deek",
+        task: null,
+        total: 1500,
+        status: 0,
+    },
+];
 
 const Page = () => {
     const [search, setSearch] = useState("");
@@ -19,68 +141,112 @@ const Page = () => {
     const handleCreateQuotation = () => {
         //
     };
-
     const handleExtraInfoChange = (e) => {
         setButtonState(() => e.target.value);
     };
 
-    const tableHeadings = [
+    const filteredQuotations = quotations.filter(
+        (quotation) =>
+            quotation.customer &&
+            quotation.customer.toLowerCase().includes(search.toLowerCase())
+    );
+    const createdAtSort = (rowA, rowB) => {
+        const a = rowA.createdAt;
+        const b = rowB.createdAt;
+
+        if (a > b) {
+            return 1;
+        }
+
+        if (b > a) {
+            return -1;
+        }
+
+        return 0;
+    };
+
+    const handleClickMoreOptions = (id) => {
+        console.log(id);
+    };
+
+    const handleDeleteQuotation = (id) => {
+        console.log(id);
+    };
+
+    const columns = [
         {
-            id: { title: "Number" },
+            name: "Number",
+            width: "120px",
+            selector: (row) => formatId(row.id),
+            sortable: true,
         },
         {
-            createdAt: { title: "Creation Date" },
+            name: "Creation Date",
+            selector: (row) => formatDate(row.createdAt, "/"),
+            sortable: true,
+            sortFunction: createdAtSort,
         },
         {
-            customer: { title: "Customer" },
+            name: "Customer",
+            selector: (row) => row.customer,
+            sortable: true,
         },
         {
-            salesperson: { title: "Salesperson" },
+            name: "Salesperson",
+            selector: (row) => row.salesperson,
+            sortable: true,
         },
         {
-            task: {
-                title: "Task",
-                nullIcon: <Clock />,
-                nullText: "No Records",
+            name: "Task",
+            selector: (row) => {
+                if (row.task) return row.task;
+                return (
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: 8,
+                            alignItems: "center",
+                        }}
+                    >
+                        <Clock />
+                        No Records
+                    </div>
+                );
             },
         },
         {
-            total: { title: "Total" },
+            name: "Total",
+            width: "100px",
+            selector: (row) => row.total,
         },
         {
-            status: { title: "Status" },
-        },
-    ];
-
-    const additionalHeadings = [
-        {
-            title: "More Options",
-            value: <Ellipsis />,
-        },
-        {
-            title: "",
-            value: <Trashcan fillColor={"var(--primary-clr)"} />,
-        },
-    ];
-
-    const tableData = [
-        {
-            id: 1,
-            createdAt: "2021-05-10",
-            customer: "Malek Majzoub",
-            salesperson: "Jad Al Deek",
-            task: null,
-            total: 1500,
-            status: 1,
+            name: "Status",
+            center: true,
+            selector: (row) => (
+                <Status
+                    status={row.status}
+                    statusText={statusText}
+                    centerStatus
+                />
+            ),
         },
         {
-            id: 2,
-            createdAt: "2023-04-16",
-            customer: "Malek Majzoub",
-            salesperson: "Jad Al Deek",
-            task: null,
-            total: 1500,
-            status: 1,
+            name: "More Options",
+            center: true,
+            selector: (row) => (
+                <Ellipsis onClick={() => handleClickMoreOptions(row.id)} />
+            ),
+        },
+        {
+            name: "",
+            width: "60px",
+            center: true,
+            selector: (row) => (
+                <Trashcan
+                    fillColor={"var(--primary-clr)"}
+                    onClick={() => handleDeleteQuotation(row.id)}
+                />
+            ),
         },
     ];
 
@@ -88,6 +254,38 @@ const Page = () => {
         0: "Pending",
         1: "Quotation Sent",
         2: "Cancelled",
+    };
+
+    const paginationComponentOptions = {
+        selectAllRowsItem: true,
+        selectAllRowsItemText: "All",
+    };
+
+    const paginationRowsPerPageOptions = [10, 20, 50];
+
+    const customStyles = {
+        headRow: {
+            style: {
+                backgroundColor: "var(--primary-clr)",
+                color: "white",
+                fontSize: "13px",
+                fontWeight: 600,
+                borderRadius: 5,
+            },
+        },
+        cells: {
+            style: {
+                fontSize: 12,
+                fontWeight: 700,
+                color: "var(--table-data-text-clr)",
+            },
+        },
+        pagination: {
+            style: {
+                borderBottomLeftRadius: 8,
+                borderBottomRightRadius: 8,
+            },
+        },
     };
 
     return (
@@ -117,7 +315,6 @@ const Page = () => {
                     fillBackground={true}
                     backgroundColor={"white"}
                     rounded={true}
-                    fontStyle={"italic"}
                     handleSearch={handleSearch}
                 />
             </div>
@@ -147,24 +344,15 @@ const Page = () => {
                     type="button"
                 />
             </div>
+
             <div className={styles.tableDiv}>
-                <Table
-                    tablePaddingBottom={0}
-                    tablePaddingLeft={0}
-                    tablePaddingRight={0}
-                    tablePaddingTop={0}
-                    tableBorderRadius={8}
-                    headingBackgroundColor={"var(--primary-clr)"}
-                    headingsColor={"white"}
-                    headingBorderRadius={5}
-                    headings={tableHeadings}
-                    additionalHeadings={additionalHeadings}
-                    data={tableData}
-                    dataFontWeight={700}
-                    dataColor={"var(--table-data-text-clr)"}
-                    showCreatedAt={true}
-                    centerStatus={true}
-                    statusText={statusText}
+                <DataTable
+                    columns={columns}
+                    data={filteredQuotations}
+                    pagination
+                    customStyles={customStyles}
+                    paginationComponentOptions={paginationComponentOptions}
+                    paginationRowsPerPageOptions={paginationRowsPerPageOptions}
                 />
             </div>
         </div>
