@@ -120,8 +120,12 @@ export default function Sidebar() {
                 </Link>
             </div>
             <div className={open ? styles.list : styles.listClosed}>
-                {sidebarItems.map((sidebarItem) => (
-                    <SidebarItem sidebarItem={sidebarItem} open={open} />
+                {sidebarItems.map((sidebarItem, index) => (
+                    <SidebarItem
+                        key={index}
+                        sidebarItem={sidebarItem}
+                        open={open}
+                    />
                 ))}
             </div>
         </div>

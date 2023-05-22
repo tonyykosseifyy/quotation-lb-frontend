@@ -1,0 +1,32 @@
+.nav {
+    padding-left: 46px;
+    padding-right: 40px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.options {
+    display: flex;
+    gap: 37px;
+    align-items: center;
+}
+
+.option {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.userInfo {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.userContainer {
+    display: flex;
+    align-items: center;
+}
+
+.dropdownItem:hover {
+    background-color: transparent;
+}

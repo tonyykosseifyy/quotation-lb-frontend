@@ -29,18 +29,21 @@ const SidebarItem = ({ sidebarItem, open }) => {
                             <div className={styles.itemText}>
                                 {sidebarItem.title}
                             </div>
-                            <div className={styles.subHeaders}>
-                                {sidebarItem.items?.map((item) => (
-                                    <Link
-                                        href={item.link}
-                                        style={{ textDecoration: "none" }}
-                                    >
-                                        <div className={styles.subHeader}>
-                                            {item.title}
-                                        </div>
-                                    </Link>
-                                ))}
-                            </div>
+                            {sidebarItem.items && (
+                                <div className={styles.subHeaders}>
+                                    {sidebarItem.items?.map((item, index) => (
+                                        <Link
+                                            href={item.link}
+                                            style={{ textDecoration: "none" }}
+                                            key={index}
+                                        >
+                                            <div className={styles.subHeader}>
+                                                {item.title}
+                                            </div>
+                                        </Link>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     )}
                 </div>
