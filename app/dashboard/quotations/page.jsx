@@ -11,6 +11,7 @@ import Trashcan from "@/components/UI/Icons/Trashcan";
 import { formatId } from "@/helpers/formatId";
 import { formatDate } from "@/helpers/formatDate";
 import { Status } from "@/components/Table/Status";
+import FourArrows from "@/components/UI/Icons/FourArrows";
 
 const quotations = [
     {
@@ -175,13 +176,20 @@ const Page = () => {
 
     const columns = [
         {
+            name: "",
+            width: "30px",
+            selector: (row) => <FourArrows />,
+            allowOverflow: true,
+        },
+        {
             name: "Number",
-            width: "120px",
+            maxWidth: "100px",
             selector: (row) => formatId(row.id),
             sortable: true,
         },
         {
             name: "Creation Date",
+            maxWidth: "140px",
             selector: (row) => formatDate(row.createdAt, "/"),
             sortable: true,
             sortFunction: createdAtSort,
