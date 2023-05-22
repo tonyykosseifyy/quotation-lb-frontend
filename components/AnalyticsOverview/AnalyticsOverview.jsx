@@ -70,11 +70,14 @@ const AnalyticsOverview = () => {
                             <div className="col-12">
                                 <Table
                                     title="Top Quotations"
+                                    headingsBorderTop={`1px solid var(--table-row-border-clr)`}
+                                    bodyBorderTop={`1px solid var(--table-row-border-clr)`}
                                     headings={tableHeadings1}
                                     data={state.topQuotations}
                                     canSearch={true}
                                     searchParam="customer"
                                     showDetails={true}
+                                    centerStatus={true}
                                 />
                             </div>
                         </div>
@@ -92,11 +95,14 @@ const AnalyticsOverview = () => {
                     <div className="col-lg-6 col-md-12">
                         <Table
                             title="Top Sales Order"
+                            headingsBorderTop={`1px solid var(--table-row-border-clr)`}
+                            bodyBorderTop={`1px solid var(--table-row-border-clr)`}
                             headings={tableHeadings2}
                             data={state.topSalesOrders}
                             canSearch={false}
                             showDetails={false}
                             showUnit={true}
+                            centerStatus={true}
                         />
                     </div>
                 </div>
@@ -106,31 +112,40 @@ const AnalyticsOverview = () => {
                     <div className="col-lg-4 col-md-6 col-sm-12">
                         <Table
                             title="Top Countries"
+                            headingsBorderTop={`1px solid var(--table-row-border-clr)`}
+                            bodyBorderTop={`1px solid var(--table-row-border-clr)`}
                             headings={tableHeadings3}
                             data={state.topCountries}
                             canSearch={false}
                             showDetails={false}
                             showUnit={true}
+                            centerStatus={true}
                         />
                     </div>
                     <div className="col-lg-4 col-md-6 col-sm-12">
                         <Table
                             title="Top Products"
+                            headingsBorderTop={`1px solid var(--table-row-border-clr)`}
+                            bodyBorderTop={`1px solid var(--table-row-border-clr)`}
                             headings={tableHeadings4}
                             data={state.topProducts}
                             canSearch={false}
                             showDetails={false}
                             showUnit={true}
+                            centerStatus={true}
                         />
                     </div>
                     <div className="col-lg-4 col-md-6 col-sm-12">
                         <Table
                             title="Top Customers"
+                            headingsBorderTop={`1px solid var(--table-row-border-clr)`}
+                            bodyBorderTop={`1px solid var(--table-row-border-clr)`}
                             headings={tableHeadings5}
                             data={state.topCustomers}
                             canSearch={false}
                             showDetails={false}
                             showUnit={true}
+                            centerStatus={true}
                         />
                     </div>
                 </div>

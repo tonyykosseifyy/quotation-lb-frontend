@@ -1,10 +1,22 @@
 export const tableHeadings1 = [
-    "Quotation",
-    "Customer",
-    "Salesperson",
-    "Revenue",
-    "Due Date",
-    "Status",
+    {
+        id: { title: "Quotation" },
+    },
+    {
+        customer: { title: "Customer" },
+    },
+    {
+        salesperson: { title: "Salesperson" },
+    },
+    {
+        revenue: { title: "Revenue" },
+    },
+    {
+        dueDate: { title: "Due Date" },
+    },
+    {
+        status: { title: "Status" },
+    },
 ];
 
 export const initialData1 = [
@@ -65,11 +77,21 @@ export const initialData1 = [
 ];
 
 export const tableHeadings2 = [
-    "Order",
-    "Customer",
-    "Salesperson",
-    "Revenue",
-    "Status",
+    {
+        id: { title: "Order" },
+    },
+    {
+        customer: { title: "Customer" },
+    },
+    {
+        salesperson: { title: "Salesperson" },
+    },
+    {
+        revenue: { title: "Revenue" },
+    },
+    {
+        status: { title: "Status" },
+    },
 ];
 
 export const initialData2 = [
@@ -114,9 +136,17 @@ export const initialData2 = [
         createdAt: "2023-01-08",
     },
 ];
-
-export const tableHeadings3 = ["Country", "Orders", "Revenue"];
-
+export const tableHeadings3 = [
+    {
+        country: { title: "Country" },
+    },
+    {
+        order: { title: "Orders" },
+    },
+    {
+        revenue: { title: "Revenue" },
+    },
+];
 export const initialData3 = [
     {
         country: "Lebanon",
@@ -135,8 +165,17 @@ export const initialData3 = [
     },
 ];
 
-export const tableHeadings4 = ["Product", "Orders", "Revenue"];
-
+export const tableHeadings4 = [
+    {
+        product: { title: "Product" },
+    },
+    {
+        order: { title: "Orders" },
+    },
+    {
+        revenue: { title: "Revenue" },
+    },
+];
 export const initialData4 = [
     {
         country: "Lebanon",
@@ -155,8 +194,17 @@ export const initialData4 = [
     },
 ];
 
-export const tableHeadings5 = ["Customer", "Orders", "Revenue"];
-
+export const tableHeadings5 = [
+    {
+        country: { title: "Customer" },
+    },
+    {
+        order: { title: "Orders" },
+    },
+    {
+        revenue: { title: "Revenue" },
+    },
+];
 export const initialData5 = [
     {
         country: "Lebanon",
