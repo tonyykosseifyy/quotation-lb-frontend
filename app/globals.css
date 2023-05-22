@@ -76,6 +76,7 @@
 
 :root {
     --primary-clr: #4472c4;
+    --primary-clr-darker: #204ea4;
     --primary-background-clr: #fafafa;
     --primary-text-clr: #535353;
     --secondary-text-clr: #7D7D7D;

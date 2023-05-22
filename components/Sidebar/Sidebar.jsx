@@ -4,6 +4,96 @@ import styles from "./Sidebar.module.css";
 import { useState } from "react";
 import ChevronLeft from "../Chevron/ChevronLeft";
 import Link from "next/link";
+import { Tooltip } from "@nextui-org/react";
+import SidebarItemCard from "@/components/Sidebar/SidebarItemCard";
+import SidebarItem from "@/components/Sidebar/SidebarItem";
+
+const sidebarItems = [
+    {
+        title: "Quotation",
+        logo: "/assets/svg/quotation.svg",
+        items: [
+            {
+                title: "New Quotation",
+                link: "/dashboard",
+            },
+            {
+                title: "Quotations Summary",
+                link: "/dashboard/quotations/",
+            },
+        ],
+    },
+    {
+        title: "Clients",
+        logo: "/assets/svg/people.svg",
+        items: [
+            {
+                title: "Accounts",
+                link: "/dashboard",
+            },
+            {
+                title: "Add New Client",
+                link: "/dashboard/clients/create",
+            },
+        ],
+    },
+    {
+        title: "Stock",
+        logo: "/assets/svg/stock.svg",
+        items: [
+            {
+                title: "Items",
+                link: "/dashboard",
+            },
+            {
+                title: "Create Items",
+                link: "/dashboard/",
+            },
+            {
+                title: "Combos",
+                link: "/dashboard/",
+            },
+            {
+                title: "Brands",
+                link: "/dashboard/",
+            },
+        ],
+    },
+    {
+        title: "Report",
+        logo: "/assets/svg/report.svg",
+    },
+    {
+        title: "Dashboard Summary",
+        logo: "/assets/svg/quilt.svg",
+    },
+    {
+        title: "Admin Panel",
+        logo: "/assets/svg/admin-panel.svg",
+    },
+    {
+        title: "Account Settings",
+        logo: "/assets/svg/account-settings.svg",
+        items: [
+            {
+                title: "Create Users",
+                link: "/dashboard",
+            },
+            {
+                title: "Category Security Level",
+                link: "/dashboard/",
+            },
+            {
+                title: "Paper Template",
+                link: "/dashboard/",
+            },
+            {
+                title: "Domination Name",
+                link: "/dashboard/",
+            },
+        ],
+    },
+];
 
 export default function Sidebar() {
     const [open, setOpen] = useState(true);
@@ -30,119 +120,9 @@ export default function Sidebar() {
                 </Link>
             </div>
             <div className={open ? styles.list : styles.listClosed}>
-                <div className={styles.listItem}>
-                    <div className={styles.listItemContainer}>
-                        <div className={styles.itemLogo}>
-                            <img
-                                src="/assets/svg/quotation.svg"
-                                alt="Quotation"
-                            />
-                        </div>
-                        {open && (
-                            <div>
-                                <div className={styles.itemText}>Quotation</div>
-                            </div>
-                        )}
-                    </div>
-                    {!open && <div className={styles.tooltip}>Quotation</div>}
-                </div>
-
-                <div className={styles.listItem}>
-                    <div className={styles.listItemContainer}>
-                        <div className={styles.itemLogo}>
-                            <img src="/assets/svg/people.svg" alt="Clients" />
-                        </div>
-                        {open && (
-                            <div>
-                                <div className={styles.itemText}>Clients</div>
-                                <div className={styles.subHeaders}>
-                                    <Link
-                                        href="/dashboard/clients/create"
-                                        style={{ textDecoration: "none" }}
-                                    >
-                                        <div className={styles.subHeader}>
-                                            Add New Client
-                                        </div>
-                                    </Link>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                    {!open && <div className={styles.tooltip}>Clients</div>}
-                </div>
-
-                <div className={styles.listItem}>
-                    <div className={styles.listItemContainer}>
-                        <div className={styles.itemLogo}>
-                            <img src="/assets/svg/stock.svg" alt="Stock" />
-                        </div>
-                        {open && <div className={styles.itemText}>Stock</div>}
-                    </div>
-                    {!open && <div className={styles.tooltip}>Stock</div>}
-                </div>
-
-                <div className={styles.listItem}>
-                    <div className={styles.listItemContainer}>
-                        <div className={styles.itemLogo}>
-                            <img src="/assets/svg/report.svg" alt="Report" />
-                        </div>
-                        {open && <div className={styles.itemText}>Report</div>}
-                    </div>
-                    {!open && <div className={styles.tooltip}>Report</div>}
-                </div>
-
-                <div className={styles.listItem}>
-                    <div className={styles.listItemContainer}>
-                        <div className={styles.itemLogo}>
-                            <img
-                                src="/assets/svg/quilt.svg"
-                                alt="Dashboard Summary"
-                            />
-                        </div>
-                        {open && (
-                            <div className={styles.itemText}>
-                                Dashboard Summary
-                            </div>
-                        )}
-                    </div>
-                    {!open && (
-                        <div className={styles.tooltip}>Dashboard Summary</div>
-                    )}
-                </div>
-
-                <div className={styles.listItem}>
-                    <div className={styles.listItemContainer}>
-                        <div className={styles.itemLogo}>
-                            <img
-                                src="/assets/svg/admin-panel.svg"
-                                alt="Admin Panel"
-                            />
-                        </div>
-                        {open && (
-                            <div className={styles.itemText}>Admin Panel</div>
-                        )}
-                    </div>
-                    {!open && <div className={styles.tooltip}>Admin Panel</div>}
-                </div>
-
-                <div className={styles.listItem}>
-                    <div className={styles.listItemContainer}>
-                        <div className={styles.itemLogo}>
-                            <img
-                                src="/assets/svg/account-settings.svg"
-                                alt="Account Settings"
-                            />
-                        </div>
-                        {open && (
-                            <div className={styles.itemText}>
-                                Account Settings
-                            </div>
-                        )}
-                    </div>
-                    {!open && (
-                        <div className={styles.tooltip}>Account Settings</div>
-                    )}
-                </div>
+                {sidebarItems.map((sidebarItem) => (
+                    <SidebarItem sidebarItem={sidebarItem} open={open} />
+                ))}
             </div>
         </div>
     );

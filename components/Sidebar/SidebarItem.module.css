@@ -1,0 +1,43 @@
+.listItem {
+    color: black;
+    line-height: 1.25rem;
+    display: flex;
+    /* padding: 0.5rem; */
+    margin: 8px;
+    align-items: center;
+    border-radius: 0.375rem;
+    column-gap: 25px;
+    cursor: pointer;
+    position: relative;
+}
+
+.listItemContainer {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 20px;
+}
+
+.itemLogo {
+    display: flex;
+    align-items: center;
+}
+
+.itemText {
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.subHeaders {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 19px;
+}
+
+.subHeader {
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
+}

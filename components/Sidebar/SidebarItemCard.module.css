@@ -1,0 +1,29 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--primary-clr);
+}
+
+.box {
+    color: white;
+    padding: 10px;
+}
+
+.title {
+    composes: box;
+    background-color: var(--primary-clr-darker);
+}
+
+.linksContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.link {
+    composes: box;
+    text-decoration: none;
+}
+
+.link:hover {
+    color: white;
+}
