@@ -1,0 +1,75 @@
+.container {
+  padding: 40px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  padding-top: 18px;
+}
+
+.xIcon{
+  position: fixed;
+  top: 18px;
+  right: 18px; 
+  cursor: pointer;
+}
+
+.modalFormTitle {
+  font-size: 16px;
+  font-weight: 700;
+  padding-bottom: 40px;
+  color: #535353;
+}
+
+.infoDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inputRow {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.actionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 58px;
+  gap: 26px;
+}
+
+.discard {
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: underline;
+  cursor: pointer;
+  color: #0071BC;
+}
+
+@media only screen and (min-width: 900px) {
+  .infoDiv {
+      flex-direction: row;
+      gap: 70px;
+  }
+  .actionButtons {
+      margin-top: 205px !important;
+  }
+  .modalFormTitle {
+      padding-bottom: 67px;
+  } 
+}
+
+@media only screen and (min-width: 1000px) {
+  .inputRow {
+      width: 40%;
+      gap: 25px;
+  }   
+}
+
+

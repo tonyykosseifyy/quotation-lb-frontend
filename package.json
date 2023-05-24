@@ -19,6 +19,7 @@
     "react-custom-flag-select": "^3.0.9",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
+    "react-modal": "^3.16.1",
     "react-select": "^5.7.3"
   }
 }
