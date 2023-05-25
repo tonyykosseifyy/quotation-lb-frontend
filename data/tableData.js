@@ -222,3 +222,10 @@ export const initialData5 = [
         revenue: 200,
     },
 ];
+
+export const paymentTerms = [
+    { id: "immediatePayment", name: "Immediate Payment" },
+    { id: "21_Days", name: "21 Days" },
+    { id: "15_Days", name: "15 Days" },
+    { id: "30_Days", name: "30 Days" },
+]
