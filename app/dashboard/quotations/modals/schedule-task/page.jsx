@@ -20,7 +20,7 @@ const assignedTo = [
 ];
 
 const scheduleTaskModal = () => {
-    const [showModal, setShowModal] = useState(false);
+    const [showModal, setShowModal] = useState(true);
 
     const modalStyle = { 
         overlay: { backgroundColor: 'rgba(65, 65, 65, 0.3)'}, 
