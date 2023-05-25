@@ -15,7 +15,7 @@ const sidebarItems = [
         items: [
             {
                 title: "New Quotation",
-                link: "/dashboard",
+                link: "/dashboard/quotations/create",
             },
             {
                 title: "Quotations Summary",
