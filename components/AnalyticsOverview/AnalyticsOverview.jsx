@@ -21,7 +21,6 @@ import { filterByDate } from "@/helpers/filterByDate";
 import { getTopObjects } from "@/helpers/getTopObjects";
 
 const AnalyticsOverview = () => {
-    console.log("entered AnalyticsOverview");
     const [state, setState] = useState({
         topQuotations: getTopObjects(initialData1, "revenue", 3),
         topSalesOrders: getTopObjects(initialData2, "revenue", 3),

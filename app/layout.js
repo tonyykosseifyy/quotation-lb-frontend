@@ -18,8 +18,6 @@ export default function RootLayout({ children }) {
                     name="viewport"
                     content="width=device-width, initial-scale=1"
                 />
-                <meta property="og:image" content="/favicon.ico" />
-                <meta property="og:image:secure_url" content="/favicon.ico" />
             </Head>
             <body>{children}</body>
         </html>
