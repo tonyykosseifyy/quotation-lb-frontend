@@ -11,7 +11,6 @@ import Search from "@/components/UI/Search/Search";
 import { head } from "axios";
 import OrderLinesRows from "./OrderLines";
 import Plus from "../UI/Icons/Plus";
-// import { Row1 } from "./OrderLines";
 
 const Table = ({
     title,
@@ -128,8 +127,7 @@ const Table = ({
                                         //         heading === "Status" &&
                                         //         centerStatus
                                         //             ? "center"
-                                        //             : "",  
-                                        //     // paddingLeft: heading === "item" ? "10px" : "48px",
+                                        //             : "",
                                         // }}
                                         style={headerStyle}
                                         key={i}
@@ -161,7 +159,6 @@ const Table = ({
                     <tbody>
                         {list.map((dataRow, i) => {
                             return (
-                                <>
                                 <tr
                                     key={dataRow.id ? dataRow.id : i}
                                     style={{ borderTop: bodyBorderTop }}
@@ -171,7 +168,7 @@ const Table = ({
                                             (heading) => keyName in heading
                                         ) ? (
                                             dataRow[keyName] !== null ? (
-                                                <td
+                                                <td 
                                                     className={styles.dataText}
                                                     key={i}
                                                     style={{
@@ -289,36 +286,32 @@ const Table = ({
                                                 );
                                             }
                                         )}
-                                </tr> 
-                                {Object.keys(dataRow).map((keyName, i) => { 
-                                             if ( !headings.some((heading) => keyName in heading) || headings.some((heading) => keyName in heading)
-                                                    && dataRow[keyName] !== null) 
-                                                    return ( 
-                                                        <tr 
-                                                            key={dataRow.id ? dataRow.id : i}
-                                                            style={{ borderTop: bodyBorderTop, width: "100%", display:"flex", flexDirection: "column" }}
-                                                        > 
-                                                            <td 
-                                                                colSpan={7} 
-                                                                key={i}
-                                                                style={{ width: "100%", padding: "0px 15px !important", }}
+                                       {Object.keys(dataRow).map((keyName, i) => 
+                                        !headings.some((heading) => keyName in heading) ? 
+                                               (
+                                                   dataRow[keyName] !== null ? (
+                                                           <td  
+                                                                colSpan={7}
+                                                                style={{ 
+                                                                        width: "100%",
+                                                                        paddingTop: "0px !important"  
+                                                                    }}
                                                             >
-                                                            <OrderLinesRows type={keyName}/> 
+                                                               {keyName === "type" ? (
+                                                                <OrderLinesRows type={dataRow[keyName]} />
+                                                                ) :  null  } 
                                                             </td>
-                                                       </tr>
-                                                    ) 
-                                        }   
-                                )}                 
-                                  
-                                      
-                                </>     
+                                                        )  : null  
+                                                ) : null
+                                        )}          
+                                </tr>       
                             );  
                         })}
                     </tbody>
                     {tableFooter && <tfoot>
                                            <tr>
                                                <td colSpan={7}>
-                                                   <div style={{paddingLeft: "35px", marginTop: "51px", display: "flex"}}>
+                                                   <div style={{paddingLeft: "35px", marginTop: "7px", display: "flex"}}>
                                                        {tableFooter.map(({ id, name}) => {
                                                            return (
                                                                <div key={id} style={{display: "flex", alignItems: "center", paddingRight: "30px"}}>
@@ -333,7 +326,7 @@ const Table = ({
                                               </td> 
                                          </tr>
                                     </tfoot>
-                     }
+                       }
                 </table>
             </div>
         </div>

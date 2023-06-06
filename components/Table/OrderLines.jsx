@@ -42,7 +42,7 @@ const OrderLinesRows = ({type}) => {
   return (
     <>
     
-    { type === "title" && 
+    { type === 1 && 
     <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "18px"}}>
       <div style={{display: "flex", alignItems: "center"}} >
       <FourArrows />
@@ -68,8 +68,8 @@ const OrderLinesRows = ({type}) => {
     </div>
   }
 
-    { type === "item" &&   
-    <div style={{marginTop:"15px", display: "flex",justifyContent: "space-between", alignItems: "center"}}>
+    { type === 2 &&   
+    <div style={{ display: "flex",justifyContent: "space-between", alignItems: "center"}}>
         <div style={{display: "flex", alignItems: "center",}}>
           <FourArrows />
           <div style={{ display: "flex", alignItems: "center", gap: "9px", paddingLeft: "14px"}}>
@@ -167,8 +167,8 @@ const OrderLinesRows = ({type}) => {
 }
 
 
-{ type === "combo" &&  
-<div style={{marginTop:"15px", display: "flex",justifyContent: "space-between", alignItems: "center",}}>
+{ type === 3 &&  
+<div style={{ display: "flex",justifyContent: "space-between", alignItems: "center",}}>
         <div style={{display: "flex", alignItems: "center"}}>
           <FourArrows />
           <div style={{ display: "flex", alignItems: "center", gap: "9px", paddingLeft: "14px"}}>
@@ -301,8 +301,8 @@ const OrderLinesRows = ({type}) => {
 }
 
 
-{ type === "note" &&  
-    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",flexWrap:"wrap", marginTop: "15px",}}>
+{ type === 4 &&  
+    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",flexWrap:"wrap",}}>
     <div style={{display: "flex", alignItems: "center"}} >
           <FourArrows />
           <div style={{paddingLeft: "14px"}}>
@@ -329,12 +329,12 @@ const OrderLinesRows = ({type}) => {
 
 
     
-{ type === "image" &&  
-    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap:"wrap", width: "100%",}}>
+{ type === 5 &&  
+    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap:"wrap", width: "100%",paddingBottom: "44px"}}>
       <div style={{display: "flex", alignItems: "center"}}>
         <FourArrows />
         <div style={{paddingLeft: "14px"}}>
-             <div style={{marginTop: "15px",width: "1043px", border: "2px" ,borderRadius: "8px", borderStyle: "dashed", borderColor: "#C4C4C4", display: "flex", padding: "27px 0px 31px 13px"}}>
+             <div style={{ width: "1043px", border: "2px" ,borderRadius: "8px", borderStyle: "dashed", borderColor: "#C4C4C4", display: "flex", padding: "27px 0px 31px 13px"}}>
                           <svg 
                               width="30"
                               height="23" 

@@ -8,14 +8,11 @@ import { useForm } from "react-hook-form";
 
 import { clients } from "@/data/createClient";
 import { paymentTerms, tableHeadings6 } from "@/data/tableData";
-
-// import DataTable from "react-data-table-component";
 // import Ellipsis from "@/components/UI/Icons/Ellipsis";
 // import Trashcan from "@/components/UI/Icons/Trashcan";
 // import { formatId } from "@/helpers/formatId";
 // import FourArrows from "@/components/UI/Icons/FourArrows";
 import Table from "@/components/Table/Table";
-// import OrderLinesRows from "@/components/Table/OrderLines";
 
 const options = [
     { id: "chocolate", name: "Chocolate" },
@@ -24,27 +21,31 @@ const options = [
 ];
 
 const itemOptions = [
-    { id: "1", name: "item 1" },
-    { id: "2", name: "item 2" },
-    { id: "3", name: "item 3" },
+    { id: "item_1", name: "item 1" },
+    { id: "item_2", name: "item 2" },
+    { id: "item_3", name: "item 3" },
 ];
 
 const tableFooterElements = [
-    { id: 1, name: "Title" },
-    { id: 2, name: "Item" }, 
-    { id: 3, name: "Combo" },
-    { id: 4, name: "Image" },
-    { id: 5, name: "Note" }
+    { id: "title", name: "Title" },
+    { id: "item", name: "Item" }, 
+    { id: "combo", name: "Combo" },
+    { id: "image", name: "Image" },
+    { id: "note", name: "Note" }
   ];
 
 const newObject =[
-    {
-        title: 1,
-        item: 1,
-        combo: 1,
-        note: 1,
-        image: 1,
-    },
+    { type: 1 },
+    { type: 2 },
+    { type: 3 },
+    { type: 4 },
+    { type: 5 },
+
+    { type: 1 },
+    { type: 2 },
+    { type: 3 },
+    { type: 4 },
+    { type: 5 },
 ];
 
 const CreateQuotation = () => {
@@ -63,7 +64,7 @@ const CreateQuotation = () => {
         reset,
     } = useForm();
     
-    const [search, setSearch] = useState("");
+    // const [search, setSearch] = useState("");
 
     // const filteredQuotations = quotations.filter(
     //     (quotation) =>
@@ -184,7 +185,7 @@ const CreateQuotation = () => {
                     />
                 </div>
             </div>
-            <div className={`${styles.extraInfoDetails}`}>
+            <div style={{ marginTop: "27px"}}>
             {buttonState === "order" && ( 
                 <>
                    <div className={`${styles.tableDiv}`}>
@@ -270,6 +271,7 @@ const CreateQuotation = () => {
               
             )}    
             {buttonState === "information" && (
+            <div className={`${styles.extraInfoDetails}`}>    
                 <div className={`${styles.table}`}>
                     <div className={`${styles.tableColumns}`}>
                         <div className={`${styles.salesTableTitleContainer}`}>
@@ -333,6 +335,7 @@ const CreateQuotation = () => {
                     </div>
                     
                 </div>
+             </div>    
             )}
             </div>
         </div>

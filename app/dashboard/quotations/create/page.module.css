@@ -32,10 +32,10 @@
 }
 
 .extraInfoDetails {
-    margin-top: 27px;
+    /* margin-top: 27px; */
     border-radius: 5px;
-    padding-bottom: 10px;
-    /* background-color: white; */
+    padding-bottom: 67px;
+    background-color: white;
 }
 
 .table{
