@@ -228,4 +228,32 @@ export const paymentTerms = [
     { id: "21_Days", name: "21 Days" },
     { id: "15_Days", name: "15 Days" },
     { id: "30_Days", name: "30 Days" },
-]
+    { id: "end_of_following_month", name: "End of following month" },
+    { id: "10_Days_after_end_of_next_month", name: "10 Days after end of next month" },
+    { id: "30%_now,_balance_60_Days", name: "30% now, balance 60 Days" },
+    { id: "2/7_Net_30", name: "2/7 Net 30" },
+];
+
+export const tableHeadings6 = [
+    {
+        item: { title: "Item" },
+    },
+    {
+        description: { title: "Description" },
+    },
+    {
+        quantity: { title: "Quantity" },
+    },
+    {
+        discount: { title: "Disc. %" },
+    },
+    {
+        unitPrice: { title: "Unit Price" },
+    },
+    {
+        total: { title: "Total" },
+    },
+    {
+        moreOptions: { title: "More Options" },
+    },
+];

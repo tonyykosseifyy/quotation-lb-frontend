@@ -9,6 +9,9 @@ import { formatDate } from "@/helpers/formatDate";
 import { formatRevenue } from "@/helpers/formatRevenue";
 import Search from "@/components/UI/Search/Search";
 import { head } from "axios";
+import OrderLinesRows from "./OrderLines";
+import Plus from "../UI/Icons/Plus";
+// import { Row1 } from "./OrderLines";
 
 const Table = ({
     title,
@@ -19,8 +22,13 @@ const Table = ({
     tableBorderRadius,
     headingBackgroundColor,
     headingsColor,
+    headingsFontSize,
+    headingsFontWeight,
     headingBorderTop,
+    headingBorderBottom,
     headingBorderRadius,
+    headingsWidth,
+    headingsLeftPadding,
     headings,
     additionalHeadings,
     data,
@@ -34,6 +42,7 @@ const Table = ({
     centerStatus = false,
     statusText,
     showCreatedAt = false,
+    tableFooter,
 }) => {
     const [search, setSearch] = useState("");
 
@@ -86,24 +95,43 @@ const Table = ({
                             className={styles.headingsRow}
                             data-no-details={showDetails}
                             style={{
+                                borderRadius: headingBorderRadius,
                                 borderTop: headingBorderTop,
+                                borderBottom: headingBorderBottom,
                                 backgroundColor: headingBackgroundColor,
                             }}
                         >
                             {headings.map((header, i) => {
                                 const heading =
                                     header[Object.keys(header)[0]].title;
+                                    const headerStyle={
+                                        color: headingsColor,
+                                        fontSize: headingsFontSize,
+                                        fontWeight: headingsFontWeight,
+                                        textAlign:
+                                            heading === "Status" &&
+                                            centerStatus
+                                                ? "center"
+                                                : "",  
+                                        width: headingsWidth && headingsWidth[Object.keys(header)[0]],
+                                        paddingLeft: headingsLeftPadding && headingsLeftPadding[Object.keys(header)[0]],
+                                    }
+
                                 return (
                                     <th
                                         className={styles.tableHeader}
-                                        style={{
-                                            color: headingsColor,
-                                            textAlign:
-                                                heading === "Status" &&
-                                                centerStatus
-                                                    ? "center"
-                                                    : "",
-                                        }}
+                                        // style={{
+                                        //     color: headingsColor,
+                                        //     fontSize: headingsFontSize,
+                                        //     fontWeight: headingsFontWeight,
+                                        //     textAlign:
+                                        //         heading === "Status" &&
+                                        //         centerStatus
+                                        //             ? "center"
+                                        //             : "",  
+                                        //     // paddingLeft: heading === "item" ? "10px" : "48px",
+                                        // }}
+                                        style={headerStyle}
                                         key={i}
                                     >
                                         {heading}
@@ -133,6 +161,7 @@ const Table = ({
                     <tbody>
                         {list.map((dataRow, i) => {
                             return (
+                                <>
                                 <tr
                                     key={dataRow.id ? dataRow.id : i}
                                     style={{ borderTop: bodyBorderTop }}
@@ -155,7 +184,7 @@ const Table = ({
                                                         formatId(
                                                             dataRow[keyName]
                                                         )
-                                                    ) : keyName ===
+                                                    )  : keyName ===
                                                       "dueDate" ? (
                                                         formatDate(
                                                             dataRow[keyName],
@@ -191,8 +220,8 @@ const Table = ({
                                                         ) : (
                                                             ""
                                                         )
-                                                    ) : (
-                                                        dataRow[keyName]
+                                                    ): (
+                                                        dataRow[keyName] 
                                                     )}
                                                 </td>
                                             ) : (
@@ -225,7 +254,8 @@ const Table = ({
                                                         )?.[keyName].nullText}
                                                 </td>
                                             )
-                                        ) : null
+                                        ) : ( null
+                                        )
                                     )}
                                     {showDetails && (
                                         <td>
@@ -259,10 +289,51 @@ const Table = ({
                                                 );
                                             }
                                         )}
-                                </tr>
-                            );
+                                </tr> 
+                                {Object.keys(dataRow).map((keyName, i) => { 
+                                             if ( !headings.some((heading) => keyName in heading) || headings.some((heading) => keyName in heading)
+                                                    && dataRow[keyName] !== null) 
+                                                    return ( 
+                                                        <tr 
+                                                            key={dataRow.id ? dataRow.id : i}
+                                                            style={{ borderTop: bodyBorderTop, width: "100%", display:"flex", flexDirection: "column" }}
+                                                        > 
+                                                            <td 
+                                                                colSpan={7} 
+                                                                key={i}
+                                                                style={{ width: "100%", padding: "0px 15px !important", }}
+                                                            >
+                                                            <OrderLinesRows type={keyName}/> 
+                                                            </td>
+                                                       </tr>
+                                                    ) 
+                                        }   
+                                )}                 
+                                  
+                                      
+                                </>     
+                            );  
                         })}
                     </tbody>
+                    {tableFooter && <tfoot>
+                                           <tr>
+                                               <td colSpan={7}>
+                                                   <div style={{paddingLeft: "35px", marginTop: "51px", display: "flex"}}>
+                                                       {tableFooter.map(({ id, name}) => {
+                                                           return (
+                                                               <div key={id} style={{display: "flex", alignItems: "center", paddingRight: "30px"}}>
+                                                                   <Plus fillColor={"#0071BC"}/> 
+                                                                   <div style={{fontSize: "12px", paddingLeft: "8px"}}>
+                                                                       {name}
+                                                                   </div>
+                                                               </div>  
+                                                            )
+                                                       })}
+                                                  </div> 
+                                              </td> 
+                                         </tr>
+                                    </tfoot>
+                     }
                 </table>
             </div>
         </div>

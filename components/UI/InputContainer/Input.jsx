@@ -9,6 +9,7 @@ import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
 
 const Input = ({
     inputPlaceholder = "",
+    inputBorder,
     codeName,
     changeCodeValue,
     inputName,
@@ -35,10 +36,11 @@ const Input = ({
             {inputType === "text" && (
                 <input
                     required={isRequired}
-                    className={styles.inputText}
+                    className={`${styles.inputText} ${inputBorder}`}
                     name={inputName}
                     type="text"
                     id={inputId}
+                    placeholder={inputPlaceholder}
                     {...register(inputName, { required: isRequired })}
                 />
             )}
@@ -48,7 +50,8 @@ const Input = ({
                     className={styles.inputText}
                     name={inputName}
                     id={inputId}
-                    style={{ resize: canResize ? "" : "none" }}
+                    style={{ resize: canResize ? "" : "none"}}
+                    placeholder={inputPlaceholder}
                     {...register(inputName, { required: isRequired })}
                 />
             )}
@@ -64,7 +67,7 @@ const Input = ({
                                 control: (baseStyles, state) => ({
                                     ...baseStyles,
                                     borderRadius: 5,
-                                    borderColor: "rgba(68, 114, 196, 0.2)",
+                                    borderColor: inputBorder ? "rgba(109, 144, 208, 1)" : "rgba(68, 114, 196, 0.2)",
                                     "&:hover": {
                                         borderColor: "none",
                                     },
@@ -83,8 +86,8 @@ const Input = ({
                                 }),
                                 placeholder: (baseStyles, state) => ({
                                     ...baseStyles,
-                                    color: "#C8C8C8",
-                                    fontStyle: "italic",
+                                    color: inputBorder ? "#868686" : "#C8C8C8",
+                                    fontStyle: inputBorder ? "normal" : "italic",
                                 }),
                             }}
                             placeholder={inputPlaceholder}

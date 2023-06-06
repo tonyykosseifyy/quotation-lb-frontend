@@ -4,6 +4,7 @@ import styles from "./InputContainer.module.css";
 
 const InputContainer = ({
     label,
+    inputBorder,
     isRequired,
     inputPlaceholder = "",
     inputType,
@@ -44,6 +45,7 @@ const InputContainer = ({
                 heightUnit={heightUnit}
                 width={width}
                 widthUnit={widthUnit}
+                inputBorder={inputBorder}
                 register={register}
                 control={control}
             />
