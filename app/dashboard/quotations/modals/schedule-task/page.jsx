@@ -84,7 +84,7 @@ const scheduleTaskModal = () => {
                            viewBox="0 0 16 16"
                            fill="#535353" 
                            xmlns="http://www.w3.org/2000/svg"
-                           class="bi bi-x-circle-fill" 
+                           className="bi bi-x-circle-fill" 
                            onClick={() => setShowModal(false)}
                            >
                            <path 
