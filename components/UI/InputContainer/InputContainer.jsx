@@ -17,6 +17,9 @@ const InputContainer = ({
     heightUnit,
     width,
     widthUnit,
+    fontWeight,
+    fontSize,
+    textAlign,
     alignLabelInput = true,
     spaceBetween = true,
     register,
@@ -45,6 +48,9 @@ const InputContainer = ({
                 heightUnit={heightUnit}
                 width={width}
                 widthUnit={widthUnit}
+                fontSize={fontSize}
+                fontWeight={fontWeight}
+                textAlign={textAlign}
                 inputBorder={inputBorder}
                 register={register}
                 control={control}

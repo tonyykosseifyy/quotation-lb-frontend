@@ -21,6 +21,9 @@ const Input = ({
     heightUnit = "px",
     width = 208,
     widthUnit = "px",
+    fontWeight,
+    fontSize,
+    textAlign,
     canResize,
     register,
     control,
@@ -42,6 +45,11 @@ const Input = ({
                     id={inputId}
                     placeholder={inputPlaceholder}
                     {...register(inputName, { required: isRequired })}
+                    style={{
+                        fontWeight: fontWeight ? fontWeight : "600",
+                        fontSize: "12px",
+                        textAlign: textAlign ? textAlign : "start",
+                    }}
                 />
             )}
             {inputType === "textarea" && (
@@ -50,7 +58,7 @@ const Input = ({
                     className={styles.inputText}
                     name={inputName}
                     id={inputId}
-                    style={{ resize: canResize ? "" : "none"}}
+                    style={{ resize: canResize ? "" : "none", fontSize: "12px", fontWeight: "600"}}
                     placeholder={inputPlaceholder}
                     {...register(inputName, { required: isRequired })}
                 />
@@ -88,6 +96,8 @@ const Input = ({
                                     ...baseStyles,
                                     color: inputBorder ? "#868686" : "#C8C8C8",
                                     fontStyle: inputBorder ? "normal" : "italic",
+                                    fontWeight: fontWeight ? fontWeight : "",
+                                    fontSize: fontSize ? fontSize : "14px"
                                 }),
                             }}
                             placeholder={inputPlaceholder}

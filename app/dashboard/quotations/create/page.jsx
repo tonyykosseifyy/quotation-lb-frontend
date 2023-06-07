@@ -8,10 +8,6 @@ import { useForm } from "react-hook-form";
 
 import { clients } from "@/data/createClient";
 import { paymentTerms, tableHeadings6 } from "@/data/tableData";
-// import Ellipsis from "@/components/UI/Icons/Ellipsis";
-// import Trashcan from "@/components/UI/Icons/Trashcan";
-// import { formatId } from "@/helpers/formatId";
-// import FourArrows from "@/components/UI/Icons/FourArrows";
 import Table from "@/components/Table/Table";
 
 const options = [
@@ -40,6 +36,7 @@ const newObject =[
     { type: 3 },
     { type: 4 },
     { type: 5 },
+    { type: 6 },
 
     { type: 1 },
     { type: 2 },
@@ -63,57 +60,16 @@ const CreateQuotation = () => {
         formState: { errors },
         reset,
     } = useForm();
-    
-    // const [search, setSearch] = useState("");
-
-    // const filteredQuotations = quotations.filter(
-    //     (quotation) =>
-    //         quotation.customer &&
-    //         quotation.customer.toLowerCase().includes(search.toLowerCase())
-    // );
-    
-    // const createdAtSort = (rowA, rowB) => {
-    //     const a = rowA.createdAt;
-    //     const b = rowB.createdAt;
-
-    //     if (a > b) {
-    //         return 1;
-    //     }
-
-    //     if (b > a) {
-    //         return -1;
-    //     }
-
-    //     return 0;
-    // };
-
-    // const handleClickMoreOptions = (id) => {
-    //     console.log(id);
-    // };
-
-    // const handleDeleteQuotation = (id) => {
-    //     console.log(id);
-    // };
 
     const eachTableHeaderWidth = {
-        item: "350px !important",
-        description: "1200px !important",
+        item: "335px !important",
+        description: "1235px !important",
         quantity: "100px !important",
         discount: "180px !important",
         unitPrice: "200px !important",
-        total: "300px !important",
-        moreOptions: "500px !important",
+        total: "415px !important",
+        moreOptions: "375px !important",
       };
-
-    const eachTableHeaderPaddingLeft ={
-        item: "49px !important",
-        description: "15px !important",
-        quantity: "23px !important",
-        discount: "15px !important",
-        unitPrice: "10px !important",
-        total: "10px !important",
-        moreOptions: "70px !important",
-    }  
 
     return (
         <div className={`container m-0`}>
@@ -192,13 +148,14 @@ const CreateQuotation = () => {
                       <Table
                           headings={tableHeadings6}
                           headingBackgroundColor={`var(--primary-clr)`}
-                          headingBorderBottom={`5px`}
-                          headingBorderRadius={`5px`}
+                          headingBorderRadius="5px"
+                          headingBorderBottom="5px"
+                          headingBorderTop={`5px`}
                           headingsColor={`#FFFFFF`}
                           headingsFontSize={`13px`}
                           headingsFontWeight={`600`}
                           headingsWidth={eachTableHeaderWidth}
-                          headingsLeftPadding ={eachTableHeaderPaddingLeft}
+                          columnSpan={7}
                           data={newObject}
                           bodyBorderTop={`0px !important`}
                           tableBorderRadius={`8px`}
@@ -218,11 +175,6 @@ const CreateQuotation = () => {
                                 inputPlaceholder="Terms & Conditions"
                                 inputType="textarea"
                                 inputName="Terms & Conditions"
-                                // width="68"
-                                // widthUnit="rem"
-                                // maxWidth={"1090"}
-                                // width="80"
-                                // widthUnit="vw"
                                 width="1230"
                                 height="73"
                                 control={control}

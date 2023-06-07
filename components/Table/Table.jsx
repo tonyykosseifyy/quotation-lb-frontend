@@ -27,9 +27,9 @@ const Table = ({
     headingBorderBottom,
     headingBorderRadius,
     headingsWidth,
-    headingsLeftPadding,
     headings,
     additionalHeadings,
+    columnSpan,
     data,
     dataFontWeight,
     dataColor,
@@ -112,12 +112,13 @@ const Table = ({
                                             centerStatus
                                                 ? "center"
                                                 : "",  
-                                        width: headingsWidth && headingsWidth[Object.keys(header)[0]],
-                                        paddingLeft: headingsLeftPadding && headingsLeftPadding[Object.keys(header)[0]],
+                                        paddingLeft: heading === "Item" ? "48px" : "",
+                                        borderBottomLeftRadius: heading === "Item" ? "5px" : "",
+                                        borderBottomRightRadius: heading === "More Options" ? "5px" : "",
                                     }
-
                                 return (
                                     <th
+                                        width={headingsWidth && headingsWidth[Object.keys(header)[0]]}
                                         className={styles.tableHeader}
                                         // style={{
                                         //     color: headingsColor,
@@ -175,6 +176,7 @@ const Table = ({
                                                         fontWeight:
                                                             dataFontWeight,
                                                         color: dataColor,
+                                                        padding: "12px 15px",
                                                     }}
                                                 >
                                                     {keyName === "id" ? (
@@ -229,6 +231,7 @@ const Table = ({
                                                         fontWeight:
                                                             dataFontWeight,
                                                         color: dataColor,
+                                                        padding: "12px 15px",
                                                     }}
                                                 >
                                                     {headings.find(
@@ -255,7 +258,7 @@ const Table = ({
                                         )
                                     )}
                                     {showDetails && (
-                                        <td>
+                                        <td style={{padding: "12px 15px",}}>
                                             <Button
                                                 title="Details"
                                                 fillBackground={false}
@@ -279,6 +282,7 @@ const Table = ({
                                                                 dataFontWeight,
                                                             color: dataColor,
                                                             textAlign: "center",
+                                                            padding: "12px 15px",
                                                         }}
                                                     >
                                                         {headerObj.value}
@@ -291,10 +295,10 @@ const Table = ({
                                                (
                                                    dataRow[keyName] !== null ? (
                                                            <td  
-                                                                colSpan={7}
+                                                                colSpan={columnSpan}
                                                                 style={{ 
                                                                         width: "100%",
-                                                                        paddingTop: "0px !important"  
+                                                                        padding: dataRow[keyName] === 6 ? "0px" : "15px 15px 0px 15px",  
                                                                     }}
                                                             >
                                                                {keyName === "type" ? (
@@ -310,8 +314,8 @@ const Table = ({
                     </tbody>
                     {tableFooter && <tfoot>
                                            <tr>
-                                               <td colSpan={7}>
-                                                   <div style={{paddingLeft: "35px", marginTop: "7px", display: "flex"}}>
+                                               <td colSpan={columnSpan} style={{paddingTop: "0px", paddingBottom: "0px"}}>
+                                                   <div style={{paddingLeft: "49px", marginTop: "7px", display: "flex"}}>
                                                        {tableFooter.map(({ id, name}) => {
                                                            return (
                                                                <div key={id} style={{display: "flex", alignItems: "center", paddingRight: "30px"}}>
