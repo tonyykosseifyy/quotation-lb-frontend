@@ -41,7 +41,10 @@ const Table = ({
     centerStatus = false,
     statusText,
     showCreatedAt = false,
+    bodyPadding,
     tableFooter,
+    footerPaddingLeft,
+    footerMarginTop,
 }) => {
     const [search, setSearch] = useState("");
 
@@ -70,6 +73,7 @@ const Table = ({
                 paddingLeft: tablePaddingLeft,
                 paddingRight: tablePaddingRight,
                 borderRadius: tableBorderRadius,
+                paddingBottom: tablePaddingBottom
             }}
         >
             {title && (
@@ -112,9 +116,14 @@ const Table = ({
                                             centerStatus
                                                 ? "center"
                                                 : "",  
-                                        paddingLeft: heading === "Item" ? "48px" : "",
-                                        borderBottomLeftRadius: heading === "Item" ? "5px" : "",
-                                        borderBottomRightRadius: heading === "More Options" ? "5px" : "",
+                                        paddingLeft: 
+                                            heading === "Item" ? "48px" : 
+                                            ( heading === "Item Code" ? "33px" : 
+                                            ( heading === "Total" ? "0px" : "") ),
+                                        borderBottomLeftRadius: heading === "Item" || heading === "Item Code" ? "5px" : "",
+                                        borderBottomRightRadius: 
+                                            (heading === "More Options" || heading === "Total") 
+                                            && i === headings.length - 1  ? "5px" : "",
                                     }
                                 return (
                                     <th
@@ -298,7 +307,7 @@ const Table = ({
                                                                 colSpan={columnSpan}
                                                                 style={{ 
                                                                         width: "100%",
-                                                                        padding: dataRow[keyName] === 6 ? "0px" : "15px 15px 0px 15px",  
+                                                                        padding: dataRow[keyName] === 6 ? "0px" : bodyPadding,  
                                                                     }}
                                                             >
                                                                {keyName === "type" ? (
@@ -315,7 +324,7 @@ const Table = ({
                     {tableFooter && <tfoot>
                                            <tr>
                                                <td colSpan={columnSpan} style={{paddingTop: "0px", paddingBottom: "0px"}}>
-                                                   <div style={{paddingLeft: "49px", marginTop: "7px", display: "flex"}}>
+                                                   <div style={{paddingLeft: footerPaddingLeft, marginTop: footerMarginTop, display: "flex"}}>
                                                        {tableFooter.map(({ id, name}) => {
                                                            return (
                                                                <div key={id} style={{display: "flex", alignItems: "center", paddingRight: "30px"}}>

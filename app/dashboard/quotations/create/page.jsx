@@ -162,7 +162,10 @@ const CreateQuotation = () => {
                           tablePaddingTop={`0px`}
                           tablePaddingLeft={`0px`}
                           tablePaddingRight={`0px`}
+                          bodyPadding={"15px 15px 0px 15px"}
                           tableFooter={tableFooterElements}
+                          footerMarginTop="7px"
+                          footerPaddingLeft="49px"
                         />
                    </div>
 

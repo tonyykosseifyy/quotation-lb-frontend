@@ -53,7 +53,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="title"
                         inputId="title"
                         // width="68"
-                        height="40"
+                        height="38"
                         // widthUnit="vw"
                         width="1043"
                         widthUnit="px"
@@ -62,8 +62,8 @@ const OrderLinesRows = ({type}) => {
           />
           </div>
       </div>
-        <Ellipsis />
-        <Trashcan fillColor={"var(--primary-clr)"} />  
+        <Ellipsis paddingLeft="80px" paddingRight="80px" />
+        <Trashcan fillColor="var(--primary-clr)" />  
     </div>
   }
 
@@ -75,12 +75,12 @@ const OrderLinesRows = ({type}) => {
         <InputContainer
                         label=""
                         inputBorder={styles.inputContainerBorder}
-                        inputPlaceholder="item 1"
+                        inputPlaceholder="Item 1"
                         inputType="select"
                         inputName="item"
                         inputId="item"
                         width="107"
-                        height="40"
+                        height="38"
                         widthUnit="px"
                         fontWeight="700"
                         fontSize="12px"
@@ -97,7 +97,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="description"
                         inputId="description"
                         // width="35"
-                        height="40"
+                        height="38"
                         // widthUnit="vw"
                         width="538"
                         widthUnit="px"
@@ -114,7 +114,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="quantity"
                         inputId="quantity"
                         width="69"
-                        height="40"
+                        height="38"
                         widthUnit="px"
                         fontWeight="700"
                         textAlign="center"
@@ -130,7 +130,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="unitPrice"
                         inputId="unitPrice"
                         width="69"
-                        height="40"
+                        height="38"
                         widthUnit="px"
                         fontWeight="700"
                         textAlign="center"
@@ -146,7 +146,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="discount"
                         inputId="discount"
                         width="69"
-                        height="40"
+                        height="38"
                         widthUnit="px"
                         fontWeight="700"
                         textAlign="center"
@@ -162,7 +162,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="total"
                         inputId="total"
                         width="147"
-                        height="40"
+                        height="38"
                         widthUnit="px"
                         fontWeight="700"
                         control={control}
@@ -170,7 +170,7 @@ const OrderLinesRows = ({type}) => {
           />
           </div>
 </div>
-        <Ellipsis />
+        <Ellipsis paddingLeft="60px" paddingRight="60px" />
         <Trashcan fillColor={"var(--primary-clr)"} />  
     </div>
 }
@@ -231,7 +231,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="combo"
                         inputId="combo"
                         width="107"
-                        height="40"
+                        height="38"
                         widthUnit="px"
                         selectOptions={combo}
                         control={control}
@@ -245,7 +245,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="description"
                         inputId="description"
                         // width="35"
-                        height="40"
+                        height="38"
                         // widthUnit="vw"
                         width="538"
                         widthUnit="px"
@@ -260,7 +260,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="quantity"
                         inputId="quantity"
                         width="69"
-                        height="40"
+                        height="38"
                         widthUnit="px"
                         textAlign="center"
                         control={control}
@@ -274,7 +274,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="unitPrice"
                         inputId="unitPrice"
                         width="69"
-                        height="40"
+                        height="38"
                         widthUnit="px"
                         textAlign="center"
                         control={control}
@@ -288,7 +288,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="discount"
                         inputId="discount"
                         width="69"
-                        height="40"
+                        height="38"
                         widthUnit="px"
                         textAlign="center"
                         control={control}
@@ -302,14 +302,14 @@ const OrderLinesRows = ({type}) => {
                         inputName="total"
                         inputId="total"
                         width="147"
-                        height="40"
+                        height="38"
                         widthUnit="px"
                         control={control}
                         register={register}
           />
           </div>
 </div>
-        <Ellipsis />
+        <Ellipsis paddingLeft="80px" paddingRight="80px" />
         <Trashcan fillColor={"var(--primary-clr)"} />  
     </div>
 }
@@ -327,7 +327,7 @@ const OrderLinesRows = ({type}) => {
                         inputName="note"
                         inputId="note"
                         // width="68"
-                        height="40"
+                        height="38"
                         // widthUnit="vw"
                         width="1043"
                         widthUnit="px"
@@ -336,7 +336,7 @@ const OrderLinesRows = ({type}) => {
           />
           </div>
           </div>
-        <Ellipsis />
+          <Ellipsis paddingLeft="80px" paddingRight="80px" />
         <Trashcan fillColor={"var(--primary-clr)"} />  
     </div>
 }
@@ -365,7 +365,7 @@ const OrderLinesRows = ({type}) => {
                 </div>
                 </div>
                 </div>
-        <Ellipsis />
+                <Ellipsis paddingLeft="80px" paddingRight="80px" />
         <Trashcan fillColor={"var(--primary-clr)"} />        
       </div>  
 }

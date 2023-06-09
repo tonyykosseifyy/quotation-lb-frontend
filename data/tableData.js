@@ -257,3 +257,24 @@ export const tableHeadings6 = [
         moreOptions: { title: "More Options" },
     },
 ];
+
+export const newCombo = [
+    {
+        item: { title: "Item Code" },
+    },
+    {
+        description: { title: "Description" },
+    },
+    {
+        quantity: { title: "Quantity" },
+    },
+    {
+        discount: { title: "Disc. %" },
+    },
+    {
+        unitPrice: { title: "Unit Price" },
+    },
+    {
+        total: { title: "Total" },
+    },
+];
