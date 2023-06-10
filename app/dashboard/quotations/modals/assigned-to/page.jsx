@@ -2,11 +2,11 @@
 
 import React, { useState } from "react";
 import styles from "./page.module.css";
-import Modal from 'react-modal';
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import Button from "@/components/UI/Button/Button";
 import { useForm } from "react-hook-form";
 import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
+import ModalComponent from "@/components/Modal/Modal";
 
 const options = [
     { id: "chocolate", name: "Chocolate" },
@@ -76,30 +76,14 @@ const assignedToModal = () => {
                 >
                 Assigned To 
             </div>
-            <Modal 
+            <ModalComponent
+                title="Create Assigned To"
+                titlePaddingBottom="40px" 
                 isOpen={showModal} 
                 onRequestClose={() => setShowModal(false)} 
                 style={modalStyle}
-                 >
-                <div className={`${styles.xIcon}`}>
-                    <svg  
-                      width="21" 
-                      height="21"
-                      viewBox="0 0 16 16"
-                      fill="#535353" 
-                      xmlns="http://www.w3.org/2000/svg"
-                      className="bi bi-x-circle-fill" 
-                      onClick={() => setShowModal(false)}
-                      >
-                      <path 
-                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"
-                      />
-                    </svg>
-                </div>
+            >
                 <form id="assignedTo" onSubmit={handleSubmit(onSubmit)}>
-                      <div className={`${styles.modalFormTitle}`}>
-                          Create Assigned To
-                      </div> 
                       <div className={`d-flex ${styles.circleAndInputsContainer}`}>
                            <div className={styles.bigCircle}>
                                 <div className={styles.smallCircle}>
@@ -185,7 +169,7 @@ const assignedToModal = () => {
                             />
                      </div>
              </form>
-         </Modal>
+         </ModalComponent>
      </div>
     );
 };
