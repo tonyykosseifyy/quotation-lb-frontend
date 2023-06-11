@@ -32,17 +32,18 @@ const createNewComboModal = () => {
   const [showModal, setShowModal] = useState(true);
 
     const modalStyle = { 
-        overlay: { backgroundColor: 'rgba(65, 65, 65, 0.3)'}, 
-         content: { 
-            top: '56%', left: '50%', right: 'auto', bottom: 'auto',
+        overlay: { 
+          backgroundColor: "var(--modal-overlay-background-clr)"
+        }, 
+        content: { 
+            top: '55%', left: '50%', right: 'auto', bottom: 'auto',
             transform: 'translate(-50%, -50%)',
             width: "88%", 
             height: "auto",
-            backgroundColor: 'white',
             padding: "40px 44px 0px 45px",
             borderRadius: "8px",
          } 
-       };
+      };
         
         const {
           register,

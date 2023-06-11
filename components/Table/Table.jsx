@@ -328,7 +328,7 @@ const Table = ({
                                                        {tableFooter.map(({ id, name}) => {
                                                            return (
                                                                <div key={id} style={{display: "flex", alignItems: "center", paddingRight: "30px"}}>
-                                                                   <Plus fillColor={"#0071BC"}/> 
+                                                                   <Plus fillColor="var(--primary-clr-light)"/> 
                                                                    <div style={{fontSize: "12px", paddingLeft: "8px"}}>
                                                                        {name}
                                                                    </div>

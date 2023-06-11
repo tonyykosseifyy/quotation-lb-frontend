@@ -18,7 +18,7 @@
     height: 108px;
     aspect-ratio: 1/1;
     border-radius: 50%;
-    background: rgba(191, 219, 238, 0.3);
+    background: var(--bigCircle-background-clr);
     display: grid;
 }
 
@@ -28,7 +28,7 @@
     width: 80px;
     aspect-ratio: 1/1;
     border-radius: 50%;
-    border: 1px dashed #0071BC;
+    border: 1px dashed var(--primary-clr-light);
     place-items: center;
 }
 
@@ -62,7 +62,7 @@
     font-size: 14px;
     text-decoration: underline;
     cursor: pointer;
-    color: #0071BC;
+    color: var(--primary-clr-light);
 }
 
 @media only screen and (min-width: 600px) {

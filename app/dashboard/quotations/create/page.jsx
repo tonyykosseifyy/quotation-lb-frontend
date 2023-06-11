@@ -184,31 +184,30 @@ const CreateQuotation = () => {
                                 register={register}
                                />
                           </div>
-                          <div style={{paddingTop: "8px", color: "#4472C4", fontWeight: "400", textDecoration: "underline"}}>
+                          <div style={{paddingTop: "8px", color: "var(--primary-clr)", fontWeight: "400", textDecoration: "underline"}}>
                               <i>Or Create new Terms & Conditions</i>
                           </div>
                      </div>
 
                      <div style={{backgroundColor: "rgba(68, 114, 196, 0.05)", display: "flex", justifyContent: "flex-end", gap: "213px", padding: "20px 97px 30px 30px"}}>
-                        <div style={{display: "flex", flexDirection: "column", fontSize: "12px", color: "#868686", fontWeight: "600"}}>
+                        <div style={{display: "flex", flexDirection: "column", fontSize: "12px", color: "var(--table-data-text-clr)", fontWeight: "600"}}>
                            <div> Total Before VAT </div>
                            <div style={{ paddingTop: "2px"}}> Global Disc </div>
                            <div style={{ paddingTop: "2px"}}> Special Disc </div>
                            <div style={{ paddingTop: "2px"}}> VAT 11% </div>
-                           <div style={{fontSize: "16px", color: "#4472C4", fontWeight: "800", paddingTop: "3px"}}> Total Amount </div>
+                           <div style={{fontSize: "16px", color: "var(--primary-clr)", fontWeight: "800", paddingTop: "3px"}}> Total Amount </div>
                         </div>
-                        <div style={{display: "flex", flexDirection: "column", alignItems:"flex-end" ,fontSize: "12px", color: "#868686", fontWeight: "600"}}>
+                        <div style={{display: "flex", flexDirection: "column", alignItems:"flex-end" ,fontSize: "12px", color: "var(--table-data-text-clr)", fontWeight: "600"}}>
                            <div> 0 </div>
                            <div style={{ paddingTop: "2px"}}> 0 </div>
                            <div style={{ paddingTop: "2px"}}> 0 </div>
                            <div style={{ paddingTop: "2px"}}> 0 </div>
-                           <div style={{fontSize: "16px", color: "#4472C4", fontWeight: "800", paddingTop: "3px"}}> 0.00 </div>
+                           <div style={{fontSize: "16px", color: "var(--primary-clr)", fontWeight: "800", paddingTop: "3px"}}> 0.00 </div>
                         </div>
                      </div>
 
                      
                 <div style={{display: "flex", justifyContent: "flex-end", paddingTop: "45px",}}>
-                {/* backgroundColor:"var(--primary-background-clr)" */}
                     <Button
                         title="Create Invoice"
                         rounded={false}

@@ -32,7 +32,6 @@
 }
 
 .extraInfoDetails {
-    /* margin-top: 27px; */
     border-radius: 5px;
     padding-bottom: 67px;
     background-color: white;
@@ -60,9 +59,9 @@
 }
 
 .salesTableTitleContainer,.invoiceTableTitleContainer{
-    background-color: rgba(68, 114, 196, 1);
+    background-color: var(--primary-clr);
     border-radius: 5px;
-    border-top: 10px solid var(--primary-clr);
+    /* border-top: 10px solid var(--primary-clr); */
 }
 
 .invoiceTableTitleContainer{
@@ -71,7 +70,9 @@
 
 .tableTitles{
     color: white;
-    padding: 10px 0px 10px 25px;
+    padding: 12px 0px 12px 25px;
+    font-size: 13px;
+    font-weight: 600;
 }
 
 .tableDiv {

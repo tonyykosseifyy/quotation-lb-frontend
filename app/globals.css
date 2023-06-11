@@ -76,6 +76,7 @@
 
 :root {
     --primary-clr: #4472c4;
+    --primary-clr-light: #0071BC;
     --primary-clr-darker: #204ea4;
     --primary-background-clr: #fafafa;
     --primary-text-clr: #535353;
@@ -85,6 +86,8 @@
     --select-option-background-clr: #E8ECF5;
     --table-row-border-clr: #E9E9E9;
     --table-data-text-clr: #868686;
+    --modal-overlay-background-clr: rgba(65, 65, 65, 0.3);
+    --bigCircle-background-clr: rgba(191, 219, 238, 0.3);
 }
 
 @font-face {
