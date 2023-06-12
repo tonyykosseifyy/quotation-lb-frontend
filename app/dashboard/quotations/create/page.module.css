@@ -79,6 +79,51 @@
     margin-top: 30px;
 }
 
+.termsAndConditionsContainer{
+    margin-top: 20px;
+    font-size: 14px;
+     border: 2px;
+      border-radius: 8px;
+       padding: 31px 14px 28px 45px;
+        background-color: white;
+}
+
+.termsAndConditionsInputContainer{
+    padding-top: 20px;
+     display: flex; 
+     justify-content: flex-start;
+      overflow: hidden;
+}
+
+.newTermsAndConditionsLink{
+    padding-top: 8px;
+     color: var(--primary-clr);
+      font-weight: 400;
+       text-decoration: underline;
+}
+
+.totalAmountContainer{
+    background-color: var(--bigCircle-background-clr);
+     display: flex; 
+     justify-content: flex-end;
+      gap: 213px; 
+      padding: 20px 97px 30px 30px;
+}
+
+.totalBeforeVatColumn{
+    display: flex;
+    flex-direction: column;
+     font-size: 12px;
+      color: var(--table-data-text-clr);
+       font-weight: 600;
+}
+
+.createInvoiceButtonDiv{
+    display: flex;
+     justify-content: flex-end;
+     padding-top: 45px;
+}
+
 @media only screen and (max-width: 1200px) {
 .quotationInfo{
     flex-direction: column;

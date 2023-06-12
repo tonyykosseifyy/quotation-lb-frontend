@@ -327,7 +327,7 @@ const Table = ({
                                                    <div style={{paddingLeft: footerPaddingLeft, marginTop: footerMarginTop, display: "flex"}}>
                                                        {tableFooter.map(({ id, name}) => {
                                                            return (
-                                                               <div key={id} style={{display: "flex", alignItems: "center", paddingRight: "30px"}}>
+                                                               <div key={id} className={`${styles.footerRow}`} >
                                                                    <Plus fillColor="var(--primary-clr-light)"/> 
                                                                    <div style={{fontSize: "12px", paddingLeft: "8px"}}>
                                                                        {name}

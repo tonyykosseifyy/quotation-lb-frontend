@@ -141,7 +141,7 @@ const CreateQuotation = () => {
                     />
                 </div>
             </div>
-            <div style={{ marginTop: "27px"}}>
+            <div className={"mt-4"}>
             {buttonState === "order" && ( 
                 <>
                    <div className={`${styles.tableDiv}`}>
@@ -169,11 +169,11 @@ const CreateQuotation = () => {
                         />
                    </div>
 
-                     <div style={{marginTop: "20px",fontSize: "14px", border: "2px", borderRadius: "8px", padding: "31px 14px 28px 45px", backgroundColor: "white"}}>
+                     <div className={`${styles.termsAndConditionsContainer}`}>
                           <div style={{fontSize: "14px", fontWeight: "700"}}>
                                Terms & Conditions
                           </div>
-                          <div style={{paddingTop: "20px", display: "flex", justifyContent: "flex-start", overflow: "hidden"}}>
+                          <div className={`${styles.termsAndConditionsInputContainer}`}>
                               <InputContainer
                                 inputPlaceholder="Terms & Conditions"
                                 inputType="textarea"
@@ -184,20 +184,20 @@ const CreateQuotation = () => {
                                 register={register}
                                />
                           </div>
-                          <div style={{paddingTop: "8px", color: "var(--primary-clr)", fontWeight: "400", textDecoration: "underline"}}>
+                          <div className={`${styles.newTermsAndConditionsLink}`}>
                               <i>Or Create new Terms & Conditions</i>
                           </div>
                      </div>
 
-                     <div style={{backgroundColor: "rgba(68, 114, 196, 0.05)", display: "flex", justifyContent: "flex-end", gap: "213px", padding: "20px 97px 30px 30px"}}>
-                        <div style={{display: "flex", flexDirection: "column", fontSize: "12px", color: "var(--table-data-text-clr)", fontWeight: "600"}}>
+                     <div className={`${styles.totalAmountContainer}`}>
+                        <div className={`${styles.totalBeforeVatColumn}`}>
                            <div> Total Before VAT </div>
                            <div style={{ paddingTop: "2px"}}> Global Disc </div>
                            <div style={{ paddingTop: "2px"}}> Special Disc </div>
                            <div style={{ paddingTop: "2px"}}> VAT 11% </div>
                            <div style={{fontSize: "16px", color: "var(--primary-clr)", fontWeight: "800", paddingTop: "3px"}}> Total Amount </div>
                         </div>
-                        <div style={{display: "flex", flexDirection: "column", alignItems:"flex-end" ,fontSize: "12px", color: "var(--table-data-text-clr)", fontWeight: "600"}}>
+                        <div style={{alignItems:"flex-end"}} className={`${styles.totalBeforeVatColumn}`} >
                            <div> 0 </div>
                            <div style={{ paddingTop: "2px"}}> 0 </div>
                            <div style={{ paddingTop: "2px"}}> 0 </div>
@@ -207,7 +207,7 @@ const CreateQuotation = () => {
                      </div>
 
                      
-                <div style={{display: "flex", justifyContent: "flex-end", paddingTop: "45px",}}>
+                <div className={`${styles.createInvoiceButtonDiv}`}>
                     <Button
                         title="Create Invoice"
                         rounded={false}

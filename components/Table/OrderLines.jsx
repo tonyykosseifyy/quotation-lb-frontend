@@ -42,8 +42,8 @@ const OrderLinesRows = ({type}) => {
     <>
     
     { type === 1 && 
-    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: "18px"}}>
-      <div style={{display: "flex", alignItems: "center"}} >
+    <div className={` ${styles.row} mt-1`} >
+      <div className={`${styles.innerRow}`} >
       <FourArrows />
         <div style={{paddingLeft: "14px"}}>
         <InputContainer
@@ -68,10 +68,10 @@ const OrderLinesRows = ({type}) => {
   }
 
     { type === 2 &&   
-    <div style={{ display: "flex",justifyContent: "space-between", alignItems: "center"}}>
-        <div style={{display: "flex", alignItems: "center",}}>
+    <div className={`${styles.row}`} >
+        <div className={`${styles.innerRow}`}>
           <FourArrows />
-          <div style={{ display: "flex", alignItems: "center", gap: "9px", paddingLeft: "14px"}}>
+          <div className={`${styles.rowOfInputContainers}`} >
         <InputContainer
                         label=""
                         inputBorder={styles.inputContainerBorder}
@@ -177,17 +177,17 @@ const OrderLinesRows = ({type}) => {
 
 
 { type === 3 &&  
-<div style={{ display: "flex",justifyContent: "space-between", alignItems: "center",}}>
-        <div style={{display: "flex", alignItems: "center"}}>
+<div className={`${styles.row}`} >
+        <div className={`${styles.innerRow}`} >
           <FourArrows />
-          <div style={{ display: "flex", alignItems: "center", gap: "9px", paddingLeft: "14px"}}>
+          <div className={`${styles.rowOfInputContainers}`} >
         <InputContainer
                         label=""
-                        borderColor="#6D90D0"
+                        borderColor="var(--input-border-2)"
                         fontSize="12px"
                         fontWeight="600"
                         inputPlaceholder={
-                          <div style={{display: "flex", alignItems: "center", justifyContent: "space-between"}}>
+                          <div className={`${styles.row}`}>
                           <svg 
                           width="12" 
                           height="13" 
@@ -224,7 +224,7 @@ const OrderLinesRows = ({type}) => {
                              fill="var(--primary-clr)"
                            />
                         </svg> 
-                        <span style={{paddingLeft: "7px",fontStyle: "normal", color: "var(--table-data-text-clr)"}}>Combo</span>
+                        <span className={`${styles.comboPlaceheolderText}`}>Combo</span>
                         </div>
                         }
                         inputType="select"
@@ -316,8 +316,8 @@ const OrderLinesRows = ({type}) => {
 
 
 { type === 4 &&  
-    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center",flexWrap:"wrap",}}>
-    <div style={{display: "flex", alignItems: "center"}} >
+    <div className={`${styles.row}`} >
+    <div className={`${styles.innerRow}`} >
           <FourArrows />
           <div style={{paddingLeft: "14px"}}>
         <InputContainer
@@ -344,22 +344,13 @@ const OrderLinesRows = ({type}) => {
 
     
 { type === 5 &&  
-    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap:"wrap", width: "100%",paddingBottom: "44px"}}>
+    <div className={`${styles.row} pb-5`} >
       <div style={{display: "flex", alignItems: "center"}}>
         <FourArrows />
         <div style={{paddingLeft: "14px"}}>
-             <div style={{ width: "1043px", border: "2px" ,borderRadius: "8px", borderStyle: "dashed", borderColor: "#C4C4C4", display: "flex", padding: "27px 0px 31px 13px"}}>
-                          <svg 
-                              width="30"
-                              height="23" 
-                              viewBox="0 0 30 23" 
-                              fill="none" 
-                              xmlns="http://www.w3.org/2000/svg"
-                              >
-                             <path d="M15.6716 9.61063C15.6473 9.57989 15.6163 9.55504 15.5809 9.53794C15.5455 9.52085 15.5066 9.51196 15.4672 9.51196C15.4278 9.51196 15.3889 9.52085 15.3535 9.53794C15.3181 9.55504 15.2871 9.57989 15.2628 9.61063L11.6293 14.1655C11.5993 14.2034 11.5807 14.2489 11.5756 14.2968C11.5706 14.3447 11.5792 14.393 11.6005 14.4362C11.6218 14.4795 11.655 14.5159 11.6962 14.5414C11.7374 14.5668 11.7851 14.5803 11.8337 14.5802H14.2312V22.372C14.2312 22.5135 14.3479 22.6292 14.4907 22.6292H16.4372C16.58 22.6292 16.6968 22.5135 16.6968 22.372V14.5834H19.1008C19.3181 14.5834 19.4382 14.3359 19.3051 14.1687L15.6716 9.61063Z" fill="#E3E3E3"/>
-                             <path d="M25.1791 6.64428C23.6932 2.76122 19.9072 0 15.4723 0C11.0374 0 7.25141 2.758 5.76555 6.64107C2.98524 7.36432 0.931641 9.87481 0.931641 12.8578C0.931641 16.4098 3.83523 19.2867 7.41687 19.2867H8.71781C8.86055 19.2867 8.97735 19.171 8.97735 19.0296V17.1009C8.97735 16.9595 8.86055 16.8438 8.71781 16.8438H7.41687C6.32356 16.8438 5.29514 16.413 4.5295 15.6319C3.7671 14.854 3.36157 13.8061 3.39726 12.7196C3.42646 11.871 3.71844 11.0738 4.24725 10.402C4.78904 9.7173 5.54819 9.21906 6.39169 8.99726L7.62126 8.67903L8.07221 7.50254C8.35121 6.76965 8.74052 6.08497 9.2304 5.46458C9.71402 4.84968 10.2869 4.30914 10.9304 3.86056C12.2638 2.93158 13.834 2.43977 15.4723 2.43977C17.1106 2.43977 18.6809 2.93158 20.0142 3.86056C20.6598 4.31059 21.2308 4.85062 21.7142 5.46458C22.2041 6.08497 22.5934 6.77286 22.8724 7.50254L23.3201 8.67582L24.5464 8.99726C26.3048 9.46657 27.5344 11.0513 27.5344 12.8578C27.5344 13.9218 27.1159 14.9247 26.3567 15.6769C25.9844 16.0479 25.5415 16.3421 25.0537 16.5424C24.5659 16.7427 24.0428 16.8451 23.5148 16.8438H22.2138C22.0711 16.8438 21.9543 16.9595 21.9543 17.1009V19.0296C21.9543 19.171 22.0711 19.2867 22.2138 19.2867H23.5148C27.0964 19.2867 30 16.4098 30 12.8578C30 9.87803 27.9529 7.37075 25.1791 6.64428Z" fill="#E3E3E3"/>
-                          </svg>
-                          <div style={{paddingLeft: "12px", display: "flex", color: "var(--table-data-text-clr)", fontWeight: "500", fontSize: "12px"}}>
+             <div className={`${styles.dragAndDropContainer}`} >
+                          <img src="/assets/svg/upload.svg"/>
+                          <div className={`${styles.dragAndDropText}`} >
                            Drag and Drop your image here or <span style={{color: "var(--primary-clr-light)", paddingLeft: "4px"}}> Browse</span> 
                           </div>
                 </div>
@@ -371,7 +362,7 @@ const OrderLinesRows = ({type}) => {
 }
 
 { type === 6 &&
-     <hr style={{color: "black"}}/>
+     <hr style={{color: "black"}} className="pb-4" />
 }     
     </>
   );
