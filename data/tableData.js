@@ -236,6 +236,9 @@ export const paymentTerms = [
 
 export const tableHeadings6 = [
     {
+        arrows: { title: "" },
+    },
+    {
         item: { title: "Item" },
     },
     {
@@ -256,9 +259,15 @@ export const tableHeadings6 = [
     {
         moreOptions: { title: "More Options" },
     },
+    {
+        trash: { title: "" },
+    },
 ];
 
 export const newCombo = [
+    {
+        arrows: { title: "" },
+    },
     {
         item: { title: "Item Code" },
     },
@@ -276,5 +285,11 @@ export const newCombo = [
     },
     {
         total: { title: "Total" },
+    },
+    {
+        options: { title: "" },
+    },
+    {
+        trash: { title: "" },
     },
 ];

@@ -5,6 +5,7 @@ import styles from "./InputContainer.module.css";
 const InputContainer = ({
     label,
     inputBorder,
+    inputBorderColor,
     isRequired,
     inputPlaceholder = "",
     inputType,
@@ -30,11 +31,11 @@ const InputContainer = ({
             className={`${styles.container} 
                 ${!alignLabelInput ? styles.alignItemsStart : ""}
                 ${!spaceBetween ? styles.justifyStart : ""}
-            }`}
+            `}
         >
-            <label className={styles.labelText}>
+            {label && <label className={styles.labelText}>
                 {label} {isRequired && "*"}
-            </label>
+            </label> }
             <Input
                 isRequired={isRequired}
                 inputPlaceholder={inputPlaceholder}
@@ -52,6 +53,7 @@ const InputContainer = ({
                 fontWeight={fontWeight}
                 textAlign={textAlign}
                 inputBorder={inputBorder}
+                inputBorderColor={inputBorderColor}
                 register={register}
                 control={control}
             />

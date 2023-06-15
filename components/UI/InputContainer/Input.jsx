@@ -10,6 +10,7 @@ import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
 const Input = ({
     inputPlaceholder = "",
     inputBorder,
+    inputBorderColor,
     codeName,
     changeCodeValue,
     inputName,
@@ -49,6 +50,7 @@ const Input = ({
                         fontWeight: fontWeight ? fontWeight : "600",
                         fontSize: "12px",
                         textAlign: textAlign ? textAlign : "start",
+                        borderColor: inputBorderColor? "var(--input-border-2)" : "var(--input-border)"
                     }}
                 />
             )}
@@ -75,7 +77,7 @@ const Input = ({
                                 control: (baseStyles, state) => ({
                                     ...baseStyles,
                                     borderRadius: 5,
-                                    borderColor: inputBorder ? "rgba(109, 144, 208, 1)" : "rgba(68, 114, 196, 0.2)",
+                                    borderColor: inputBorderColor ? "rgba(109, 144, 208, 1)" : "rgba(68, 114, 196, 0.2)",
                                     "&:hover": {
                                         borderColor: "none",
                                     },

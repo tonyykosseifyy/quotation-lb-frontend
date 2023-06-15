@@ -27,7 +27,7 @@ const items = [
 ];
 
 
-const OrderLinesRows = ({type}) => {
+const OrderLinesRows = ({type, width, inputBorderColor}) => {
   
   const {
     register,
@@ -40,150 +40,29 @@ const OrderLinesRows = ({type}) => {
 
   return (
     <>
-    
-    { type === 1 && 
-    <div className={` ${styles.row} mt-1`} >
-      <div className={`${styles.innerRow}`} >
-      <FourArrows />
-        <div style={{paddingLeft: "14px"}}>
-        <InputContainer
-                        label=""
-                        inputPlaceholder="Title"
-                        inputType="text"
-                        inputName="title"
-                        inputId="title"
-                        // width="68"
-                        height="38"
-                        // widthUnit="vw"
-                        width="1043"
-                        widthUnit="px"
-                        control={control}
-                        register={register}
-          />
-          </div>
-      </div>
-        <Ellipsis paddingLeft="80px" paddingRight="80px" />
-        <Trashcan fillColor="var(--primary-clr)" />  
-    </div>
-  }
 
-    { type === 2 &&   
-    <div className={`${styles.row}`} >
-        <div className={`${styles.innerRow}`}>
-          <FourArrows />
-          <div className={`${styles.rowOfInputContainers}`} >
-        <InputContainer
-                        label=""
-                        inputBorder={styles.inputContainerBorder}
-                        inputPlaceholder="Item 1"
-                        inputType="select"
-                        inputName="item"
-                        inputId="item"
-                        width="107"
-                        height="38"
-                        widthUnit="px"
-                        fontWeight="700"
-                        fontSize="12px"
-                        selectOptions={items}
-                        control={control}
-                        register={register}
-          />
+    { type === "item" &&
+       <InputContainer
+       inputBorder
+       inputPlaceholder="Item 1"
+       inputType="select"
+       inputName="item"
+       inputId="item"
+       width="107"
+       height="38"
+      //  widthUnit="px"
+       fontWeight="700"
+       fontSize="12px"
+       selectOptions={items}
+       control={control}
+       register={register}
+       inputBorderColor={inputBorderColor && inputBorderColor}
+/>
+    }
 
-<InputContainer
-                        label=""
-                        inputBorder={styles.inputContainerBorder}
-                        inputPlaceholder="lorem ipsumlorem ipsum"
-                        inputType="text"
-                        inputName="description"
-                        inputId="description"
-                        // width="35"
-                        height="38"
-                        // widthUnit="vw"
-                        width="538"
-                        widthUnit="px"
-                        fontWeight="700"
-                        control={control}
-                        register={register}
-          />
-
-<InputContainer
-                        label=""
-                        inputBorder={styles.inputContainerBorder}
-                        inputPlaceholder="1.00"
-                        inputType="text"
-                        inputName="quantity"
-                        inputId="quantity"
-                        width="69"
-                        height="38"
-                        widthUnit="px"
-                        fontWeight="700"
-                        textAlign="center"
-                        control={control}
-                        register={register}
-          />
-
-<InputContainer
-                        label=""
-                        inputBorder={styles.inputContainerBorder}
-                        inputPlaceholder="150.0"
-                        inputType="text"
-                        inputName="unitPrice"
-                        inputId="unitPrice"
-                        width="69"
-                        height="38"
-                        widthUnit="px"
-                        fontWeight="700"
-                        textAlign="center"
-                        control={control}
-                        register={register}
-          />
-
-<InputContainer
-                        label=""
-                        inputBorder={styles.inputContainerBorder}
-                        inputPlaceholder="15%"
-                        inputType="text"
-                        inputName="discount"
-                        inputId="discount"
-                        width="69"
-                        height="38"
-                        widthUnit="px"
-                        fontWeight="700"
-                        textAlign="center"
-                        control={control}
-                        register={register}
-          />
-
-<InputContainer
-                        label=""
-                        inputBorder={styles.inputContainerBorder}
-                        inputPlaceholder="1.500.000"
-                        inputType="text"
-                        inputName="total"
-                        inputId="total"
-                        width="147"
-                        height="38"
-                        widthUnit="px"
-                        fontWeight="700"
-                        control={control}
-                        register={register}
-          />
-          </div>
-</div>
-        <Ellipsis paddingLeft="60px" paddingRight="60px" />
-        <Trashcan fillColor={"var(--primary-clr)"} />  
-    </div>
-}
-
-
-{ type === 3 &&  
-<div className={`${styles.row}`} >
-        <div className={`${styles.innerRow}`} >
-          <FourArrows />
-          <div className={`${styles.rowOfInputContainers}`} >
-        <InputContainer
-                        label=""
-                        borderColor="var(--input-border-2)"
+    {
+      type === "combo" && 
+      <InputContainer
                         fontSize="12px"
                         fontWeight="600"
                         inputPlaceholder={
@@ -232,137 +111,152 @@ const OrderLinesRows = ({type}) => {
                         inputId="combo"
                         width="107"
                         height="38"
-                        widthUnit="px"
+                        // widthUnit="px"
                         selectOptions={combo}
                         control={control}
                         register={register}
           />
+    }
 
-<InputContainer
-                        label=""
-                        inputPlaceholder="lorem ipsumlorem ipsum"
-                        inputType="text"
-                        inputName="description"
-                        inputId="description"
-                        // width="35"
-                        height="38"
-                        // widthUnit="vw"
-                        width="538"
-                        widthUnit="px"
-                        control={control}
-                        register={register}
-          />
+{ type === "description" &&
+       <InputContainer
+       inputBorder
+       inputPlaceholder="lorem ipsumlorem ipsum"
+       inputType="text"
+       inputName="description"
+       inputId="description"
+       height="38"
+       width={ width ? width : "562"}
+       fontWeight="700"
+       control={control}
+       register={register}
+       inputBorderColor={inputBorderColor && inputBorderColor}
+/>
+    }
 
-<InputContainer
-                        label=""
-                        inputPlaceholder="1.00"
-                        inputType="text"
-                        inputName="quantity"
-                        inputId="quantity"
-                        width="69"
-                        height="38"
-                        widthUnit="px"
-                        textAlign="center"
-                        control={control}
-                        register={register}
-          />
+{ type === "quantity" &&
+       <InputContainer
+       inputBorder
+       inputPlaceholder="1.00"
+       inputType="text"
+       inputName="quantity"
+       inputId="quantity"
+       width="75"
+       height="38"
+      //  widthUnit="px"
+       fontWeight="700"
+       textAlign="center"
+       control={control}
+       register={register}
+       inputBorderColor={inputBorderColor && inputBorderColor}
+/>
+    }
 
-<InputContainer
-                        label=""
-                        inputPlaceholder="150.0"
-                        inputType="text"
-                        inputName="unitPrice"
-                        inputId="unitPrice"
-                        width="69"
-                        height="38"
-                        widthUnit="px"
-                        textAlign="center"
-                        control={control}
-                        register={register}
-          />
+{ type === "discount" &&
+       <InputContainer
+       inputBorder
+       inputPlaceholder="15%"
+       inputType="text"
+       inputName="discount"
+       inputId="discount"
+       width="75"
+       height="38"
+      //  widthUnit="px"
+       fontWeight="700"
+       textAlign="center"
+       control={control}
+       register={register}
+       inputBorderColor={inputBorderColor && inputBorderColor}
+/>
+    }
 
-<InputContainer
-                        label=""
-                        inputPlaceholder="15%"
-                        inputType="text"
-                        inputName="discount"
-                        inputId="discount"
-                        width="69"
-                        height="38"
-                        widthUnit="px"
-                        textAlign="center"
-                        control={control}
-                        register={register}
-          />
+{ type === "unitPrice" &&
+       <InputContainer
+       inputBorder
+       inputPlaceholder="150.0"
+       inputType="text"
+       inputName="unitPrice"
+       inputId="unitPrice"
+       width="75"
+       height="38"
+      //  widthUnit="px"
+       fontWeight="700"
+       textAlign="center"
+       control={control}
+       register={register}
+       inputBorderColor={inputBorderColor && inputBorderColor}
+/>
+    }
 
-<InputContainer
-                        label=""
-                        inputPlaceholder="1.500.000"
-                        inputType="text"
-                        inputName="total"
-                        inputId="total"
-                        width="147"
-                        height="38"
-                        widthUnit="px"
-                        control={control}
-                        register={register}
-          />
-          </div>
-</div>
-        <Ellipsis paddingLeft="80px" paddingRight="80px" />
-        <Trashcan fillColor={"var(--primary-clr)"} />  
-    </div>
-}
+{ type === "total" &&
+       <InputContainer
+       inputBorder
+       inputPlaceholder="1.500.000"
+       inputType="text"
+       inputName="total"
+       inputId="total"
+       width="137"
+       height="38"
+       widthUnit="px"
+       fontWeight="700"
+       control={control}
+       register={register}
+       inputBorderColor={inputBorderColor && inputBorderColor}
+/>
+    }
 
-
-{ type === 4 &&  
-    <div className={`${styles.row}`} >
-    <div className={`${styles.innerRow}`} >
-          <FourArrows />
-          <div style={{paddingLeft: "14px"}}>
+{ type === "title" && 
         <InputContainer
-                        label=""
-                        inputPlaceholder="Note"
+                        style={{ paddingTop: "10px"}}
+                        inputPlaceholder="Title"
                         inputType="text"
-                        inputName="note"
-                        inputId="note"
+                        inputName="title"
+                        inputId="title"
                         // width="68"
                         height="38"
                         // widthUnit="vw"
-                        width="1043"
-                        widthUnit="px"
+                        //  width="1043"
+                        width= "1075"
+                        // widthUnit="px"
+                        // widthUnit="%"
                         control={control}
                         register={register}
           />
-          </div>
-          </div>
-          <Ellipsis paddingLeft="80px" paddingRight="80px" />
-        <Trashcan fillColor={"var(--primary-clr)"} />  
-    </div>
-}
+  }
 
+  { type === "note" &&
+    <InputContainer
+    inputPlaceholder="Note"
+    inputType="text"
+    inputName="note"
+    inputId="note"
+    // width="68"
+    height="38"
+    // widthUnit="vw"
+    // width="1043"
+    width= "1075"
+    // widthUnit="px"
+    control={control}
+    register={register}
+/>
+  }
 
-    
-{ type === 5 &&  
-    <div className={`${styles.row} pb-5`} >
-      <div style={{display: "flex", alignItems: "center"}}>
-        <FourArrows />
-        <div style={{paddingLeft: "14px"}}>
-             <div className={`${styles.dragAndDropContainer}`} >
+  {
+    type === "image" && 
+    <div className={`${styles.row}`} >
+      <div style={{display: "flex", alignItems: "center", }}>
+             <div className={`${styles.dragAndDropContainer}`} style={{width: "1075px"}}>
                           <img src="/assets/svg/upload.svg"/>
                           <div className={`${styles.dragAndDropText}`} >
                            Drag and Drop your image here or <span style={{color: "var(--primary-clr-light)", paddingLeft: "4px"}}> Browse</span> 
                           </div>
                 </div>
                 </div>
-                </div>
-                <Ellipsis paddingLeft="80px" paddingRight="80px" />
-        <Trashcan fillColor={"var(--primary-clr)"} />        
       </div>  
-}
+  }
 
 { type === 6 &&
-     <hr style={{color: "black"}} className="pb-4" />
+     <hr style={{color: "black"}} className="pb-2 pt-3" />
 }     
     </>
   );

@@ -2,12 +2,15 @@
 
 import React, { useState } from "react";
 import styles from "./page.module.css";
-// import Modal from 'react-modal';
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import Table from "@/components/Table/Table";
 import { useForm } from "react-hook-form";
 import { newCombo } from "@/data/tableData";
 import ModalComponent from "@/components/Modal/Modal";
+import FourArrows from "@/components/UI/Icons/FourArrows";
+import Ellipsis from "@/components/UI/Icons/Ellipsis";
+import Trashcan from "@/components/UI/Icons/Trashcan";
+import OrderLinesRows from "@/components/Table/OrderLines";
 
 const itemOptions = [
   { id: "item_1", name: "item 1" },
@@ -21,10 +24,50 @@ const tableFooterElements = [
 ];
 
 const newObject =[
-  { type: 2 },
-  { type: 2 },
-  { type: 2 },
-  { type: 2 },
+  {   
+    arrows: <FourArrows />,
+    item: <OrderLinesRows type="item"/>,
+    description: <OrderLinesRows type="description" width="600"/>,
+    quantity: <OrderLinesRows type="quantity"/>,
+    discount: <OrderLinesRows type="discount"/>,
+    unitPrice: <OrderLinesRows type="unitPrice"/>,
+    total: <OrderLinesRows type="total"/>,
+    options: <Ellipsis />,
+    trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+}, 
+{   
+  arrows: <FourArrows />,
+  item: <OrderLinesRows type="item"/>,
+  description: <OrderLinesRows type="description" width="600"/>,
+  quantity: <OrderLinesRows type="quantity"/>,
+  discount: <OrderLinesRows type="discount"/>,
+  unitPrice: <OrderLinesRows type="unitPrice"/>,
+  total: <OrderLinesRows type="total"/>,
+  options: <Ellipsis />,
+  trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+}, 
+{   
+  arrows: <FourArrows />,
+  item: <OrderLinesRows type="item"/>,
+  description: <OrderLinesRows type="description" width="600"/>,
+  quantity: <OrderLinesRows type="quantity"/>,
+  discount: <OrderLinesRows type="discount"/>,
+  unitPrice: <OrderLinesRows type="unitPrice"/>,
+  total: <OrderLinesRows type="total"/>,
+  options: <Ellipsis />,
+  trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+}, 
+{   
+  arrows: <FourArrows />,
+  item: <OrderLinesRows type="item"/>,
+  description: <OrderLinesRows type="description" width="600"/>,
+  quantity: <OrderLinesRows type="quantity"/>,
+  discount: <OrderLinesRows type="discount"/>,
+  unitPrice: <OrderLinesRows type="unitPrice"/>,
+  total: <OrderLinesRows type="total"/>,
+  options: <Ellipsis />,
+  trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+}, 
 ];
 
 const createNewComboModal = () => {
@@ -53,15 +96,6 @@ const createNewComboModal = () => {
           formState: { errors },
           reset,
       } = useForm();
-  
-      const eachTableHeaderWidth = {
-          item: "273px !important",
-          description: "1115px !important",
-          quantity: "100px !important",
-          discount: "160px !important",
-          unitPrice: "190px !important",
-          total: "645px !important",
-        };
 
   return (
     <div className={`container m-0`}>
@@ -104,7 +138,6 @@ const createNewComboModal = () => {
                           headingsColor={`#FFFFFF`}
                           headingsFontSize={`13px`}
                           headingsFontWeight={`600`}
-                          headingsWidth={eachTableHeaderWidth}
                           columnSpan={7}
                           data={newObject}
                           bodyBorderTop={`0px !important`}
@@ -114,6 +147,8 @@ const createNewComboModal = () => {
                           tablePaddingRight={`0px`}
                           tablePaddingBottom="26px"
                           bodyPadding={"15px 15px 0px 0px"}
+                          descriptionWidth={"600"}
+                          inputBorderColor={"var(--input-border-2)"}
                           tableFooter={tableFooterElements}
                           footerPaddingLeft="3px"
                           footerMarginTop="71px"

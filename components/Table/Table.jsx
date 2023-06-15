@@ -11,6 +11,9 @@ import Search from "@/components/UI/Search/Search";
 import { head } from "axios";
 import OrderLinesRows from "./OrderLines";
 import Plus from "../UI/Icons/Plus";
+import FourArrows from "../UI/Icons/FourArrows";
+import Trashcan from "../UI/Icons/Trashcan";
+import Ellipsis from "../UI/Icons/Ellipsis";
 
 const Table = ({
     title,
@@ -41,7 +44,8 @@ const Table = ({
     centerStatus = false,
     statusText,
     showCreatedAt = false,
-    bodyPadding,
+    inputBorderColor,
+    descriptionWidth,
     tableFooter,
     footerPaddingLeft,
     footerMarginTop,
@@ -113,32 +117,29 @@ const Table = ({
                                         fontWeight: headingsFontWeight,
                                         textAlign:
                                             heading === "Status" &&
-                                            centerStatus
+                                            centerStatus || heading === "More Options"
                                                 ? "center"
-                                                : "",  
-                                        paddingLeft: 
-                                            heading === "Item" ? "48px" : 
-                                            ( heading === "Item Code" ? "33px" : 
-                                            ( heading === "Total" ? "0px" : "") ),
-                                        borderBottomLeftRadius: heading === "Item" || heading === "Item Code" ? "5px" : "",
+                                                : "",        
+                                        borderBottomLeftRadius: 
+                                                heading === "" && i === 0 ? "5px" : "",
                                         borderBottomRightRadius: 
-                                            (heading === "More Options" || heading === "Total") 
+                                            heading === "" 
                                             && i === headings.length - 1  ? "5px" : "",
+                                            padding: (
+                                                heading !== "Item" && 
+                                                heading !== "Item Code" &&
+                                                heading !== "Description" &&
+                                                heading !== "Quantity" &&
+                                                heading !== "Disc. %" &&
+                                                heading !== "Unit Price" &&
+                                                heading !== "Total" &&
+                                                heading !== "More Options"  
+                                                        ) ?  "12px 15px" :
+                                                         ( heading === "More Options"? "7.5px 0px" : "12px 4.5px" ) ,                   
                                     }
                                 return (
                                     <th
-                                        width={headingsWidth && headingsWidth[Object.keys(header)[0]]}
                                         className={styles.tableHeader}
-                                        // style={{
-                                        //     color: headingsColor,
-                                        //     fontSize: headingsFontSize,
-                                        //     fontWeight: headingsFontWeight,
-                                        //     textAlign:
-                                        //         heading === "Status" &&
-                                        //         centerStatus
-                                        //             ? "center"
-                                        //             : "",
-                                        // }}
                                         style={headerStyle}
                                         key={i}
                                     >
@@ -171,7 +172,9 @@ const Table = ({
                             return (
                                 <tr
                                     key={dataRow.id ? dataRow.id : i}
-                                    style={{ borderTop: bodyBorderTop }}
+                                    style={{ 
+                                        borderTop: bodyBorderTop, 
+                                    }}
                                 >
                                     {Object.keys(dataRow).map((keyName, i) =>
                                         headings.some(
@@ -185,7 +188,18 @@ const Table = ({
                                                         fontWeight:
                                                             dataFontWeight,
                                                         color: dataColor,
-                                                        padding: "12px 15px",
+                                                        padding: (
+                                                            keyName !== "item" &&
+                                                            keyName !== "description" &&
+                                                            keyName !== "quantity" &&
+                                                            keyName !== "discount" &&
+                                                            keyName !== "unitPrice" &&
+                                                            keyName !== "total" &&
+                                                            keyName !== "moreOptions" &&
+                                                            keyName !== "trash" 
+                                                                ) ?  "12px 15px" :
+                                                                (keyName == "moreOptions"?
+                                                                "12px 60px" :  "7.5px 4.5px") ,
                                                     }}
                                                 >
                                                     {keyName === "id" ? (
@@ -228,7 +242,29 @@ const Table = ({
                                                         ) : (
                                                             ""
                                                         )
-                                                    ): (
+                                                    ): keyName === "arrows" ? (
+                                                        <FourArrows />
+                                                    ) : keyName === "item" ? (
+                                                        <OrderLinesRows type={"item"} 
+                                                        inputBorderColor={inputBorderColor && inputBorderColor}
+                                                        />
+                                                    ) : keyName === "description" ? (
+                                                        <OrderLinesRows type={"description"} 
+                                                        width={ descriptionWidth ? descriptionWidth : "562"} 
+                                                        inputBorderColor={inputBorderColor && inputBorderColor}/>
+                                                    ) : keyName === "quantity" ? (
+                                                        <OrderLinesRows type={"quantity"} 
+                                                        inputBorderColor={inputBorderColor && inputBorderColor}/>
+                                                    ) : keyName === "discount" ? (
+                                                        <OrderLinesRows type={"discount"} 
+                                                        inputBorderColor={inputBorderColor && inputBorderColor}/>
+                                                    )  : keyName === "unitPrice" ? (
+                                                        <OrderLinesRows type={"unitPrice"} 
+                                                        inputBorderColor={inputBorderColor && inputBorderColor}/>
+                                                    ) : keyName === "total" ? (
+                                                        <OrderLinesRows type={"total"} 
+                                                        inputBorderColor={inputBorderColor && inputBorderColor}/>
+                                                    ) : (
                                                         dataRow[keyName] 
                                                     )}
                                                 </td>
@@ -263,7 +299,58 @@ const Table = ({
                                                         )?.[keyName].nullText}
                                                 </td>
                                             )
-                                        ) : ( null
+                                        ) : ( 
+                                            Object.keys(dataRow).map((keyName, i) => 
+                                                !headings.some((heading) => keyName in heading) ? 
+                                                       (
+                                                           dataRow[keyName] !== null ? (
+                                                               <>
+                                                                   <td  
+                                                                        colSpan={( 
+                                                                            keyName === "title" ||
+                                                                            keyName === "note" || 
+                                                                            keyName === "image") ? 
+                                                                            columnSpan : ( keyName === "type" ? 9 : 0)}
+                                                                        style={{ 
+                                                                                width: "100%",
+                                                                                padding: (
+                                                                                    keyName !== "title" &&
+                                                                                    keyName !== "image" &&
+                                                                                    keyName !== "note" &&
+                                                                                    keyName !== "item" &&
+                                                                                    keyName !== "combo" &&
+                                                                                    keyName !== "description" &&
+                                                                                    keyName !== "quantity" &&
+                                                                                    keyName !== "discount" &&
+                                                                                    keyName !== "unitPrice" &&
+                                                                                    keyName !== "total" &&
+                                                                                    keyName !== "moreOptions" &&
+                                                                                    keyName !== "type" &&
+                                                                                    keyName !== "arrows" &&
+                                                                                    keyName !== "trash" ) ? "12px 15px" : 
+                                                                                    (keyName === "type" ? "30px 0px 0px 0px": 
+                                                                                    (keyName === "title" ? "18px 4.5px 7.5px 4.5px" : "7.5px 4.5px" ) ),  
+                                                                            }}
+                                                                    >
+                                                                        {keyName === "title" ? (
+                                                                            <OrderLinesRows type={"title"} />
+                                                                        ) 
+                                                                        : keyName === "note" ? (
+                                                                            <OrderLinesRows type={"note"} />
+                                                                        )
+                                                                         : keyName === "image" ? (
+                                                                            <OrderLinesRows type={"image"} />
+                                                                        ) : keyName === "type" ? (
+                                                                            <OrderLinesRows type={6} /> 
+                                                                        ) : keyName === "combo" ? (
+                                                                            <OrderLinesRows type={"combo"} /> 
+                                                                        ) 
+                                                                         :   null  } 
+                                                                    </td>
+                                                               </>
+                                                            )  : null  
+                                                        ) : null
+                                                )
                                         )
                                     )}
                                     {showDetails && (
@@ -299,24 +386,8 @@ const Table = ({
                                                 );
                                             }
                                         )}
-                                       {Object.keys(dataRow).map((keyName, i) => 
-                                        !headings.some((heading) => keyName in heading) ? 
-                                               (
-                                                   dataRow[keyName] !== null ? (
-                                                           <td  
-                                                                colSpan={columnSpan}
-                                                                style={{ 
-                                                                        width: "100%",
-                                                                        padding: dataRow[keyName] === 6 ? "0px" : bodyPadding,  
-                                                                    }}
-                                                            >
-                                                               {keyName === "type" ? (
-                                                                <OrderLinesRows type={dataRow[keyName]} />
-                                                                ) :  null  } 
-                                                            </td>
-                                                        )  : null  
-                                                ) : null
-                                        )}          
+                                         
+                                                 
                                 </tr>       
                             );  
                         })}

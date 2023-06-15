@@ -9,6 +9,10 @@ import { useForm } from "react-hook-form";
 import { clients } from "@/data/createClient";
 import { paymentTerms, tableHeadings6 } from "@/data/tableData";
 import Table from "@/components/Table/Table";
+import OrderLinesRows from "@/components/Table/OrderLines";
+import FourArrows from "@/components/UI/Icons/FourArrows";
+import Trashcan from "@/components/UI/Icons/Trashcan";
+import Ellipsis from "@/components/UI/Icons/Ellipsis";
 
 const options = [
     { id: "chocolate", name: "Chocolate" },
@@ -31,18 +35,89 @@ const tableFooterElements = [
   ];
 
 const newObject =[
-    { type: 1 },
-    { type: 2 },
-    { type: 3 },
-    { type: 4 },
-    { type: 5 },
-    { type: 6 },
-
-    { type: 1 },
-    { type: 2 },
-    { type: 3 },
-    { type: 4 },
-    { type: 5 },
+    {
+        arrows: <FourArrows />,
+        title: <OrderLinesRows type="title" />,
+        moreOptions: <Ellipsis />,
+        trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+    },
+    {   
+        arrows: <FourArrows />,
+        item: <OrderLinesRows type="item" inputBorderColor/>,
+        description: <OrderLinesRows type="description" inputBorderColor/>,
+        quantity: <OrderLinesRows type="quantity" inputBorderColor/>,
+        discount: <OrderLinesRows type="discount" inputBorderColor/>,
+        unitPrice: <OrderLinesRows type="unitPrice" inputBorderColor/>,
+        total: <OrderLinesRows type="total" inputBorderColor/>,
+        moreOptions: <Ellipsis />,
+        trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+    }, 
+    {   
+       arrows: <FourArrows />,
+       combo: <OrderLinesRows type="combo"/>,
+       description: <OrderLinesRows type="description"/>,
+       quantity: <OrderLinesRows type="quantity"/>,
+       discount: <OrderLinesRows type="discount"/>,
+       unitPrice: <OrderLinesRows type="unitPrice"/>,
+       total: <OrderLinesRows type="total"/>,
+       moreOptions: <Ellipsis />,
+       trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+    },
+    {
+       arrows: <FourArrows />,
+       note: <OrderLinesRows type="note"/>,
+       moreOptions: <Ellipsis />,
+       trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+    },
+    {
+       arrows: <FourArrows />,
+       image: <OrderLinesRows type="image"/>,
+       moreOptions: <Ellipsis />,
+       trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+    },
+    { 
+        type: 6
+    },
+    {
+        arrows: <FourArrows />,
+        title: <OrderLinesRows type="title" />,
+        moreOptions: <Ellipsis />,
+        trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+    },
+    {   
+        arrows: <FourArrows />,
+        item: <OrderLinesRows type="item" inputBorderColor/>,
+        description: <OrderLinesRows type="description" inputBorderColor/>,
+        quantity: <OrderLinesRows type="quantity" inputBorderColor/>,
+        discount: <OrderLinesRows type="discount" inputBorderColor/>,
+        unitPrice: <OrderLinesRows type="unitPrice" inputBorderColor/>,
+        total: <OrderLinesRows type="total" inputBorderColor/>,
+        moreOptions: <Ellipsis />,
+        trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+    }, 
+    {   
+       arrows: <FourArrows />,
+       combo: <OrderLinesRows type="combo"/>,
+       description: <OrderLinesRows type="description"/>,
+       quantity: <OrderLinesRows type="quantity"/>,
+       discount: <OrderLinesRows type="discount"/>,
+       unitPrice: <OrderLinesRows type="unitPrice"/>,
+       total: <OrderLinesRows type="total"/>,
+       moreOptions: <Ellipsis />,
+       trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+    },
+    {
+       arrows: <FourArrows />,
+       note: <OrderLinesRows type="note"/>,
+       moreOptions: <Ellipsis />,
+       trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+    },
+    {
+       arrows: <FourArrows />,
+       image: <OrderLinesRows type="image"/>,
+       moreOptions: <Ellipsis />,
+       trash: <Trashcan fillColor={"var(--primary-clr)"}/>,
+    },
 ];
 
 const CreateQuotation = () => {
@@ -60,16 +135,6 @@ const CreateQuotation = () => {
         formState: { errors },
         reset,
     } = useForm();
-
-    const eachTableHeaderWidth = {
-        item: "335px !important",
-        description: "1235px !important",
-        quantity: "100px !important",
-        discount: "180px !important",
-        unitPrice: "200px !important",
-        total: "415px !important",
-        moreOptions: "375px !important",
-      };
 
     return (
         <div className={`container m-0`}>
@@ -154,17 +219,15 @@ const CreateQuotation = () => {
                           headingsColor={`#FFFFFF`}
                           headingsFontSize={`13px`}
                           headingsFontWeight={`600`}
-                          headingsWidth={eachTableHeaderWidth}
-                          columnSpan={7}
+                          columnSpan={6}
                           data={newObject}
                           bodyBorderTop={`0px !important`}
                           tableBorderRadius={`8px`}
                           tablePaddingTop={`0px`}
                           tablePaddingLeft={`0px`}
                           tablePaddingRight={`0px`}
-                          bodyPadding={"15px 15px 0px 15px"}
                           tableFooter={tableFooterElements}
-                          footerMarginTop="7px"
+                          footerMarginTop="51px"
                           footerPaddingLeft="49px"
                         />
                    </div>
