@@ -10,12 +10,7 @@ import { countries } from "@/data/countries";
 import { clients } from "@/data/createClient";
 import { useForm } from "react-hook-form";
 import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
-
-const options = [
-    { id: "chocolate", name: "Chocolate" },
-    { id: "strawberry", name: "Strawberry" },
-    { id: "vanilla", name: "Vanilla" },
-];
+import { dummyDropdownOptions } from "@/data/dummyItems";
 
 const CreateClient = () => {
     const {
@@ -145,7 +140,7 @@ const CreateClient = () => {
                             inputPlaceholder=""
                             inputType="select"
                             inputName="companyName"
-                            selectOptions={options}
+                            selectOptions={dummyDropdownOptions}
                             register={register}
                             control={control}
                         />
@@ -155,7 +150,7 @@ const CreateClient = () => {
                             inputPlaceholder=""
                             inputType="select"
                             inputName="country"
-                            selectOptions={options}
+                            selectOptions={dummyDropdownOptions}
                             register={register}
                             control={control}
                         />
@@ -200,7 +195,7 @@ const CreateClient = () => {
                                 inputPlaceholder="Sales Director, Sales..."
                                 inputType="select"
                                 inputName="jobPosition"
-                                selectOptions={options}
+                                selectOptions={dummyDropdownOptions}
                                 inputId="jobPosition"
                                 register={register}
                                 control={control}
@@ -214,7 +209,7 @@ const CreateClient = () => {
                             codeName="phoneCode"
                             changeCodeValue={changeCodeValue}
                             inputName="phone"
-                            selectOptions={options}
+                            selectOptions={dummyDropdownOptions}
                             register={register}
                             control={control}
                         />
@@ -226,7 +221,7 @@ const CreateClient = () => {
                             codeName="mobileCode"
                             changeCodeValue={changeCodeValue}
                             inputName="mobile"
-                            selectOptions={options}
+                            selectOptions={dummyDropdownOptions}
                             register={register}
                             control={control}
                         />
@@ -245,7 +240,7 @@ const CreateClient = () => {
                                 inputPlaceholder="Doctor, Miss, Mister"
                                 inputType="select"
                                 inputName="title"
-                                selectOptions={options}
+                                selectOptions={dummyDropdownOptions}
                                 register={register}
                                 control={control}
                             />
@@ -256,7 +251,7 @@ const CreateClient = () => {
                             inputPlaceholder="Vip, Consulting"
                             inputType="select"
                             inputName="tags"
-                            selectOptions={options}
+                            selectOptions={dummyDropdownOptions}
                             register={register}
                             control={control}
                         />
@@ -392,7 +387,7 @@ const CreateClient = () => {
                                             inputPlaceholder=""
                                             inputType="select"
                                             inputName="countryContact"
-                                            selectOptions={options}
+                                            selectOptions={dummyDropdownOptions}
                                             register={register}
                                             control={control}
                                         />
@@ -441,7 +436,7 @@ const CreateClient = () => {
                                             changeCodeValue={changeCodeValue}
                                             inputName="phoneContact"
                                             register={register}
-                                            selectOptions={options}
+                                            selectOptions={dummyDropdownOptions}
                                             control={control}
                                         />
                                         <InputContainer
@@ -452,7 +447,7 @@ const CreateClient = () => {
                                             codeName="mobileContactCode"
                                             changeCodeValue={changeCodeValue}
                                             inputName="mobileContact"
-                                            selectOptions={options}
+                                            selectOptions={dummyDropdownOptions}
                                             register={register}
                                             control={control}
                                         />
@@ -478,7 +473,7 @@ const CreateClient = () => {
                                             inputPlaceholder=""
                                             inputType="select"
                                             inputName="salesperson"
-                                            selectOptions={options}
+                                            selectOptions={dummyDropdownOptions}
                                             register={register}
                                             control={control}
                                         />
@@ -488,7 +483,7 @@ const CreateClient = () => {
                                             inputPlaceholder=""
                                             inputType="select"
                                             inputName="paymentTerms"
-                                            selectOptions={options}
+                                            selectOptions={dummyDropdownOptions}
                                             register={register}
                                             control={control}
                                         />
@@ -498,7 +493,7 @@ const CreateClient = () => {
                                             inputPlaceholder=""
                                             inputType="select"
                                             inputName="country"
-                                            selectOptions={options}
+                                            selectOptions={dummyDropdownOptions}
                                             register={register}
                                             control={control}
                                         />

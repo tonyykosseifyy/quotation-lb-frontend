@@ -1,42 +1,72 @@
- .row{
+.row {
   display: flex;
   justify-content: space-between;
-   align-items: center;
- }
-
- .innerRow{
-  display: flex;
-   align-items: center;
- }
-
- .rowOfInputContainers{
-  display: flex;
-   align-items: center;
-    gap: 9px;
-     padding-left: 14px;
- }
-
-.comboPlaceheolderText{
-  padding-left: 7px;
-  font-style: normal;
-   color: var(--table-data-text-clr)
-} 
-
-.dragAndDropContainer{
-  width: 1043px;
-   border: 2px;
-   border-radius: 8px;
-    border-style: dashed;
-    border-color: var(--drag-and-drop-border-clr);
-     display: flex;
-      padding: 27px 0px 31px 13px;
+  align-items: center;
 }
 
- .dragAndDropText{
-   padding-top: 4px;
-   padding-left: 12px;
-   display: flex;
-   color: var(--table-data-text-clr);
+.innerRow {
+  display: flex;
+  align-items: center;
+}
+
+.rowOfInputContainers {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-left: 14px;
+}
+
+.comboPlaceheolderText {
+  padding-left: 7px;
+  font-style: normal;
+  color: var(--table-data-text-clr);
+}
+
+.tableDiv {
+  margin-top: 30px;
+  background-color: white;
+}
+
+.headerLayout {
+  background-color: var(--primary-clr);
+  border-radius: 5px;
+  padding: 16px;
+  display: flex;
+  color: white;
+}
+
+.itemRows {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0; /* Remove any default padding */
+  margin: 0; /* Remove any default margin */
+}
+
+.singleItemRow {
+  display: flex;
+  padding: 16px;
+}
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.dragAndDropContainer {
+  width: 1043px;
+  border: 2px;
+  border-radius: 8px;
+  border-style: dashed;
+  border-color: var(--drag-and-drop-border-clr);
+  display: flex;
+  padding: 27px 0px 31px 13px;
+}
+
+.dragAndDropText {
+  padding-top: 4px;
+  padding-left: 12px;
+  display: flex;
+  color: var(--table-data-text-clr);
   font-weight: 500;
   font-size: 12px;
- }
+}
