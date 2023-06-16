@@ -23,6 +23,12 @@ const Input = ({
     canResize,
     register,
     control,
+    borderColor,
+    placeholderColor,
+    placeholderFontStyle,
+    placeholderFontWeight,
+    placeholderFontSize,
+    dropdownArrowColor,
 }) => {
     return (
         <div
@@ -64,7 +70,7 @@ const Input = ({
                                 control: (baseStyles, state) => ({
                                     ...baseStyles,
                                     borderRadius: 5,
-                                    borderColor: "rgba(68, 114, 196, 0.2)",
+                                    borderColor: borderColor? borderColor : "rgba(68, 114, 196, 0.2)",
                                     "&:hover": {
                                         borderColor: "none",
                                     },
@@ -83,8 +89,14 @@ const Input = ({
                                 }),
                                 placeholder: (baseStyles, state) => ({
                                     ...baseStyles,
-                                    color: "#C8C8C8",
-                                    fontStyle: "italic",
+                                    color: placeholderColor ? placeholderColor : "#C8C8C8",
+                                    fontStyle: placeholderFontStyle? placeholderFontStyle : "italic",
+                                    fontWeight: placeholderFontWeight,
+                                    fontSize: placeholderFontSize ? placeholderFontSize : "12px"
+                                }),
+                                dropdownIndicator: (baseStyles, state) => ({
+                                    ...baseStyles,
+                                    color: dropdownArrowColor? dropdownArrowColor : "var(--primary-text-clr)",
                                 }),
                             }}
                             placeholder={inputPlaceholder}

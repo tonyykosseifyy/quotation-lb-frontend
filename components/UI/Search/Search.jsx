@@ -14,6 +14,7 @@ const Search = ({
     backgroundColor,
     rounded,
     handleSearch,
+    height,
 }) => {
     return (
         <div
@@ -30,6 +31,7 @@ const Search = ({
                 paddingBottom: paddingBottom,
                 paddingLeft: paddingLeft,
                 paddingRight: paddingRight,
+                height: height
             }}
         >
             <input
