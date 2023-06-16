@@ -60,7 +60,7 @@ const CreateQuotation = () => {
       <div className={"mt-4"}>
         {buttonState === "order" && (
           <>
-            <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} />
+            <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} isFooterShown />
             <div className={`${styles.termsAndConditionsContainer}`}>
               <div style={{ fontSize: "14px", fontWeight: "700" }}>Terms & Conditions</div>
               <div className={`${styles.termsAndConditionsInputContainer}`}>

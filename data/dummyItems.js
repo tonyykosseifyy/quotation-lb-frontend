@@ -29,6 +29,24 @@ export const itemsList = [
   },
 ];
 
+export const comboItemsList = [
+  {
+    type: 1,
+  },
+  {
+    type: 1,
+  },
+  {
+    type: 1,
+  },
+  {
+    type: 1,
+  },
+  {
+    type: 1,
+  },
+];
+
 export const dummyDropdownOptions = [
   { id: "chocolate", name: "Chocolate" },
   { id: "strawberry", name: "Strawberry" },

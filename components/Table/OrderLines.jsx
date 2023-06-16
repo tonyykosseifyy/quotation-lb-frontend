@@ -7,7 +7,7 @@ import Plus from "@/components/UI/Icons/Plus";
 import { createQuotationFooterElements, createQuotationHeaderList, rowInputFlexList } from "@/data/constants";
 import styles from "./OrderLines.module.css";
 
-const OrderLinesRows = ({ control, register, itemListState }) => {
+const OrderLinesRows = ({ control, register, itemListState, isFooterShown = false }) => {
   const [itemList, setItemList] = itemListState;
   return (
     <>
@@ -81,31 +81,35 @@ const OrderLinesRows = ({ control, register, itemListState }) => {
             ))}
           </ul>
         </div>
-        <div
-          style={{
-            display: "flex",
-            padding: "16px",
-          }}>
-          {createQuotationFooterElements.map(({ id, name }) => {
-            return (
-              <div
-                key={id}
-                onClick={() => {
-                  setItemList([...itemList, { type: id }]);
-                }}
-                className={`${styles.footerRow}`}>
-                <Plus fillColor='var(--primary-clr-light)' />
+        {isFooterShown ? (
+          <div
+            style={{
+              display: "flex",
+              padding: "16px",
+            }}>
+            {createQuotationFooterElements.map(({ id, name }) => {
+              return (
                 <div
-                  style={{
-                    fontSize: "12px",
-                    paddingLeft: "8px",
-                  }}>
-                  {name}
+                  key={id}
+                  onClick={() => {
+                    setItemList([...itemList, { type: id }]);
+                  }}
+                  className={`${styles.footerRow}`}>
+                  <Plus fillColor='var(--primary-clr-light)' />
+                  <div
+                    style={{
+                      fontSize: "12px",
+                      paddingLeft: "8px",
+                    }}>
+                    {name}
+                  </div>
                 </div>
-              </div>
-            );
-          })}
-        </div>
+              );
+            })}
+          </div>
+        ) : (
+          <></>
+        )}
       </div>
     </>
   );

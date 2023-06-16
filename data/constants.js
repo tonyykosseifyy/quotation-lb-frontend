@@ -4,13 +4,13 @@ import orderLinesStyles from "@/components/Table/OrderLines.module.css";
 
 export const createQuotationHeaderList = [
   { title: "", flex: 0.5 },
-  { title: "Item", flex: 1.5 },
+  { title: "Item Code", flex: 1.5 },
   { title: "Description", flex: 3.5 },
   { title: "Quantity", flex: 1 },
   { title: "Unit Price", flex: 1 },
   { title: "Disc %", flex: 1 },
   { title: "Total", flex: 1 },
-  { title: "More Options", flex: 1 },
+  { title: "", flex: 1 },
   { title: "", flex: 0.5 },
 ];
 
@@ -22,6 +22,13 @@ export const createQuotationFooterElements = [
   { id: 4, name: "Note" },
 ];
 
+/**
+ * 0: title
+ * 1: item
+ * 2: combo
+ * 3: image
+ * 4: note
+ */
 export const rowInputFlexList = [
   {
     inputs: [
