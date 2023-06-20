@@ -3,12 +3,12 @@
 import React, { useState, useEffect } from "react";
 import styles from "./page.module.css";
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
-import Table from "@/components/Table/Table";
 import { useForm } from "react-hook-form";
 import { newCombo } from "@/data/tableData";
 import ModalComponent from "@/components/Modal/Modal";
 import { comboItemsList } from "@/data/dummyItems";
 import OrderLinesRows from "@/components/Table/OrderLines";
+import { newComboFooterElements } from "@/data/constants";
 
 const tableFooterElements = [
   { id: "create_new_combo", name: "Create new combo" },
@@ -32,7 +32,7 @@ const createNewComboModal = () => {
       transform: "translate(-50%, -50%)",
       width: "88%",
       height: "auto",
-      padding: "40px 44px 0px 45px",
+      padding: "40px 44px 10px 45px",
       borderRadius: "8px",
     },
   };
@@ -62,10 +62,10 @@ const createNewComboModal = () => {
       <ModalComponent title="Combo's Name" titlePaddingBottom='12px' isOpen={showModal} onRequestClose={() => setShowModal(false)} style={modalStyle}>
         <div>
           <div>
-            <InputContainer inputPlaceholder='' inputBorder={styles.inputContainerBorder} inputType='text' inputName='combo_name' inputId='combo_name' height='38' width='1600' widthUnit='px' fontWeight='700' control={control} register={register} />
+            <InputContainer inputPlaceholder='' inputBorder={styles.inputContainerBorder} inputType='text' inputName='combo_name' inputId='combo_name' height='38' width='1220' widthUnit='px' fontWeight='700' control={control} register={register} />
           </div>
           <div style={{ marginTop: "38px" }}>
-            <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} />
+            <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} isFooterShown footerList={newComboFooterElements} footerPaddingTop={"63px"} footerPaddingLeft={"12px"} tableWidth={"1220px"}/>
           </div>
         </div>
       </ModalComponent>

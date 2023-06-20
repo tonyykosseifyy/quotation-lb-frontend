@@ -25,12 +25,13 @@
 .tableDiv {
   margin-top: 30px;
   background-color: white;
+  border-radius: 8px;
 }
 
 .headerLayout {
   background-color: var(--primary-clr);
   border-radius: 5px;
-  padding: 16px;
+  padding: 16px 8px;
   display: flex;
   color: white;
 }
@@ -43,7 +44,7 @@
 
 .singleItemRow {
   display: flex;
-  padding: 8px 16px;
+  padding: 8px 0px 8px 8px;
 }
 
 .footerRow {
@@ -53,7 +54,7 @@
 }
 
 .dragAndDropContainer {
-  width: 1043px;
+  width: 100%;
   border: 2px;
   border-radius: 8px;
   border-style: dashed;

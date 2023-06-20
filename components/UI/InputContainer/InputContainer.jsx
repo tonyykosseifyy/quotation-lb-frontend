@@ -5,6 +5,9 @@ import styles from "./InputContainer.module.css";
 const InputContainer = ({
     label,
     inputBorder,
+    placeholderColor,
+    placeholderStyle,
+    placeholderWeight,
     inputBorderColor,
     isRequired,
     inputPlaceholder = "",
@@ -53,6 +56,9 @@ const InputContainer = ({
                 fontWeight={fontWeight}
                 textAlign={textAlign}
                 inputBorder={inputBorder}
+                placeholderColor={placeholderColor}
+                placeholderStyle={placeholderStyle}
+                placeholderWeight={placeholderWeight}
                 inputBorderColor={inputBorderColor}
                 register={register}
                 control={control}

@@ -7,24 +7,25 @@ import Plus from "@/components/UI/Icons/Plus";
 import { createQuotationFooterElements, createQuotationHeaderList, rowInputFlexList } from "@/data/constants";
 import styles from "./OrderLines.module.css";
 
-const OrderLinesRows = ({ control, register, itemListState, isFooterShown = false }) => {
+const OrderLinesRows = ({ control, register, itemListState, isFooterShown = false, footerList, footerPaddingTop, footerPaddingLeft, tableWidth }) => {
   const [itemList, setItemList] = itemListState;
   return (
     <>
-      <div className={`${styles.tableDiv}`}>
+      <div className={`${styles.tableDiv} overflow-auto`}>
+       <div  className={`overflow-auto`} style={{ width: tableWidth }}>
         <div className={`${styles.headerLayout}`}>
           {createQuotationHeaderList.map((header) => (
             <span style={{ flex: header.flex }}>{header.title}</span>
           ))}
         </div>
-        <div className={`${styles.rowsLayout}`}>
+        <div className={`${styles.rowsLayout} mt-3`}>
           <ul id='itemRows' className={`${styles.itemRows}`}>
             {itemList.map((item, itemIdx) => (
               <li>
-                <div className={`${styles.singleItemRow}`}>
+                <div className={`${styles.singleItemRow} d-flex align-items-center`}>
                   <span
                     style={{
-                      flex: 0.5,
+                      flex: 0.30,
                     }}>
                     <FourArrows />
                   </span>
@@ -38,8 +39,12 @@ const OrderLinesRows = ({ control, register, itemListState, isFooterShown = fals
                         input.customHtml
                       ) : (
                         <InputContainer
-                          inputBorder
+                          placeholderColor
+                          placeholderStyle
+                          inputBorderColor={input.inputBorderColor}
+                          placeholderWeight={input.placeholderWeight}
                           inputPlaceholder={input.inputPlaceholder}
+                          textAlign={input.textAlign}
                           inputType={input.inputType}
                           inputName={input.inputName}
                           inputId={input.inputName}
@@ -58,7 +63,7 @@ const OrderLinesRows = ({ control, register, itemListState, isFooterShown = fals
                   ))}
                   <span
                     style={{
-                      flex: 1,
+                      flex: 0.70,
                       textAlign: "center",
                     }}>
                     <Ellipsis />
@@ -85,9 +90,11 @@ const OrderLinesRows = ({ control, register, itemListState, isFooterShown = fals
           <div
             style={{
               display: "flex",
-              padding: "16px",
+              padding: "16px 0px",
+              paddingLeft: footerPaddingLeft,
+              paddingTop: footerPaddingTop,
             }}>
-            {createQuotationFooterElements.map(({ id, name }) => {
+            {footerList.map(({ id, name }) => {
               return (
                 <div
                   key={id}
@@ -110,6 +117,7 @@ const OrderLinesRows = ({ control, register, itemListState, isFooterShown = fals
         ) : (
           <></>
         )}
+       </div>
       </div>
     </>
   );

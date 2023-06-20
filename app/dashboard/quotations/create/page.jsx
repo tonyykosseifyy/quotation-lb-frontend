@@ -10,6 +10,7 @@ import { paymentTerms } from "@/data/tableData";
 import Sortable from "sortablejs";
 import { dummyDropdownOptions, itemsList } from "@/data/dummyItems";
 import OrderLinesRows from "@/components/Table/OrderLines";
+import { createQuotationFooterElements } from "@/data/constants";
 
 const CreateQuotation = () => {
   const [buttonState, setButtonState] = useState("order");
@@ -60,15 +61,17 @@ const CreateQuotation = () => {
       <div className={"mt-4"}>
         {buttonState === "order" && (
           <>
-            <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} isFooterShown />
-            <div className={`${styles.termsAndConditionsContainer}`}>
-              <div style={{ fontSize: "14px", fontWeight: "700" }}>Terms & Conditions</div>
+            <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} isFooterShown footerList={createQuotationFooterElements} footerPaddingTop={"43px"} footerPaddingLeft={"48px"} tableWidth={"1296px"}/>
+            <div className={`${styles.termsAndConditionsContainer} overflow-auto`}> 
+             <div className={`overflow-auto`}>
+              <div style={{ fontSize: "14px", fontWeight: "700"}}>Terms & Conditions</div>
               <div className={`${styles.termsAndConditionsInputContainer}`}>
                 <InputContainer inputPlaceholder='Terms & Conditions' inputType='textarea' inputName='Terms & Conditions' width='1230' height='73' control={control} register={register} />
               </div>
               <div className={`${styles.newTermsAndConditionsLink}`}>
                 <i>Or Create new Terms & Conditions</i>
               </div>
+             </div>
             </div>
 
             <div className={`${styles.totalAmountContainer}`}>

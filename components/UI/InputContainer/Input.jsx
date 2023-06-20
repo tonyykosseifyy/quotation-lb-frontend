@@ -9,6 +9,9 @@ import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
 
 const Input = ({
     inputPlaceholder = "",
+    placeholderColor,
+    placeholderStyle,
+    placeholderWeight,
     inputBorder,
     inputBorderColor,
     codeName,
@@ -47,7 +50,7 @@ const Input = ({
                     placeholder={inputPlaceholder}
                     {...register(inputName, { required: isRequired })}
                     style={{
-                        fontWeight: fontWeight ? fontWeight : "600",
+                        fontWeight: placeholderWeight ? placeholderWeight : "600",
                         fontSize: "12px",
                         textAlign: textAlign ? textAlign : "start",
                         borderColor: inputBorderColor? "var(--input-border-2)" : "var(--input-border)"
@@ -60,7 +63,7 @@ const Input = ({
                     className={styles.inputText}
                     name={inputName}
                     id={inputId}
-                    style={{ resize: canResize ? "" : "none", fontSize: "12px", fontWeight: "600"}}
+                    style={{ resize: canResize ? "" : "none", fontSize: "12px", fontWeight: placeholderWeight}}
                     placeholder={inputPlaceholder}
                     {...register(inputName, { required: isRequired })}
                 />
@@ -77,15 +80,15 @@ const Input = ({
                                 control: (baseStyles, state) => ({
                                     ...baseStyles,
                                     borderRadius: 5,
-                                    borderColor: inputBorderColor ? "rgba(109, 144, 208, 1)" : "rgba(68, 114, 196, 0.2)",
+                                    borderColor: inputBorderColor ? "var(--input-border-2)" : "var(--input-border)",
                                     "&:hover": {
                                         borderColor: "none",
                                     },
                                     "&:focus": {
-                                        borderColor: "rgba(68, 114, 196, 0.2)",
+                                        borderColor: "var(--input-border)",
                                     },
                                     "&:active": {
-                                        borderColor: "rgba(68, 114, 196, 0.2)",
+                                        borderColor: "var(--input-border)",
                                     },
                                     backgroundColor: "transparent",
                                 }),
@@ -96,9 +99,9 @@ const Input = ({
                                 }),
                                 placeholder: (baseStyles, state) => ({
                                     ...baseStyles,
-                                    color: inputBorder ? "#868686" : "#C8C8C8",
-                                    fontStyle: inputBorder ? "normal" : "italic",
-                                    fontWeight: fontWeight ? fontWeight : "",
+                                    color: placeholderColor ? "#868686" : "#C8C8C8",
+                                    fontStyle: placeholderStyle ? "normal" : "italic",
+                                    fontWeight: placeholderWeight? placeholderWeight : "",
                                     fontSize: fontSize ? fontSize : "14px"
                                 }),
                             }}
