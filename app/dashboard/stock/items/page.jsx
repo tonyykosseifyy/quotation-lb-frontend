@@ -1,11 +1,16 @@
 "use client";
 
-import React, {useState} from "react";
+import React, { useState } from "react";
 import styles from "./page.module.css";
 import Button from "@/components/UI/Button/Button";
 import Search from "@/components/UI/Search/Search";
 import { useForm } from "react-hook-form";
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
+import { items } from "@/data/stocks";
+import GridIcon from "@/components/UI/Icons/GridIcon";
+import ListIcon from "@/components/UI/Icons/ListIcon";
+import DataTable from "react-data-table-component";
+import Heart from "@/components/UI/Icons/Heart";
 
 const filterByOptions = [
   { id: "duplicate", name: "Duplicate" },
@@ -13,80 +18,89 @@ const filterByOptions = [
   { id: "edit", name: "Edit" },
 ]
 
-const items = [
-  {
-    id: 1,
-    src: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    title: "Product One",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting.",
-    price: "$540.00",
-  },
-  {
-    id: 2,
-    src: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    title: "Product Two",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting.",
-    price: "$540.00",
-  },
-  {
-    id: 3,
-    src: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    title: "Product Three",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting.",
-    price: "$540.00",
-  },
-  {
-    id: 4,
-    src: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    title: "Product One",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting.",
-    price: "$540.00",
-  },
-  {
-    id: 5,
-    src: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    title: "Product Two",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting.",
-    price: "$540.00",
-  },
-  { 
-    id: 6,
-    src: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    title: "Product Three",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting.",
-    price: "$540.00",
-  },
-  { 
-    id: 7,
-    src: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    title: "Product One",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting.",
-    price: "$540.00",
-  },
-  {
-    id: 8,
-    src: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    title: "Product Two",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting.",
-    price: "$540.00",
-  },
-  {
-    id: 9,
-    src: "https://i.pravatar.cc/150?u=a042581f4e29026704d",
-    title: "Product Three",
-    description: "Lorem Ipsum is simply dummy text of the printing and typesetting.",
-    price: "$540.00",
-  },
-]
-
-const StockItems = () => {
+const Products = () => {
   const [search, setSearch] = useState("");
   const handleSearch = (e) => {
     setSearch(e.target.value);
+    console.log(e.target.value);
 };
 
   const handleCreateProduct = () => {
     //
+};
+
+const [view, setView]= useState( "grid");
+
+const columns = [
+  {
+    name: "",
+    width: "30px",
+    allowOverflow: true,
+  },
+  {
+    name: "Code",
+    maxWidth: "130px",
+    selector: (row) => row.code,
+  },
+  {
+    name: "Description",
+    maxWidth: "650px",
+    selector: (row) => row.description,
+  },
+  {
+    name: "Qty on Hand",
+    maxWidth: "150px",
+    selector: (row) => row.qtyOnHand,
+    center: true,
+  },
+  {
+    name: "Price",
+    width: "100px",
+    selector: (row) => row.price,
+    // sortable: true,
+    center: true,
+  },
+  {
+    name: "Currency",
+    width: "100px",
+    selector: (row) => row.currency,
+    center: true,
+  },
+  {
+    name: "Qty on Order",
+    width: "150px",
+    selector: (row) => row.qtyOnOrder,
+    center: true,
+  },
+  {
+    name: "Qty Shipped",
+    width: "150px",
+    selector: (row) => row.qtyShipped,
+    center: true,
+  },
+  {
+    name: "",
+    width: "30px",
+  },
+];
+
+const customStyles = {
+  headRow: {
+      style: {
+          backgroundColor: "var(--primary-clr)",
+          color: "white",
+          fontSize: "13px",
+          fontWeight: 600,
+          borderRadius: 5,
+      },
+  },
+  cells: {
+      style: {
+          fontSize: 12,
+          fontWeight: 700,
+          color: "var(--table-data-text-clr)",
+      },
+  },
 };
 
 const {
@@ -101,7 +115,7 @@ const {
   return (
       <div className={`container m-0`}>
           <div className={`${styles.header} pt-4`}>
-              <div className={`${styles.title}`}>STOCK ITEMS</div>
+              <div className={`${styles.title}`}>Products</div>
                   <div>
                       <Button
                         title="Create New Product"
@@ -146,15 +160,25 @@ const {
                           register={register}
                           width={"112"}
                        />
-                      <div className="d-flex" style={{gap: "12px"}} >
-                          <img src="/assets/svg/settings.svg" />
-                          <img src="/assets/svg/4-squares.svg" /> 
-                          <img src="/assets/svg/menu.svg" />    
+                      <div className="d-flex d-inline-block" style={{gap: "12px"}} >
+                          <span className="pt-3 pt-md-1" style={{ cursor: "pointer" }}>
+                            <img src="/assets/svg/settings.svg" />
+                          </span>
+                          <span className="pt-3 pt-md-1" style={{ cursor: "pointer" }} onClick={() => setView("grid")}>
+                             <GridIcon fillColor={ view === "grid" ? "#4472c4" : "#535353" } />
+                          </span> 
+                          <span className="pt-3 pt-md-1" style={{ cursor: "pointer" }} onClick={() => setView("list")}>
+                             <ListIcon fillColor={ view === "list" ? "#4472c4" : "#535353" } />
+                          </span> 
                       </div> 
                    </div>   
             </div>
-            <div class="row pt-3">
+
+            {
+              view === "grid" && (
+               <div className="row pt-3">
                 {items.map( item => {
+                  if (search === "" || (item.code.toLowerCase().includes(search.toLowerCase())))
                     return (
                         <div key={item.id} className="col-12 col-md-6 col-lg-4 mt-4">
                             <div className={`card ${styles.singleCard}`}>
@@ -164,7 +188,9 @@ const {
                                       <div className="ps-3">
                                           <div className="d-flex justify-content-between">
                                               <div className={`card-title ${styles.cardTitle}`}>{item.title}</div>
-                                              <img src="/assets/svg/heart.svg" />
+                                              <span style={{ cursor: "pointer"}}>
+                                              < Heart/>
+                                              </span>
                                           </div>
                                           <p className={`card-text pe-4 pe-sm-4 pe-md-5 ${styles.cardBodyText}`}>
                                             {item.description}
@@ -172,15 +198,31 @@ const {
                                        </div>
                                   </div>
                                   <hr className="mb-1"/>
-                                  <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>{item.price}</div>
+                                  <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>{item.currencySymbol !== "LL" && item.currencySymbol}{item.price}{item.currencySymbol === "LL" && item.currencySymbol}</div>
                                </div>
                              </div>
                          </div>
-                     )
+                      )
+                    return null; 
                  })}
-             </div>
+               </div>
+              )
+            }
+
+            {
+              view === "list" && (
+                <div className="pt-3 mt-4">
+                  <DataTable 
+                    columns={columns}
+                    data={items}
+                    customStyles={customStyles}
+                  />
+                </div>
+              )
+            }
+            
        </div>     
   )
 }
 
-export default StockItems;
+export default Products;
