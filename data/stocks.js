@@ -116,4 +116,10 @@ export const items = [
     qtyOnOrder: "9 Boxes",
     qtyShipped: "9 Boxes",
   },
-]
+];
+
+export const settingsOptions = [
+  { id: "duplicate", name: "Duplicate" },
+  { id: "delete", name: "Delete" },
+  { id: "edit", name: "Edit" },
+]; 
