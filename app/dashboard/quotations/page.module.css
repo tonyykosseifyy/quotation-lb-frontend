@@ -15,13 +15,6 @@
 
 .buttonsDiv {
     margin-top: 70px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
-.tableDiv {
-    margin-top: 30px;
 }
 
 @media only screen and (min-width: 768px) {
@@ -29,11 +22,5 @@
         flex-direction: row;
         justify-content: space-between;
         gap: 0;
-    }
-}
-
-@media only screen and (min-width: 768px) {
-    .buttonsDiv {
-        flex-direction: row;
     }
 }

@@ -266,7 +266,7 @@ const CreateClient = () => {
                     </div>
                 </div>
                 <div className={`${styles.extraInfo}`}>
-                    <div className={`${styles.extraInfoButtons}`}>
+                    <div className={`d-flex`}>
                         <Button
                             title="Contacts & Addresses"
                             rounded={true}
@@ -274,6 +274,7 @@ const CreateClient = () => {
                             onClick={handleExtraInfoChange}
                             value="contact"
                             type="button"
+                            tab
                         />
                         <Button
                             title="Sales"
@@ -282,6 +283,7 @@ const CreateClient = () => {
                             onClick={handleExtraInfoChange}
                             type="button"
                             value="sales"
+                            tab
                         />
                         <Button
                             title="Internal Note"
@@ -290,6 +292,7 @@ const CreateClient = () => {
                             onClick={handleExtraInfoChange}
                             value="internalNote"
                             type="button"
+                            tab
                         />
                     </div>
                     <div className={`${styles.extraInfoDetails}`}>

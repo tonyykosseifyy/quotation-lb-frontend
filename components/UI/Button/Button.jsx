@@ -14,15 +14,19 @@ const Button = ({
     onClick,
     value,
     type,
+    tab,
 }) => {
     return (
         <button
-            className={`
-            ${styles.container}
-            ${fillBackground ? styles.fillBackground : ""}
-            ${rounded ? styles.roundedBorder : ""}
-            
-         `}
+            className={
+                tab ? 
+                  `${styles.tabcontainer}
+                   ${fillBackground ? styles.tabFillBackground : ""}` 
+                  : 
+                  `${styles.container}
+                   ${fillBackground ? styles.fillBackground : ""}
+                   ${rounded ? styles.roundedBorder : ""}`
+           }
             style={{
                 fontSize: fontSize,
                 fontWeight: fontWeight,

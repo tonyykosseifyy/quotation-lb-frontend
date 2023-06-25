@@ -334,35 +334,17 @@ const Page = () => {
                     onClick={handleExtraInfoChange}
                     value="all"
                     type="button"
-                />
-                <Button
-                    title="Combos"
-                    rounded={true}
-                    fillBackground={buttonState === "combos"}
-                    onClick={handleExtraInfoChange}
-                    type="button"
-                    value="combos"
-                />
-                <Button
-                    title="Single Item"
-                    rounded={true}
-                    fillBackground={buttonState === "single"}
-                    onClick={handleExtraInfoChange}
-                    value="single"
-                    type="button"
+                    tab
                 />
             </div>
-
-            <div className={styles.tableDiv}>
-                <DataTable
-                    columns={columns}
-                    data={filteredQuotations}
-                    pagination
-                    customStyles={customStyles}
-                    paginationComponentOptions={paginationComponentOptions}
-                    paginationRowsPerPageOptions={paginationRowsPerPageOptions}
-                />
-            </div>
+            <DataTable
+                columns={columns}
+                data={filteredQuotations}
+                pagination
+                customStyles={customStyles}
+                paginationComponentOptions={paginationComponentOptions}
+                paginationRowsPerPageOptions={paginationRowsPerPageOptions}
+            />
         </div>
     );
 };

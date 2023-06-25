@@ -53,12 +53,12 @@ const CreateQuotation = () => {
         </div>
       </div>
       <div className={`${styles.extraInfo}`}>
-        <div className={`${styles.extraInfoButtons}`}>
-          <Button title='Order lines' rounded={true} fillBackground={buttonState === "order"} onClick={handleExtraInfo} value='order' type='button' />
-          <Button title='Other Information' rounded={true} fillBackground={buttonState === "information"} onClick={handleExtraInfo} value='information' type='button' />
+        <div className={`d-flex`}>
+          <Button title='Order lines' fillBackground={buttonState === "order"} onClick={handleExtraInfo} value='order' type='button' tab />
+          <Button title='Other Information' fillBackground={buttonState === "information"} onClick={handleExtraInfo} value='information' type='button' tab />
         </div>
       </div>
-      <div className={"mt-4"}>
+      <div>
         {buttonState === "order" && (
           <>
             <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} isFooterShown footerList={createQuotationFooterElements} footerPaddingTop={"43px"} footerPaddingLeft={"48px"} tableWidth={"1296px"}/>

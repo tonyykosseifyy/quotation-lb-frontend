@@ -59,19 +59,11 @@
     margin-top: 68px;
 }
 
-.extraInfoButtons {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-}
-
 .extraInfoDetails {
-    margin-top: 46px;
     background-color: white;
-    border-radius: 8px;
+    border-radius: 0px 2px 2px 2px;
     border-top: 2px solid var(--primary-clr);
     padding: 38px;
-
 }
 
 .contactDivButtons {
@@ -113,11 +105,5 @@
 @media only screen and (min-width: 991px) {
     .inputRow2 {
         margin-top: 0;
-    }
-}
-
-@media only screen and (min-width: 820px) {
-    .extraInfoButtons {
-        flex-direction: row;
     }
 }
