@@ -7,10 +7,10 @@ import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import Button from "@/components/UI/Button/Button";
 import { countries } from "@/data/countries";
 
-import { clients } from "@/data/createClient";
+import { clients, titles } from "@/data/createClient";
 import { useForm } from "react-hook-form";
 import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
-import { dummyDropdownOptions } from "@/data/dummyItems";
+import { dummyDropdownOptions, dummyItems } from "@/data/dummyItems";
 
 const CreateClient = () => {
     const {
@@ -120,149 +120,149 @@ const CreateClient = () => {
                         />
                     </div>
                 </div>
-                <div className={`${styles.infoDiv}`}>
-                    <div className={`${styles.inputRow}`}>
-                        {state.clientType === "individual" && (
+                <div>
+                    <div className="d-flex flex-column" style={{ maxWidth: "850px"}}>
+                        <div  className={`${styles.serialNumber} pb-5`}>
+                            Serial Number
+                        </div>
+                        <div className={`pb-5`}>
                             <InputContainer
                                 label="Client Name"
                                 isRequired={true}
-                                inputPlaceholder="Search..."
-                                inputType="select"
+                                inputPlaceholder=""
+                                inputType="text"
                                 inputName="clientName"
-                                selectOptions={clients}
                                 register={register}
                                 control={control}
+                                width={77}
+                                widthUnit={"%"}
                             />
-                        )}
-                        <InputContainer
-                            label="Company Name"
-                            isRequired={true}
-                            inputPlaceholder=""
-                            inputType="select"
-                            inputName="companyName"
-                            selectOptions={dummyDropdownOptions}
-                            register={register}
-                            control={control}
-                        />
-                        <InputContainer
-                            label="Country"
-                            isRequired={true}
-                            inputPlaceholder=""
-                            inputType="select"
-                            inputName="country"
-                            selectOptions={dummyDropdownOptions}
-                            register={register}
-                            control={control}
-                        />
-                        <InputContainer
-                            label="City"
-                            isRequired={true}
-                            inputPlaceholder="Search..."
-                            inputType="text"
-                            inputName="city"
-                            register={register}
-                        />
-                        <InputContainer
-                            label="State"
-                            isRequired={true}
-                            inputPlaceholder=""
-                            inputType="text"
-                            inputName="state"
-                            register={register}
-                        />
-                        <InputContainer
-                            label="Zip"
-                            isRequired={true}
-                            inputPlaceholder=""
-                            inputType="text"
-                            inputName="zip"
-                            register={register}
-                        />
-                        <InputContainer
-                            label="Street"
-                            isRequired={true}
-                            inputPlaceholder=""
-                            inputType="text"
-                            inputName="street"
-                            register={register}
-                        />
+                        </div>
                     </div>
-                    <div className={`${styles.inputRow} ${styles.inputRow2}`}>
-                        {state.clientType === "individual" && (
+                    <div className={state.clientType === "company" ? "d-flex flex-sm-column-reverse flex-row-reverse" : "d-flex flex-column flex-lg-row"} style={{ gap: "40px" }}>
+                        <div className="d-flex flex-column" style={{ gap: "18px", width: "80%"}}>
                             <InputContainer
-                                label="Job Position"
+                                label="Reference"
                                 isRequired={true}
-                                inputPlaceholder="Sales Director, Sales..."
-                                inputType="select"
-                                inputName="jobPosition"
-                                selectOptions={dummyDropdownOptions}
-                                inputId="jobPosition"
+                                inputPlaceholder=""
+                                inputType="text"
+                                inputName="reference"
                                 register={register}
                                 control={control}
                             />
-                        )}
-                        <InputContainer
-                            label="Phone"
-                            isRequired={true}
-                            inputPlaceholder=""
-                            inputType="phone"
-                            codeName="phoneCode"
-                            changeCodeValue={changeCodeValue}
-                            inputName="phone"
-                            selectOptions={dummyDropdownOptions}
-                            register={register}
-                            control={control}
-                        />
-                        <InputContainer
-                            label="Mobile"
-                            isRequired={true}
-                            inputPlaceholder=""
-                            inputType="phone"
-                            codeName="mobileCode"
-                            changeCodeValue={changeCodeValue}
-                            inputName="mobile"
-                            selectOptions={dummyDropdownOptions}
-                            register={register}
-                            control={control}
-                        />
-                        <InputContainer
-                            label="Email"
-                            isRequired={true}
-                            inputPlaceholder="example@gmail.com"
-                            inputType="text"
-                            inputName="email"
-                            register={register}
-                        />
-                        {state.clientType === "individual" && (
+                            {state.clientType === "individual" && (
+                                <>
+                                    <InputContainer
+                                        label="Title"
+                                        isRequired={true}
+                                        inputPlaceholder="Doctor, Miss, Mister"
+                                        inputType="select"
+                                        inputName="title"
+                                        selectOptions={titles}
+                                        register={register}
+                                        control={control}
+                                    />
+                                    <InputContainer
+                                        label="Job Position"
+                                        isRequired={true}
+                                        inputPlaceholder="Sales Director, Sales.."
+                                        inputType="text"
+                                        inputName="jobPosition"
+                                        register={register}
+                                    />
+                                </>
+                            )}
                             <InputContainer
-                                label="Title"
+                                label="Tax ID"
                                 isRequired={true}
-                                inputPlaceholder="Doctor, Miss, Mister"
-                                inputType="select"
-                                inputName="title"
+                                inputPlaceholder=""
+                                inputType="text"
+                                inputName="taxID"
+                                register={register}
+                            />
+                        </div>
+                        <div className="d-flex flex-column" style={{ gap: "18px", width: "80%"}}>
+                            <InputContainer
+                                label="Phone"
+                                isRequired={true}
+                                inputPlaceholder=""
+                                inputType="phone"
+                                codeName="phoneCode"
+                                changeCodeValue={changeCodeValue}
+                                inputName="phone"
                                 selectOptions={dummyDropdownOptions}
                                 register={register}
                                 control={control}
                             />
-                        )}
-                        <InputContainer
-                            label="Tags"
-                            isRequired={true}
-                            inputPlaceholder="Vip, Consulting"
-                            inputType="select"
-                            inputName="tags"
-                            selectOptions={dummyDropdownOptions}
-                            register={register}
-                            control={control}
-                        />
-                        <InputContainer
-                            label="Tax ID"
-                            isRequired={true}
-                            inputPlaceholder=""
-                            inputType="text"
-                            inputName="taxId"
-                            register={register}
-                        />
+                            <InputContainer
+                                label="Mobile"
+                                isRequired={true}
+                                inputPlaceholder=""
+                                inputType="phone"
+                                codeName="mobileCode"
+                                changeCodeValue={changeCodeValue}
+                                inputName="mobile"
+                                selectOptions={dummyDropdownOptions}
+                                register={register}
+                                control={control}
+                            />
+                            <InputContainer
+                                label="Email"
+                                isRequired={true}
+                                inputPlaceholder="example@gmail.com"
+                                inputType="text"
+                                inputName="email"
+                                register={register}
+                            />
+                            <InputContainer
+                                label="Website"
+                                isRequired={true}
+                                inputPlaceholder="www.example.com"
+                                inputType="text"
+                                inputName="website"
+                                register={register}
+                                control={control}
+                            />
+                        </div>
+                        <div className="d-flex flex-column"  style={{ gap: "18px", width: "80%"}}>
+                            <InputContainer
+                                label="Floor, Bldg"
+                                isRequired={true}
+                                inputPlaceholder=""
+                                inputType="text"
+                                inputName="floorBldg"
+                                register={register}
+                                control={control}
+                            />
+                            <InputContainer
+                                label="Street"
+                                isRequired={true}
+                                inputPlaceholder=""
+                                inputType="select"
+                                inputName="street"
+                                register={register}
+                                control={control}
+                            />
+                            <InputContainer
+                                label="City"
+                                isRequired={true}
+                                inputPlaceholder=""
+                                inputType="text"
+                                inputName="city"
+                                register={register}
+                                control={control}
+                            />
+                            <InputContainer
+                                label="Country"
+                                isRequired={true}
+                                inputPlaceholder=""
+                                inputType="select"
+                                inputName="country"
+                                selectOptions={dummyItems}
+                                register={register}
+                                control={control}
+                            />
+                        </div>
                     </div>
                 </div>
                 <div className={`${styles.extraInfo}`}>

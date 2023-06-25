@@ -28,3 +28,26 @@ export const clients = [
         name: "Rayna Kline",
     },
 ];
+
+export const titles = [
+    {
+        id: 1,
+        name: "Mister",
+    },
+    {
+        id: 2,
+        name: "Miss",
+    },
+    {
+        id: 3,
+        name: "Doctor",
+    },
+    {
+        id: 4,
+        name: "Maitre",
+    },
+    {
+        id: 5,
+        name: "Professor",
+    },
+];

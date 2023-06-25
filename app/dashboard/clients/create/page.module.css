@@ -33,6 +33,12 @@
     margin: 46px 0;
 }
 
+.serialNumber {
+    font-size: 36px;
+    font-weight: 600;
+    line-height: 25px;
+}
+
 .infoDiv {
     display: flex;
     flex-direction: column;
@@ -93,11 +99,11 @@
 @media only screen and (min-width: 1200px) {
     .infoDiv {
         flex-direction: row;
-        gap: 70px;
+        gap: 30px;
     }
 
     .inputRow {
-        width: 40%;
+        width: 100%;
     }
 
 }
