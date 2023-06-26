@@ -32,7 +32,6 @@ const Input = ({
   register,
   control,
   borderColor,
-  placeholderColor,
   placeholderFontStyle,
   placeholderFontWeight,
   placeholderFontSize,

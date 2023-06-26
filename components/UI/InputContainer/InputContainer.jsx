@@ -29,7 +29,6 @@ const InputContainer = ({
     register,
     control,
     borderColor,
-    placeholderColor,
     placeholderFontStyle,
     placeholderFontWeight,
     placeholderFontSize,
@@ -69,7 +68,6 @@ const InputContainer = ({
                 register={register}
                 control={control}
                 borderColor={borderColor}
-                placeholderColor={placeholderColor}
                 placeholderFontStyle={placeholderFontStyle}
                 placeholderFontWeight={placeholderFontWeight}
                 placeholderFontSize={placeholderFontSize}
