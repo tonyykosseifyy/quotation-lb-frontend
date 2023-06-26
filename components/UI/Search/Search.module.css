@@ -20,6 +20,8 @@
 .searchInput::placeholder {
     font-style: italic;
     color: var(--placeholder-text-clr);
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .searchInput:focus {
