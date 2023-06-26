@@ -5,6 +5,8 @@ import styles from "./Navbar.module.css";
 import { Dropdown, User } from "@nextui-org/react";
 import BellIcon from "@/components/UI/Icons/BellIcon";
 import DownArrow from "@/components/UI/Icons/DownArrow";
+import Link from "next/link";
+import { configurationDropDownItems } from "@/data/navBar";
 
 const Navbar = () => {
     return (
@@ -13,6 +15,35 @@ const Navbar = () => {
                 <div className={styles.option}>Orders</div>
                 <div className={styles.option}>To Invoice</div>
                 <div className={styles.option}>Products</div>
+                <div className={styles.option}>
+                    <Dropdown placement="bottom-right">
+                        <Dropdown.Trigger>
+                            <div>
+                                Configuration <DownArrow />
+                            </div>
+                        </Dropdown.Trigger>
+                        <Dropdown.Menu 
+                            aria-label="Static Actions"
+                            items={configurationDropDownItems}
+                            onAction={(actionKey) => console.log({ actionKey })}
+                            className={styles.dropDownMenu}
+                        >
+                            {(item) => (
+                                <Dropdown.Item
+                                    key={item.key}
+                                    className={styles.configurationDropDownItem}
+                                >
+                                    <Link
+                                        href={item.link}
+                                        className={styles.configurationDropDownItemLink}
+                                    >
+                                        {item.name}
+                                    </Link>
+                                </Dropdown.Item>
+                            )}
+                        </Dropdown.Menu>
+                    </Dropdown>
+                </div>
             </div>
             <div className={styles.userInfo}>
                 <BellIcon hasNewNotification={true} />

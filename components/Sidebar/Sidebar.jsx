@@ -62,6 +62,20 @@ const sidebarItems = [
     {
         title: "Report",
         logo: "/assets/svg/report.svg",
+        items: [
+            {
+                title: "Report 1",
+                link: "/dashboard",
+            },
+            {
+                title: "Report 2",
+                link: "/dashboard/",
+            },
+            {
+                title: "Report 3",
+                link: "/dashboard/",
+            },
+        ],
     },
     {
         title: "Dashboard Summary",

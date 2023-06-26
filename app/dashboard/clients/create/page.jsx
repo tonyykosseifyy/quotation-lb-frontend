@@ -238,7 +238,7 @@ const CreateClient = () => {
                                 label="Street"
                                 isRequired={true}
                                 inputPlaceholder=""
-                                inputType="select"
+                                inputType="text"
                                 inputName="street"
                                 register={register}
                                 control={control}
