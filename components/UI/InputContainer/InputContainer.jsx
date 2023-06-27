@@ -28,6 +28,11 @@ const InputContainer = ({
     spaceBetween = true,
     register,
     control,
+    borderColor,
+    placeholderFontStyle,
+    placeholderFontWeight,
+    placeholderFontSize,
+    dropdownArrowColor,
 }) => {
     return (
         <div
@@ -62,6 +67,11 @@ const InputContainer = ({
                 inputBorderColor={inputBorderColor}
                 register={register}
                 control={control}
+                borderColor={borderColor}
+                placeholderFontStyle={placeholderFontStyle}
+                placeholderFontWeight={placeholderFontWeight}
+                placeholderFontSize={placeholderFontSize}
+                dropdownArrowColor={dropdownArrowColor}
             />
         </div>
     );

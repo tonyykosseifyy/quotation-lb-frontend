@@ -43,7 +43,7 @@ const sidebarItems = [
         items: [
             {
                 title: "Items",
-                link: "/dashboard",
+                link: "/dashboard/stock/items",
             },
             {
                 title: "Create Items",
