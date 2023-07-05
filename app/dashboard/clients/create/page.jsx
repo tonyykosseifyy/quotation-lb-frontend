@@ -139,7 +139,7 @@ const CreateClient = () => {
                             />
                         </div>
                     </div>
-                    <div className={state.clientType === "company" ? "d-flex flex-sm-column-reverse flex-row-reverse" : "d-flex flex-column flex-lg-row"} style={{ gap: "40px" }}>
+                    <div className={state.clientType === "company" ? "d-flex flex-column-reverse flex-lg-row-reverse" : "d-flex flex-column flex-lg-row"} style={{ gap: "40px" }}>
                         <div className="d-flex flex-column" style={{ gap: "18px", width: "80%"}}>
                             <InputContainer
                                 label="Reference"

@@ -24,21 +24,20 @@
     border-top-right-radius: 2px;
     background: white;
     color: var(--secondary-text-clr);
-    border: 3px solid white;
-    border-right: none !important;
-    border-bottom: none !important;
-    border-left: none !important;
-    padding: 13px 30px;
+    border: 3px solid var(--tab-button-background-clr);
+    padding: 13px 20px;
     font-weight: 700;
     line-height: 19px;
     font-size: 14px; 
 }
 
 .tabFillBackground {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
     background: var(--tab-button-background-clr);
     color: var(--primary-clr);
+    border-left: none !important;
+    border-right: none !important;
     border-color: var(--tab-button-background-clr);
     border-top-color: var(--primary-clr);
 }

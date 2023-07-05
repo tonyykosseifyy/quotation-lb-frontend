@@ -47,7 +47,7 @@ const sidebarItems = [
             },
             {
                 title: "Create Items",
-                link: "/dashboard/",
+                link: "/dashboard/stock/items/create",
             },
             {
                 title: "Combos",

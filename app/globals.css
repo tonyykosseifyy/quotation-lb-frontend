@@ -91,6 +91,8 @@
     --bigCircle-background-clr: rgba(191, 219, 238, 0.3);
     --drag-and-drop-border-clr: #C4C4C4;
     --tab-button-background-clr: #F4F4F4;
+    --table-row-background-clr: rgba(191, 191, 191, 0.4);
+    --table-row-babyblue-background-clr: #A4D8FB;
 }
 
 @font-face {
