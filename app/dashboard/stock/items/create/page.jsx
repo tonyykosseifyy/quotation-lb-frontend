@@ -8,7 +8,7 @@ import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import RadioButton from "@/components/UI/RadioButton/RadioButton";
 import CheckBox from "@/components/UI/CheckBox/Checkbox";
 import Button from "@/components/UI/Button/Button";
-import { typeOptions, taxationOptions, grouping, transactionalQuantity, warehouses } from "@/data/createProduct";
+import { typeOptions, taxationOptions, checkboxInfo, grouping, transactionalQuantity, warehouses } from "@/data/createProduct";
 import DataTable from "react-data-table-component";
 
 const CreateItems = () => {
@@ -169,8 +169,6 @@ const CreateItems = () => {
         }));
     };
 
-    console.log(state);
-
     const [checkboxValues, setCheckboxValues] = useState({
         canBeSold: false,
         canBePurchased: false,
@@ -185,8 +183,6 @@ const CreateItems = () => {
             [name]: checked
         }));
     };
-
-    console.log(checkboxValues)
 
     const buttonTabs = [
         {
@@ -228,6 +224,29 @@ const CreateItems = () => {
             title: "Shipping",
             fillBackground: buttonState === "shipping",
             value: "shipping",
+        },
+    ];
+
+    const subRefRadioButtons = [
+        {
+            labelText: "Serial Number",
+            inputId: "serialNumber",
+            isChecked: state.subRef === "serialNumber"
+        },
+        {
+            labelText: "Expiry Date",
+            inputId: "expiryDate",
+            isChecked: state.subRef === "expiryDate"
+        },
+        {
+            labelText: "Color",
+            inputId: "color",
+            isChecked: state.subRef === "color"
+        },
+        {
+            labelText: "Size",
+            inputId: "size",
+            isChecked: state.subRef === "size"
         },
     ];
 
@@ -342,100 +361,41 @@ const CreateItems = () => {
                                             SubRef
                                         </div>
                                         <div className={`${styles.subRefRadioButtons} pt-2`}>
-                                            <div className="">
-                                                <RadioButton
-                                                    inputName="subRef"
-                                                    labelText="Serial Number"
-                                                    inputId="serialNumber"
-                                                    value="serialNumber"
-                                                    isChecked={
-                                                        state.subRef === "serialNumber"
-                                                    }
-                                                    onChange={handleSubRefTypeChange}
-                                                />
-                                            </div>
-                                            <div className="">
-                                                <RadioButton
-                                                    inputName="subRef"
-                                                    labelText="Expiry Date"
-                                                    inputId="expiryDate"
-                                                    value="expiryDate"
-                                                    isChecked={
-                                                        state.subRef === "expiryDate"
-                                                    }
-                                                    onChange={handleSubRefTypeChange}
-                                                />
-                                            </div>
-                                            <div className="">
-                                                <RadioButton
-                                                    inputName="subRef"
-                                                    labelText="Color"
-                                                    inputId="color"
-                                                    value="color"
-                                                    isChecked={
-                                                        state.subRef === "color"
-                                                    }
-                                                    onChange={handleSubRefTypeChange}
-                                                />
-                                            </div>
-                                            <div className="">
-                                                <RadioButton
-                                                    inputName="subRef"
-                                                    labelText="Size"
-                                                    inputId="size"
-                                                    value="size"
-                                                    isChecked={
-                                                        state.subRef === "size"
-                                                    }
-                                                    onChange={handleSubRefTypeChange}
-                                                />
-                                            </div>
+                                            {subRefRadioButtons.map(({ labelText, inputId, isChecked }) => {
+                                                return (
+                                                    <div key={inputId} className="">
+                                                        <RadioButton
+                                                            inputName="subRef"
+                                                            labelText={labelText}
+                                                            inputId={inputId}
+                                                            value={inputId}
+                                                            isChecked={isChecked}
+                                                            onChange={handleSubRefTypeChange}
+                                                        />
+                                                    </div>
+                                                )
+                                            })}
                                         </div>
                                     </div>
                                     <div className={`${styles.checkBoxDiv} pt-4`}>
-                                        <div className="">
-                                            <CheckBox
-                                                inputName="canBeSold"
-                                                labelText="Can Be Sold"
-                                                inputId="canBeSold"
-                                                value="canBeSold"
-                                                isChecked={checkboxValues.value}
-                                                onChange={handleCheckboxChange}
-                                            />
-                                        </div>
-                                        <div className="">
-                                            <CheckBox
-                                                inputName="canBePurchased"
-                                                labelText="Can Be Purchased"
-                                                inputId="canBePurchased"
-                                                value="canBePurchased"
-                                                isChecked={checkboxValues.value}
-                                                onChange={handleCheckboxChange}
-                                            />
-                                        </div>
-                                        <div className="">
-                                            <CheckBox
-                                                inputName="warranty"
-                                                labelText="Warranty"
-                                                inputId="warranty"
-                                                value="warranty"
-                                                isChecked={checkboxValues.value}
-                                                onChange={handleCheckboxChange}
-                                            />
-                                        </div>
-                                        <div className="">
-                                            <CheckBox
-                                                inputName="discontinued"
-                                                labelText="Discontinued"
-                                                inputId="discontinued"
-                                                value="discontinued"
-                                                isChecked={checkboxValues.value}
-                                                onChange={handleCheckboxChange}
-                                            />
-                                        </div>
+                                        {checkboxInfo.map(({ inputName, labelText }) => {
+                                            return (
+                                                <div key={inputName} className="">
+                                                    <CheckBox
+                                                        inputName={inputName}
+                                                        labelText={labelText}
+                                                        inputId={inputName}
+                                                        value={inputName}
+                                                        isChecked={checkboxValues.value}
+                                                        onChange={handleCheckboxChange}
+                                                    />
+                                                </div>
+                                            )
+                                        })}
                                         {checkboxValues.discontinued === true && (
                                             <InputContainer
                                                 label=""
+                                                isRequired={true}
                                                 inputPlaceholder="DATE"
                                                 inputType="text"
                                                 inputName="date"
@@ -594,7 +554,7 @@ const CreateItems = () => {
                     <div className={`${styles.actionButtons} mt-5 mt-lg-0`}>
                             <div
                                 className={`${styles.discard}`}
-                                onClick={() => reset()}
+                                onClick={() => {reset(), setState("")}}
                             >
                                 Discard
                             </div>

@@ -11,6 +11,25 @@ export const taxationOptions = [
   { id: "without_vat", name: "W/O VAT" },
 ];
 
+export const checkboxInfo = [
+  {
+    inputName: "canBeSold",
+    labelText: "Can Be Sold"
+  },
+  {
+    inputName: "canBePurchased",
+    labelText: "Can Be Purchased"
+  },
+  {
+    inputName: "warranty",
+    labelText: "Warranty"
+  },
+  {
+    inputName: "discontinued",
+    labelText: "Discontinued"
+  },
+];
+
 export const grouping = [
   {
     label: "Grouping One",
