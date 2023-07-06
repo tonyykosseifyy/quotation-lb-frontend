@@ -144,11 +144,15 @@ const CreateItems = () => {
 
     const onSubmit = (data, e) => {
         e.preventDefault();
-        // Object.keys(data).forEach(function (key, index) {
-        //     if (typeof data[key] === "object") {
-        //         data[key] = data[key].id;
-        //     }
-        // });
+        Object.keys(data).forEach(function (key, index) {
+            if( data.unitCost || data.decimalCost || data.unitPrice || data.decimalPrice || data.decimalQuantity ){
+                data.unitCost = Number(data.unitCost);
+                data.decimalCost = Number(data.decimalCost);
+                data.unitPrice = Number(data.unitPrice);
+                data.decimalPrice = Number(data.decimalPrice);
+                data.decimalQuantity = Number(data.decimalQuantity);
+            }
+        });
 
         const createNewProductInfo = {
             ...data,
@@ -438,7 +442,7 @@ const CreateItems = () => {
                                         <div className="d-flex flex-row" style={{ gap: "10px"}}>
                                             <InputContainer
                                                 inputPlaceholder="100.50"
-                                                inputType="text"
+                                                inputType="number"
                                                 inputName="unitCost"
                                                 register={register}
                                                 textAlign={"end"}
@@ -457,7 +461,7 @@ const CreateItems = () => {
                                         <InputContainer
                                             label="Decimal Cost"
                                             inputPlaceholder="2"
-                                            inputType="text"
+                                            inputType="number"
                                             inputName="decimalCost"
                                             register={register}
                                             width={60}
@@ -475,7 +479,7 @@ const CreateItems = () => {
                                             <InputContainer
                                                 label="Unit Price"
                                                 inputPlaceholder=""
-                                                inputType="text"
+                                                inputType="number"
                                                 inputName="unitPrice"
                                                 register={register}
                                             />
@@ -494,7 +498,7 @@ const CreateItems = () => {
                                         <InputContainer
                                             label="Decimal Price"
                                             inputPlaceholder=""
-                                            inputType="text"
+                                            inputType="number"
                                             inputName="decimalPrice"
                                             register={register}
                                         />
@@ -554,7 +558,7 @@ const CreateItems = () => {
                     <div className={`${styles.actionButtons} mt-5 mt-lg-0`}>
                             <div
                                 className={`${styles.discard}`}
-                                onClick={() => {reset(), setState("")}}
+                                onClick={() => { reset(), setState("") }}
                             >
                                 Discard
                             </div>

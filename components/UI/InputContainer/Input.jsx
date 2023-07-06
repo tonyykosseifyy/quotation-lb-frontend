@@ -72,6 +72,26 @@ const Input = ({
           {...register(inputName, { required: isRequired })}
         />
       )}
+      {inputType === "number" && (
+        <input
+          required={isRequired}
+          className={`${styles.inputText} ${inputBorder}`}
+          name={inputName}
+          type="number"
+          step="any"
+          id={inputId}
+          placeholder={inputPlaceholder}
+          {...register(inputName, { required: isRequired }, 
+          {valueAsNumber: true}
+          )}
+          style={{
+            fontWeight: placeholderWeight ? placeholderWeight : "600",
+            fontSize: "12px",
+            textAlign: textAlign ? textAlign : "start",
+            borderColor: inputBorderColor ? "var(--input-border-2)" : "var(--input-border)",
+          }}
+        />
+      )}
       {inputType === "select" && (
         <Controller
           name={inputName}
