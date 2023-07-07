@@ -144,15 +144,16 @@ const CreateItems = () => {
 
     const onSubmit = (data, e) => {
         e.preventDefault();
-        Object.keys(data).forEach(function (key, index) {
-            if( data.unitCost || data.decimalCost || data.unitPrice || data.decimalPrice || data.decimalQuantity ){
-                data.unitCost = Number(data.unitCost);
-                data.decimalCost = Number(data.decimalCost);
-                data.unitPrice = Number(data.unitPrice);
-                data.decimalPrice = Number(data.decimalPrice);
-                data.decimalQuantity = Number(data.decimalQuantity);
-            }
-        });
+
+        const convertToNumber = (fields) => {
+            fields.forEach( field => {
+                if (data[field]){
+                    data[field] = Number(data[field]);
+                }    
+            });
+        };
+    
+        convertToNumber( ["unitCost", "decimalCost", "unitPrice", "decimalPrice", "decimalQuantity"] );
 
         const createNewProductInfo = {
             ...data,
@@ -445,15 +446,15 @@ const CreateItems = () => {
                                                 inputType="number"
                                                 inputName="unitCost"
                                                 register={register}
-                                                textAlign={"end"}
+                                                textAlign="end"
                                             />
                                             <InputContainer
                                                 inputPlaceholder="USD"
                                                 inputType="text"
-                                                inputName="currency"
+                                                inputName="unitCostCurrency"
                                                 register={register}
                                                 width={60}
-                                                textAlign={"end"}
+                                                textAlign="end"
                                             />    
                                         </div>
                                     </div>
@@ -465,7 +466,7 @@ const CreateItems = () => {
                                             inputName="decimalCost"
                                             register={register}
                                             width={60}
-                                            textAlign={"end"}
+                                            textAlign="end"
                                         />
                                     </div>
                                 </div>
@@ -539,9 +540,10 @@ const CreateItems = () => {
                                 </div>
                             </>
                         )}
-                        {/* {buttonState === "shipping" && (
+                        {buttonState === "shipping" && (
                             <>
-                                <div className="pt-5" style={{ width: "35%"}}>
+                                <div className="pt-5 d-flex flex-column" style={{ gap: "15px"}}>
+                                    <div style={{ width : "345px" }}>
                                     <InputContainer
                                         label="Package type"
                                         isRequired={true}
@@ -551,9 +553,105 @@ const CreateItems = () => {
                                         register={register}
                                         control={control}
                                     />
+                                    </div>
+                                    <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px"}}>
+                                        <div className={`${styles.labelText}`} style={{ width: "126px"}}>
+                                            Unit Name *
+                                        </div>
+                                        <div className="d-flex flex-row align-items-center" style={{ gap: "10px"}}>
+                                            <div className="border border-1 rounded p-2 text-center" style={{fontWeight: "700", fontSize: "13px", width: "45px"}}> PCS </div>
+                                            <InputContainer
+                                                inputPlaceholder=""
+                                                isRequired={true}
+                                                inputType="text"
+                                                inputName="unitName"
+                                                register={register}
+                                                width="154"
+                                            />  
+                                        </div>
+                                    </div>
+                                    <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px"}}>
+                                        <div className={`${styles.labelText}`} style={{ width: "126px"}}>
+                                            Set Name *
+                                        </div>
+                                        <div className="d-flex flex-row align-items-center" style={{ gap: "10px"}}>
+                                            <div className="border border-1 rounded p-2" style={{fontWeight: "700", fontSize: "13px", width: "45px"}}> BOX </div>
+                                            <InputContainer
+                                                inputPlaceholder=""
+                                                isRequired={true}
+                                                inputType="text"
+                                                inputName="unitName"
+                                                register={register}
+                                                width="154"
+                                            />
+                                            <div className="ps-3" style={{fontWeight: "700", fontSize: "13px"}}> PCS PER BOX </div>  
+                                        </div>
+                                    </div>
+                                    <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px"}}>
+                                        <div className={`${styles.labelText}`} style={{ width: "126px"}}>
+                                            Superset Name *
+                                        </div>
+                                        <div className="d-flex flex-row align-items-center" style={{ gap: "10px"}}>
+                                            <div className="border border-1 rounded p-2" style={{fontWeight: "700", fontSize: "13px", width: "45px"}}> CTN </div>
+                                            <InputContainer
+                                                inputPlaceholder=""
+                                                isRequired={true}
+                                                inputType="text"
+                                                inputName="unitName"
+                                                register={register}
+                                                width="154"
+                                            />
+                                            <div className="ps-3" style={{fontWeight: "700", fontSize: "13px"}}> BOX PER CTN </div>  
+                                        </div>
+                                    </div>
+                                    <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px"}}>
+                                        <div className={`${styles.labelText}`} style={{ width: "126px"}}>
+                                            Palette Name *
+                                        </div>
+                                        <div className="d-flex flex-row align-items-center" style={{ gap: "10px"}}>
+                                            <div className="border border-1 rounded p-2" style={{fontWeight: "700", fontSize: "13px", width: "45px"}}> PAL </div>
+                                            <InputContainer
+                                                inputPlaceholder=""
+                                                isRequired={true}
+                                                inputType="text"
+                                                inputName="unitName"
+                                                register={register}
+                                                width="154"
+                                            />
+                                            <div className="ps-3" style={{fontWeight: "700", fontSize: "13px"}}> CTN PER PAL </div>  
+                                        </div>
+                                    </div>
+                                    <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px"}}>
+                                        <div className={`${styles.labelText}`} style={{ width: "126px"}}>
+                                            Container Name *
+                                        </div>
+                                        <div className="d-flex flex-row align-items-center" style={{ gap: "10px"}}>
+                                            <div className="border border-1 rounded p-2" style={{fontWeight: "700", fontSize: "13px", width: "45px"}}> CON </div>
+                                            <InputContainer
+                                                inputPlaceholder=""
+                                                isRequired={true}
+                                                inputType="text"
+                                                inputName="unitName"
+                                                register={register}
+                                                width="154"
+                                            />
+                                            <div className="ps-3" style={{fontWeight: "700", fontSize: "13px"}}> PAL PER CON </div>  
+                                        </div>
+                                    </div>
+                                    <div className="pt-3" style={{ width: "180px"}}>
+                                        <InputContainer
+                                            label="Decimal Quantity"
+                                            inputPlaceholder=""
+                                            inputType="number"
+                                            inputName="decimalQuantity"
+                                            register={register}
+                                            width="42"
+                                            height="35"
+                                        />
+                                    </div>
                                 </div>
                             </>
-                        )} */}
+                        )}
                     </div>
                     <div className={`${styles.actionButtons} mt-5 mt-lg-0`}>
                             <div
