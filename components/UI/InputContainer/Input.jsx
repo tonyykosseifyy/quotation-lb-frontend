@@ -36,6 +36,8 @@ const Input = ({
   placeholderFontWeight,
   placeholderFontSize,
   dropdownArrowColor,
+  optionName = "name",
+  optionId = "id",
 }) => {
   return (
     <div
@@ -115,8 +117,8 @@ const Input = ({
               }}
               placeholder={inputPlaceholder}
               options={selectOptions}
-              getOptionLabel={(option) => option.name}
-              getOptionValue={(option) => option.id}
+              getOptionLabel={(option) => option[optionName]}
+              getOptionValue={(option) => option[optionId]}
               components={{
                 IndicatorSeparator: () => null,
               }}

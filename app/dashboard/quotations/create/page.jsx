@@ -61,17 +61,17 @@ const CreateQuotation = () => {
       <div>
         {buttonState === "order" && (
           <>
-            <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} isFooterShown footerList={createQuotationFooterElements} footerPaddingTop={"43px"} footerPaddingLeft={"48px"} tableWidth={"1296px"}/>
-            <div className={`${styles.termsAndConditionsContainer} overflow-auto`}> 
-             <div className={`overflow-auto`}>
-              <div style={{ fontSize: "14px", fontWeight: "700"}}>Terms & Conditions</div>
-              <div className={`${styles.termsAndConditionsInputContainer}`}>
-                <InputContainer inputPlaceholder='Terms & Conditions' inputType='textarea' inputName='Terms & Conditions' width='1230' height='73' control={control} register={register} />
+            <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} isFooterShown footerList={createQuotationFooterElements} footerPaddingTop={"43px"} footerPaddingLeft={"48px"} tableWidth={"1296px"} />
+            <div className={`${styles.termsAndConditionsContainer} overflow-auto`}>
+              <div className={`overflow-auto`}>
+                <div style={{ fontSize: "14px", fontWeight: "700" }}>Terms & Conditions</div>
+                <div className={`${styles.termsAndConditionsInputContainer}`}>
+                  <InputContainer inputPlaceholder='Terms & Conditions' inputType='textarea' inputName='Terms & Conditions' width='1230' height='73' control={control} register={register} />
+                </div>
+                <div className={`${styles.newTermsAndConditionsLink}`}>
+                  <i>Or Create new Terms & Conditions</i>
+                </div>
               </div>
-              <div className={`${styles.newTermsAndConditionsLink}`}>
-                <i>Or Create new Terms & Conditions</i>
-              </div>
-             </div>
             </div>
 
             <div className={`${styles.totalAmountContainer}`}>
