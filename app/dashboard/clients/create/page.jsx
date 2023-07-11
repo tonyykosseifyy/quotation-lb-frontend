@@ -10,7 +10,7 @@ import { clients, titles } from "@/data/createClient";
 import { useForm } from "react-hook-form";
 import { dummyDropdownOptions, dummyItems } from "@/data/dummyItems";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import axiosClient from "@/app/api/axiosClient";
+import axiosClient from "@/api/axiosClient";
 
 const storeClient = async (payload) => {
   const response = await axiosClient.post(`/clients`, payload);
