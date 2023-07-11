@@ -14,6 +14,7 @@ import { Status } from "@/components/Table/Status";
 import FourArrows from "@/components/UI/Icons/FourArrows";
 import { useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
+import useDebounce from "@/hooks/useDebounce";
 
 const Page = () => {
   const [search, setSearch] = useState("");
@@ -22,14 +23,16 @@ const Page = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [page, setPage] = useState(1);
+  const debouncedSearch = useDebounce(search, 500);
 
   const getQuotationsResponse = useQuery({
-    queryKey: ["quotations", page, perPage],
+    queryKey: ["quotations", page, perPage, debouncedSearch],
     queryFn: () =>
       axiosClient.get(`quotations`, {
         params: {
           page: page,
           perPage: perPage,
+          search: debouncedSearch,
         },
       }),
     keepPreviousData: true,
