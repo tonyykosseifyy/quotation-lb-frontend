@@ -1,12 +1,12 @@
 import axios from "axios";
 
 const axiosClient = axios.create({
-  baseURL: `${process.env.SERVER_APP_BASE_URL}/api`,
+  baseURL: `${process.env.NEXT_PUBLIC_SERVER_APP_BASE_URL}/api`,
 });
 
 axiosClient.interceptors.request.use((config) => {
   // const token = localStorage.getItem("accessToken");
-  config.headers.Authorization = `Bearer 5|k2M8jfx85jNnw50ZUh0Eo0vq6AyOkKLAco3jhSea`;
+  config.headers.Authorization = `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`;
   config.headers.Accept = "application/json";
   return config;
 });
