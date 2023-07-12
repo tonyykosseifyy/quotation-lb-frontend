@@ -8,7 +8,7 @@ import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import RadioButton from "@/components/UI/RadioButton/RadioButton";
 import CheckBox from "@/components/UI/CheckBox/Checkbox";
 import Button from "@/components/UI/Button/Button";
-import { typeOptions, taxationOptions, checkboxInfo, grouping, transactionalQuantity, warehouses } from "@/data/createProduct";
+import { typeOptions, taxationOptions, checkboxInfo, grouping, transactionalQuantity, warehouses, packageTypeFields, packageTypeOptions } from "@/data/createProduct";
 import DataTable from "react-data-table-component";
 
 const CreateItems = () => {
@@ -189,6 +189,15 @@ const CreateItems = () => {
         }));
     };
 
+    const [packageType, setPackageType] = useState(null);
+    const [packageTypeName, setPackageTypeName] = useState("")
+
+    const handleChange = (selected) => {
+        setPackageType(selected);
+        setPackageTypeName(selected.name);
+        console.log(packageTypeName);
+    };
+
     const buttonTabs = [
         {
             title: "General",
@@ -254,6 +263,34 @@ const CreateItems = () => {
             isChecked: state.subRef === "size"
         },
     ];
+
+    const InputField = ({ label, placeholder, inputName, description }) => {
+        return (
+          <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px" }}>
+            <div className={`${styles.labelText}`} style={{ width: "126px" }}>
+              {label}
+            </div>
+            <div className="d-flex flex-row align-items-center" style={{ gap: "10px" }}>
+                <div className="border border-1 rounded p-2 text-center" style={{ fontWeight: "700", fontSize: "13px", width: "45px" }}>
+                    {placeholder}
+                </div>
+                <InputContainer
+                    inputPlaceholder=""
+                    isRequired={true}
+                    inputType="text"
+                    inputName={inputName}
+                    register={register}
+                    width="154"
+                />
+                <div className="ps-3" style={{ fontWeight: "700", fontSize: "13px" }}>
+                    {description} 
+                </div>  
+            </div>
+          </div>
+        );
+    };
+
+    const fields = packageTypeFields[packageTypeName] || [];
 
     return (
         <ModalComponent 
@@ -542,102 +579,30 @@ const CreateItems = () => {
                         )}
                         {buttonState === "shipping" && (
                             <>
-                                <div className="pt-5 d-flex flex-column" style={{ gap: "15px"}}>
-                                    <div style={{ width : "345px" }}>
-                                    <InputContainer
-                                        label="Package type"
-                                        isRequired={true}
-                                        inputPlaceholder=""
-                                        inputType="select"
-                                        inputName="packageType"
-                                        register={register}
-                                        control={control}
-                                    />
+                                <div className="pt-5 d-flex flex-column" style={{ gap: "15px" }}>
+                                    <div style={{ width: "345px" }}>
+                                        <InputContainer
+                                            label="Package type"
+                                            isRequired={true}
+                                            inputPlaceholder=""
+                                            inputType="checkBoxSelect"
+                                            inputName="packageType"
+                                            register={register}
+                                            control={control}
+                                            onChange={handleChange}
+                                            value={packageType}
+                                            selectOptions={packageTypeOptions}
+                                        />
                                     </div>
-                                    <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px"}}>
-                                        <div className={`${styles.labelText}`} style={{ width: "126px"}}>
-                                            Unit Name *
-                                        </div>
-                                        <div className="d-flex flex-row align-items-center" style={{ gap: "10px"}}>
-                                            <div className="border border-1 rounded p-2 text-center" style={{fontWeight: "700", fontSize: "13px", width: "45px"}}> PCS </div>
-                                            <InputContainer
-                                                inputPlaceholder=""
-                                                isRequired={true}
-                                                inputType="text"
-                                                inputName="unitName"
-                                                register={register}
-                                                width="154"
-                                            />  
-                                        </div>
-                                    </div>
-                                    <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px"}}>
-                                        <div className={`${styles.labelText}`} style={{ width: "126px"}}>
-                                            Set Name *
-                                        </div>
-                                        <div className="d-flex flex-row align-items-center" style={{ gap: "10px"}}>
-                                            <div className="border border-1 rounded p-2" style={{fontWeight: "700", fontSize: "13px", width: "45px"}}> BOX </div>
-                                            <InputContainer
-                                                inputPlaceholder=""
-                                                isRequired={true}
-                                                inputType="text"
-                                                inputName="unitName"
-                                                register={register}
-                                                width="154"
-                                            />
-                                            <div className="ps-3" style={{fontWeight: "700", fontSize: "13px"}}> PCS PER BOX </div>  
-                                        </div>
-                                    </div>
-                                    <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px"}}>
-                                        <div className={`${styles.labelText}`} style={{ width: "126px"}}>
-                                            Superset Name *
-                                        </div>
-                                        <div className="d-flex flex-row align-items-center" style={{ gap: "10px"}}>
-                                            <div className="border border-1 rounded p-2" style={{fontWeight: "700", fontSize: "13px", width: "45px"}}> CTN </div>
-                                            <InputContainer
-                                                inputPlaceholder=""
-                                                isRequired={true}
-                                                inputType="text"
-                                                inputName="unitName"
-                                                register={register}
-                                                width="154"
-                                            />
-                                            <div className="ps-3" style={{fontWeight: "700", fontSize: "13px"}}> BOX PER CTN </div>  
-                                        </div>
-                                    </div>
-                                    <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px"}}>
-                                        <div className={`${styles.labelText}`} style={{ width: "126px"}}>
-                                            Palette Name *
-                                        </div>
-                                        <div className="d-flex flex-row align-items-center" style={{ gap: "10px"}}>
-                                            <div className="border border-1 rounded p-2" style={{fontWeight: "700", fontSize: "13px", width: "45px"}}> PAL </div>
-                                            <InputContainer
-                                                inputPlaceholder=""
-                                                isRequired={true}
-                                                inputType="text"
-                                                inputName="unitName"
-                                                register={register}
-                                                width="154"
-                                            />
-                                            <div className="ps-3" style={{fontWeight: "700", fontSize: "13px"}}> CTN PER PAL </div>  
-                                        </div>
-                                    </div>
-                                    <div className="d-flex flex-column flex-md-row align-items-md-center pe-md-5" style={{ gap: "10px"}}>
-                                        <div className={`${styles.labelText}`} style={{ width: "126px"}}>
-                                            Container Name *
-                                        </div>
-                                        <div className="d-flex flex-row align-items-center" style={{ gap: "10px"}}>
-                                            <div className="border border-1 rounded p-2" style={{fontWeight: "700", fontSize: "13px", width: "45px"}}> CON </div>
-                                            <InputContainer
-                                                inputPlaceholder=""
-                                                isRequired={true}
-                                                inputType="text"
-                                                inputName="unitName"
-                                                register={register}
-                                                width="154"
-                                            />
-                                            <div className="ps-3" style={{fontWeight: "700", fontSize: "13px"}}> PAL PER CON </div>  
-                                        </div>
-                                    </div>
+                                    {fields.map((field, index) => (
+                                        <InputField
+                                            key={index}
+                                            label={field.label}
+                                            placeholder={field.placeholder}
+                                            inputName={field.inputName}
+                                            description={field.description}
+                                        />
+                                    ))}
                                     <div className="pt-3" style={{ width: "180px"}}>
                                         <InputContainer
                                             label="Decimal Quantity"
@@ -656,7 +621,7 @@ const CreateItems = () => {
                     <div className={`${styles.actionButtons} mt-5 mt-lg-0`}>
                             <div
                                 className={`${styles.discard}`}
-                                onClick={() => { reset(), setState("") }}
+                                onClick={() => { reset(), setState(""), setPackageType(null), setPackageTypeName("") }}
                             >
                                 Discard
                             </div>

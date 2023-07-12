@@ -160,3 +160,112 @@ export const warehouses = [
     quantity: "25 Pcs",
   },
 ];
+
+export const packageTypeOptions = [
+  { id: "units", name: "Units" },
+  { id: "sets", name: "Sets" },
+  { id: "supersets", name: "Supersets" },
+  { id: "palette", name: "Palette" },
+  { id: "container", name: "Container" },
+];
+
+export const packageTypeFields = {
+  Units: [
+    {
+      label: "Unit Name *",
+      placeholder: "PCS",
+      inputName: "unitName",
+    },
+  ],
+  Sets: [
+    {
+      label: "Unit Name *",
+      placeholder: "PCS",
+      inputName: "unitName",
+    },
+    {
+      label: "Set Name *",
+      placeholder: "SET",
+      inputName: "setName",
+      description: "PCS PER BOX",
+    },
+  ],
+  Supersets: [
+    {
+      label: "Unit Name *",
+      placeholder: "PCS",
+      inputName: "unitName",
+    },
+    {
+      label: "Set Name *",
+      placeholder: "SET",
+      inputName: "setName",
+      description: "PCS PER BOX",
+
+    },
+    {
+      label: "Superset Name *",
+      placeholder: "CTN",
+      inputName: "superSet",
+      description: "BOX PER CTN"
+    },
+  ],
+  Palette: [
+    {
+      label: "Unit Name *",
+      placeholder: "PCS",
+      inputName: "unitName",
+    },
+    {
+      label: "Set Name *",
+      placeholder: "SET",
+      inputName: "setName",
+      description: "PCS PER BOX",
+
+    },
+    {
+      label: "Superset Name *",
+      placeholder: "CTN",
+      inputName: "superSet",
+      description: "BOX PER CTN"
+    },
+    {
+      label: "Palette Name *",
+      placeholder: "PAL",
+      inputName: "palette",
+      description: "CTN PER PAL"
+    },
+  ],
+  Container: [
+    {
+      label: "Unit Name *",
+      placeholder: "PCS",
+      inputName: "unitName",
+    },
+    {
+      label: "Set Name *",
+      placeholder: "SET",
+      inputName: "setName",
+      description: "PCS PER BOX",
+
+    },
+    {
+      label: "Superset Name *",
+      placeholder: "CTN",
+      inputName: "superSet",
+      description: "BOX PER CTN"
+    },
+    {
+      label: "Palette Name *",
+      placeholder: "PAL",
+      inputName: "paletteName",
+      description: "CTN PER PAL"
+    },
+    {
+      label: "Container Name *",
+      placeholder: "CON",
+      inputName: "containerName",
+      description: "PAL PER CON"
+    },
+  ],
+};

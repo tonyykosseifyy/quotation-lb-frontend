@@ -28,6 +28,8 @@ const InputContainer = ({
     spaceBetween = true,
     register,
     control,
+    value,
+    onChange,
     borderColor,
     placeholderFontStyle,
     placeholderFontWeight,
@@ -67,6 +69,8 @@ const InputContainer = ({
                 inputBorderColor={inputBorderColor}
                 register={register}
                 control={control}
+                value={value}
+                onChange={onChange}
                 borderColor={borderColor}
                 placeholderFontStyle={placeholderFontStyle}
                 placeholderFontWeight={placeholderFontWeight}
