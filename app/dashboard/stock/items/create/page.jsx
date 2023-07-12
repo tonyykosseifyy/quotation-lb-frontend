@@ -8,7 +8,7 @@ import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import RadioButton from "@/components/UI/RadioButton/RadioButton";
 import CheckBox from "@/components/UI/CheckBox/Checkbox";
 import Button from "@/components/UI/Button/Button";
-import { typeOptions, taxationOptions, checkboxInfo, grouping, transactionalQuantity, warehouses, packageTypeFields, packageTypeOptions } from "@/data/createProduct";
+import { typeOptions, taxationOptions, checkboxInfo, altCodes, grouping, transactionalQuantity, warehouses, packageTypeFields, packageTypeOptions } from "@/data/createProduct";
 import DataTable from "react-data-table-component";
 
 const CreateItems = () => {
@@ -34,6 +34,27 @@ const CreateItems = () => {
             borderRadius: "8px",
         } 
     };
+
+    const altCodesTableColumns = [
+        {
+            name: "Print on Invoice",
+            maxWidth: "180px",
+            selector: (row) => <CheckBox />,
+            allowOverflow: true,
+            center: true,
+        },
+        {
+            name: "Item Code",
+            maxWidth: "100px",
+            selector: (row) => row.itemCode,
+        },
+        {
+            name: "Creation Date",
+            maxWidth: "1000px",
+            selector: (row) => row.creationDate,
+            center: true,
+        },
+    ];
 
     const transactionTableColumns = [
         {
@@ -205,9 +226,9 @@ const CreateItems = () => {
             value: "general",
         },
         {
-            title: "Alt Code",
-            fillBackground: buttonState === "altCode",
-            value: "altCode",
+            title: "Alt Codes",
+            fillBackground: buttonState === "altCodes",
+            value: "altCodes",
         },
         {
             title: "Grouping",
@@ -446,6 +467,18 @@ const CreateItems = () => {
                                         )}             
                                     </div>  
                                 </div>              
+                            </>
+                        )}
+                        { buttonState === "altCodes" && (
+                            <>
+                                <div className={`d-flex fle pt-5`}>
+                                    <DataTable 
+                                        columns={altCodesTableColumns}
+                                        data={altCodes}
+                                        customStyles={customStyles}
+                                        // conditionalRowStyles={transactionalQuantityConditionalRowStyles}
+                                    />
+                                </div>
                             </>
                         )}
                         {buttonState === "grouping" && (

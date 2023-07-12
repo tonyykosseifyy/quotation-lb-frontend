@@ -30,6 +30,13 @@ export const checkboxInfo = [
   },
 ];
 
+export const altCodes = [
+  {
+    itemCode: "CODE 1",
+    creationDate: "01/06/2023"
+  },
+];
+
 export const grouping = [
   {
     label: "Grouping One",
