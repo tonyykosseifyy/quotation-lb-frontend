@@ -24,11 +24,11 @@
     border-top-right-radius: 2px;
     background: white;
     color: var(--secondary-text-clr);
-    border: 3px solid var(--tab-button-background-clr);
+    border: 3px solid var(--modal-background-clr);
     padding: 13px 20px;
     font-weight: 700;
     line-height: 19px;
-    font-size: 14px; 
+    font-size: 14px;
 }
 
 .tabFillBackground {

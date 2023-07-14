@@ -93,6 +93,7 @@
     --tab-button-background-clr: #F4F4F4;
     --table-row-background-clr: rgba(191, 191, 191, 0.4);
     --table-row-babyblue-background-clr: #A4D8FB;
+    --modal-background-clr: rgba(250, 250, 250, 1);
 }
 
 @font-face {
