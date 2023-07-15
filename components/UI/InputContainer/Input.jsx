@@ -2,10 +2,27 @@
 
 import React from "react";
 import styles from "./Input.module.css";
-import Select from "react-select";
+import Select, { components } from "react-select";
 import { Controller } from "react-hook-form";
 import { countries } from "@/data/countries";
 import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
+
+const Option = (props) => {
+  const { innerProps, label, isSelected } = props;
+
+  return (
+    <div>
+      <components.Option {...props} >
+        <input
+          type="checkbox"
+          checked={isSelected}
+          onChange={() => null}
+        />{" "}
+        <label className="ps-2" style={{ color: "black" }} >{label}</label>
+      </components.Option>
+    </div>
+  );
+};
 
 const Input = ({
   inputPlaceholder = "",
@@ -31,6 +48,8 @@ const Input = ({
   canResize,
   register,
   control,
+  value,
+  onChange,
   borderColor,
   placeholderFontStyle,
   placeholderFontWeight,
@@ -72,6 +91,27 @@ const Input = ({
           style={{ resize: canResize ? "" : "none", fontSize: "12px", fontWeight: placeholderWeight }}
           placeholder={inputPlaceholder}
           {...register(inputName, { required: isRequired })}
+        />
+      )}
+      {inputType === "number" && (
+        <input
+          min={0}
+          required={isRequired}
+          className={`${styles.inputText} ${inputBorder}`}
+          name={inputName}
+          type="number"
+          step="any"
+          id={inputId}
+          placeholder={inputPlaceholder}
+          {...register(inputName, { required: isRequired }, 
+          {valueAsNumber: true}
+          )}
+          style={{
+            fontWeight: placeholderWeight ? placeholderWeight : "600",
+            fontSize: "12px",
+            textAlign: textAlign ? textAlign : "start",
+            borderColor: inputBorderColor ? "var(--input-border-2)" : "var(--input-border)",
+          }}
         />
       )}
       {inputType === "select" && (
@@ -126,6 +166,67 @@ const Input = ({
             />
           )}
         />
+      )}
+      { inputType === "checkBoxSelect" && (
+        <div
+          className="d-inline-block"
+          data-toggle="popover"
+          data-trigger="focus"
+          data-content=""
+          style={{ width: "209px" }}
+        >
+          <Controller
+            name={inputName}
+            control={control}
+            defaultValue={null}
+            render={({ field }) => (
+              <Select
+                {...field}
+                options={selectOptions}
+                // isMulti
+                closeMenuOnSelect={true}
+                hideSelectedOptions={false}
+                components={{ Option }}
+                onChange={onChange}
+                value={value}
+                allowSelectAll={false}
+                getOptionLabel={(option) => option.name}
+                getOptionValue={(option) => option.id}
+                placeholder={inputPlaceholder}
+                required={isRequired}
+                styles={{
+                  control: (baseStyles, state) => ({
+                    ...baseStyles,
+                    borderRadius: 5,
+                    borderColor:  "var(--input-border)",
+                    "&:hover": {
+                      borderColor: "none",
+                    },
+                    "&:focus": {
+                      borderColor: "var(--input-border)",
+                    },
+                    "&:active": {
+                      borderColor: "var(--input-border)",
+                    },
+                    backgroundColor: "transparent",
+                  }),
+                  valueContainer: (baseStyles, state) => ({
+                    ...baseStyles,
+                    fontSize: 14,
+                    fontWeight: 400,
+                  }),
+                  placeholder: (baseStyles, state) => ({
+                    ...baseStyles,
+                    dropdownIndicator: (baseStyles, state) => ({
+                      ...baseStyles,
+                      color: "var(--primary-text-clr)",
+                    }),
+                  }),
+                }}
+              />
+            )}
+          />
+        </div>
       )}
       {inputType === "phone" && (
         <div className={styles.phoneContainer}>

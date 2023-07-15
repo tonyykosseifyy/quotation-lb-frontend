@@ -164,7 +164,7 @@ const Products = () => {
                   <span style={{ cursor: "pointer" }}>
                       <Dropdown placement="bottom-right">
                         <Dropdown.Trigger>
-                          <div className="pt-3 pt-md-1">
+                          <div className="pt-2 pt-md-1">
                             <img src="/assets/svg/settings.svg" />
                           </div>
                         </Dropdown.Trigger>
@@ -184,10 +184,10 @@ const Products = () => {
                         </Dropdown.Menu>
                       </Dropdown>
                     </span>
-                    <span className="pt-3 pt-md-1" style={{ cursor: "pointer" }} onClick={() => setView("grid")}>
+                    <span className="pt-2 pt-md-1" style={{ cursor: "pointer" }} onClick={() => setView("grid")}>
                       <GridIcon fillColor={ view === "grid" ? "#4472c4" : "#535353" } />
                     </span> 
-                    <span className="pt-3 pt-md-1" style={{ cursor: "pointer" }} onClick={() => setView("list")}>
+                    <span className="pt-2 pt-md-1" style={{ cursor: "pointer" }} onClick={() => setView("list")}>
                       <ListIcon fillColor={ view === "list" ? "#4472c4" : "#535353" } />
                     </span> 
                 </div> 
