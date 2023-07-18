@@ -7,7 +7,7 @@ export const configurationDropDownItems = [
   {
     key: 2,
     name: "Sub-References",
-    link: "/dashboard"
+    link: "/dashboard/admin/sub-references"
   },
   {
     key: 3,

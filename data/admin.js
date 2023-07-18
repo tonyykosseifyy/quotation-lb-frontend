@@ -18,3 +18,46 @@ export const taxationRates = [
     vat: 11.0000,
   },
 ];
+
+export const subReferencesGeneral = [
+  {
+    id: 1,
+    code: "Color",
+    name: "Color",
+  },
+  {
+    id: 2,
+    code: "Size",
+    name: "Size",
+  },
+];
+
+export const checkboxInfo = [
+  {
+    inputName: "code",
+    labelText: "Code"
+  },
+  {
+    inputName: "shortDescription",
+    labelText: "Short Description"
+  },
+  {
+    inputName: "longDescription",
+    labelText: "Long Description"
+  },
+];
+
+export const shortDescription = [
+  {
+    id: 1,
+    code: "R",
+    description: "RED",
+    shortDescription: "RED",
+  },
+  {
+    id: 2,
+    code: "B",
+    description: "BLUE",
+    shortDescription: "BLUE",
+  },
+];

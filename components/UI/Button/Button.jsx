@@ -16,6 +16,11 @@ const Button = ({
     type,
     tab,
     width,
+    icon,
+    titleColor,
+    display,
+    alignItems,
+    justifyContent,
 }) => {
     return (
         <button
@@ -36,12 +41,16 @@ const Button = ({
                 paddingLeft: paddingLeft,
                 paddingRight: paddingRight,
                 width: width,
+                display: display,
+                alignItems: alignItems,
+                justifyContent: justifyContent,
+                color: titleColor,
             }}
             onClick={onClick}
             value={value}
             type={type ? type : "submit"}
         >
-            {title}
+            {icon && icon}{" "}{title}
         </button>
     );
 };
