@@ -15,12 +15,10 @@ import CheckBox from "@/components/UI/CheckBox/Checkbox";
 const SubReferences = () => {
   
     const subReferencesGeneralDuplicate = [...subReferencesGeneral];
-    // const taxationRatesDuplicate = [...taxationRates];
 
     const [showModal, setShowModal] = useState(true);
     const [buttonState, setButtonState] = useState("general");
     const [generalTableRows, setGeneralTableRows]= useState(subReferencesGeneralDuplicate);
-    // const [ratesTableRows, setRatesTableRows]= useState(taxationRatesDuplicate);
 
     const handleExtraInfoChange = (e) => {
         setButtonState(() => e.target.value);
@@ -30,11 +28,6 @@ const SubReferences = () => {
         const generalUpdatedRows = generalTableRows.filter(row => row.id !== id);
         setGeneralTableRows(generalUpdatedRows);
     };
-
-    // const ratesHandleDeleteRow = (id) => {
-    //     const ratesUpdatedRows = ratesTableRows.filter(row => row.id !== id);
-    //     setRatesTableRows(ratesUpdatedRows);
-    // };
 
     const [checkboxValues, setCheckboxValues] = useState({
         code: false,

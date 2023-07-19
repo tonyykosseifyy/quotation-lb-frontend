@@ -32,6 +32,6 @@ export const configurationDropDownItems = [
   {
     key: 7,
     name: "Price Lists",
-    link: "/dashboard"
+    link: "/dashboard/admin/price-lists"
   },
 ];

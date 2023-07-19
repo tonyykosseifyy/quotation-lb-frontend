@@ -163,6 +163,8 @@ const Input = ({
                 IndicatorSeparator: () => null,
               }}
               required={isRequired}
+              value={value}
+              onChange={onChange}
             />
           )}
         />

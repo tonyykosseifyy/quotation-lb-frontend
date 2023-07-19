@@ -61,3 +61,57 @@ export const shortDescription = [
     shortDescription: "BLUE",
   },
 ];
+
+export const priceListsGeneral = [
+  {
+    id: 1,
+    code: "STANDARD",
+    name: "Standard Price List",
+  },
+];
+
+export const priceListsItems = [
+  {
+    id: 1,
+    code: "22MP410",
+    name: "LG MONITOR, HDMI FHDLG MONITOR, HDMI FHD",
+    currency: "USD",
+    salePrice: 0.00,
+    discount: 0.00,
+    discountPercent: "0.00%",
+    priceDiscounted: 0.00,
+  },
+  {
+    id: 2,
+    code: "3000N",
+    name: "LG MONITOR, HDMI FHDLG MONITOR, HDMI FHD",
+    currency: "LBP",
+    salePrice: 0.00,
+    discount: 0.00,
+    discountPercent: "0.00%",
+    priceDiscounted: 0.00,
+  },
+];
+
+export const priceListsDepartment = [
+  {
+    id: 1,
+    departmentCode: "ALARM",
+    departmentName: "INTRUDER ALARM",
+    method: "STANDARD price minus",
+    percentage: "0.00%"
+  },
+  {
+    id: 2,
+    departmentCode: "ACESS",
+    departmentName: "ACESS CONTROL",
+    method: "STANDARD price minus",
+    percentage: "0.00%"
+  },
+];
+
+export const percentageOptions = [
+  { id: "global_percentage", name: "global percentage" },
+  { id: "percentage_as_per_item_department", name: "percentage as per item department" },
+];
+
