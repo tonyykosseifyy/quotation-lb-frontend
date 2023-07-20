@@ -27,7 +27,7 @@ export const configurationDropDownItems = [
   {
     key: 6,
     name: "Warehouses",
-    link: "/dashboard"
+    link: "/dashboard/admin/stock-warehouses"
   },
   {
     key: 7,

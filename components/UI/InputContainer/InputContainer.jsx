@@ -35,6 +35,8 @@ const InputContainer = ({
   dropdownArrowColor,
   optionName,
   optionId,
+  value,
+  onChange,
 }) => {
   return (
     <div
@@ -77,6 +79,8 @@ const InputContainer = ({
         dropdownArrowColor={dropdownArrowColor}
         optionName={optionName}
         optionId={optionId}
+        value={value}
+        onChange={onChange}
       />
     </div>
   );

@@ -115,3 +115,10 @@ export const percentageOptions = [
   { id: "percentage_as_per_item_department", name: "percentage as per item department" },
 ];
 
+export const warehousesGeneral = [
+  {
+    id: 1,
+    code: "CENTRAL",
+    name: "central",
+  },
+];
