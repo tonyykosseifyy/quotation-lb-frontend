@@ -122,3 +122,11 @@ export const warehousesGeneral = [
     name: "central",
   },
 ];
+
+export const groupsGeneral = [
+  {
+    id: 1,
+    code: "DARK",
+    name: "Dark",
+  },
+];

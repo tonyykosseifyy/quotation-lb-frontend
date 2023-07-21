@@ -17,7 +17,7 @@ export const configurationDropDownItems = [
   {
     key: 4,
     name: "Groups",
-    link: "/dashboard"
+    link: "/dashboard/admin/groups"
   },
   {
     key: 5,
