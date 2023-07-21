@@ -115,6 +115,28 @@ export const percentageOptions = [
   { id: "percentage_as_per_item_department", name: "percentage as per item department" },
 ];
 
+export const salesmenGeneral = [
+  {
+    id: 1,
+    code: "JAD",
+    name: "Jad",
+  },
+];
+
+export const commissionGrantedOptions = [
+  {
+    id: "on invoice net sales amount total",
+    name: "on invoice net sales amount total",
+  },
+];
+
+export const commissionsPaymentOptions = [
+  {
+    id: "upon total cashing of invoice",
+    name: "upon total cashing of invoice",
+  },
+];
+
 export const warehousesGeneral = [
   {
     id: 1,

@@ -164,23 +164,23 @@ const PriceLists = () => {
     const departmentTableColumns = [
         {
             name: "Department Code",
-            maxWidth: "150px",
+            // maxWidth: "150px",
             selector: (row) => row.departmentCode,
             allowOverflow: true,
         },
         {
           name: "Department Name",
-          maxWidth: "160px",
+        //   maxWidth: "160px",
           selector: (row) => row.departmentName,
         },
         {
           name: "Method",
-          maxWidth: "180px",
+        //   maxWidth: "180px",
           selector: (row) => row.method,
         },
         {
           name: "Percentage",
-          maxWidth: "120px",
+        //   maxWidth: "120px",
           selector: (row) => row.percentage,
         // format: (row) => row.salePrice.toFixed(2),
           center: true,
@@ -258,7 +258,7 @@ const PriceLists = () => {
             onRequestClose={() => setShowModal(false)} 
             style={modalStyle}
         >
-            <div className={`d-flex-wrap mt-3`}>
+            <div className={`mt-3`}>
                 {buttonTabs.map(({ title, fillBackground, value }) => {
                     return (
                         <Button
