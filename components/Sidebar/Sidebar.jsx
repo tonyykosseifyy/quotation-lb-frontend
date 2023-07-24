@@ -49,10 +49,10 @@ const sidebarItems = [
         title: "Create Items",
         link: "/dashboard/stock/items/create",
       },
-      {
-        title: "Combos",
-        link: "/dashboard/",
-      },
+      // {
+      //   title: "Combos",
+      //   link: "/dashboard/",
+      // },
       // {
       //     title: "Brands",
       //     link: "/dashboard/",
@@ -84,7 +84,7 @@ const sidebarItems = [
   {
     title: "Admin Panel",
     logo: "/assets/svg/admin-panel.svg",
-    link: "http://backend.rooster-me.com",
+    link: "https://backend.rooster-me.com",
   },
   // {
   //     title: "Account Settings",
