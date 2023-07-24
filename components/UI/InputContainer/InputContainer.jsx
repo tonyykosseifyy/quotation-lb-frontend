@@ -34,6 +34,8 @@ const InputContainer = ({
   dropdownArrowColor,
   optionName,
   optionId,
+  value,
+  onChange,
   loadOptions,
   isSearchable,
   initialValue,
@@ -84,6 +86,8 @@ const InputContainer = ({
         dropdownArrowColor={dropdownArrowColor}
         optionName={optionName}
         optionId={optionId}
+        value={value}
+        onChange={onChange}
         loadOptions={loadOptions}
         isSearchable={isSearchable}
         initialValue={initialValue}

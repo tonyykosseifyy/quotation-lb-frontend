@@ -1,0 +1,33 @@
+.form {
+  min-height: 440px;
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.labelText {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.actionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 26px;
+}
+
+.discard {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--primary-clr);
+  text-decoration: underline;
+  cursor: pointer;
+}

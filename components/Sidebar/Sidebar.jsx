@@ -122,7 +122,7 @@ export default function Sidebar() {
       </button>
       <div className={styles.logoContainer}>
         <Link href='/dashboard' style={{ textDecoration: "none" }}>
-          <img src='/assets/svg/logo.svg' alt='Logo' className={open ? styles.logo : styles.logoClosed} />
+          <img src='/assets/svg/logo/svg/logo-no-background.svg' alt='Logo' className={open ? styles.logo : styles.logoClosed} />
         </Link>
       </div>
       <div className={open ? styles.list : styles.listClosed}>

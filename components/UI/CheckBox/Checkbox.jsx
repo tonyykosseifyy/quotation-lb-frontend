@@ -8,6 +8,7 @@ const CheckBox = ({
     isChecked = undefined,
     inputId,
     onChange,
+    labelFontWeight,
 }) => {
     return (
         <div className={styles.container}>
@@ -20,7 +21,7 @@ const CheckBox = ({
                 onChange={onChange}
                 checked={isChecked}
             />
-            <label htmlFor={inputId} className={styles.label} style={{ pointerEvents: "none" }}>
+            <label htmlFor={inputId} style={{ pointerEvents: "none", fontSize: "14px", fontWeight: labelFontWeight }}>
                 {labelText}
             </label>
         </div>

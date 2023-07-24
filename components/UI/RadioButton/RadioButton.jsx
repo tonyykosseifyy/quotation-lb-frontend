@@ -8,6 +8,8 @@ const RadioButton = ({
     isChecked = undefined,
     inputId,
     onChange,
+    labelColor,
+    labelWeight,
 }) => {
     return (
         <div className={styles.container}>
@@ -20,7 +22,7 @@ const RadioButton = ({
                 onChange={onChange}
                 checked={isChecked}
             />
-            <label htmlFor={inputId} className={styles.label}>
+            <label htmlFor={inputId} className={styles.label} style={{ color: labelColor, fontWeight: labelWeight }}>
                 {labelText}
             </label>
         </div>

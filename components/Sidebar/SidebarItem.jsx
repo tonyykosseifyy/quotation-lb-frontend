@@ -7,7 +7,7 @@ import Link from "next/link";
 const SidebarItem = ({ sidebarItem, open }) => {
   return (
     <div className={styles.listItem}>
-      <Tooltip content={<SidebarItemCard title={sidebarItem.title} items={sidebarItem.items} />} isDisabled={open} placement={"rightStart"} hideArrow={true} offset={25} css={{ borderRadius: 0, padding: 0 }}>
+      <Tooltip content={<SidebarItemCard title={sidebarItem.title} items={sidebarItem.items} link={sidebarItem.link} />} isDisabled={open} placement={"rightStart"} hideArrow={true} offset={25} css={{ borderRadius: 0, padding: 0 }}>
         <div className={styles.listItemContainer}>
           <div className={styles.itemLogo}>
             <img src={sidebarItem.logo} alt={sidebarItem.title} />

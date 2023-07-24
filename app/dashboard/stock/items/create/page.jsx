@@ -451,6 +451,7 @@ const CreateItems = () => {
                                                         value={inputName}
                                                         isChecked={checkboxValues.value}
                                                         onChange={handleCheckboxChange}
+                                                        labelFontWeight={600}
                                                     />
                                                 </div>
                                             )

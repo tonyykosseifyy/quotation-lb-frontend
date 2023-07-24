@@ -7,7 +7,7 @@ export const configurationDropDownItems = [
   {
     key: 2,
     name: "Sub-References",
-    link: "/dashboard"
+    link: "/dashboard/admin/sub-references"
   },
   {
     key: 3,
@@ -17,21 +17,21 @@ export const configurationDropDownItems = [
   {
     key: 4,
     name: "Groups",
-    link: "/dashboard"
+    link: "/dashboard/admin/groups"
   },
   {
     key: 5,
     name: "Salesmen",
-    link: "/dashboard"
+    link: "/dashboard/admin/salesmen"
   },
   {
     key: 6,
     name: "Warehouses",
-    link: "/dashboard"
+    link: "/dashboard/admin/stock-warehouses"
   },
   {
     key: 7,
     name: "Price Lists",
-    link: "/dashboard"
+    link: "/dashboard/admin/price-lists"
   },
 ];
