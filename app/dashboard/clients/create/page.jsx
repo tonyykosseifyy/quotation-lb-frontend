@@ -25,7 +25,7 @@ const CreateClient = () => {
 
   const createClientData = createClientResponse.data?.data.data;
 
-  console.log(createClientData)
+  console.log(createClientData);
 
   const {
     register,
@@ -139,7 +139,7 @@ const CreateClient = () => {
                 <InputContainer label='Client Name' isRequired={true} inputPlaceholder='' inputType='text' inputName='name' register={register} control={control} width={77} widthUnit={"%"} />
               </div>
             </div>
-            <div className={state.clientType === "company" ? "d-flex flex-sm-column-reverse flex-row-reverse" : "d-flex flex-column flex-lg-row"} style={{ gap: "40px" }}>
+            <div className={"d-flex flex-column flex-lg-row"} style={{ gap: "40px" }}>
               <div className='d-flex flex-column' style={{ gap: "18px", width: "80%" }}>
                 <InputContainer label='Reference' inputPlaceholder='' inputType='text' inputName='reference' register={register} control={control} />
                 {state.clientType === "individual" && (
