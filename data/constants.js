@@ -10,7 +10,7 @@ export const createQuotationHeaderList = [
   { title: "Unit Price", flex: 0.75 },
   { title: "Disc %", flex: 0.75 },
   { title: "Total", flex: 1.25 },
-  { title: "", flex: 0.70 },
+  { title: "", flex: 0.7 },
   { title: "", flex: 0.5 },
 ];
 
@@ -22,9 +22,7 @@ export const createQuotationFooterElements = [
   { id: 4, name: "Note" },
 ];
 
-export const newComboFooterElements = [
-  { id: 1, name: "Item" },
-];
+export const newComboFooterElements = [{ id: 1, name: "Item" }];
 
 /**
  * 0: title
@@ -47,7 +45,7 @@ export const rowInputFlexList = [
   {
     inputs: [
       {
-        inputType: "select",
+        inputType: "async-select",
         inputName: "item",
         inputPlaceholder: "Item 1",
         inputBorderColor: "var(--input-border-2)",
@@ -58,14 +56,20 @@ export const rowInputFlexList = [
       {
         inputType: "text",
         inputName: "description",
+        inputKey: "mainDescription",
+        referenceKey: "item",
+        permission: "edit item description in quotation",
         inputPlaceholder: "lorem ipsumlorem ipsum",
         inputBorderColor: "var(--input-border-2)",
+        inputValue: "",
         placeholderWeight: 700,
         flex: 4.25,
       },
       {
         inputType: "text",
         inputName: "quantity",
+        inputKey: "quantity",
+        referenceKey: "item",
         inputPlaceholder: "1.00",
         inputBorderColor: "var(--input-border-2)",
         textAlign: "center",
@@ -75,6 +79,9 @@ export const rowInputFlexList = [
       {
         inputType: "text",
         inputName: "unitPrice",
+        inputKey: "unitPrice",
+        referenceKey: "item",
+        permission: "edit item unit price in quotation",
         inputPlaceholder: "150.0",
         inputBorderColor: "var(--input-border-2)",
         textAlign: "center",
@@ -84,6 +91,8 @@ export const rowInputFlexList = [
       {
         inputType: "text",
         inputName: "discount",
+        defaultValue: 0,
+        referenceKey: "item",
         inputPlaceholder: "15%",
         inputBorderColor: "var(--input-border-2)",
         textAlign: "center",
@@ -93,6 +102,8 @@ export const rowInputFlexList = [
       {
         inputType: "text",
         inputName: "total",
+        isDisabled: true,
+        referenceKeyUnitPrice: "unitPrice",
         inputPlaceholder: "1.500.000",
         inputBorderColor: "var(--input-border-2)",
         placeholderWeight: 700,
@@ -103,8 +114,8 @@ export const rowInputFlexList = [
   {
     inputs: [
       {
-        inputType: "select",
-        inputName: "item",
+        inputType: "async-select",
+        inputName: "combo",
         inputPlaceholder: (
           <div className={`${orderLinesStyles.row}`}>
             <img src='/assets/svg/combo.svg' />
@@ -118,12 +129,17 @@ export const rowInputFlexList = [
       {
         inputType: "text",
         inputName: "description",
+        inputKey: "description",
+        referenceKey: "combo",
+        permission: "edit combo description in quotation",
         inputPlaceholder: "lorem ipsumlorem ipsum",
         flex: 4.25,
       },
       {
         inputType: "text",
         inputName: "quantity",
+        defaultValue: 1,
+        referenceKey: "combo",
         inputPlaceholder: "1.00",
         textAlign: "center",
         flex: 0.75,
@@ -131,6 +147,9 @@ export const rowInputFlexList = [
       {
         inputType: "text",
         inputName: "unitPrice",
+        inputKey: "total",
+        referenceKey: "combo",
+        permission: "edit combo unit price in quotation",
         inputPlaceholder: "150.0",
         textAlign: "center",
         flex: 0.75,
@@ -138,6 +157,8 @@ export const rowInputFlexList = [
       {
         inputType: "text",
         inputName: "discount",
+        referenceKey: "combo",
+        defaultValue: 0,
         inputPlaceholder: "15%",
         textAlign: "center",
         flex: 0.75,
@@ -145,6 +166,8 @@ export const rowInputFlexList = [
       {
         inputType: "text",
         inputName: "total",
+        isDisabled: true,
+        referenceKeyUnitPrice: "total",
         inputPlaceholder: "1.500.000",
         flex: 1.25,
       },
@@ -153,25 +176,9 @@ export const rowInputFlexList = [
   {
     inputs: [
       {
+        inputType: "image",
+        inputName: "image",
         flex: 9,
-        customHtml: (
-          <div className={`${orderLinesStyles.row}`}>
-            <div className={`${orderLinesStyles.dragAndDropContainer}`}>
-              <img src='/assets/svg/upload.svg' />
-              <div className={`${orderLinesStyles.dragAndDropText}`}>
-                Drag and Drop your image here or{" "}
-                <span
-                  style={{
-                    color: "var(--primary-clr-light)",
-                    paddingLeft: "4px",
-                  }}>
-                  {" "}
-                  Browse
-                </span>
-              </div>
-            </div>
-          </div>
-        ),
       },
     ],
   },

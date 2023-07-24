@@ -25,6 +25,8 @@ const CreateClient = () => {
 
   const createClientData = createClientResponse.data?.data.data;
 
+  console.log(createClientData)
+
   const {
     register,
     handleSubmit,
