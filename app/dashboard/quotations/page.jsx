@@ -107,7 +107,7 @@ const Page = () => {
     },
     {
       name: "Salesperson",
-      selector: (row) => row.salesperson.name,
+      selector: (row) => row.salesperson?.name,
       sortable: true,
     },
     {

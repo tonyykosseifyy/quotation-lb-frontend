@@ -15,28 +15,36 @@ const InputContainer = ({
   codeName,
   changeCodeValue,
   inputName,
+  inputValue,
   selectOptions,
   inputId,
   height,
   heightUnit,
   width,
   widthUnit,
-  fontWeight,
   fontSize,
   textAlign,
   alignLabelInput = true,
   spaceBetween = true,
   register,
+  registerArrayName,
+  registerArrayKey,
+  registerArrayIndex,
   control,
-  borderColor,
-  placeholderFontStyle,
-  placeholderFontWeight,
-  placeholderFontSize,
   dropdownArrowColor,
   optionName,
   optionId,
   value,
   onChange,
+  loadOptions,
+  isSearchable,
+  initialValue,
+  defaultValue,
+  isDisabled,
+  setValue,
+  referenceInput,
+  referenceKey,
+  inputKey,
 }) => {
   return (
     <div
@@ -56,6 +64,7 @@ const InputContainer = ({
         codeName={codeName}
         changeCodeValue={changeCodeValue}
         inputName={inputName}
+        inputValue={inputValue}
         selectOptions={selectOptions}
         inputId={inputId}
         height={height}
@@ -63,7 +72,6 @@ const InputContainer = ({
         width={width}
         widthUnit={widthUnit}
         fontSize={fontSize}
-        fontWeight={fontWeight}
         textAlign={textAlign}
         inputBorder={inputBorder}
         placeholderColor={placeholderColor}
@@ -71,16 +79,24 @@ const InputContainer = ({
         placeholderWeight={placeholderWeight}
         inputBorderColor={inputBorderColor}
         register={register}
+        registerArrayName={registerArrayName}
+        registerArrayKey={registerArrayKey}
+        registerArrayIndex={registerArrayIndex}
         control={control}
-        borderColor={borderColor}
-        placeholderFontStyle={placeholderFontStyle}
-        placeholderFontWeight={placeholderFontWeight}
-        placeholderFontSize={placeholderFontSize}
         dropdownArrowColor={dropdownArrowColor}
         optionName={optionName}
         optionId={optionId}
         value={value}
         onChange={onChange}
+        loadOptions={loadOptions}
+        isSearchable={isSearchable}
+        initialValue={initialValue}
+        defaultValue={defaultValue}
+        isDisabled={isDisabled}
+        setValue={setValue}
+        referenceInput={referenceInput}
+        referenceKey={referenceKey}
+        inputKey={inputKey}
       />
     </div>
   );
