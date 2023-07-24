@@ -78,7 +78,7 @@
     --primary-clr: #4472c4;
     --primary-clr-light: #0071BC;
     --primary-clr-darker: #204ea4;
-    --primary-background-clr: #f3f3f3;
+    --primary-background-clr: #FAFAFA;
     --primary-text-clr: #535353;
     --secondary-text-clr: #7D7D7D;
     --placeholder-text-clr: #C8C8C8;
@@ -91,6 +91,9 @@
     --bigCircle-background-clr: rgba(191, 219, 238, 0.3);
     --drag-and-drop-border-clr: #C4C4C4;
     --tab-button-background-clr: #F4F4F4;
+    --table-row-background-clr: rgba(191, 191, 191, 0.4);
+    --table-row-babyblue-background-clr: #A4D8FB;
+    --modal-background-clr: rgba(250, 250, 250, 1);
 }
 
 @font-face {

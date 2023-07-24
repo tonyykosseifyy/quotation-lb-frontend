@@ -47,7 +47,7 @@ const sidebarItems = [
             },
             {
                 title: "Create Items",
-                link: "/dashboard/",
+                link: "/dashboard/stock/items/create",
             },
             {
                 title: "Combos",
@@ -59,28 +59,28 @@ const sidebarItems = [
             },
         ],
     },
-    {
-        title: "Report",
-        logo: "/assets/svg/report.svg",
-        items: [
-            {
-                title: "Report 1",
-                link: "/dashboard",
-            },
-            {
-                title: "Report 2",
-                link: "/dashboard/",
-            },
-            {
-                title: "Report 3",
-                link: "/dashboard/",
-            },
-        ],
-    },
-    {
-        title: "Dashboard Summary",
-        logo: "/assets/svg/quilt.svg",
-    },
+    // {
+    //     title: "Report",
+    //     logo: "/assets/svg/report.svg",
+    //     items: [
+    //         {
+    //             title: "Report 1",
+    //             link: "/dashboard",
+    //         },
+    //         {
+    //             title: "Report 2",
+    //             link: "/dashboard/",
+    //         },
+    //         {
+    //             title: "Report 3",
+    //             link: "/dashboard/",
+    //         },
+    //     ],
+    // },
+    // {
+    //     title: "Dashboard Summary",
+    //     logo: "/assets/svg/quilt.svg",
+    // },
     {
         title: "Admin Panel",
         logo: "/assets/svg/admin-panel.svg",

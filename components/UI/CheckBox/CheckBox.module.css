@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.input {
+  accent-color: var(--primary-clr);
+}

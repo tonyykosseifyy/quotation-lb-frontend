@@ -15,6 +15,7 @@ const Button = ({
     value,
     type,
     tab,
+    width,
 }) => {
     return (
         <button
@@ -34,6 +35,7 @@ const Button = ({
                 paddingBottom: paddingBottom,
                 paddingLeft: paddingLeft,
                 paddingRight: paddingRight,
+                width: width,
             }}
             onClick={onClick}
             value={value}

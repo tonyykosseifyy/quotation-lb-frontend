@@ -2,7 +2,7 @@ export const configurationDropDownItems = [
   {
     key: 1,
     name: "Taxation Groups",
-    link: "/dashboard"
+    link: "/dashboard/admin/taxation-groups"
   },
   {
     key: 2,
