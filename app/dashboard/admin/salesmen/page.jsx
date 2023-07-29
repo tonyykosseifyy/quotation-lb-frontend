@@ -183,7 +183,7 @@ const Salesmen = () => {
                     <div className={`pe-md-4 ${styles.labelText}`}> Commission granted </div>
                       <div className="d-flex flex-row" style={{ gap: "10px" }}>
                         <InputContainer inputPlaceholder='7.50 %' inputType='number' inputName='commissionGrantedPercentage' register={register} control={control} textAlign="end" width="80" />
-                        <InputContainer inputPlaceholder='on invoice net sales amount total' inputType='select' inputName='commissionGrantedPercentage' selectOptions={commissionGrantedOptions} register={register} control={control} width="100" widthUnit="%" placeholderColor placeholderStyle/>
+                        <InputContainer inputPlaceholder='on invoice net sales amount total' inputType='select' inputName='commissionGrantedSelect' selectOptions={commissionGrantedOptions} register={register} control={control} width="100" widthUnit="%" placeholderColor placeholderStyle/>
                       </div>
                   </div>
                   <div className="mt-2 d-flex flex-column flex-md-row align-items-md-center" style={{ gap: "10px" }}>

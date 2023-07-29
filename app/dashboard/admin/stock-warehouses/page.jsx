@@ -173,17 +173,9 @@ const StockWarehouses = () => {
                     New Stock Warehouses
                   </div>
                 </div>
-                <div className="mt-5 d-flex flex-column" style={{ gap: "10px" }}>
-                  <div className="d-flex flex-column flex-md-row align-items-md-center" style={{ gap: "10px" }}>
-                    <div className={`pe-md-4 ${styles.labelText}`}> Address </div>
-                    <InputContainer inputPlaceholder='' inputType='text' inputName='address' register={register} control={control} width="100" widthUnit="%"/>
-                  </div>
-                  <div className="d-flex flex-column flex-md-row align-items-md-center" style={{ gap: "10px" }}>
-                    <div className={`pe-md-3 ${styles.labelText}`}> Compensation Warehouse </div>
-                    <InputContainer inputPlaceholder='' inputType='text' inputName='compensationWarehouse' register={register} control={control}  width="100" widthUnit="%"/>
-                  </div>
-                  {/* <InputContainer label='Address' inputPlaceholder='' inputType='text' inputName='address' register={register} control={control} />
-                  <InputContainer label='Compensation Warehouse'  inputPlaceholder='' inputType='text' inputName='compensationWarehouse' register={register} control={control} /> */}
+                <div className={`mt-5 d-flex flex-column ${styles.inputRow}`} >
+                    <InputContainer label='Address' inputPlaceholder='' inputType='text' inputName='address' register={register} control={control} />
+                    <InputContainer label='Compensation Warehouse'  inputPlaceholder='' inputType='text' inputName='compensationWarehouse' register={register} control={control} />
                 </div>
               </>
             )}

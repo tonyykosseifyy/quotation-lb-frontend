@@ -46,6 +46,7 @@ const SubReferences = () => {
     const modalStyle = { 
         overlay: { 
             backgroundColor: "var(--modal-overlay-background-clr)",
+            zIndex: 100,
         }, 
         content: { 
             top: '50%', left: '50%', right: 'auto', bottom: 'auto',
@@ -178,17 +179,8 @@ const SubReferences = () => {
                 className={`${styles.form}`}>
                 <>
                     <div className="mt-3">
-                        <div className={`d-flex-wrap`}>
-                            <Button
-                                title="General"
-                                rounded={true}
-                                fillBackground={buttonState === "general"}
-                                onClick={handleExtraInfoChange}
-                                value="general"
-                                type="button"
-                                width="180px"
-                                tab
-                            />
+                        <div>
+                            <Button title="General" rounded={true} fillBackground={buttonState === "general"} onClick={handleExtraInfoChange} value="general" type="button" width="180px" tab />
                         </div>
                         {buttonState === "general" && (
                             <>
@@ -213,7 +205,7 @@ const SubReferences = () => {
                                 </div>
                             </>  
                         )}
-                        <div className="mt-3" style={{ width: "30%"}}>
+                        <div className={ `mt-3 ${styles.subReferenceTypeContainer} `}>
                           <InputContainer
                               label='Sub-Reference Type'
                               inputPlaceholder=''
@@ -245,55 +237,56 @@ const SubReferences = () => {
                                         
                             </div>  
                         </div>
-                        <div className="d-flex flex-column flex-md-row mt-4" style={{ gap:"20px" }}>
-                              <div style={{ maxWidth: "40% !important" }}>
+                        { checkboxValues.shortDescription === true && (
+                            <div className="d-flex flex-column flex-md-row mt-4" style={{ gap:"20px" }}>
+                                <div style={{ maxWidth: "40% !important" }}>
                                 <DataTable 
                                     columns={shortDescriptionTableColumns}
                                     data={shortDescription}
                                     customStyles={customStyles}
                                     conditionalRowStyles={conditionalRowStyles}
                                 />
-                              </div>
-                              <div className="d-flex flex-column ps-md-4">
-                                  <Button
-                                      icon={ <img src="/assets/svg/pen.svg" width="35" height="35" /> } 
-                                      title="Modify R value"
-                                      rounded={false} 
-                                      fillBackground={false} 
-                                      paddingTop={0} 
-                                      paddingBottom={0} 
-                                      paddingRight={8} 
-                                      paddingLeft={0} 
-                                      width={"150px"}
-                                      type="button"
-                                      value="modify"
-                                      titleColor={"var(--primary-clr)"}
-                                      display="flex"
-                                      alignItems="center"
-                                      justifyContent="space-evenly"
-                                  />
-                                  <div className="mt-2">
-                                      <Button 
-                                          icon={ <Trashcan fillColor={"var(--primary-clr)"} /> }
-                                          title={"Delete R value"}
-                                          rounded={false} 
-                                          fillBackground={false} 
-                                          paddingTop={8} 
-                                          paddingBottom={8} 
-                                          paddingRight={3} 
-                                          paddingLeft={0}
-                                          width={"150px"} 
-                                          type="button"
-                                          value="delete"
-                                          titleColor={"var(--primary-clr)"}
-                                          display="flex"
-                                          alignItems="center"
-                                          justifyContent="space-evenly"
+                                </div>
+                                <div className="d-flex flex-column ps-md-4">
+                                    <Button
+                                        icon={ <img src="/assets/svg/pen.svg" width="35" height="35" /> } 
+                                        title="Modify R value"
+                                        rounded={false} 
+                                        fillBackground={false} 
+                                        paddingTop={0} 
+                                        paddingBottom={0} 
+                                        paddingRight={8} 
+                                        paddingLeft={0} 
+                                        width={"150px"}
+                                        type="button"
+                                        value="modify"
+                                        titleColor={"var(--primary-clr)"}
+                                        display="flex"
+                                        alignItems="center"
+                                        justifyContent="space-evenly"
+                                    />
+                                    <div className="mt-2">
+                                        <Button 
+                                            icon={ <Trashcan fillColor={"var(--primary-clr)"} /> }
+                                            title={"Delete R value"}
+                                            rounded={false} 
+                                            fillBackground={false} 
+                                            paddingTop={8} 
+                                            paddingBottom={8} 
+                                            paddingRight={3} 
+                                            paddingLeft={0}
+                                            width={"150px"} 
+                                            type="button"
+                                            value="delete"
+                                            titleColor={"var(--primary-clr)"}
+                                            display="flex"
+                                            alignItems="center"
+                                            justifyContent="space-evenly"
                                         />
-                                  </div>
-                                  
-                              </div>
-                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
                     </div>
                     <div className={`${styles.actionButtons} mt-5 mt-lg-0`}>
                           <div

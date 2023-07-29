@@ -1,5 +1,5 @@
 .form {
-  min-height: 500px;
+  min-height: 520px;
   display: flex; 
   flex-direction: column;
   justify-content: space-between;
@@ -18,9 +18,36 @@
 
 .checkBoxDiv {
   display: flex;
-  flex-wrap: wrap;
-  gap: 33px;
-  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subReferenceTypeContainer {
+  width: 100%
+}
+
+@media only screen and (min-width: 600px) {
+  .subReferenceTypeContainer {
+    width: 53%
+  }
+
+  .checkBoxDiv {
+    flex-direction: row;
+    gap: 33px;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .subReferenceTypeContainer {
+    width: 43%
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .subReferenceTypeContainer {
+    width: 35%
+  }
 }
 
 .actionButtons {

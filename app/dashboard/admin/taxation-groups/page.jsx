@@ -37,6 +37,7 @@ const TaxationGroups = () => {
     const modalStyle = { 
         overlay: { 
             backgroundColor: "var(--modal-overlay-background-clr)",
+            zIndex: 100,
         }, 
         content: { 
             top: '50%', left: '50%', right: 'auto', bottom: 'auto',
@@ -169,12 +170,16 @@ const TaxationGroups = () => {
         reset,
     } = useForm();
 
+    // const onSubmit = (e) => {
+    //     e.preventDefault();
+    // };
+
     return (
         <ModalComponent 
             title="Taxation Groups" 
             titlePaddingBottom="20px"
             isOpen={showModal} 
-            // onRequestClose={() => setShowModal(false)} 
+            onRequestClose={() => setShowModal(false)} 
             style={modalStyle}
         >
             <form id="taxationGroups" 
@@ -182,7 +187,7 @@ const TaxationGroups = () => {
                 className={`${styles.form}`}>
                 <>
                     <div className="mt-3">
-                        <div className={`d-flex-wrap`}>
+                        <div>
                             <Button
                                 title="General"
                                 rounded={true}

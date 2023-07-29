@@ -20,7 +20,6 @@ const PriceLists = () => {
     const [showModal, setShowModal] = useState(true);
     const [buttonState, setButtonState] = useState("general");
     const [generalTableRows, setGeneralTableRows] = useState(priceListsGeneralDuplicate);
-    const [percentageOption, setPercentageOption] = useState("");
 
     const handleExtraInfoChange = (e) => {
         setButtonState(() => e.target.value);
@@ -42,6 +41,15 @@ const PriceLists = () => {
             ...prevState,
             [name]: checked
         }));
+    };
+
+    const [percentageOption, setPercentageOption] = useState(null);
+    const [percentageOptionName, setPercentageOptionName] = useState("")
+
+    const handleChange = (selected) => {
+        setPercentageOption(selected);
+        setPercentageOptionName(selected.name);
+        console.log(percentageOptionName);
     };
 
     const [state, setState] = useState({ atTransactionTimeDisplay: ""});
@@ -122,42 +130,42 @@ const PriceLists = () => {
             allowOverflow: true,
         },
         {
-          name: "Name",
-          maxWidth: "500px",
-          selector: (row) => row.name,
+            name: "Name",
+            maxWidth: "500px",
+            selector: (row) => row.name,
         },
         {
-          name: "Currency",
-          maxWidth: "120px",
-          selector: (row) => row.currency,
-          center: true,
+            name: "Currency",
+            maxWidth: "120px",
+            selector: (row) => row.currency,
+            center: true,
         },
         {
-          name: "Saleprice",
-          maxWidth: "120px",
-          selector: (row) => row.salePrice,
-          format: (row) => row.salePrice.toFixed(2),
-          center: true,
+            name: "Saleprice",
+            maxWidth: "120px",
+            selector: (row) => row.salePrice,
+            format: (row) => row.salePrice.toFixed(2),
+            center: true,
         },
         {
-          name: "Discount",
-          maxWidth: "120px",
-          selector: (row) => row.discount,
-          format: (row) => row.discount.toFixed(2),
-          center: true,
+            name: "Discount",
+            maxWidth: "120px",
+            selector: (row) => row.discount,
+            format: (row) => row.discount.toFixed(2),
+            center: true,
         },
         {
-          name: "Discount %",
-          maxWidth: "120px",
-          selector: (row) => row.discountPercent,
-          center: true,
+            name: "Discount %",
+            maxWidth: "120px",
+            selector: (row) => row.discountPercent,
+            center: true,
         },
         {
-          name: "Price Discounted",
-          maxWidth: "150px",
-          selector: (row) => row.priceDiscounted,
-          format: (row) => row.priceDiscounted.toFixed(2),
-          center: true,
+            name: "Price Discounted",
+            maxWidth: "150px",
+            selector: (row) => row.priceDiscounted,
+            format: (row) => row.priceDiscounted.toFixed(2),
+            center: true,
         },
     ];
 
@@ -169,21 +177,21 @@ const PriceLists = () => {
             allowOverflow: true,
         },
         {
-          name: "Department Name",
-        //   maxWidth: "160px",
-          selector: (row) => row.departmentName,
+            name: "Department Name",
+            // maxWidth: "160px",
+            selector: (row) => row.departmentName,
         },
         {
-          name: "Method",
-        //   maxWidth: "180px",
-          selector: (row) => row.method,
+            name: "Method",
+            // maxWidth: "180px",
+            selector: (row) => row.method,
         },
         {
-          name: "Percentage",
-        //   maxWidth: "120px",
-          selector: (row) => row.percentage,
-        // format: (row) => row.salePrice.toFixed(2),
-          center: true,
+            name: "Percentage",
+            // maxWidth: "120px",
+            selector: (row) => row.percentage,
+            // format: (row) => row.salePrice.toFixed(2),
+            center: true,
         },
     ];
       
@@ -340,15 +348,15 @@ const PriceLists = () => {
                                     <InputContainer
                                         inputPlaceholder=""
                                         inputType="select"
-                                        inputName="percentage"
+                                        inputName="percentageSelect"
                                         selectOptions={percentageOptions}
                                         register={register}
                                         control={control}
                                         width="300"
+                                        value={percentageOption}
+                                        onChange={handleChange}
                                     />
-                                    <div className="border border-1 rounded p-2 text-center" style={{ fontWeight: "600", fontSize: "13px", width: "68px", color: "var(--table-data-text-clr)" }}>
-                                        25.00 %
-                                    </div>
+                                    <InputContainer inputPlaceholder='25.00 %' inputType='number' inputName='percentage' register={register} control={control} textAlign="end" width="80" />
                                 </div>
                                 <div className="mt-4">
                                     <div style={{ fontSize: "16px", fontWeight: "600", color: "var(--table-data-text-clr)" }}>
@@ -363,16 +371,16 @@ const PriceLists = () => {
                                         </div>
                                     </div>
                                 </div>
-                                
-                                    <div className="mt-5 col-12 col-md-6">
+                                { percentageOptionName === "percentage as per item department" && (
+                                    <div className={`mt-5 col-12 col-md-10 col-lg-7`} >
                                         <DataTable
                                             columns={departmentTableColumns}
                                             data={priceListsDepartment}
                                             customStyles={customStyles}
                                             conditionalRowStyles={conditionalRowStyles}
-                                    />
+                                        />
                                     </div>
-                                
+                                )}
                             </>
                         )}
                         { buttonState === "items" && (
@@ -402,7 +410,7 @@ const PriceLists = () => {
                     <div className={`${styles.actionButtons} mt-5 mt-lg-0`}>
                           <div
                               className={`${styles.discard}`}
-                              onClick={() => { reset(), setGeneralTableRows(priceListsGeneral) }}
+                              onClick={() => { reset(), setGeneralTableRows(priceListsGeneral), setState(() => ({atTransactionTimeDisplay: ""})) }}
                             >
                               Discard
                           </div>
