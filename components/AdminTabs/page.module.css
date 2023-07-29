@@ -1,0 +1,44 @@
+.footerRow {
+  display: flex;
+  align-items: center;
+  padding-right: 30px;
+}
+
+.labelText {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.checkBoxDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.subReferenceTypeContainer {
+  width: 100%
+}
+
+@media only screen and (min-width: 600px) {
+  .subReferenceTypeContainer {
+    width: 53%
+  }
+
+  .checkBoxDiv {
+    flex-direction: row;
+    gap: 33px;
+    align-items: center;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .subReferenceTypeContainer {
+    width: 43%
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .subReferenceTypeContainer {
+    width: 35%
+  }
+}

@@ -12,6 +12,7 @@ import { priceListsGeneral, priceListsItems, priceListsDepartment, percentageOpt
 import CheckBox from "@/components/UI/CheckBox/Checkbox";
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import RadioButton from "@/components/UI/RadioButton/RadioButton";
+import GeneralTab from "@/components/AdminTabs/GeneralTab";
 
 const PriceLists = () => {
   
@@ -21,7 +22,7 @@ const PriceLists = () => {
     const [buttonState, setButtonState] = useState("general");
     const [generalTableRows, setGeneralTableRows] = useState(priceListsGeneralDuplicate);
 
-    const handleExtraInfoChange = (e) => {
+    const handleTabChange = (e) => {
         setButtonState(() => e.target.value);
     };
 
@@ -94,33 +95,6 @@ const PriceLists = () => {
             backgroundColor: "var(--modal-background-clr)",
         } 
     };
-
-    const generalTableColumns = [
-        {
-            name: "Code",
-            maxWidth: "100px",
-            selector: (row) => row.code,
-            allowOverflow: true,
-        },
-        {
-            name: "Name",
-            maxWidth: "auto",
-            selector: (row) => row.name,
-        },
-        {
-            name: "",
-            maxWidth: "30px",
-            cell: (row) => (
-                <div style={{ cursor: "pointer" }}>
-                    <Trashcan
-                        fillColor={"var(--primary-clr)"}
-                        onClick={() => generalHandleDeleteRow(row.id)}
-                    />
-                </div>
-            ),
-            center: true,
-        },
-    ];
 
     const itemsTableColumns = [
         {
@@ -273,7 +247,7 @@ const PriceLists = () => {
                             key={title}
                             title={title} 
                             fillBackground={fillBackground} 
-                            onClick={handleExtraInfoChange} 
+                            onClick={handleTabChange} 
                             value={value} 
                             type='button' 
                             width="140px"
@@ -288,27 +262,11 @@ const PriceLists = () => {
                 <>
                     <div>
                         { buttonState === "general" && (
-                            <>
-                                <DataTable 
-                                    columns={generalTableColumns}
-                                    data={generalTableRows}
-                                    customStyles={customStyles}
-                                    conditionalRowStyles={conditionalRowStyles}
-                                />
-                                <div
-                                    // onClick={() => { }}
-                                    className={`${styles.footerRow} pt-3`}>
-                                        <Plus fillColor='var(--primary-clr-light)' />
-                                        <div
-                                            style={{
-                                                fontSize: "12px",
-                                                paddingLeft: "8px",
-                                            }}
-                                        >
-                                            New Price List
-                                        </div>
-                                </div>
-                            </>  
+                            <GeneralTab 
+                                data={generalTableRows} 
+                                footerText="New Price List" 
+                                generalHandleDeleteRow={generalHandleDeleteRow}
+                            />
                         )}
                         { buttonState === "properties" && (
                             <>
