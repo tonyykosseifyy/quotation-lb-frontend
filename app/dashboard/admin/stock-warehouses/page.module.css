@@ -5,22 +5,6 @@
   justify-content: space-between;
 }
 
-.footerRow {
-  display: flex;
-  align-items: center;
-  padding-right: 30px;
-}
-
-.labelText {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.inputRow {
-  width: 100%;
-  gap: 10px;
-}
-
 .actionButtons {
   display: flex;
   flex-wrap: wrap;
@@ -35,22 +19,4 @@
   color: var(--primary-clr);
   text-decoration: underline;
   cursor: pointer;
-}
-
-@media only screen and (min-width: 768px) {
-  .inputRow {
-    width: 60%;
-  }
-}
-
-@media only screen and (min-width: 1000px) {
-  .inputRow {
-    width: 50%;
-  }
-}
-
-@media only screen and (min-width: 1300px) {
-  .inputRow {
-    width: 36%;
-  }
 }

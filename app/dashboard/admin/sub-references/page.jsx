@@ -87,7 +87,8 @@ const SubReferences = () => {
         >
             <form id="subReferences" 
                 onSubmit={handleSubmit(onSubmit)} 
-                className={`${styles.form}`}>
+                className={`${styles.form}`}
+            >
                 <>
                     <div className="mt-3">
                         <div>
@@ -103,39 +104,41 @@ const SubReferences = () => {
                             />
                         </div>
                         {buttonState === "general" && (
+                            <>
                                 <GeneralTab 
                                     data={generalTableRows} 
                                     footerText="New Sub-References" 
                                     generalHandleDeleteRow={generalHandleDeleteRow} 
-                                />          
+                                />
+                                <SubReferencesGeneralTab 
+                                    control={control} 
+                                    register={register} 
+                                    checkboxInfo={checkboxInfo} 
+                                    checkboxValues={checkboxValues}
+                                    handleCheckboxChange={handleCheckboxChange}
+                                    data={shortDescription}
+                                /> 
+                            </>         
                         )}
-                        <SubReferencesGeneralTab 
-                            control={control} 
-                            register={register} 
-                            checkboxInfo={checkboxInfo} 
-                            checkboxValues={checkboxValues}
-                            handleCheckboxChange={handleCheckboxChange}
-                            data={shortDescription}
-                        />
                     </div>
                     <div className={`${styles.actionButtons} mt-5 mt-lg-0`}>
-                          <div
-                              className={`${styles.discard}`}
-                              onClick={() => { reset(), setGeneralTableRows(subReferencesGeneral) }}
-                            >
-                              Discard
-                          </div>
-                          <div className="">
-                              <Button
-                                  title="Save"
-                                  rounded={false}
-                                  fillBackground={true}
-                                  paddingTop={10}
-                                  paddingBottom={10}
-                                  paddingRight={64}
-                                  paddingLeft={64}
-                                />
-                          </div>
+                        <div
+                            className={`${styles.discard}`}
+                            onClick={() => { reset(), setGeneralTableRows(subReferencesGeneral) }}
+                        >
+                            Discard
+                        </div>
+                        <div className="">
+                            <Button
+                                title="Save"
+                                rounded={false}
+                                fillBackground={true}
+                                paddingTop={10}
+                                paddingBottom={10}
+                                paddingRight={64}
+                                paddingLeft={64}
+                            />
+                        </div>
                     </div>
                 </>  
             </form>
