@@ -8,6 +8,51 @@
   padding-top: 18px;
 }
 
-.inputContainerBorder{
+.inputContainerBorder {
   border: 1px solid var(--input-border-2) ;
+}
+
+.inputRow, .inputRow2 {
+  width: 100%;
+  gap: 15px;
+}
+
+@media only screen and (min-width: 768px) {
+  .inputRow {
+    width: 50%;
+  }
+
+  .inputRow2 {
+    width: 45%;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .inputRow {
+    width: 45%;
+  }
+
+  .inputRow2 {
+    width: 40%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .inputRow {
+    width: 35%;
+  }
+
+  .inputRow2 {
+    width: 32%;
+  }
+}
+
+@media only screen and (min-width: 1400px) {
+  .inputRow {
+    width: 30%;
+  }
+
+  .inputRow2 {
+    width: 27%;
+  }
 }
