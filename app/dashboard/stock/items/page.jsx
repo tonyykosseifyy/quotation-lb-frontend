@@ -24,7 +24,7 @@ const Products = () => {
     //
   };
 
-  const [view, setView] = useState( "grid");
+  const [view, setView] = useState("grid");
 
   const columns = [
     {
@@ -81,20 +81,20 @@ const Products = () => {
 
   const customStyles = {
     headRow: {
-        style: {
-            backgroundColor: "var(--primary-clr)",
-            color: "white",
-            fontSize: "13px",
-            fontWeight: 600,
-            borderRadius: 5,
-        },
+      style: {
+        backgroundColor: "var(--primary-clr)",
+        color: "white",
+        fontSize: "13px",
+        fontWeight: 600,
+        borderRadius: 5,
+      },
     },
     cells: {
-        style: {
-            fontSize: 12,
-            fontWeight: 700,
-            color: "var(--table-data-text-clr)",
-        },
+      style: {
+        fontSize: 12,
+        fontWeight: 700,
+        color: "var(--table-data-text-clr)",
+      },
     },
   };
 
@@ -110,138 +110,118 @@ const Products = () => {
   return (
     <div className={`container m-0`}>
       <div className={`${styles.header} pt-4`}>
-        <div className="d-flex">
-            <div className={`${styles.title}`}>Products</div>
-               <span className="ps-2" style={{ cursor: "pointer" }}>
-                  <DownArrow />
-               </span>
-            </div>
-            <div>
-              <Button
-                title="Create New Product"
-                fillBackground={true}
-                rounded={true}
-                onClick={handleCreateProduct}
-              />
-            </div>
+        <div className='d-flex'>
+          <div className={`${styles.title}`}>Products</div>
+          <span className='ps-2' style={{ cursor: "pointer" }}>
+            <DownArrow />
+          </span>
         </div>
-        <div className="d-flex flex-column flex-md-row justify-content-between mt-4" style={{ gap: "15px" }}>
-          <div className={styles.searchDiv}>
-             <Search
-                value={search}
-                placeholder="Search..."
-                borderWidth={1}
-                borderColor={"var(--primary-clr)"}
-                borderStyle={"solid"}
-                paddingLeft={25}
-                paddingTop={5}
-                paddingBottom={5}
-                paddingRight={25}
-                fillBackground={true}
-                backgroundColor={"white"}
-                rounded={true}
-                height={"38.5px"}
-                handleSearch={handleSearch}   
-              />
-            </div>
-            <div className="d-flex" style={{ gap: "22px"}}>
-                <InputContainer
-                    inputPlaceholder="Filter by"
-                    inputType="select"
-                    inputName=""
-                    borderColor={"var(--primary-clr)"}
-                    placeholderColor={"var(--primary-clr)"}
-                    placeholderFontStyle={"normal"}
-                    placeholderFontWeight={"700"}
-                    placeholderFontSize={"14px"}
-                    dropdownArrowColor={"var(--primary-clr)"}
-                    // selectOptions={filterByOptions}
-                    control={control}
-                    register={register}
-                    width={"112"}
-                  />
-                <div className="d-flex d-inline-block" style={{gap: "12px"}} >
-                  <span style={{ cursor: "pointer" }}>
-                      <Dropdown placement="bottom-right">
-                        <Dropdown.Trigger>
-                          <div className="pt-2 pt-md-1">
-                            <img src="/assets/svg/settings.svg" />
-                          </div>
-                        </Dropdown.Trigger>
-                        <Dropdown.Menu 
-                          aria-label="Static Actions"
-                          items={settingsOptions}
-                          onAction={(actionKey) => console.log({ actionKey })}
-                        >
-                          {(item) => (
-                            <Dropdown.Item
-                              key={item.key}
-                              className={styles.dropDownItem}
-                            >
-                              {item.name}
-                            </Dropdown.Item>
-                          )}
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </span>
-                    <span className="pt-2 pt-md-1" style={{ cursor: "pointer" }} onClick={() => setView("grid")}>
-                      <GridIcon fillColor={ view === "grid" ? "#4472c4" : "#535353" } />
-                    </span> 
-                    <span className="pt-2 pt-md-1" style={{ cursor: "pointer" }} onClick={() => setView("list")}>
-                      <ListIcon fillColor={ view === "list" ? "#4472c4" : "#535353" } />
-                    </span> 
-                </div> 
-              </div>   
+        <div>
+          <Button title='Create New Product' fillBackground={true} rounded={true} onClick={handleCreateProduct} />
+        </div>
       </div>
-      {
-        view === "grid" && (
-          <div className="row pt-3">
-            {items.map( item => {
-              if (search === "" || (item.code.toLowerCase().includes(search.toLowerCase())))
-                return (
-                  <div key={item.id} className="col-12 col-md-6 col-lg-4 mt-4">
-                    <div className={`card ${styles.singleCard}`}>
-                      <div className="card-body p-0">
-                        <div className="d-flex">
-                          <img src={item.src} className="rounded-circle mt-1" width="56px" height="56px"/> 
-                          <div className="ps-3">
-                            <div className="d-flex justify-content-between">
-                              <div className={`card-title ${styles.cardTitle}`}>{item.title}</div>
-                                <span style={{ cursor: "pointer"}}>
-                                  < Heart/>
-                                </span>
-                              </div>
-                              <p className={`card-text pe-4 pe-sm-4 pe-md-5 ${styles.cardBodyText}`}>
-                                {item.description}
-                              </p>
-                            </div>
+      <div className='d-flex flex-column flex-md-row justify-content-between mt-4' style={{ gap: "15px" }}>
+        <div className={styles.searchDiv}>
+          <Search
+            value={search}
+            placeholder='Search...'
+            borderWidth={1}
+            borderColor={"var(--primary-clr)"}
+            borderStyle={"solid"}
+            paddingLeft={25}
+            paddingTop={5}
+            paddingBottom={5}
+            paddingRight={25}
+            fillBackground={true}
+            backgroundColor={"white"}
+            rounded={true}
+            height={"38.5px"}
+            handleSearch={handleSearch}
+          />
+        </div>
+        <div className='d-flex' style={{ gap: "22px" }}>
+          <InputContainer
+            inputPlaceholder='Filter by'
+            inputType='select'
+            inputName=''
+            borderColor={"var(--primary-clr)"}
+            placeholderColor={"var(--primary-clr)"}
+            placeholderFontStyle={"normal"}
+            placeholderFontWeight={"700"}
+            placeholderFontSize={"14px"}
+            dropdownArrowColor={"var(--primary-clr)"}
+            // selectOptions={filterByOptions}
+            control={control}
+            register={register}
+            width={"112"}
+          />
+          <div className='d-flex d-inline-block' style={{ gap: "12px" }}>
+            <span style={{ cursor: "pointer" }}>
+              <Dropdown placement='bottom-right'>
+                <Dropdown.Trigger>
+                  <div className='pt-2 pt-md-1'>
+                    <img src='/assets/svg/settings.svg' />
+                  </div>
+                </Dropdown.Trigger>
+                <Dropdown.Menu aria-label='Static Actions' items={settingsOptions} onAction={(actionKey) => console.log({ actionKey })}>
+                  {(item) => (
+                    <Dropdown.Item key={item.key} className={styles.dropDownItem}>
+                      {item.name}
+                    </Dropdown.Item>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
+            </span>
+            <span className='pt-2 pt-md-1' style={{ cursor: "pointer" }} onClick={() => setView("grid")}>
+              <GridIcon fillColor={view === "grid" ? "#4472c4" : "#535353"} />
+            </span>
+            <span className='pt-2 pt-md-1' style={{ cursor: "pointer" }} onClick={() => setView("list")}>
+              <ListIcon fillColor={view === "list" ? "#4472c4" : "#535353"} />
+            </span>
+          </div>
+        </div>
+      </div>
+      {view === "grid" && (
+        <div className='row pt-3'>
+          {items.map((item) => {
+            if (search === "" || item.code.toLowerCase().includes(search.toLowerCase()))
+              return (
+                <div key={item.id} className='col-12 col-md-6 col-lg-4 mt-4'>
+                  <div className={`card ${styles.singleCard}`}>
+                    <div className='card-body p-0'>
+                      <div className='d-flex'>
+                        <img src={item.src} className='rounded-circle mt-1' width='56px' height='56px' />
+                        <div className='ps-3'>
+                          <div className='d-flex justify-content-between'>
+                            <div className={`card-title ${styles.cardTitle}`}>{item.title}</div>
+                            <span style={{ cursor: "pointer" }}>
+                              <Heart />
+                            </span>
                           </div>
-                          <hr className="mb-1"/>
-                          <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>
-                            {item.currencySymbol !== "LL" && item.currencySymbol}{item.price}{item.currencySymbol === "LL" && item.currencySymbol}
-                          </div>
+                          <p className={`card-text pe-4 pe-sm-4 pe-md-5 ${styles.cardBodyText}`}>{item.description}</p>
                         </div>
                       </div>
+                      <hr className='mb-1' />
+                      <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>
+                        {item.currencySymbol !== "LL" && item.currencySymbol}
+                        {item.price}
+                        {item.currencySymbol === "LL" && item.currencySymbol}
+                      </div>
                     </div>
-                )
-                return null; 
-              })}
-          </div>
-        )
-     }
-     {
-        view === "list" && (
-          <div className="pt-3 mt-4">
-            <DataTable 
-              columns={columns}
-              data={items}
-              customStyles={customStyles}
-            />
-          </div>
-        )
-      }
-    </div>     
-  )
-}
+                  </div>
+                </div>
+              );
+            return null;
+          })}
+        </div>
+      )}
+      {view === "list" && (
+        <div className='pt-3 mt-4'>
+          <DataTable columns={columns} data={items} customStyles={customStyles} />
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Products;

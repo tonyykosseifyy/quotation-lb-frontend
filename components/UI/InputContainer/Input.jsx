@@ -8,19 +8,18 @@ import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
 import AsyncSelect from "react-select/async";
 import { useDropzone } from "react-dropzone";
 import { ImageUpload } from "@/components/UI/InputContainer/ImageUpload";
+import { ucfirst } from "@/helpers/formatString";
 
 const Option = (props) => {
   const { innerProps, label, isSelected } = props;
 
   return (
     <div>
-      <components.Option {...props} >
-        <input
-          type="checkbox"
-          checked={isSelected}
-          onChange={() => null}
-        />{" "}
-        <label className="ps-2" style={{ color: "black" }} >{label}</label>
+      <components.Option {...props}>
+        <input type='checkbox' checked={isSelected} onChange={() => null} />{" "}
+        <label className='ps-2' style={{ color: "black" }}>
+          {label}
+        </label>
       </components.Option>
     </div>
   );
@@ -60,12 +59,13 @@ const Input = ({
   loadOptions,
   isSearchable = false,
   isDisabled = false,
-  initialValue,
+  initialValue = null,
   defaultValue,
   setValue = (name, value) => {},
   referenceInput,
   referenceKey,
   inputKey = null,
+  decimalDigits,
 }) => {
   const [extraValidations, setExtraValidations] = useState({});
 
@@ -89,6 +89,9 @@ const Input = ({
       }
     }
 
+    console.log("taregt", targetedInputName);
+    console.log("inital", initialValue);
+
     if (defaultValue != null) {
       setValue(targetedInputName, defaultValue);
     } else if (initialValue != null) {
@@ -111,10 +114,12 @@ const Input = ({
           type='text'
           id={inputId}
           placeholder={inputPlaceholder}
-          {...register(registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName, {
-            required: isRequired,
-            ...extraValidations,
-          })}
+          {...(register
+            ? register(registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName, {
+                required: isRequired,
+                ...extraValidations,
+              })
+            : {})}
           style={{
             fontWeight: placeholderWeight ? placeholderWeight : "600",
             fontSize: "12px",
@@ -122,6 +127,7 @@ const Input = ({
             borderColor: inputBorderColor ? "var(--input-border-2)" : "var(--input-border)",
           }}
           readOnly={isDisabled}
+          onChange={onChange}
         />
       )}
       {inputType === "textarea" && (
@@ -141,13 +147,11 @@ const Input = ({
           required={isRequired}
           className={`${styles.inputText} ${inputBorder}`}
           name={inputName}
-          type="number"
-          step="any"
+          type='number'
+          step='0.1'
           id={inputId}
           placeholder={inputPlaceholder}
-          {...register(inputName, { required: isRequired }, 
-          {valueAsNumber: true}
-          )}
+          {...register(inputName, { required: isRequired }, { valueAsNumber: true })}
           style={{
             fontWeight: placeholderWeight ? placeholderWeight : "600",
             fontSize: "12px",
@@ -158,7 +162,7 @@ const Input = ({
       )}
       {inputType === "select" && (
         <Controller
-          name={inputName}
+          name={registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName}
           control={control}
           render={({ field }) => (
             <Select
@@ -183,6 +187,11 @@ const Input = ({
                   ...baseStyles,
                   fontSize: 14,
                   fontWeight: 400,
+                  padding: "2px 4px",
+                }),
+                dropdownIndicator: (baseStyles, state) => ({
+                  ...baseStyles,
+                  padding: "8px 0",
                 }),
                 placeholder: (baseStyles, state) => ({
                   ...baseStyles,
@@ -198,7 +207,7 @@ const Input = ({
               }}
               placeholder={inputPlaceholder}
               options={selectOptions}
-              getOptionLabel={(option) => option[optionName]}
+              getOptionLabel={(option) => ucfirst(option[optionName])}
               getOptionValue={(option) => option[optionId]}
               isSearchable={isSearchable}
               components={{
@@ -261,20 +270,13 @@ const Input = ({
               }}
               required={isRequired}
               value={value}
-              onChange={onChange}
               defaultValue={initialValue}
             />
           )}
         />
       )}
-      { inputType === "checkBoxSelect" && (
-        <div
-          className="d-inline-block"
-          data-toggle="popover"
-          data-trigger="focus"
-          data-content=""
-          style={{ width: "209px" }}
-        >
+      {inputType === "checkBoxSelect" && (
+        <div className='d-inline-block' data-toggle='popover' data-trigger='focus' data-content='' style={{ width: "209px" }}>
           <Controller
             name={inputName}
             control={control}
@@ -290,7 +292,7 @@ const Input = ({
                 onChange={onChange}
                 value={value}
                 allowSelectAll={false}
-                getOptionLabel={(option) => option.name}
+                getOptionLabel={(option) => ucfirst(option.name)}
                 getOptionValue={(option) => option.id}
                 placeholder={inputPlaceholder}
                 required={isRequired}
@@ -298,7 +300,7 @@ const Input = ({
                   control: (baseStyles, state) => ({
                     ...baseStyles,
                     borderRadius: 5,
-                    borderColor:  "var(--input-border)",
+                    borderColor: "var(--input-border)",
                     "&:hover": {
                       borderColor: "none",
                     },
@@ -314,6 +316,11 @@ const Input = ({
                     ...baseStyles,
                     fontSize: 14,
                     fontWeight: 400,
+                    padding: "2px 4px",
+                  }),
+                  indicatorContainer: (baseStyles, state) => ({
+                    ...baseStyles,
+                    padding: "8px 0",
                   }),
                   placeholder: (baseStyles, state) => ({
                     ...baseStyles,

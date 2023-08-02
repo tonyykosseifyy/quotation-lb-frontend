@@ -14,26 +14,26 @@ export const taxationOptions = [
 export const checkboxInfo = [
   {
     inputName: "canBeSold",
-    labelText: "Can Be Sold"
+    labelText: "Can Be Sold",
   },
   {
     inputName: "canBePurchased",
-    labelText: "Can Be Purchased"
+    labelText: "Can Be Purchased",
   },
   {
     inputName: "warranty",
-    labelText: "Warranty"
+    labelText: "Warranty",
   },
   {
     inputName: "discontinued",
-    labelText: "Discontinued"
+    labelText: "Discontinued",
   },
 ];
 
 export const altCodes = [
   {
     itemCode: "CODE 1",
-    creationDate: "01/06/2023"
+    creationDate: "01/06/2023",
   },
 ];
 
@@ -176,103 +176,63 @@ export const packageTypeOptions = [
   { id: "container", name: "Container" },
 ];
 
+const unitFields = [
+  {
+    label: "Unit Name *",
+    placeholder: "PCS",
+    inputName: "packageUnitName",
+    inputNameQuantity: "packageUnitQuantity",
+  },
+];
+
+const setFields = [
+  ...unitFields,
+  {
+    label: "Set Name *",
+    placeholder: "SET",
+    inputName: "packageSetName",
+    inputNameQuantity: "packageSetQuantity",
+    referenceField: unitFields[unitFields.length - 1].inputName,
+  },
+];
+
+const supersetFields = [
+  ...setFields,
+  {
+    label: "Superset Name *",
+    placeholder: "CTN",
+    inputName: "packageSupersetName",
+    inputNameQuantity: "packageSupersetQuantity",
+    referenceField: setFields[setFields.length - 1].inputName,
+  },
+];
+
+const paletteFields = [
+  ...supersetFields,
+  {
+    label: "Palette Name *",
+    placeholder: "PAL",
+    inputName: "packagePaletteName",
+    inputNameQuantity: "packagePaletteQuantity",
+    referenceField: supersetFields[supersetFields.length - 1].inputName,
+  },
+];
+
+const containerFields = [
+  ...paletteFields,
+  {
+    label: "Container Name *",
+    placeholder: "CON",
+    inputName: "packageContainerName",
+    inputNameQuantity: "packageContainerQuantity",
+    referenceField: paletteFields[paletteFields.length - 1].inputName,
+  },
+];
+
 export const packageTypeFields = {
-  Units: [
-    {
-      label: "Unit Name *",
-      placeholder: "PCS",
-      inputName: "unitName",
-    },
-  ],
-  Sets: [
-    {
-      label: "Unit Name *",
-      placeholder: "PCS",
-      inputName: "unitName",
-    },
-    {
-      label: "Set Name *",
-      placeholder: "SET",
-      inputName: "setName",
-      description: "PCS PER BOX",
-    },
-  ],
-  Supersets: [
-    {
-      label: "Unit Name *",
-      placeholder: "PCS",
-      inputName: "unitName",
-    },
-    {
-      label: "Set Name *",
-      placeholder: "SET",
-      inputName: "setName",
-      description: "PCS PER BOX",
-
-    },
-    {
-      label: "Superset Name *",
-      placeholder: "CTN",
-      inputName: "superSet",
-      description: "BOX PER CTN"
-    },
-  ],
-  Palette: [
-    {
-      label: "Unit Name *",
-      placeholder: "PCS",
-      inputName: "unitName",
-    },
-    {
-      label: "Set Name *",
-      placeholder: "SET",
-      inputName: "setName",
-      description: "PCS PER BOX",
-
-    },
-    {
-      label: "Superset Name *",
-      placeholder: "CTN",
-      inputName: "superSet",
-      description: "BOX PER CTN"
-    },
-    {
-      label: "Palette Name *",
-      placeholder: "PAL",
-      inputName: "palette",
-      description: "CTN PER PAL"
-    },
-  ],
-  Container: [
-    {
-      label: "Unit Name *",
-      placeholder: "PCS",
-      inputName: "unitName",
-    },
-    {
-      label: "Set Name *",
-      placeholder: "SET",
-      inputName: "setName",
-      description: "PCS PER BOX",
-
-    },
-    {
-      label: "Superset Name *",
-      placeholder: "CTN",
-      inputName: "superSet",
-      description: "BOX PER CTN"
-    },
-    {
-      label: "Palette Name *",
-      placeholder: "PAL",
-      inputName: "paletteName",
-      description: "CTN PER PAL"
-    },
-    {
-      label: "Container Name *",
-      placeholder: "CON",
-      inputName: "containerName",
-      description: "PAL PER CON"
-    },
-  ],
+  unit: unitFields,
+  set: setFields,
+  superset: supersetFields,
+  palette: paletteFields,
+  container: containerFields,
 };
