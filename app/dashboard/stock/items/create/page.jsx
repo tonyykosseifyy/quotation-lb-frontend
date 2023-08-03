@@ -38,11 +38,15 @@ const InputField = ({ watchedValues, register, label, inputName, inputNameQuanti
           className='border border-1 rounded p-2 text-center'
           style={{ fontWeight: "700", fontSize: "13px", width: "45px" }}
         />
-        <InputContainer inputPlaceholder='' isRequired={true} inputType='text' inputName={inputNameQuantity} register={register} width='154' />
-        {referenceField && (
-          <div className='ps-3' style={{ fontWeight: "700", fontSize: "13px" }}>
-            {`${watchedValues[referenceField] ?? ""} PER ${watchedValues[inputName] ?? ""}`}
-          </div>
+        {inputNameQuantity && (
+          <>
+            <InputContainer inputPlaceholder='' isRequired={true} inputType='text' inputName={inputNameQuantity} register={register} width='154' />
+            {referenceField && (
+              <div className='ps-3' style={{ fontWeight: "700", fontSize: "13px" }}>
+                {`${watchedValues[referenceField] ?? ""} PER ${watchedValues[inputName] ?? ""}`}
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
@@ -153,8 +157,8 @@ const CreateItems = () => {
     control: control,
   });
 
-  const handleCreateAltCode = (index, key, icon) => {
-    insertAltCode(index + 1, { type: key, print: false, code: "", icon: icon, creationDate: moment().format("D/M/YYYY") });
+  const handleCreateAltCode = (key, icon) => {
+    appendAltCode({ type: key, print: false, code: "", icon: icon, creationDate: moment().format("D/M/YYYY") });
   };
 
   const handleClickMoreOptions = (id) => {
@@ -203,31 +207,6 @@ const CreateItems = () => {
       selector: (row) => row.creationDate,
       center: true,
       hide: "md",
-      allowOverflow: true,
-    },
-    {
-      name: "",
-      grow: 2,
-      selector: (row, index) => {
-        return (
-          <Dropdown placement='bottom-right'>
-            <Dropdown.Trigger>
-              <div>
-                <AddButton label={"Create Code"} />
-              </div>
-            </Dropdown.Trigger>
-            <Dropdown.Menu aria-label='Static Actions' items={altCodesDropdownItems} className={styles.dropDownMenu}>
-              {(item, dropdownIndex) => (
-                <Dropdown.Item key={dropdownIndex} className={styles.altCodesDropdownItem}>
-                  <div className={styles.altCodesDropdownItemName} onClick={() => handleCreateAltCode(index, item.key, item.icon)}>
-                    {item.icon} {item.name}
-                  </div>
-                </Dropdown.Item>
-              )}
-            </Dropdown.Menu>
-          </Dropdown>
-        );
-      },
       allowOverflow: true,
     },
     {
@@ -531,6 +510,31 @@ const CreateItems = () => {
                     // conditionalRowStyles={transactionalQuantityConditionalRowStyles}
                   />
                 </div>
+                {itemCodeFields.length > 0 && (
+                  <div
+                    style={{
+                      display: "flex",
+                      paddingTop: "43px",
+                      gap: 30,
+                    }}>
+                    <Dropdown placement='bottom-left'>
+                      <Dropdown.Trigger>
+                        <div>
+                          <AddButton label={"Create Code"} />
+                        </div>
+                      </Dropdown.Trigger>
+                      <Dropdown.Menu aria-label='Static Actions' items={altCodesDropdownItems} className={styles.dropDownMenu}>
+                        {(item, dropdownIndex) => (
+                          <Dropdown.Item key={dropdownIndex} className={styles.altCodesDropdownItem}>
+                            <div className={styles.altCodesDropdownItemName} onClick={() => handleCreateAltCode(item.key, item.icon)}>
+                              {item.icon} {item.name}
+                            </div>
+                          </Dropdown.Item>
+                        )}
+                      </Dropdown.Menu>
+                    </Dropdown>
+                  </div>
+                )}
               </>
             )}
             {buttonState === "grouping" && (

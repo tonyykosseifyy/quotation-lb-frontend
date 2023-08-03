@@ -59,7 +59,7 @@ const Input = ({
   loadOptions,
   isSearchable = false,
   isDisabled = false,
-  initialValue,
+  initialValue = null,
   defaultValue,
   setValue = (name, value) => {},
   referenceInput,

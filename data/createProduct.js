@@ -181,7 +181,6 @@ const unitFields = [
     label: "Unit Name *",
     placeholder: "PCS",
     inputName: "packageUnitName",
-    inputNameQuantity: "packageUnitQuantity",
   },
 ];
 
