@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Button from "@/components/UI/Button/Button";
 import Search from "@/components/UI/Search/Search";
@@ -13,11 +13,48 @@ import DataTable from "react-data-table-component";
 import Heart from "@/components/UI/Icons/Heart";
 import DownArrow from "@/components/UI/Icons/DownArrow";
 import { Dropdown } from "@nextui-org/react";
+import { useQuery } from "@tanstack/react-query";
+import useDebounce from "@/hooks/useDebounce";
+import axiosClient from "@/api/axiosClient";
 
 const Products = () => {
   const [search, setSearch] = useState("");
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [totalRows, setTotalRows] = useState(0);
+  const [perPage, setPerPage] = useState(10);
+  const [page, setPage] = useState(1);
+  const debouncedSearch = useDebounce(search, 500);
+
+  const getItemsResponse = useQuery({
+    queryKey: ["quotations", page, perPage, debouncedSearch],
+    queryFn: () =>
+      axiosClient.get(`items`, {
+        params: {
+          page: page,
+          perPage: perPage,
+          search: debouncedSearch,
+        },
+      }),
+    keepPreviousData: true,
+  });
+
+  const itemsData = getItemsResponse.data?.data;
+
+  useEffect(() => {
+    setFilteredItems(itemsData?.data);
+    setTotalRows(itemsData?.meta.total);
+  }, [itemsData?.data]);
+
   const handleSearch = (e) => {
     setSearch(e.target.value);
+  };
+
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
+  const handlePerRowsChange = async (newPerPage) => {
+    setPerPage(newPerPage);
   };
 
   const handleCreateProduct = () => {
@@ -35,42 +72,42 @@ const Products = () => {
     {
       name: "Code",
       maxWidth: "130px",
-      selector: (row) => row.code,
+      selector: (row) => row.mainCode,
     },
     {
       name: "Description",
       maxWidth: "650px",
-      selector: (row) => row.description,
+      selector: (row) => row.mainDescription,
     },
     {
       name: "Qty on Hand",
       maxWidth: "150px",
-      selector: (row) => row.qtyOnHand,
+      selector: (row) => row.qtyOnHand ?? 0,
       center: true,
     },
     {
       name: "Price",
       width: "100px",
-      selector: (row) => row.price,
+      selector: (row) => row.unitPrice,
       // sortable: true,
       center: true,
     },
     {
       name: "Currency",
       width: "100px",
-      selector: (row) => row.currency,
+      selector: (row) => row.currency.name,
       center: true,
     },
     {
       name: "Qty on Order",
       width: "150px",
-      selector: (row) => row.qtyOnOrder,
+      selector: (row) => row.qtyOnOrder ?? 0,
       center: true,
     },
     {
       name: "Qty Shipped",
       width: "150px",
-      selector: (row) => row.qtyShipped,
+      selector: (row) => row.qtyShipped ?? 0,
       center: true,
     },
     {
@@ -78,6 +115,13 @@ const Products = () => {
       width: "30px",
     },
   ];
+
+  const paginationComponentOptions = {
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "All",
+  };
+
+  const paginationRowsPerPageOptions = [10, 20, 50];
 
   const customStyles = {
     headRow: {
@@ -113,7 +157,7 @@ const Products = () => {
         <div className='d-flex'>
           <div className={`${styles.title}`}>Products</div>
           <span className='ps-2' style={{ cursor: "pointer" }}>
-            <DownArrow />
+            <DownArrow fillColor={"var(--primary-clr)"} />
           </span>
         </div>
         <div>
@@ -183,41 +227,49 @@ const Products = () => {
       </div>
       {view === "grid" && (
         <div className='row pt-3'>
-          {items.map((item) => {
-            if (search === "" || item.code.toLowerCase().includes(search.toLowerCase()))
-              return (
-                <div key={item.id} className='col-12 col-md-6 col-lg-4 mt-4'>
-                  <div className={`card ${styles.singleCard}`}>
-                    <div className='card-body p-0'>
-                      <div className='d-flex'>
-                        <img src={item.src} className='rounded-circle mt-1' width='56px' height='56px' />
-                        <div className='ps-3'>
-                          <div className='d-flex justify-content-between'>
-                            <div className={`card-title ${styles.cardTitle}`}>{item.title}</div>
-                            <span style={{ cursor: "pointer" }}>
-                              <Heart />
-                            </span>
-                          </div>
-                          <p className={`card-text pe-4 pe-sm-4 pe-md-5 ${styles.cardBodyText}`}>{item.description}</p>
-                        </div>
+          {filteredItems?.map((item) => (
+            <div key={item.id} className='col-12 col-md-6 col-lg-4 mt-4'>
+              <div className={`card ${styles.singleCard}`}>
+                <div className='card-body p-0'>
+                  <div className='d-flex align-items-center'>
+                    {item.img && <img src={item.src} className='rounded-circle mt-1' width='56px' height='56px' />}
+                    <div className='ps-3 w-100'>
+                      <div className='d-flex justify-content-between'>
+                        <div className={`card-title ${styles.cardTitle}`}>{item.mainCode}</div>
+                        <span style={{ cursor: "pointer" }}>
+                          <Heart />
+                        </span>
                       </div>
-                      <hr className='mb-1' />
-                      <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>
-                        {item.currencySymbol !== "LL" && item.currencySymbol}
-                        {item.price}
-                        {item.currencySymbol === "LL" && item.currencySymbol}
-                      </div>
+                      <p className={`card-text pe-4 pe-sm-4 pe-md-5 ${styles.cardBodyText}`}>{item.mainDescription}</p>
                     </div>
                   </div>
+                  <hr className='mb-1' />
+                  <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>
+                    {item.currency.name !== "LBP" && item.currency.symbol}
+                    {item.unitPrice}
+                    {item.currency.name === "LBP" && item.currency.symbol}
+                  </div>
                 </div>
-              );
-            return null;
-          })}
+              </div>
+            </div>
+          ))}
         </div>
       )}
       {view === "list" && (
         <div className='pt-3 mt-4'>
-          <DataTable columns={columns} data={items} customStyles={customStyles} />
+          <DataTable
+            columns={columns}
+            data={filteredItems}
+            customStyles={customStyles}
+            pagination
+            paginationComponentOptions={paginationComponentOptions}
+            paginationRowsPerPageOptions={paginationRowsPerPageOptions}
+            defaultSortFieldId={1}
+            paginationServer
+            paginationTotalRows={totalRows}
+            onChangeRowsPerPage={handlePerRowsChange}
+            onChangePage={handlePageChange}
+          />
         </div>
       )}
     </div>
