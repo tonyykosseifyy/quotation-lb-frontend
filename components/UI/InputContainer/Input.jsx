@@ -186,7 +186,7 @@ const Input = ({
                 }),
                 placeholder: (baseStyles, state) => ({
                   ...baseStyles,
-                  color: placeholderColor ? "#868686" : "#C8C8C8",
+                  color: placeholderColor ? "#4472c4" : "#C8C8C8",
                   fontStyle: placeholderStyle ? "normal" : "italic",
                   fontWeight: placeholderWeight ? placeholderWeight : "",
                   fontSize: fontSize ? fontSize : "14px",
