@@ -52,14 +52,14 @@ const Input = ({
   registerArrayIndex,
   control,
   value,
-  onChange,
+  onChange = null,
   dropdownArrowColor,
   optionName = "name",
   optionId = "id",
   loadOptions,
   isSearchable = false,
   isDisabled = false,
-  initialValue = null,
+  initialValue,
   defaultValue,
   setValue = (name, value) => {},
   referenceInput,
@@ -89,9 +89,6 @@ const Input = ({
       }
     }
 
-    console.log("taregt", targetedInputName);
-    console.log("inital", initialValue);
-
     if (defaultValue != null) {
       setValue(targetedInputName, defaultValue);
     } else if (initialValue != null) {
@@ -118,6 +115,7 @@ const Input = ({
             ? register(registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName, {
                 required: isRequired,
                 ...extraValidations,
+                onChange: onChange,
               })
             : {})}
           style={{
