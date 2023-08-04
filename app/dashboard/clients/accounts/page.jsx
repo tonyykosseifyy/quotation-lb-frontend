@@ -11,6 +11,7 @@ import GridIcon from "@/components/UI/Icons/GridIcon";
 import ListIcon from "@/components/UI/Icons/ListIcon";
 import Ellipsis from "@/components/UI/Icons/Ellipsis";
 import DataTable from "react-data-table-component";
+import DownArrow from "@/components/UI/Icons/DownArrow";
 import { Dropdown } from "@nextui-org/react";
 import Link from "next/link";
 
@@ -39,10 +40,13 @@ const ListOfClients = () => {
       name: 'Code',
       selector: (row) => row.code,
       allowOverflow: true,
+      sortable: true,
+      sortFunction: (a, b) => handleHeaderClick(a, b, "code"),
     },
     {
       name: 'Name',
       selector: (row) => row.name,
+      
     },
     {
       name: 'Phone Number',
@@ -119,7 +123,7 @@ const ListOfClients = () => {
     <div className={`container m-0`}>
       <div className={`${styles.header} pt-4`}>
         <div className={`${styles.title}`}>List of Clients</div>
-            <Link href="/dashboard/clients/create">
+            <Link href="/dashboard/clients/create" style={{ textDecoration: "none" }}>
               <Button
                 title="Create New Client"
                 fillBackground={true}
@@ -194,7 +198,7 @@ const ListOfClients = () => {
                 </div> 
               </div>   
       </div>
-      
+    
         <div className="mt-5">
           <Button
             title="General"
@@ -209,21 +213,22 @@ const ListOfClients = () => {
           <Button
             title="Transitions"
             rounded={true}
-            fillBackground={buttonState === "transitions"}
+            fillBackground={buttonState === "transactions"}
             onClick={handleTabChange}
             type="button"
-            value="transitions"
+            value="transactions"
             width="180px"
             tab
           />
         </div>
-        { buttonState === "general" && (
-          <DataTable
-            columns={columns}
-            data={data}
-            customStyles={customStyles}
-          />
-        )}
+      { buttonState === "general" && (
+        <DataTable
+        // title="Dynamic DataTable"
+        columns={columns}
+        data={data}
+        customStyles={customStyles}
+        />
+      )}
     </div>     
   )
 }
