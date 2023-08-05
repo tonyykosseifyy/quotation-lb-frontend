@@ -63,8 +63,26 @@ const createNewComboModal = () => {
       </div>
       <ModalComponent title="Combo's Name" titlePaddingBottom='12px' isOpen={showModal} onRequestClose={() => setShowModal(false)} style={modalStyle}>
         <div>
-          <div>
-            <InputContainer inputPlaceholder='' inputBorder={styles.inputContainerBorder} inputType='text' inputName='combo_name' inputId='combo_name' height='38' width='1220' widthUnit='px' fontWeight='700' control={control} register={register} />
+          <InputContainer inputPlaceholder='' inputBorder={styles.inputContainerBorder} inputType='text' inputName='combo_name' inputId='combo_name' height='38' width='1220' widthUnit='px' fontWeight='700' control={control} register={register} />
+          <div className='pt-3 d-flex flex-column flex-md-row' style={{ gap: "15px" }}>
+            <div className={`d-flex flex-column ${styles.inputRow}`}>
+              <InputContainer inputPlaceholder='' label='Code' inputBorder={styles.inputContainerBorder} inputType='text' inputName='code' inputId='code' height='38' fontWeight='700' control={control} register={register} />
+              <InputContainer
+                inputPlaceholder=''
+                label='Main Description'
+                inputBorder={styles.inputContainerBorder}
+                inputType='text'
+                inputName='main_description'
+                inputId='main_description'
+                height='38'
+                fontWeight='700'
+                control={control}
+                register={register}
+              />
+            </div>
+            <div className={`ps-md-5 ${styles.inputRow2}`}>
+              <InputContainer inputPlaceholder='' label='Price' inputBorder={styles.inputContainerBorder} inputType='text' inputName='price' inputId='price' height='38' fontWeight='700' control={control} register={register} />
+            </div>
           </div>
           <div style={{ marginTop: "38px" }}>
             <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} isFooterShown footerList={newComboFooterElements} footerPaddingTop={"63px"} footerPaddingLeft={"12px"} tableWidth={"1220px"} />
