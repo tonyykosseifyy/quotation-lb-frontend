@@ -207,6 +207,8 @@ const Input = ({
               defaultValue={initialValue}
               required={isRequired}
               isDisabled={isDisabled}
+              value={value}
+              onChange={onChange}
             />
           )}
         />

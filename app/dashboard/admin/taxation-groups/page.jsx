@@ -5,10 +5,9 @@ import styles from "./page.module.css";
 import ModalComponent from "@/components/Modal/Modal";
 import { useForm } from "react-hook-form";
 import Button from "@/components/UI/Button/Button";
-import DataTable from "react-data-table-component";
-import Trashcan from "@/components/UI/Icons/Trashcan";
-import Plus from "@/components/UI/Icons/Plus";
-import { taxationRates, taxationGeneral } from "@/data/admin";
+import { taxationGeneral, taxationRates } from "@/data/admin";
+import GeneralTab from "@/components/AdminTabs/GeneralTab";
+import TaxationGroupsRatesTab from "@/components/AdminTabs/TaxationGroupsRatesTab";
 
 const TaxationGroups = () => {
   
@@ -20,7 +19,7 @@ const TaxationGroups = () => {
     const [generalTableRows, setGeneralTableRows]= useState(taxationGeneralDuplicate);
     const [ratesTableRows, setRatesTableRows]= useState(taxationRatesDuplicate);
 
-    const handleExtraInfoChange = (e) => {
+    const handleTabChange = (e) => {
         setButtonState(() => e.target.value);
     };
 
@@ -37,6 +36,7 @@ const TaxationGroups = () => {
     const modalStyle = { 
         overlay: { 
             backgroundColor: "var(--modal-overlay-background-clr)",
+            zIndex: 100,
         }, 
         content: { 
             top: '50%', left: '50%', right: 'auto', bottom: 'auto',
@@ -49,117 +49,7 @@ const TaxationGroups = () => {
             backgroundColor: "var(--modal-background-clr)",
         } 
     };
-
-    const taxationGeneralTableColumns = [
-        {
-            name: "Code",
-            maxWidth: "100px",
-            selector: (row) => row.code,
-            allowOverflow: true,
-        },
-        {
-            name: "Name",
-            maxWidth: "auto",
-            selector: (row) => row.name,
-        },
-        {
-            name: "",
-            maxWidth: "30px",
-            cell: (row) => (
-                <div style={{ cursor: "pointer" }}>
-                    <Trashcan
-                        fillColor={"var(--primary-clr)"}
-                        onClick={() => generalHandleDeleteRow(row.id)}
-                    />
-                </div>
-            ),
-            center: true,
-        },
-    ];
-
-    const taxationRatesTableColumns = [
-        {
-            name: "Start Date",
-            maxWidth: "100px",
-            selector: (row) => row.startDate,
-            allowOverflow: true,
-        },
-        {
-            name: "VAT %",
-            maxWidth: "auto",
-            selector: (row) => row.vat,
-            format: (row) => row.vat.toFixed(4),
-        },
-        {
-            name: "",
-            maxWidth: "30px",
-            cell: (row) => (
-                <div style={{ cursor: "pointer" }}>
-                    <Trashcan
-                        fillColor={"var(--primary-clr)"}
-                        onClick={() => ratesHandleDeleteRow(row.id)}
-                    />
-                </div>
-            ),
-            center: true,
-        },
-    ];
-      
-    const customStyles = {
-        headRow: {
-            style: {
-                backgroundColor: "var(--primary-clr)",
-                color: "white",
-                fontSize: "13px",
-                fontWeight: 600,
-                borderRadius: 5,
-                borderTopLeftRadius: 0,
-                minHeight: "40px !important",
-                paddingLeft: "20px",
-            },
-        },
-        rows: {
-            style: {
-                minHeight: "5px !important",
-                borderBottom: "none !important",
-                paddingLeft: "20px",
-            },
-        },
-        cells: {
-            style: {
-                fontSize: 12,
-                fontWeight: 700,
-                color: "var(--secondary-text-clr)",
-                paddingTop: "0px !important",
-                height: "45px !important",
-            },
-        },
-    };
-
-    const conditionalRowStyles = [
-        {
-            when: (row) => row.code, 
-            style: {
-                backgroundColor: "var(--table-row-background-clr)",
-            },
-        },
-    ];
-
-    const ratesConditionalRowStyles = [
-        {
-            when: (row) => row.id === 1, 
-            style: {
-                backgroundColor: "var(--table-row-background-clr)",
-            },
-        },
-        {
-            when: (row) => row.id === 2, 
-            style: {
-                backgroundColor: "white",
-            },
-        },
-    ];
-
+    
     const {
         register,
         handleSubmit,
@@ -169,12 +59,16 @@ const TaxationGroups = () => {
         reset,
     } = useForm();
 
+    // const onSubmit = (e) => {
+    //     e.preventDefault();
+    // };
+
     return (
         <ModalComponent 
             title="Taxation Groups" 
             titlePaddingBottom="20px"
             isOpen={showModal} 
-            // onRequestClose={() => setShowModal(false)} 
+            onRequestClose={() => setShowModal(false)} 
             style={modalStyle}
         >
             <form id="taxationGroups" 
@@ -182,16 +76,14 @@ const TaxationGroups = () => {
                 className={`${styles.form}`}>
                 <>
                     <div className="mt-3">
-                        <div className={`d-flex-wrap`}>
+                        <div>
                             <Button
                                 title="General"
                                 rounded={true}
                                 fillBackground={buttonState === "general"}
-                                onClick={handleExtraInfoChange}
+                                onClick={handleTabChange}
                                 value="general"
                                 type="button"
-                                // paddingLeft="45px"
-                                // paddingRight="45px"
                                 width="180px"
                                 tab
                             />
@@ -199,60 +91,26 @@ const TaxationGroups = () => {
                                 title="Rates"
                                 rounded={true}
                                 fillBackground={buttonState === "rates"}
-                                onClick={handleExtraInfoChange}
+                                onClick={handleTabChange}
                                 type="button"
                                 value="rates"
-                                // paddingLeft="50px"
-                                // paddingRight="50px"
                                 width="180px"
                                 tab
                             />
                         </div>
                         {buttonState === "general" && (
-                            <>
-                                <DataTable 
-                                    columns={taxationGeneralTableColumns}
-                                    data={generalTableRows}
-                                    customStyles={customStyles}
-                                    conditionalRowStyles={conditionalRowStyles}
-                                />
-                                <div
-                                    // onClick={() => { }}
-                                    className={`${styles.footerRow} pt-3`}>
-                                        <Plus fillColor='var(--primary-clr-light)' />
-                                        <div
-                                            style={{
-                                                fontSize: "12px",
-                                                paddingLeft: "8px",
-                                            }}
-                                        >
-                                            New
-                                        </div>
-                                </div>
-                            </>  
+                            <GeneralTab 
+                                data={generalTableRows} 
+                                footerText="New" 
+                                generalHandleDeleteRow={generalHandleDeleteRow} 
+                            />  
                         )}
                         { buttonState === "rates" && (
-                            <>
-                                <DataTable 
-                                    columns={taxationRatesTableColumns}
-                                    data={ratesTableRows}
-                                    customStyles={customStyles}
-                                    conditionalRowStyles={ratesConditionalRowStyles}
-                                />
-                                <div
-                                    // onClick={() => {}}
-                                    className={`${styles.footerRow} pt-3`}>
-                                        <Plus fillColor='var(--primary-clr-light)' />
-                                        <div
-                                            style={{
-                                                fontSize: "12px",
-                                                paddingLeft: "8px",
-                                            }}
-                                        >
-                                            New Rate
-                                        </div>
-                                </div>
-                            </>  
+                            <TaxationGroupsRatesTab 
+                                data={ratesTableRows} 
+                                footerText="New Rate"
+                                ratesHandleDeleteRow={ratesHandleDeleteRow}
+                            />
                         )}
                     </div>
                     <div className={`${styles.actionButtons} mt-5 mt-lg-0`}>
