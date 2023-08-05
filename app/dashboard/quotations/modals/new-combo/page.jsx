@@ -31,7 +31,7 @@ const createNewComboModal = () => {
       bottom: "auto",
       transform: "translate(-50%, -50%)",
       /* Commented this out because the layout was breaking on bigger screens... should investigate if we must do this for other modals as well.
-       *width: "88%",
+       * width: "88%",
        */
       height: "auto",
       padding: "40px 44px 10px 45px",

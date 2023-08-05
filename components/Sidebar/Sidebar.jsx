@@ -27,10 +27,10 @@ const sidebarItems = [
     title: "Clients",
     logo: "/assets/svg/people.svg",
     items: [
-      // {
-      //     title: "Accounts",
-      //     link: "/dashboard",
-      // },
+      {
+          title: "Accounts",
+          link: "/dashboard/clients/accounts",
+      },
       {
         title: "Add New Client",
         link: "/dashboard/clients/create",

@@ -4,79 +4,79 @@ import React, { useState } from "react";
 import styles from "./page.module.css";
 import Button from "@/components/UI/Button/Button";
 import Search from "@/components/UI/Search/Search";
-import { useForm } from "react-hook-form";
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
-import { items, settingsOptions } from "@/data/stocks";
+import { useForm } from "react-hook-form";
+import { settingsOptions } from "@/data/stocks";
 import GridIcon from "@/components/UI/Icons/GridIcon";
 import ListIcon from "@/components/UI/Icons/ListIcon";
+import Ellipsis from "@/components/UI/Icons/Ellipsis";
 import DataTable from "react-data-table-component";
-import Heart from "@/components/UI/Icons/Heart";
 import DownArrow from "@/components/UI/Icons/DownArrow";
 import { Dropdown } from "@nextui-org/react";
+import Link from "next/link";
 
-const Products = () => {
+const ListOfClients = () => {
+
   const [search, setSearch] = useState("");
+
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
 
-  const handleCreateProduct = () => {
-    //
+  const [buttonState, setButtonState] = useState("general");
+
+  const handleTabChange = (e) => {
+    setButtonState(() => e.target.value);
   };
 
   const [view, setView] = useState( "grid");
 
-  const columns = [
+  const handleClickMoreOptions = (id) => {
+    console.log(id);
+  };
+
+  const [columns, setColumns] = useState([
     {
-      name: "",
-      width: "30px",
-      allowOverflow: true,
-    },
-    {
-      name: "Code",
-      maxWidth: "130px",
+      name: 'Code',
       selector: (row) => row.code,
+      allowOverflow: true,
+      sortable: true,
+      sortFunction: (a, b) => handleHeaderClick(a, b, "code"),
     },
     {
-      name: "Description",
-      maxWidth: "650px",
-      selector: (row) => row.description,
+      name: 'Name',
+      selector: (row) => row.name,
+      
     },
     {
-      name: "Qty on Hand",
-      maxWidth: "150px",
-      selector: (row) => row.qtyOnHand,
+      name: 'Phone Number',
+      selector: (row) => row.phoneNumber,
+      
+    },
+    {
+      name: 'Balance USD',
+      selector: (row) => row.balanceUSD,
+      
+    },
+    {
+      name: 'Balance LBP',
+      selector: (row) => row.balanceLBP,
+      end: true,
+      isVisible: true,
+    },
+    {
+      name: "More Options",
       center: true,
+      selector: (row) => <Ellipsis onClick={() => handleClickMoreOptions(row.id)} />,
     },
-    {
-      name: "Price",
-      width: "100px",
-      selector: (row) => row.price,
-      // sortable: true,
-      center: true,
-    },
-    {
-      name: "Currency",
-      width: "100px",
-      selector: (row) => row.currency,
-      center: true,
-    },
-    {
-      name: "Qty on Order",
-      width: "150px",
-      selector: (row) => row.qtyOnOrder,
-      center: true,
-    },
-    {
-      name: "Qty Shipped",
-      width: "150px",
-      selector: (row) => row.qtyShipped,
-      center: true,
-    },
-    {
-      name: "",
-      width: "30px",
-    },
+  ]);
+
+  const data = [
+    { id: 1, code: "CODE1", name: 'John Doe', phoneNumber: 70000000, balanceUSD: "1.500.000", balanceLBP: "1.500.000" },
+    { id: 2, code: "CODE2", name: 'John Doe', phoneNumber: 70000000, balanceUSD: "1.500.000", balanceLBP: "1.500.000" },
+    { id: 3, code: "CODE3", name: 'John Doe', phoneNumber: 70000000, balanceUSD: "1.500.000", balanceLBP: "1.500.000" },
+    { id: 4, code: "CODE4", name: 'John Doe', phoneNumber: 70000000, balanceUSD: "1.500.000", balanceLBP: "1.500.000" },
+    { id: 5, code: "CODE5", name: 'John Doe', phoneNumber: 70000000, balanceUSD: "1.500.000", balanceLBP: "1.500.000" },
   ];
 
   const customStyles = {
@@ -87,13 +87,25 @@ const Products = () => {
             fontSize: "13px",
             fontWeight: 600,
             borderRadius: 5,
+            borderTopLeftRadius: 0,
+            minHeight: "40px !important",
+            paddingLeft: "20px",
+        },
+    },
+    rows: {
+        style: {
+            minHeight: "5px !important",
+            borderBottom: "none !important",
+            paddingLeft: "20px",
         },
     },
     cells: {
         style: {
             fontSize: 12,
             fontWeight: 700,
-            color: "var(--table-data-text-clr)",
+            color: "var(--secondary-text-clr)",
+            paddingTop: "0px !important",
+            height: "45px !important",
         },
     },
   };
@@ -110,20 +122,14 @@ const Products = () => {
   return (
     <div className={`container m-0`}>
       <div className={`${styles.header} pt-4`}>
-        <div className="d-flex">
-            <div className={`${styles.title}`}>Products</div>
-               <span className="ps-2" style={{ cursor: "pointer" }}>
-                  <DownArrow />
-               </span>
-            </div>
-            <div>
+        <div className={`${styles.title}`}>List of Clients</div>
+            <Link href="/dashboard/clients/create" style={{ textDecoration: "none" }}>
               <Button
-                title="Create New Product"
+                title="Create New Client"
                 fillBackground={true}
                 rounded={true}
-                onClick={handleCreateProduct}
               />
-            </div>
+            </Link>
         </div>
         <div className="d-flex flex-column flex-md-row justify-content-between mt-4" style={{ gap: "15px" }}>
           <div className={styles.searchDiv}>
@@ -192,55 +198,39 @@ const Products = () => {
                 </div> 
               </div>   
       </div>
-      {
-        view === "grid" && (
-          <div className="row pt-3">
-            {items.map( item => {
-              if (search === "" || (item.code.toLowerCase().includes(search.toLowerCase())))
-                return (
-                  <div key={item.id} className="col-12 col-md-6 col-lg-4 mt-4">
-                    <div className={`card ${styles.singleCard}`}>
-                      <div className="card-body p-0">
-                        <div className="d-flex">
-                          <img src={item.src} className="rounded-circle mt-1" width="56px" height="56px"/> 
-                          <div className="ps-3">
-                            <div className="d-flex justify-content-between">
-                              <div className={`card-title ${styles.cardTitle}`}>{item.title}</div>
-                                <span style={{ cursor: "pointer"}}>
-                                  < Heart/>
-                                </span>
-                              </div>
-                              <p className={`card-text pe-4 pe-sm-4 pe-md-5 ${styles.cardBodyText}`}>
-                                {item.description}
-                              </p>
-                            </div>
-                          </div>
-                          <hr className="mb-1"/>
-                          <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>
-                            {item.currencySymbol !== "LL" && item.currencySymbol}{item.price}{item.currencySymbol === "LL" && item.currencySymbol}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                )
-                return null; 
-              })}
-          </div>
-        )
-     }
-     {
-        view === "list" && (
-          <div className="pt-3 mt-4">
-            <DataTable 
-              columns={columns}
-              data={items}
-              customStyles={customStyles}
-            />
-          </div>
-        )
-      }
+    
+        <div className="mt-5">
+          <Button
+            title="General"
+            rounded={true}
+            fillBackground={buttonState === "general"}
+            onClick={handleTabChange}
+            value="general"
+            type="button"
+            width="180px"
+            tab
+          />
+          <Button
+            title="Transitions"
+            rounded={true}
+            fillBackground={buttonState === "transactions"}
+            onClick={handleTabChange}
+            type="button"
+            value="transactions"
+            width="180px"
+            tab
+          />
+        </div>
+      { buttonState === "general" && (
+        <DataTable
+        // title="Dynamic DataTable"
+        columns={columns}
+        data={data}
+        customStyles={customStyles}
+        />
+      )}
     </div>     
   )
 }
 
-export default Products;
+export default ListOfClients;
