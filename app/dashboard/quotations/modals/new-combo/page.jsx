@@ -30,7 +30,9 @@ const createNewComboModal = () => {
       right: "auto",
       bottom: "auto",
       transform: "translate(-50%, -50%)",
-      width: "88%",
+      /* Commented this out because the layout was breaking on bigger screens... should investigate if we must do this for other modals as well.
+       *width: "88%",
+       */
       height: "auto",
       padding: "40px 44px 10px 45px",
       borderRadius: "8px",
@@ -65,7 +67,7 @@ const createNewComboModal = () => {
             <InputContainer inputPlaceholder='' inputBorder={styles.inputContainerBorder} inputType='text' inputName='combo_name' inputId='combo_name' height='38' width='1220' widthUnit='px' fontWeight='700' control={control} register={register} />
           </div>
           <div style={{ marginTop: "38px" }}>
-            <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} isFooterShown footerList={newComboFooterElements} footerPaddingTop={"63px"} footerPaddingLeft={"12px"} tableWidth={"1220px"}/>
+            <OrderLinesRows control={control} register={register} itemListState={[itemList, setItemList]} isFooterShown footerList={newComboFooterElements} footerPaddingTop={"63px"} footerPaddingLeft={"12px"} tableWidth={"1220px"} />
           </div>
         </div>
       </ModalComponent>
