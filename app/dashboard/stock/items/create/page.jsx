@@ -67,7 +67,7 @@ const CreateItems = () => {
             name: "Quantity",
             maxWidth: "100px",
             selector: (row) => row.quantity,
-            center: true,
+            right: true,
         },
     ];
     
@@ -92,6 +92,12 @@ const CreateItems = () => {
             name: "Quantity",
             maxWidth: "100px",
             selector: (row) => row.quantity,
+            right: true,
+        },
+        {
+            name: "Blocked",
+            maxWidth: "100px",
+            selector: (row) => <CheckBox />,
             center: true,
         },
     ];   
@@ -200,6 +206,7 @@ const CreateItems = () => {
         canBePurchased: false,
         warranty: false,
         discontinued: false,
+        blocked: false,
     });
 
     const handleCheckboxChange = (event) => {
@@ -321,7 +328,7 @@ const CreateItems = () => {
             onRequestClose={() => setShowModal(false)} 
             style={modalStyle}
         >
-            <div className={`d-flex-wrap`}>
+            <div className="d-md-flex-wrap">
                 {buttonTabs.map(({ title, fillBackground, value }) => {
                     return (
                         <Button
@@ -465,7 +472,18 @@ const CreateItems = () => {
                                                 inputName="date"
                                                 register={register}
                                             />
-                                        )}             
+                                        )}
+                                        <div>
+                                            <CheckBox
+                                                inputName='blocked'
+                                                labelText='Blocked'
+                                                inputId='blocked'
+                                                value='blocked'
+                                                isChecked={checkboxValues.value}
+                                                onChange={handleCheckboxChange}
+                                                labelFontWeight={600}
+                                            />
+                                        </div>             
                                     </div>  
                                 </div>              
                             </>
