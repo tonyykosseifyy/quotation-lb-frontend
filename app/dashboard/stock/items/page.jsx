@@ -16,13 +16,15 @@ import { Dropdown } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import useDebounce from "@/hooks/useDebounce";
 import axiosClient from "@/api/axiosClient";
+import PaginationComponent from "@/components/Pagination/Pagination";
 
 const Products = () => {
   const [search, setSearch] = useState("");
   const [filteredItems, setFilteredItems] = useState([]);
   const [totalRows, setTotalRows] = useState(0);
-  const [perPage, setPerPage] = useState(10);
+  const [perPage, setPerPage] = useState(9);
   const [page, setPage] = useState(1);
+  const [view, setView] = useState("grid");
   const debouncedSearch = useDebounce(search, 500);
 
   const getItemsResponse = useQuery({
@@ -53,15 +55,9 @@ const Products = () => {
     setPage(page);
   };
 
-  const handlePerRowsChange = async (newPerPage) => {
-    setPerPage(newPerPage);
-  };
-
   const handleCreateProduct = () => {
     //
   };
-
-  const [view, setView] = useState("grid");
 
   const columns = [
     {
@@ -117,11 +113,8 @@ const Products = () => {
   ];
 
   const paginationComponentOptions = {
-    selectAllRowsItem: true,
-    selectAllRowsItemText: "All",
+    noRowsPerPage: true,
   };
-
-  const paginationRowsPerPageOptions = [10, 20, 50];
 
   const customStyles = {
     headRow: {
@@ -226,34 +219,41 @@ const Products = () => {
         </div>
       </div>
       {view === "grid" && (
-        <div className='row pt-3'>
-          {filteredItems?.map((item) => (
-            <div key={item.id} className='col-12 col-md-6 col-lg-4 mt-4'>
-              <div className={`card ${styles.singleCard}`}>
-                <div className='card-body p-0'>
-                  <div className='d-flex align-items-center'>
-                    {item.img && <img src={item.src} className='rounded-circle mt-1' width='56px' height='56px' />}
-                    <div className='ps-3 w-100'>
-                      <div className='d-flex justify-content-between'>
-                        <div className={`card-title ${styles.cardTitle}`}>{item.mainCode}</div>
-                        <span style={{ cursor: "pointer" }}>
-                          <Heart />
-                        </span>
+        <>
+          <div className='row pt-3'>
+            {filteredItems?.map((item) => (
+              <div key={item.id} className='col-12 col-md-6 col-lg-4 mt-4'>
+                <div className={`card ${styles.singleCard}`}>
+                  <div className='card-body p-0'>
+                    <div className='d-flex align-items-center'>
+                      {item.img && <img src={item.src} className='rounded-circle mt-1' width='56px' height='56px' />}
+                      <div className='ps-3 w-100'>
+                        <div className='d-flex justify-content-between'>
+                          <div className={`card-title ${styles.cardTitle}`}>{item.mainCode}</div>
+                          <span style={{ cursor: "pointer" }}>
+                            <Heart />
+                          </span>
+                        </div>
+                        <p className={`card-text pe-4 pe-sm-4 pe-md-5 ${styles.cardBodyText}`}>{item.mainDescription}</p>
                       </div>
-                      <p className={`card-text pe-4 pe-sm-4 pe-md-5 ${styles.cardBodyText}`}>{item.mainDescription}</p>
                     </div>
-                  </div>
-                  <hr className='mb-1' />
-                  <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>
-                    {item.currency.name !== "LBP" && item.currency.symbol}
-                    {item.unitPrice}
-                    {item.currency.name === "LBP" && item.currency.symbol}
+                    <hr className='mb-1' />
+                    <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>
+                      {item.currency.name !== "LBP" && item.currency.symbol}
+                      {item.unitPrice}
+                      {item.currency.name === "LBP" && item.currency.symbol}
+                    </div>
                   </div>
                 </div>
               </div>
+            ))}
+          </div>
+          {filteredItems?.length > 0 && (
+            <div className={styles.paginationDiv}>
+              <PaginationComponent total={Math.ceil(totalRows / perPage)} handleChange={setPage} />
             </div>
-          ))}
-        </div>
+          )}
+        </>
       )}
       {view === "list" && (
         <div className='pt-3 mt-4'>
@@ -263,11 +263,9 @@ const Products = () => {
             customStyles={customStyles}
             pagination
             paginationComponentOptions={paginationComponentOptions}
-            paginationRowsPerPageOptions={paginationRowsPerPageOptions}
             defaultSortFieldId={1}
             paginationServer
             paginationTotalRows={totalRows}
-            onChangeRowsPerPage={handlePerRowsChange}
             onChangePage={handlePageChange}
           />
         </div>
