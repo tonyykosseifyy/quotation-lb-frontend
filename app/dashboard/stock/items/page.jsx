@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Button from "@/components/UI/Button/Button";
 import Search from "@/components/UI/Search/Search";
@@ -13,18 +13,51 @@ import DataTable from "react-data-table-component";
 import Heart from "@/components/UI/Icons/Heart";
 import DownArrow from "@/components/UI/Icons/DownArrow";
 import { Dropdown } from "@nextui-org/react";
+import { useQuery } from "@tanstack/react-query";
+import useDebounce from "@/hooks/useDebounce";
+import axiosClient from "@/api/axiosClient";
+import PaginationComponent from "@/components/Pagination/Pagination";
 
 const Products = () => {
   const [search, setSearch] = useState("");
+  const [filteredItems, setFilteredItems] = useState([]);
+  const [totalRows, setTotalRows] = useState(0);
+  const [perPage, setPerPage] = useState(9);
+  const [page, setPage] = useState(1);
+  const [view, setView] = useState("grid");
+  const debouncedSearch = useDebounce(search, 500);
+
+  const getItemsResponse = useQuery({
+    queryKey: ["quotations", page, perPage, debouncedSearch],
+    queryFn: () =>
+      axiosClient.get(`items`, {
+        params: {
+          page: page,
+          perPage: perPage,
+          search: debouncedSearch,
+        },
+      }),
+    keepPreviousData: true,
+  });
+
+  const itemsData = getItemsResponse.data?.data;
+
+  useEffect(() => {
+    setFilteredItems(itemsData?.data);
+    setTotalRows(itemsData?.meta.total);
+  }, [itemsData?.data]);
+
   const handleSearch = (e) => {
     setSearch(e.target.value);
+  };
+
+  const handlePageChange = (page) => {
+    setPage(page);
   };
 
   const handleCreateProduct = () => {
     //
   };
-
-  const [view, setView] = useState( "grid");
 
   const columns = [
     {
@@ -35,42 +68,42 @@ const Products = () => {
     {
       name: "Code",
       maxWidth: "130px",
-      selector: (row) => row.code,
+      selector: (row) => row.mainCode,
     },
     {
       name: "Description",
       maxWidth: "650px",
-      selector: (row) => row.description,
+      selector: (row) => row.mainDescription,
     },
     {
       name: "Qty on Hand",
       maxWidth: "150px",
-      selector: (row) => row.qtyOnHand,
+      selector: (row) => row.qtyOnHand ?? 0,
       center: true,
     },
     {
       name: "Price",
       width: "100px",
-      selector: (row) => row.price,
+      selector: (row) => row.unitPrice,
       // sortable: true,
       center: true,
     },
     {
       name: "Currency",
       width: "100px",
-      selector: (row) => row.currency,
+      selector: (row) => row.currency.name,
       center: true,
     },
     {
       name: "Qty on Order",
       width: "150px",
-      selector: (row) => row.qtyOnOrder,
+      selector: (row) => row.qtyOnOrder ?? 0,
       center: true,
     },
     {
       name: "Qty Shipped",
       width: "150px",
-      selector: (row) => row.qtyShipped,
+      selector: (row) => row.qtyShipped ?? 0,
       center: true,
     },
     {
@@ -79,22 +112,26 @@ const Products = () => {
     },
   ];
 
+  const paginationComponentOptions = {
+    noRowsPerPage: true,
+  };
+
   const customStyles = {
     headRow: {
-        style: {
-            backgroundColor: "var(--primary-clr)",
-            color: "white",
-            fontSize: "13px",
-            fontWeight: 600,
-            borderRadius: 5,
-        },
+      style: {
+        backgroundColor: "var(--primary-clr)",
+        color: "white",
+        fontSize: "13px",
+        fontWeight: 600,
+        borderRadius: 5,
+      },
     },
     cells: {
-        style: {
-            fontSize: 12,
-            fontWeight: 700,
-            color: "var(--table-data-text-clr)",
-        },
+      style: {
+        fontSize: 12,
+        fontWeight: 700,
+        color: "var(--table-data-text-clr)",
+      },
     },
   };
 
@@ -110,21 +147,16 @@ const Products = () => {
   return (
     <div className={`container m-0`}>
       <div className={`${styles.header} pt-4`}>
-        <div className="d-flex">
-            <div className={`${styles.title}`}>Products</div>
-               <span className="ps-2" style={{ cursor: "pointer" }}>
-                  <DownArrow />
-               </span>
-            </div>
-            <div>
-              <Button
-                title="Create New Product"
-                fillBackground={true}
-                rounded={true}
-                onClick={handleCreateProduct}
-              />
-            </div>
+        <div className='d-flex'>
+          <div className={`${styles.title}`}>Products</div>
+          <span className='ps-2' style={{ cursor: "pointer" }}>
+            <DownArrow fillColor={"var(--primary-clr)"} />
+          </span>
         </div>
+        <div>
+          <Button title='Create New Product' fillBackground={true} rounded={true} onClick={handleCreateProduct} />
+        </div>
+<<<<<<< HEAD
         <div className="d-flex flex-column flex-md-row justify-content-between mt-4" style={{ gap: "15px" }}>
           <div className={styles.searchDiv}>
              <Search
@@ -191,56 +223,124 @@ const Products = () => {
                     </span> 
                 </div> 
               </div>   
+=======
+>>>>>>> add-api-items-create
       </div>
-      {
-        view === "grid" && (
-          <div className="row pt-3">
-            {items.map( item => {
-              if (search === "" || (item.code.toLowerCase().includes(search.toLowerCase())))
-                return (
-                  <div key={item.id} className="col-12 col-md-6 col-lg-4 mt-4">
-                    <div className={`card ${styles.singleCard}`}>
-                      <div className="card-body p-0">
-                        <div className="d-flex">
-                          <img src={item.src} className="rounded-circle mt-1" width="56px" height="56px"/> 
-                          <div className="ps-3">
-                            <div className="d-flex justify-content-between">
-                              <div className={`card-title ${styles.cardTitle}`}>{item.title}</div>
-                                <span style={{ cursor: "pointer"}}>
-                                  < Heart/>
-                                </span>
-                              </div>
-                              <p className={`card-text pe-4 pe-sm-4 pe-md-5 ${styles.cardBodyText}`}>
-                                {item.description}
-                              </p>
-                            </div>
-                          </div>
-                          <hr className="mb-1"/>
-                          <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>
-                            {item.currencySymbol !== "LL" && item.currencySymbol}{item.price}{item.currencySymbol === "LL" && item.currencySymbol}
-                          </div>
+      <div className='d-flex flex-column flex-md-row justify-content-between mt-4' style={{ gap: "15px" }}>
+        <div className={styles.searchDiv}>
+          <Search
+            value={search}
+            placeholder='Search...'
+            borderWidth={1}
+            borderColor={"var(--primary-clr)"}
+            borderStyle={"solid"}
+            paddingLeft={25}
+            paddingTop={5}
+            paddingBottom={5}
+            paddingRight={25}
+            fillBackground={true}
+            backgroundColor={"white"}
+            rounded={true}
+            height={"38.5px"}
+            handleSearch={handleSearch}
+          />
+        </div>
+        <div className='d-flex' style={{ gap: "22px" }}>
+          <InputContainer
+            inputPlaceholder='Filter by'
+            inputType='select'
+            inputName=''
+            borderColor={"var(--primary-clr)"}
+            placeholderColor={"var(--primary-clr)"}
+            placeholderFontStyle={"normal"}
+            placeholderFontWeight={"700"}
+            placeholderFontSize={"14px"}
+            dropdownArrowColor={"var(--primary-clr)"}
+            // selectOptions={filterByOptions}
+            control={control}
+            register={register}
+            width={"112"}
+          />
+          <div className='d-flex d-inline-block' style={{ gap: "12px" }}>
+            <span style={{ cursor: "pointer" }}>
+              <Dropdown placement='bottom-right'>
+                <Dropdown.Trigger>
+                  <div className='pt-2 pt-md-1'>
+                    <img src='/assets/svg/settings.svg' />
+                  </div>
+                </Dropdown.Trigger>
+                <Dropdown.Menu aria-label='Static Actions' items={settingsOptions} onAction={(actionKey) => console.log({ actionKey })}>
+                  {(item) => (
+                    <Dropdown.Item key={item.key} className={styles.dropDownItem}>
+                      {item.name}
+                    </Dropdown.Item>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
+            </span>
+            <span className='pt-2 pt-md-1' style={{ cursor: "pointer" }} onClick={() => setView("grid")}>
+              <GridIcon fillColor={view === "grid" ? "#4472c4" : "#535353"} />
+            </span>
+            <span className='pt-2 pt-md-1' style={{ cursor: "pointer" }} onClick={() => setView("list")}>
+              <ListIcon fillColor={view === "list" ? "#4472c4" : "#535353"} />
+            </span>
+          </div>
+        </div>
+      </div>
+      {view === "grid" && (
+        <>
+          <div className='row pt-3'>
+            {filteredItems?.map((item) => (
+              <div key={item.id} className='col-12 col-md-6 col-lg-4 mt-4'>
+                <div className={`card ${styles.singleCard}`}>
+                  <div className='card-body p-0'>
+                    <div className='d-flex align-items-center'>
+                      {item.img && <img src={item.src} className='rounded-circle mt-1' width='56px' height='56px' />}
+                      <div className='ps-3 w-100'>
+                        <div className='d-flex justify-content-between'>
+                          <div className={`card-title ${styles.cardTitle}`}>{item.mainCode}</div>
+                          <span style={{ cursor: "pointer" }}>
+                            <Heart />
+                          </span>
                         </div>
+                        <p className={`card-text pe-4 pe-sm-4 pe-md-5 ${styles.cardBodyText}`}>{item.mainDescription}</p>
                       </div>
                     </div>
-                )
-                return null; 
-              })}
+                    <hr className='mb-1' />
+                    <div className={`d-flex justify-content-end pt-0 ${styles.cardTitle}`}>
+                      {item.currency.name !== "LBP" && item.currency.symbol}
+                      {item.unitPrice}
+                      {item.currency.name === "LBP" && item.currency.symbol}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
-        )
-     }
-     {
-        view === "list" && (
-          <div className="pt-3 mt-4">
-            <DataTable 
-              columns={columns}
-              data={items}
-              customStyles={customStyles}
-            />
-          </div>
-        )
-      }
-    </div>     
-  )
-}
+          {filteredItems?.length > 0 && (
+            <div className={styles.paginationDiv}>
+              <PaginationComponent total={Math.ceil(totalRows / perPage)} handleChange={setPage} />
+            </div>
+          )}
+        </>
+      )}
+      {view === "list" && (
+        <div className='pt-3 mt-4'>
+          <DataTable
+            columns={columns}
+            data={filteredItems}
+            customStyles={customStyles}
+            pagination
+            paginationComponentOptions={paginationComponentOptions}
+            defaultSortFieldId={1}
+            paginationServer
+            paginationTotalRows={totalRows}
+            onChangePage={handlePageChange}
+          />
+        </div>
+      )}
+    </div>
+  );
+};
 
 export default Products;

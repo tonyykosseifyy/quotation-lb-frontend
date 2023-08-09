@@ -35,9 +35,11 @@ const CreateQuotation = () => {
   const [quotationTotalBeforeVat, setQuotationTotalBeforeVat] = useState(0);
 
   const createQuotationResponse = useQuery({
-    queryKey: ["creatQuotation"],
+    queryKey: ["createQuotation"],
     queryFn: () => axiosClient.get(`/quotations/create`),
   });
+
+  const createQuotationData = createQuotationResponse.data?.data.data;
 
   const handleQuotationTotalChange = (operation, value) => {
     if (operation === "add") {
@@ -53,8 +55,6 @@ const CreateQuotation = () => {
       });
     }
   };
-
-  const createQuotationData = createQuotationResponse.data?.data.data;
 
   const handleExtraInfo = (e) => {
     setButtonState(() => e.target.value);

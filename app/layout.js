@@ -1,6 +1,7 @@
 import "./globals.css";
 import "bootstrap/dist/css/bootstrap.css";
 import { Inter } from "next/font/google";
+``;
 import Head from "next/head";
 import { ReactQueryProvider } from "@/app/ReactQueryProvider";
 const inter = Inter({ subsets: ["latin"] });
