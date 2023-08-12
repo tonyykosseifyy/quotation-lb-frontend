@@ -49,6 +49,6 @@
 }
 
 .configurationDropDownItem:hover {
-    background-color: rgba(90, 148, 249, 0.2) !important;
+    background-color: var(--table-row-babyblue-background-clr) !important;
     border-radius: none !important;
 }

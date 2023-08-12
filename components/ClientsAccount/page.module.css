@@ -1,0 +1,16 @@
+.dropDownMenu  {
+  padding: 0px !important;
+}
+
+.dropDownMenu *  {
+  border-radius: 0 !important;
+}
+
+.dropDownItem {
+  background-color: white !important;
+}
+
+.dropDownItem:hover {
+  background-color: var(--table-row-babyblue-background-clr) !important;
+  border-radius: none !important;
+}

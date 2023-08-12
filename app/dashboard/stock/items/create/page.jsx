@@ -155,7 +155,7 @@ const CreateItems = () => {
         {
             when: (row) => row.code === "Code 3", 
             style: {
-                backgroundColor: "#A4D8FB",
+                backgroundColor: "var(--table-row-babyblue-background-clr)",
             },
         },
     ];
