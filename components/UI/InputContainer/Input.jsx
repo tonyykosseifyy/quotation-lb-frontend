@@ -66,6 +66,7 @@ const Input = ({
   referenceInput,
   referenceKey,
   inputKey = null,
+  inputfontWeight,
 }) => {
   const [extraValidations, setExtraValidations] = useState({});
 
@@ -116,10 +117,21 @@ const Input = ({
             ...extraValidations,
           })}
           style={{
-            fontWeight: placeholderWeight ? placeholderWeight : "600",
+            fontWeight: inputfontWeight ? 700 : 600,
             fontSize: "12px",
             textAlign: textAlign ? textAlign : "start",
             borderColor: inputBorderColor ? "var(--input-border-2)" : "var(--input-border)",
+            placeholder: (baseStyles, state) => ({
+              ...baseStyles,
+              color: placeholderColor ? "#4472c4" : "#C8C8C8",
+              fontStyle: placeholderStyle ? "normal" : "italic",
+              fontWeight: placeholderWeight ? placeholderWeight : 600,
+              fontSize: fontSize ? fontSize : "12px",
+              dropdownIndicator: (baseStyles, state) => ({
+                ...baseStyles,
+                color: dropdownArrowColor ? dropdownArrowColor : "var(--primary-text-clr)",
+              }),
+            }),
           }}
           readOnly={isDisabled}
         />
@@ -186,7 +198,7 @@ const Input = ({
                 }),
                 placeholder: (baseStyles, state) => ({
                   ...baseStyles,
-                  color: placeholderColor ? "#4472c4" : "#C8C8C8",
+                  color: placeholderColor ? placeholderColor : "#C8C8C8",
                   fontStyle: placeholderStyle ? "normal" : "italic",
                   fontWeight: placeholderWeight ? placeholderWeight : "",
                   fontSize: fontSize ? fontSize : "14px",

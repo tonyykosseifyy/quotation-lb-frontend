@@ -45,6 +45,7 @@ const InputContainer = ({
   referenceInput,
   referenceKey,
   inputKey,
+  inputfontWeight,
 }) => {
   return (
     <div
@@ -97,6 +98,7 @@ const InputContainer = ({
         referenceInput={referenceInput}
         referenceKey={referenceKey}
         inputKey={inputKey}
+        inputfontWeight={inputfontWeight}
       />
     </div>
   );
