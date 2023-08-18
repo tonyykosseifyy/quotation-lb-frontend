@@ -11,6 +11,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 import Input from "@/components/UI/InputContainer/Input";
 import { calculateCommission, calculateTotalAfterDiscounts } from "@/helpers/calculate";
+import ProgressStepsBar from "@/components/ProgressStepsBar/ProgressStepsBar";
 
 const permissions = {
   "edit salesperson cashing method in quotation": false,
@@ -33,6 +34,7 @@ const CreateQuotation = () => {
   const [buttonState, setButtonState] = useState("order");
   const [indices, setIndices] = useState({ oldIndex: null, newIndex: null });
   const [quotationTotalBeforeVat, setQuotationTotalBeforeVat] = useState(0);
+  const [activeStep, setActiveStep] = useState(1);
 
   const createQuotationResponse = useQuery({
     queryKey: ["creatQuotation"],
@@ -86,6 +88,28 @@ const CreateQuotation = () => {
   const vatWatch = watch("vat");
   const commissionRateWatch = watch("commissionRate");
 
+  const buttons = [
+    {
+      title: 'Preview',
+      value: 'preview',
+    },
+    {
+      title: 'Send By Email',
+      value: 'send by email',
+      onClick: () => setActiveStep(2),
+    },
+    {
+      title: 'Confirm',
+      value: 'confirm',
+      onClick: () => setActiveStep(3),
+    },
+    {
+      title: 'Cancel',
+      value: 'cancel',
+      onClick: () => setActiveStep(1),
+    },
+  ];
+
   useEffect(() => {
     var el = document.getElementById("itemRows");
     if (el) {
@@ -136,34 +160,16 @@ const CreateQuotation = () => {
         <div>
           <div className={styles.title} style={{ color: "var(--primary-clr)" }}>Create New Quotation</div>
         </div>
-        <div className="d-flex mt-2 justify-content-md-between">
+        <div className="d-flex flex-column flex-lg-row mt-2 justify-content-md-between gap-3">
           <div className="d-flex gap-2">
-            <Button 
-              title='Preview' value='preview' backgroundColor='var(--tab-button-background-clr)' border='none' rounded={true} padding='10px'
-              type='button' fontSize='13px' fontWeight={600} titleColor='var(--primary-text-clr)'
-            />
-            <Button 
-              title='Send By Email'  
-              // onClick={} 
-              backgroundColor='var(--tab-button-background-clr)'
-              value='sendByEmail' border='none' rounded={true} padding='10px'
-              type='button' fontSize='13px' fontWeight={600} titleColor='var(--primary-text-clr)'
-            />
-            <Button 
-              title='Confirm'  
-              // onClick={} 
-              backgroundColor='var(--tab-button-background-clr)'
-              value='confirm' border='none' rounded={true} padding='10px'
-              type='button' fontSize='13px' fontWeight={600} titleColor='var(--primary-text-clr)'
-            />
-            <Button 
-              title='Cancel'  
-              // onClick={} 
-              backgroundColor='var(--tab-button-background-clr)'
-              value='cancel' border='none' rounded={true} padding='10px'
-              type='button' fontSize='13px' fontWeight={600} titleColor='var(--primary-text-clr)'
-            />
+            { buttons.map (({ title, value, onClick }) => 
+              <Button key={title} title={title} value={value} onClick={onClick} 
+                backgroundColor='var(--tab-button-background-clr)' border='none' rounded={true} padding='10px'
+                type='button' fontSize='13px' fontWeight={600} titleColor='var(--primary-text-clr)' 
+              />
+            )}
           </div>
+          <ProgressStepsBar activeStep={activeStep}/>
         </div>
         <div className={`${styles.quotationInfo} border border-2 rounded p-4`}>
           <div className={`${styles.inputRow}`}>

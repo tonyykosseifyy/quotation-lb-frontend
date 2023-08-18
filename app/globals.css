@@ -94,6 +94,8 @@
     --table-row-background-clr: rgba(191, 191, 191, 0.4);
     --table-row-babyblue-background-clr: #DEF1FF;
     --modal-background-clr: rgba(250, 250, 250, 1);
+    --inactive-progress-bar-text-clr: #DEDEDE;
+    ;
 }
 
 @font-face {
