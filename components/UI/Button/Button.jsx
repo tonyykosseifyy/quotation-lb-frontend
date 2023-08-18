@@ -21,6 +21,9 @@ const Button = ({
     display,
     alignItems,
     justifyContent,
+    backgroundColor,
+    border,
+    padding,
 }) => {
     return (
         <button
@@ -45,6 +48,9 @@ const Button = ({
                 alignItems: alignItems,
                 justifyContent: justifyContent,
                 color: titleColor,
+                backgroundColor: backgroundColor,
+                border: border,
+                padding: padding,
             }}
             onClick={onClick}
             value={value}
