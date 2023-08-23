@@ -123,3 +123,12 @@ export const settingsOptions = [
   { id: "delete", name: "Delete" },
   { id: "edit", name: "Edit" },
 ];
+
+export const productsCheckboxOptions = [
+  { inputName: "allProducts", labelText: "All Products" },
+  { inputName: "physical", labelText: "Physical" },
+  { inputName: "services", labelText: "Services" },
+  { inputName: "combo", labelText: "Combo" },
+  { inputName: "onHand", labelText: "On Hand" },
+  { inputName: "favorites", labelText: "Favorites" },
+];
