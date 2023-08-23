@@ -39,11 +39,6 @@
     background-color: transparent;
 }
 
-.configurationDropDownItemLink {
-    text-decoration: none;
-    color: var(--secondary-text-clr);
-}
-
 .configurationDropDownItem {
     background-color: white !important;
 }

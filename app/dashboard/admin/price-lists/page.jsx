@@ -10,7 +10,7 @@ import GeneralTab from "@/components/AdminTabs/GeneralTab";
 import PriceListPropertiesTab from "@/components/AdminTabs/PriceListPropertiesTab";
 import PriceListItemsTab from "@/components/AdminTabs/PriceListItemsTab";
 
-const PriceLists = () => {
+const PriceListsModal = ({ setIsModalOpen }) => {
   
     const priceListsGeneralDuplicate = [...priceListsGeneral];
 
@@ -121,7 +121,7 @@ const PriceLists = () => {
             title="PRICE LIST" 
             titlePaddingBottom="20px"
             isOpen={showModal} 
-            onRequestClose={() => setShowModal(false)} 
+            onRequestClose={() => {setShowModal(false), setIsModalOpen(false)}} 
             style={modalStyle}
         >
             <div className={`mt-3`}>
@@ -203,4 +203,4 @@ const PriceLists = () => {
   );
 };
 
-export default PriceLists;
+export default PriceListsModal;

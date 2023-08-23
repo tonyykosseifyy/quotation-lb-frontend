@@ -9,7 +9,7 @@ import { taxationGeneral, taxationRates } from "@/data/admin";
 import GeneralTab from "@/components/AdminTabs/GeneralTab";
 import TaxationGroupsRatesTab from "@/components/AdminTabs/TaxationGroupsRatesTab";
 
-const TaxationGroups = () => {
+const TaxationGroupsModal = ({ setIsModalOpen }) => {
   
     const taxationGeneralDuplicate = [...taxationGeneral];
     const taxationRatesDuplicate = [...taxationRates];
@@ -68,7 +68,7 @@ const TaxationGroups = () => {
             title="Taxation Groups" 
             titlePaddingBottom="20px"
             isOpen={showModal} 
-            onRequestClose={() => setShowModal(false)} 
+            onRequestClose={() => {setShowModal(false), setIsModalOpen(false)}} 
             style={modalStyle}
         >
             <form id="taxationGroups" 
@@ -138,4 +138,4 @@ const TaxationGroups = () => {
   );
 };
 
-export default TaxationGroups;
+export default TaxationGroupsModal;

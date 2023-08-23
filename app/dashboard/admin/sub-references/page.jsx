@@ -10,7 +10,7 @@ import GeneralTab from "@/components/AdminTabs/GeneralTab";
 import SubReferencesGeneralTab from "@/components/AdminTabs/SubReferencesGeneralTab";
 
 
-const SubReferences = () => {
+const SubReferencesModal = ({ setIsModalOpen }) => {
   
     const subReferencesGeneralDuplicate = [...subReferencesGeneral];
 
@@ -82,7 +82,7 @@ const SubReferences = () => {
             title="Sub-References" 
             titlePaddingBottom="20px"
             isOpen={showModal} 
-            onRequestClose={() => setShowModal(false)} 
+            onRequestClose={() => {setShowModal(false), setIsModalOpen(false)}} 
             style={modalStyle}
         >
             <form id="subReferences" 
@@ -146,4 +146,4 @@ const SubReferences = () => {
   );
 };
 
-export default SubReferences;
+export default SubReferencesModal;
