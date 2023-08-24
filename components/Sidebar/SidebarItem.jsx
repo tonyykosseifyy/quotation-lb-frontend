@@ -20,9 +20,13 @@ const SidebarItem = ({ sidebarItem, open }) => {
               {sidebarItem.items && (
                 <div className={styles.subHeaders}>
                   {sidebarItem.items?.map((item, index) => (
-                    <Link href={item.link} style={{ textDecoration: "none" }} key={index}>
-                      <div className={styles.subHeader}>{item.title}</div>
-                    </Link>
+                      item.link ? (
+                        <Link href={item.link} style={{ textDecoration: "none" }} key={index}>
+                          <div className={styles.subHeader}>{item.title}</div>
+                        </Link>
+                        ) : (
+                          <div key={index} className={styles.subHeader}>{item.title}</div>
+                        )      
                   ))}
                 </div>
               )}

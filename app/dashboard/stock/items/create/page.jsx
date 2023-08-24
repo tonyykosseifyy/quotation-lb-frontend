@@ -11,7 +11,7 @@ import Button from "@/components/UI/Button/Button";
 import { typeOptions, taxationOptions, checkboxInfo, altCodes, grouping, transactionalQuantity, warehouses, packageTypeFields, packageTypeOptions } from "@/data/createProduct";
 import DataTable from "react-data-table-component";
 
-const CreateItems = () => {
+const CreateItemsModal = () => {
     const [buttonState, setButtonState] = useState("general");
 
     const handleExtraInfo = (e) => {
@@ -338,8 +338,7 @@ const CreateItems = () => {
                             onClick={handleExtraInfo} 
                             value={value} 
                             type='button' 
-                            paddingLeft="45px" 
-                            paddingRight="45px"
+                            width='155px'
                             tab 
                         />
                     )
@@ -682,10 +681,8 @@ const CreateItems = () => {
                                     title="Save"
                                     rounded={false}
                                     fillBackground={true}
-                                    paddingTop={10}
-                                    paddingBottom={10}
-                                    paddingRight={64}
-                                    paddingLeft={64}
+                                    width='162px' 
+                                    height='40px'
                                 />
                             </div>
                     </div>
@@ -695,4 +692,4 @@ const CreateItems = () => {
     );
 };
 
-export default CreateItems;
+export default CreateItemsModal;

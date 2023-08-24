@@ -7,114 +7,118 @@ import Link from "next/link";
 import { Tooltip } from "@nextui-org/react";
 import SidebarItemCard from "@/components/Sidebar/SidebarItemCard";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
-
-const sidebarItems = [
-  {
-    title: "Quotation",
-    logo: "/assets/svg/quotation.svg",
-    items: [
-      {
-        title: "New Quotation",
-        link: "/dashboard/quotations/create",
-      },
-      {
-        title: "Quotations Summary",
-        link: "/dashboard/quotations/",
-      },
-    ],
-  },
-  {
-    title: "Clients",
-    logo: "/assets/svg/people.svg",
-    items: [
-      {
-          title: "Accounts",
-          link: "/dashboard/clients/accounts",
-      },
-      {
-        title: "Add New Client",
-        link: "/dashboard/clients/create",
-      },
-    ],
-  },
-  {
-    title: "Stock",
-    logo: "/assets/svg/stock.svg",
-    items: [
-      {
-        title: "Items",
-        link: "/dashboard/stock/items",
-      },
-      {
-        title: "Create Items",
-        link: "/dashboard/stock/items/create",
-      },
-      // {
-      //   title: "Combos",
-      //   link: "/dashboard/",
-      // },
-      // {
-      //     title: "Brands",
-      //     link: "/dashboard/",
-      // },
-    ],
-  },
-  // {
-  //     title: "Report",
-  //     logo: "/assets/svg/report.svg",
-  //     items: [
-  //         {
-  //             title: "Report 1",
-  //             link: "/dashboard",
-  //         },
-  //         {
-  //             title: "Report 2",
-  //             link: "/dashboard/",
-  //         },
-  //         {
-  //             title: "Report 3",
-  //             link: "/dashboard/",
-  //         },
-  //     ],
-  // },
-  // {
-  //     title: "Dashboard Summary",
-  //     logo: "/assets/svg/quilt.svg",
-  // },
-  {
-    title: "Admin Panel",
-    logo: "/assets/svg/admin-panel.svg",
-    link: "https://backend.rooster-me.com",
-  },
-  // {
-  //     title: "Account Settings",
-  //     logo: "/assets/svg/account-settings.svg",
-  //     items: [
-  //         {
-  //             title: "Create Users",
-  //             link: "/dashboard",
-  //         },
-  //         {
-  //             title: "Category Security Level",
-  //             link: "/dashboard/",
-  //         },
-  //         {
-  //             title: "Paper Template",
-  //             link: "/dashboard/",
-  //         },
-  //         {
-  //             title: "Domination Name",
-  //             link: "/dashboard/",
-  //         },
-  //     ],
-  // },
-];
+import CreateItemsModal from "@/app/dashboard/stock/items/create/page";
 
 export default function Sidebar() {
   const [open, setOpen] = useState(true);
   const toggleOpen = () => {
     setOpen(!open);
   };
+
+
+  const sidebarItems = [
+    {
+      title: "Quotation",
+      logo: "/assets/svg/quotation.svg",
+      items: [
+        {
+          title: "New Quotation",
+          link: "/dashboard/quotations/create",
+        },
+        {
+          title: "Quotations Summary",
+          link: "/dashboard/quotations/",
+        },
+      ],
+    },
+    {
+      title: "Clients",
+      logo: "/assets/svg/people.svg",
+      items: [
+        {
+            title: "Accounts",
+            link: "/dashboard/clients/accounts",
+        },
+        {
+          title: "Add New Client",
+          link: "/dashboard/clients/create",
+        },
+      ],
+    },
+    {
+      title: "Stock",
+      logo: "/assets/svg/stock.svg",
+      items: [
+        {
+          title: "Items",
+          link: "/dashboard/stock/items",
+        },
+        {
+          title: "Create Items",
+          // link: "/dashboard/stock/items/create",
+          modal: <CreateItemsModal />,
+        },
+        // {
+        //   title: "Combos",
+        //   link: "/dashboard/",
+        // },
+        // {
+        //     title: "Brands",
+        //     link: "/dashboard/",
+        // },
+      ],
+    },
+    // {
+    //     title: "Report",
+    //     logo: "/assets/svg/report.svg",
+    //     items: [
+    //         {
+    //             title: "Report 1",
+    //             link: "/dashboard",
+    //         },
+    //         {
+    //             title: "Report 2",
+    //             link: "/dashboard/",
+    //         },
+    //         {
+    //             title: "Report 3",
+    //             link: "/dashboard/",
+    //         },
+    //     ],
+    // },
+    // {
+    //     title: "Dashboard Summary",
+    //     logo: "/assets/svg/quilt.svg",
+    // },
+    {
+      title: "Admin Panel",
+      logo: "/assets/svg/admin-panel.svg",
+      link: "https://backend.rooster-me.com",
+    },
+    // {
+    //     title: "Account Settings",
+    //     logo: "/assets/svg/account-settings.svg",
+    //     items: [
+    //         {
+    //             title: "Create Users",
+    //             link: "/dashboard",
+    //         },
+    //         {
+    //             title: "Category Security Level",
+    //             link: "/dashboard/",
+    //         },
+    //         {
+    //             title: "Paper Template",
+    //             link: "/dashboard/",
+    //         },
+    //         {
+    //             title: "Domination Name",
+    //             link: "/dashboard/",
+    //         },
+    //     ],
+    // },
+  ];
+
   return (
     <div className={open ? styles.openContainer : styles.closedContainer}>
       <button className={open ? styles.controlButton : styles.controlButtonClosed} onClick={toggleOpen}>
