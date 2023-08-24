@@ -92,7 +92,7 @@ const StockWarehousesModal = ({ setIsModalOpen }) => {
                             Discard
                         </div>
                         <div className="">
-                            <Button title="Save" rounded={false} fillBackground={true} paddingTop={10} paddingBottom={10} paddingRight={64} paddingLeft={64} />
+                            <Button title="Save" rounded={false} fillBackground={true} width='162px' height='40px' />
                         </div>
                     </div>
                 </>

@@ -133,10 +133,8 @@ const SubReferencesModal = ({ setIsModalOpen }) => {
                                 title="Save"
                                 rounded={false}
                                 fillBackground={true}
-                                paddingTop={10}
-                                paddingBottom={10}
-                                paddingRight={64}
-                                paddingLeft={64}
+                                width='162px' 
+                                height='40px'
                             />
                         </div>
                     </div>
