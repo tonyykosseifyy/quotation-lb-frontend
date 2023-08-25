@@ -11,7 +11,7 @@ import Button from "@/components/UI/Button/Button";
 import { typeOptions, taxationOptions, checkboxInfo, altCodes, grouping, transactionalQuantity, warehouses, packageTypeFields, packageTypeOptions } from "@/data/createProduct";
 import DataTable from "react-data-table-component";
 
-const CreateItemsModal = () => {
+const CreateItemsModal = ({ setIsModalOpen }) => {
     const [buttonState, setButtonState] = useState("general");
 
     const handleExtraInfo = (e) => {
@@ -325,7 +325,7 @@ const CreateItemsModal = () => {
             title="Product's Name" 
             titlePaddingBottom="20px"
             isOpen={showModal} 
-            onRequestClose={() => setShowModal(false)} 
+            onRequestClose={() => {setShowModal(false), setIsModalOpen(false)}} 
             style={modalStyle}
         >
             <div className="d-md-flex-wrap">

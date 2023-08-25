@@ -14,6 +14,7 @@ import Heart from "@/components/UI/Icons/Heart";
 import DownArrow from "@/components/UI/Icons/DownArrow";
 import { Dropdown } from "@nextui-org/react";
 import CheckBox from "@/components/UI/CheckBox/Checkbox";
+import CreateItemsModal from "./create/page";
 
 const Products = () => {
     const [search, setSearch] = useState("");
@@ -38,10 +39,7 @@ const Products = () => {
         }));
     };
 
-    const handleCreateProduct = () => {
-      //
-    };
-
+    const [showModal, setShowModal] = useState(false);
     const [view, setView] = useState( "grid");
 
     const columns = [
@@ -164,7 +162,7 @@ const Products = () => {
                         title="Create New Product"
                         fillBackground={true}
                         rounded={true}
-                        onClick={handleCreateProduct}
+                        onClick={() => setShowModal(true)}
                     />
                 </div>
             </div>
@@ -283,6 +281,7 @@ const Products = () => {
                   </div>
                 )
             }
+            { showModal && <CreateItemsModal setIsModalOpen={setShowModal} /> }
         </div>     
     )
 }
