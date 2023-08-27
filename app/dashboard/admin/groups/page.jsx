@@ -8,7 +8,7 @@ import Button from "@/components/UI/Button/Button";
 import { groupsGeneral } from "@/data/admin";
 import GeneralTab from "@/components/AdminTabs/GeneralTab";
 
-const Groups = () => {
+const GroupsModal = ({ setIsModalOpen }) => {
   
     const groupsGeneralDuplicate = [...groupsGeneral];
 
@@ -56,7 +56,7 @@ const Groups = () => {
             title="Groups" 
             titlePaddingBottom="20px"
             isOpen={showModal} 
-            onRequestClose={() => setShowModal(false)} 
+            onRequestClose={() => {setShowModal(false), setIsModalOpen(false)}} 
             style={modalStyle}
         >
             <form id="groups" 
@@ -107,7 +107,7 @@ const Groups = () => {
                               Discard
                           </div>
                           <div className="">
-                              <Button title="Save" rounded={false} fillBackground={true} paddingTop={10} paddingBottom={10} paddingRight={64} paddingLeft={64} />
+                              <Button title="Save" rounded={false} fillBackground={true} width='162px' height='40px'/>
                           </div>
                     </div>
                 </>  
@@ -116,4 +116,4 @@ const Groups = () => {
   );
 };
 
-export default Groups;
+export default GroupsModal;

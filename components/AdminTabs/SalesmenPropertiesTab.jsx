@@ -32,7 +32,7 @@ const SalesmenPropertiesTab = ({ register, control, commissionGrantedOptions, co
                           control={control} 
                           width="100" 
                           widthUnit="%" 
-                          placeholderColor 
+                          placeholderColor="#868686" 
                           placeholderStyle
                           value={commissionGrantedOption}
                           onChange={handleCommissionSelectChange}
@@ -50,7 +50,7 @@ const SalesmenPropertiesTab = ({ register, control, commissionGrantedOptions, co
                       selectOptions={commissionsPaymentOptions} 
                       register={register} control={control} 
                       width="100" widthUnit="%" 
-                      placeholderColor 
+                      placeholderColor="#868686"
                       placeholderStyle
                       value={commissionsPaymentOption}
                       onChange={handleCommissionsPaymentChange}

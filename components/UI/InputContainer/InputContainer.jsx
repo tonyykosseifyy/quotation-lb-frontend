@@ -46,6 +46,7 @@ const InputContainer = ({
   referenceKey,
   inputKey,
   decimalDigits,
+  inputfontWeight,
 }) => {
   return (
     <div
@@ -99,6 +100,7 @@ const InputContainer = ({
         referenceKey={referenceKey}
         inputKey={inputKey}
         decimalDigits={decimalDigits}
+        inputfontWeight={inputfontWeight}
       />
     </div>
   );

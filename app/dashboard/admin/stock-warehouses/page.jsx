@@ -8,7 +8,7 @@ import Button from "@/components/UI/Button/Button";
 import { warehousesGeneral } from "@/data/admin";
 import WarehousesGeneralTab from "@/components/AdminTabs/WarehousesGeneralTab";
 
-const StockWarehouses = () => {
+const StockWarehousesModal = ({ setIsModalOpen }) => {
 
     const warehousesGeneralDuplicate = [...warehousesGeneral];
 
@@ -62,7 +62,7 @@ const StockWarehouses = () => {
             title="Stock Warehouses"
             titlePaddingBottom="20px"
             isOpen={showModal}
-            onRequestClose={() => setShowModal(false)}
+            onRequestClose={() => {setShowModal(false), setIsModalOpen(false)}}
             style={modalStyle}
         >
             <form id="stockWarehouses"
@@ -92,7 +92,7 @@ const StockWarehouses = () => {
                             Discard
                         </div>
                         <div className="">
-                            <Button title="Save" rounded={false} fillBackground={true} paddingTop={10} paddingBottom={10} paddingRight={64} paddingLeft={64} />
+                            <Button title="Save" rounded={false} fillBackground={true} width='162px' height='40px' />
                         </div>
                     </div>
                 </>
@@ -101,4 +101,4 @@ const StockWarehouses = () => {
     );
 };
 
-export default StockWarehouses;
+export default StockWarehousesModal;

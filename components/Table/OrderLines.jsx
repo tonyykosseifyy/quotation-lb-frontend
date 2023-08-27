@@ -116,6 +116,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                             <InputContainer
                               placeholderColor
                               placeholderStyle
+                              inputfontWeight={input.inputfontWeight}
                               inputBorderColor={input.inputBorderColor}
                               placeholderWeight={input.placeholderWeight}
                               inputPlaceholder={input.inputPlaceholder}

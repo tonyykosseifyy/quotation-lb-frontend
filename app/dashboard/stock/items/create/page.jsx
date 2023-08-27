@@ -427,6 +427,7 @@ const CreateItems = () => {
         canBePurchased: false,
         warranty: false,
         discontinued: false,
+        blocked: false,
       });
       setPackageType(null);
       setPackageTypeName("");

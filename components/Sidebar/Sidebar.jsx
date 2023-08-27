@@ -14,10 +14,12 @@ const sidebarItems = [
     logo: "/assets/svg/quotation.svg",
     items: [
       {
+        id: 1,
         title: "New Quotation",
         link: "/dashboard/quotations/create",
       },
       {
+        id: 2,
         title: "Quotations Summary",
         link: "/dashboard/quotations/",
       },
@@ -28,10 +30,12 @@ const sidebarItems = [
     logo: "/assets/svg/people.svg",
     items: [
       {
+          id: 3,
           title: "Accounts",
           link: "/dashboard/clients/accounts",
       },
       {
+        id: 4,
         title: "Add New Client",
         link: "/dashboard/clients/create",
       },
@@ -42,17 +46,19 @@ const sidebarItems = [
     logo: "/assets/svg/stock.svg",
     items: [
       {
+        id: 5,
         title: "Items",
         link: "/dashboard/stock/items",
       },
       {
+        id: 6,
         title: "Create Items",
-        link: "/dashboard/stock/items/create",
+        name: "createItems"
       },
-      // {
-      //   title: "Combos",
-      //   link: "/dashboard/",
-      // },
+      {
+        // title: "Combos",
+        // link: "/dashboard/",
+      },
       // {
       //     title: "Brands",
       //     link: "/dashboard/",
@@ -115,6 +121,7 @@ export default function Sidebar() {
   const toggleOpen = () => {
     setOpen(!open);
   };
+
   return (
     <div className={open ? styles.openContainer : styles.closedContainer}>
       <button className={open ? styles.controlButton : styles.controlButtonClosed} onClick={toggleOpen}>

@@ -9,7 +9,7 @@ import { salesmenGeneral, commissionGrantedOptions, commissionsPaymentOptions } 
 import SalesmenGeneralTab from "@/components/AdminTabs/SalesmenGeneralTab";
 import SalesmenPropertiesTab from "@/components/AdminTabs/SalesmenPropertiesTab";
 
-const Salesmen = () => {
+const SalesmenModal = ({ setIsModalOpen }) => {
 
     const salesmenGeneralDuplicate = [...salesmenGeneral];
 
@@ -83,7 +83,7 @@ const Salesmen = () => {
             title="Salesmen Records"
             titlePaddingBottom="20px"
             isOpen={showModal}
-            onRequestClose={() => setShowModal(false)}
+            onRequestClose={() => {setShowModal(false), setIsModalOpen(false)}}
             style={modalStyle}
         >
             <form id="salesmen"
@@ -126,7 +126,7 @@ const Salesmen = () => {
                             Discard
                         </div>
                         <div className="">
-                            <Button title="Save" rounded={false} fillBackground={true} paddingTop={10} paddingBottom={10} paddingRight={64} paddingLeft={64} />
+                            <Button title="Save" rounded={false} fillBackground={true} width='162px' height='40px' />
                         </div>
                     </div>
                 </>
@@ -135,4 +135,4 @@ const Salesmen = () => {
     );
 };
 
-export default Salesmen;
+export default SalesmenModal;

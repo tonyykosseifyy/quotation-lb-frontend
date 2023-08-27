@@ -6,7 +6,7 @@ import Button from "@/components/UI/Button/Button";
 import Search from "@/components/UI/Search/Search";
 import { useForm } from "react-hook-form";
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
-import { items, settingsOptions } from "@/data/stocks";
+import { items, settingsOptions, productsCheckboxOptions } from "@/data/stocks";
 import GridIcon from "@/components/UI/Icons/GridIcon";
 import ListIcon from "@/components/UI/Icons/ListIcon";
 import DataTable from "react-data-table-component";
@@ -16,6 +16,8 @@ import { Dropdown } from "@nextui-org/react";
 import { useQuery } from "@tanstack/react-query";
 import useDebounce from "@/hooks/useDebounce";
 import axiosClient from "@/api/axiosClient";
+import CheckBox from "@/components/UI/CheckBox/Checkbox";
+import CreateItemsModal from "./create/page";
 import PaginationComponent from "@/components/Pagination/Pagination";
 
 const Products = () => {
@@ -26,6 +28,7 @@ const Products = () => {
   const [page, setPage] = useState(1);
   const [view, setView] = useState("grid");
   const debouncedSearch = useDebounce(search, 500);
+  const [showModal, setShowModal] = useState(false);
 
   const getItemsResponse = useQuery({
     queryKey: ["quotations", page, perPage, debouncedSearch],
@@ -134,7 +137,6 @@ const Products = () => {
       },
     },
   };
-
   const {
     register,
     handleSubmit,
@@ -149,82 +151,31 @@ const Products = () => {
       <div className={`${styles.header} pt-4`}>
         <div className='d-flex'>
           <div className={`${styles.title}`}>Products</div>
-          <span className='ps-2' style={{ cursor: "pointer" }}>
-            <DownArrow fillColor={"var(--primary-clr)"} />
-          </span>
+          <>
+            <Dropdown placement='bottom-right'>
+              <Dropdown.Trigger>
+                <span className='ps-2'>
+                  <DownArrow />
+                </span>
+              </Dropdown.Trigger>
+              <Dropdown.Menu
+                aria-label='Static Actions'
+                items={productsCheckboxOptions}
+                // closeOnSelect={false}
+                // selectionMode="multiple"
+                className={styles.dropDownMenu}>
+                {(item) => (
+                  <Dropdown.Item key={item.inputName} className={styles.dropDownItem}>
+                    <CheckBox inputName={item.inputName} labelText={item.labelText} inputId={item.inputName} value={item.inputName} isChecked={checkboxValues.value} onChange={(event) => handleCheckboxChange(event)} />
+                  </Dropdown.Item>
+                )}
+              </Dropdown.Menu>
+            </Dropdown>
+          </>
         </div>
         <div>
-          <Button title='Create New Product' fillBackground={true} rounded={true} onClick={handleCreateProduct} />
+          <Button title='Create New Product' fillBackground={true} rounded={true} onClick={() => setShowModal(true)} />
         </div>
-<<<<<<< HEAD
-        <div className="d-flex flex-column flex-md-row justify-content-between mt-4" style={{ gap: "15px" }}>
-          <div className={styles.searchDiv}>
-             <Search
-                value={search}
-                placeholder="Search..."
-                borderWidth={1}
-                borderColor={"var(--primary-clr)"}
-                borderStyle={"solid"}
-                paddingLeft={25}
-                paddingTop={5}
-                paddingBottom={5}
-                paddingRight={25}
-                fillBackground={true}
-                backgroundColor={"white"}
-                rounded={true}
-                height={"38.5px"}
-                handleSearch={handleSearch}   
-              />
-            </div>
-            <div className="d-flex" style={{ gap: "22px"}}>
-                <InputContainer
-                    inputPlaceholder="Filter by"
-                    inputType="select"
-                    inputName=""
-                    inputBorderColor={"var(--primary-clr)"}
-                    placeholderColor={"var(--primary-clr)"}
-                    placeholderStyle={"normal"}
-                    placeholderWeight={"700"}
-                    dropdownArrowColor={"var(--primary-clr)"}
-                    // selectOptions={filterByOptions}
-                    control={control}
-                    register={register}
-                    width={"112"}
-                  />
-                <div className="d-flex d-inline-block" style={{gap: "12px"}} >
-                  <span style={{ cursor: "pointer" }}>
-                      <Dropdown placement="bottom-right">
-                        <Dropdown.Trigger>
-                          <div className="pt-2 pt-md-1">
-                            <img src="/assets/svg/settings.svg" />
-                          </div>
-                        </Dropdown.Trigger>
-                        <Dropdown.Menu 
-                          aria-label="Static Actions"
-                          items={settingsOptions}
-                          onAction={(actionKey) => console.log({ actionKey })}
-                        >
-                          {(item) => (
-                            <Dropdown.Item
-                              key={item.key}
-                              className={styles.dropDownItem}
-                            >
-                              {item.name}
-                            </Dropdown.Item>
-                          )}
-                        </Dropdown.Menu>
-                      </Dropdown>
-                    </span>
-                    <span className="pt-2 pt-md-1" style={{ cursor: "pointer" }} onClick={() => setView("grid")}>
-                      <GridIcon fillColor={ view === "grid" ? "#4472c4" : "#535353" } />
-                    </span> 
-                    <span className="pt-2 pt-md-1" style={{ cursor: "pointer" }} onClick={() => setView("list")}>
-                      <ListIcon fillColor={ view === "list" ? "#4472c4" : "#535353" } />
-                    </span> 
-                </div> 
-              </div>   
-=======
->>>>>>> add-api-items-create
       </div>
       <div className='d-flex flex-column flex-md-row justify-content-between mt-4' style={{ gap: "15px" }}>
         <div className={styles.searchDiv}>
@@ -250,11 +201,10 @@ const Products = () => {
             inputPlaceholder='Filter by'
             inputType='select'
             inputName=''
-            borderColor={"var(--primary-clr)"}
+            inputBorderColor={"var(--primary-clr)"}
             placeholderColor={"var(--primary-clr)"}
-            placeholderFontStyle={"normal"}
-            placeholderFontWeight={"700"}
-            placeholderFontSize={"14px"}
+            placeholderStyle={"normal"}
+            placeholderWeight={"700"}
             dropdownArrowColor={"var(--primary-clr)"}
             // selectOptions={filterByOptions}
             control={control}
@@ -269,7 +219,7 @@ const Products = () => {
                     <img src='/assets/svg/settings.svg' />
                   </div>
                 </Dropdown.Trigger>
-                <Dropdown.Menu aria-label='Static Actions' items={settingsOptions} onAction={(actionKey) => console.log({ actionKey })}>
+                <Dropdown.Menu aria-label='Static Actions' items={settingsOptions} onAction={(actionKey) => console.log({ actionKey })} className={styles.dropDownMenu}>
                   {(item) => (
                     <Dropdown.Item key={item.key} className={styles.dropDownItem}>
                       {item.name}
@@ -339,6 +289,7 @@ const Products = () => {
           />
         </div>
       )}
+      {showModal && <CreateItemsModal setIsModalOpen={setShowModal} />}
     </div>
   );
 };
