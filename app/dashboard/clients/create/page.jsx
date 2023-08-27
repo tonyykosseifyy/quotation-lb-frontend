@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import RadioButton from "@/components/UI/RadioButton/RadioButton";
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import Button from "@/components/UI/Button/Button";
+import Plus from "@/components/UI/Icons/Plus";
 
 import { clients, titles } from "@/data/createClient";
 import { useForm } from "react-hook-form";
@@ -26,6 +27,8 @@ const CreateClient = () => {
   const createClientData = createClientResponse.data?.data.data;
 
   console.log(createClientData);
+
+  const [ showPlusIconAndhideInfo, setShowPlusIconAndHideInfo ] = useState(true)
 
   const {
     register,
@@ -166,77 +169,95 @@ const CreateClient = () => {
           </div>
           <div className={`${styles.extraInfo}`}>
             <div className={`d-flex`}>
-              <Button title='Contacts & Addresses' rounded={true} fillBackground={state.extraInfo === "contact"} onClick={handleExtraInfoChange} value='contact' type='button' tab />
-              <Button title='Sales' rounded={true} fillBackground={state.extraInfo === "sales"} onClick={handleExtraInfoChange} type='button' value='sales' tab />
-              <Button title='Internal Note' rounded={true} fillBackground={state.extraInfo === "internalNote"} onClick={handleExtraInfoChange} value='internalNote' type='button' tab />
+              <Button title='Contacts & Addresses' rounded={true} fillBackground={state.extraInfo === "contact"} onClick={handleExtraInfoChange} value='contact' type='button' width='189px' tab />
+              <Button title='Sales' rounded={true} fillBackground={state.extraInfo === "sales"} onClick={handleExtraInfoChange} type='button' value='sales' width='189px' tab />
+              <Button title='Internal Note' rounded={true} fillBackground={state.extraInfo === "internalNote"} onClick={handleExtraInfoChange} value='internalNote' type='button' width='189px' tab />
             </div>
             <div className={`${styles.extraInfoDetails}`}>
               {state.extraInfo === "contact" && (
-                <div className={`${styles.contactDiv}`}>
-                  <div className={`${styles.contactDivButtons}`}>
-                    <div className=''>
-                      <RadioButton inputName='addressType' labelText='Contact' inputId='contact' value='contact' isChecked={state.addressType === "contact"} onChange={handleAddressTypeChange} />
+                <>
+                  { showPlusIconAndhideInfo? 
+                  (
+                    <div className={`${styles.plusIconRow} pt-3`} >
+                      <span style={{ cursor: "pointer" }}>
+                        <Plus fillColor='var(--primary-clr-light)' onClick={ () => setShowPlusIconAndHideInfo(false)} />
+                      </span>
+                      <div style={{ fontSize: "14px", paddingLeft: "8px", fontWeight: "500" }} >
+                          Add Contact
+                      </div>
                     </div>
-                    <div className=''>
-                      <RadioButton inputName='addressType' isChecked={state.addressType === "invoice"} labelText='Invoice Address' inputId='invoiceAddress' value='invoice' onChange={handleAddressTypeChange} />
+                  ) : 
+                  (
+                    <div className={`${styles.contactDiv}`}>
+                      <div className={`${styles.contactDivButtons} mb-1`}>
+                        <div className=''>
+                          <RadioButton inputName='addressType' labelText='Contact' inputId='contact' value='contact' isChecked={state.addressType === "contact"} onChange={handleAddressTypeChange} />
+                        </div>
+                        <div className=''>
+                          <RadioButton inputName='addressType' labelText='Delivery Address' inputId='deliveryAddress' value='delivery' isChecked={state.addressType === "delivery"} onChange={handleAddressTypeChange} />
+                        </div>
+                      </div>
+                      <div style={{ fontSize: "12px", fontWeight: "400" }} >
+                        Contact Selection used to add the contact information of personnel within the company (e.g., CEO, CFO, ...).
+                      </div>
+                      <div className={`${styles.infoDiv} pt-4`}>
+                        <div className={`${styles.inputRow}`}>
+                          <InputContainer label='Name' inputPlaceholder='' inputType='text' inputName='name' register={register} control={control} />
+                          <InputContainer label='Title' inputPlaceholder='Doctor, Miss, Mister' inputType='select' inputName='title' selectOptions={titles} register={register} control={control} />
+                          <InputContainer label='Job Position' inputPlaceholder='Sales Director, Sales..' inputType='text' inputName='jobPosition' register={register} />
+                        </div>
+                        <div className={`${styles.inputRow} ${styles.inputRow2}`}>
+                          <InputContainer
+                            label='Phone'
+                            inputPlaceholder=''
+                            inputType='phone'
+                            codeName='phoneContactCode'
+                            changeCodeValue={changeCodeValue}
+                            inputName='phoneContact'
+                            register={register}
+                            selectOptions={dummyDropdownOptions}
+                            control={control}
+                          />
+                          <InputContainer
+                            label='Mobile'
+                            isRequired={true}
+                            inputPlaceholder=''
+                            inputType='phone'
+                            codeName='mobileContactCode'
+                            changeCodeValue={changeCodeValue}
+                            inputName='mobileContact'
+                            selectOptions={dummyDropdownOptions}
+                            register={register}
+                            control={control}
+                          />
+                          <InputContainer label='Email' inputPlaceholder='example@gmail.com' inputType='text' inputName='emailContact' register={register} />
+                        </div>
+                        <div className={`${styles.inputRow3} ${styles.inputRow2}`}>
+                          <InputContainer label='Ext' inputPlaceholder='' inputType='text' inputName='ext' width='80' register={register} />
+                        </div>
+                      </div>
+                      <div className={`${styles.inputTextArea} pt-5`}>
+                        <InputContainer inputPlaceholder='note...' inputType='textarea' inputName='note' alignLabelInput={false} height={130} width={100} widthUnit='%' spaceBetween={false} register={register} />
+                      </div>
+                      <div className={`${styles.plusIconRow} pt-4`} >
+                        <span style={{ cursor: "pointer" }}>
+                          <Plus fillColor='var(--primary-clr-light)' />
+                        </span>
+                        <div style={{ fontSize: "14px", paddingLeft: "8px", fontWeight: "500" }} >
+                            Add New Contact
+                        </div>
+                      </div>
                     </div>
-                    <div className=''>
-                      <RadioButton inputName='addressType' labelText='Delivery Address' inputId='deliveryAddress' value='delivery' isChecked={state.addressType === "delivery"} onChange={handleAddressTypeChange} />
-                    </div>
-                    <div className=''>
-                      <RadioButton inputName='addressType' labelText='Private Address' inputId='privateAddress' value='private' isChecked={state.addressType === "private"} onChange={handleAddressTypeChange} />
-                    </div>
-                    <div className=''>
-                      <RadioButton inputName='addressType' labelText='Follow-up Address' inputId='followUpAddress' value='followUp' isChecked={state.addressType === "followUp"} onChange={handleAddressTypeChange} />
-                    </div>
-                    <div className=''>
-                      <RadioButton inputName='addressType' labelText='Other' inputId='other' value='other' isChecked={state.addressType === "other"} onChange={handleAddressTypeChange} />
-                    </div>
-                  </div>
-                  <div className={`${styles.infoDiv}`}>
-                    <div className={`${styles.inputRow}`}>
-                      <InputContainer label='Contact Name' inputPlaceholder='Search...' inputType='select' inputName='contactName' selectOptions={clients} register={register} control={control} />
-                      <InputContainer label='Country' inputPlaceholder='' inputType='select' inputName='countryContact' selectOptions={dummyDropdownOptions} register={register} control={control} />
-                      <InputContainer label='City' inputPlaceholder='' inputType='text' inputName='cityContact' register={register} />
-                      <InputContainer label='State' inputPlaceholder='' inputType='text' inputName='stateContact' register={register} />
-                      <InputContainer label='Zip' inputPlaceholder='' inputType='text' inputName='zipContact' register={register} />
-                    </div>
-                    <div className={`${styles.inputRow} ${styles.inputRow2}`}>
-                      <InputContainer label='Street' inputPlaceholder='' inputType='text' inputName='streetContact' register={register} />
-                      <InputContainer
-                        label='Phone'
-                        inputPlaceholder=''
-                        inputType='phone'
-                        codeName='phoneContactCode'
-                        changeCodeValue={changeCodeValue}
-                        inputName='phoneContact'
-                        register={register}
-                        selectOptions={dummyDropdownOptions}
-                        control={control}
-                      />
-                      <InputContainer
-                        label='Mobile'
-                        inputPlaceholder=''
-                        inputType='phone'
-                        codeName='mobileContactCode'
-                        changeCodeValue={changeCodeValue}
-                        inputName='mobileContact'
-                        selectOptions={dummyDropdownOptions}
-                        register={register}
-                        control={control}
-                      />
-                      <InputContainer label='Email' inputPlaceholder='example@gmail.com' inputType='text' inputName='emailContact' register={register} />
-                    </div>
-                  </div>
-                </div>
+                  )}
+                </>  
               )}
               {state.extraInfo === "sales" && (
                 <div className={`${styles.contactDiv}`}>
                   <div className={`${styles.infoDiv}`}>
-                    <div className={`${styles.inputRow}`}>
-                      <InputContainer label='Salesperson' inputPlaceholder='' inputType='select' inputName='salesperson' selectOptions={createClientData.salespeople} register={register} control={control} />
-                      <InputContainer label='Payment Terms' inputPlaceholder='' inputType='select' inputName='paymentTerm' selectOptions={createClientData.paymentTerms} register={register} control={control} optionName={"title"} />
-                      <InputContainer label='Pricelist' inputPlaceholder='' inputType='select' inputName='pricelist' selectOptions={createClientData.pricelists} register={register} control={control} optionName={"title"} />
+                    <div className={`${styles.inputRow4}`}>
+                      <InputContainer label='Sales Person' inputPlaceholder='' inputType='select' inputName='salesperson' selectOptions={createClientData.salespeople} isRequired={true} register={register} control={control} />
+                      <InputContainer label='Payment Terms' inputPlaceholder='' inputType='select' inputName='paymentTerm' selectOptions={createClientData.paymentTerms} isRequired={true} register={register} control={control} optionName={"title"} />
+                      <InputContainer label='Pricelist' inputPlaceholder='' inputType='select' inputName='pricelist' selectOptions={createClientData.pricelists} isRequired={true} register={register} control={control} optionName={"title"} />
                     </div>
                   </div>
                 </div>
@@ -245,7 +266,7 @@ const CreateClient = () => {
                 <div className={`${styles.contactDiv}`}>
                   <div className={`${styles.infoDiv}`}>
                     <div className={`${styles.inputTextArea}`}>
-                      <InputContainer label='Internal Note' inputPlaceholder='' inputType='textarea' inputName='internalNote' alignLabelInput={false} height={130} width={80} widthUnit='%' spaceBetween={false} register={register} />
+                      <InputContainer label='Internal Note' inputPlaceholder='' inputType='textarea' inputName='internalNote' alignLabelInput={false} height={130} width={88} widthUnit='%' spaceBetween={false} isRequired={true} register={register} />
                     </div>
                   </div>
                 </div>

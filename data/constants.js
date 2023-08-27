@@ -50,6 +50,7 @@ export const rowInputFlexList = [
         inputPlaceholder: "Item 1",
         inputBorderColor: "var(--input-border-2)",
         placeholderWeight: 700,
+        inputfontWeight: 700,
         selectOptions: dummyItems,
         flex: 1,
       },
@@ -63,6 +64,7 @@ export const rowInputFlexList = [
         inputBorderColor: "var(--input-border-2)",
         inputValue: "",
         placeholderWeight: 700,
+        inputfontWeight: 700,
         flex: 4.25,
       },
       {
@@ -74,6 +76,7 @@ export const rowInputFlexList = [
         inputBorderColor: "var(--input-border-2)",
         textAlign: "center",
         placeholderWeight: 700,
+        inputfontWeight: 700,
         flex: 0.75,
       },
       {
@@ -86,6 +89,7 @@ export const rowInputFlexList = [
         inputBorderColor: "var(--input-border-2)",
         textAlign: "center",
         placeholderWeight: 700,
+        inputfontWeight: 700,
         flex: 0.75,
       },
       {
@@ -97,6 +101,7 @@ export const rowInputFlexList = [
         inputBorderColor: "var(--input-border-2)",
         textAlign: "center",
         placeholderWeight: 700,
+        inputfontWeight: 700,
         flex: 0.75,
       },
       {
@@ -107,6 +112,7 @@ export const rowInputFlexList = [
         inputPlaceholder: "1.500.000",
         inputBorderColor: "var(--input-border-2)",
         placeholderWeight: 700,
+        inputfontWeight: 700,
         flex: 1.25,
       },
     ],
@@ -193,3 +199,14 @@ export const rowInputFlexList = [
     ],
   },
 ];
+
+export const MAX_ITEM_GROUPS = 7;
+export const numbering = {
+  1: "One",
+  2: "Two",
+  3: "Three",
+  4: "Four",
+  5: "Five",
+  6: "Six",
+  7: "Seven",
+};

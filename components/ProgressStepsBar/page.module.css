@@ -1,0 +1,87 @@
+.mainContainer {
+    width: 100%;
+    max-width: 300px;
+    margin-bottom: 15px;
+}
+
+.stepContainer {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+}
+
+.stepContainer:before {
+    content: '';
+    position: absolute;
+    background-color: var(--tab-button-background-clr);
+    height: 4px;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+}
+
+.stepContainer:after {
+    content: '';
+    position: absolute;
+    background-color: var(--primary-clr);
+    height: 4px;
+    width: var(--width);
+    top: 50%;
+    transition: 0.4s ease;
+    transform: translateY(-50%);
+    left: 0;
+}
+
+.stepWrapper {
+    position: relative;
+    z-index: 1;
+}
+
+.stepStyle {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background-color: var(--step-background-color);
+    border: 3px solid var(--step-border-color);
+    transition: 0.4s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.notActive {
+    background-color: var(--tab-button-background-clr);
+}
+
+.active {
+    color: var(--primary-clr);
+    background-color: var(--primary-clr);
+    transform: scaleX(-1) rotate(-46deg);
+}
+
+.stepsLabelContainer {
+    position: absolute; 
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.stepLabel {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--label-color);
+    text-align: center;
+    width: max-content;
+    margin-top: 20px;
+}
+
+@media only screen and (min-width: 600px) {
+    
+  .mainContainer {
+      max-width: 400px;
+  }
+
+}
+
+

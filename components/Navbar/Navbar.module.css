@@ -39,16 +39,11 @@
     background-color: transparent;
 }
 
-.configurationDropDownItemLink {
-    text-decoration: none;
-    color: var(--secondary-text-clr);
-}
-
 .configurationDropDownItem {
     background-color: white !important;
 }
 
 .configurationDropDownItem:hover {
-    background-color: rgba(90, 148, 249, 0.2) !important;
+    background-color: var(--table-row-babyblue-background-clr) !important;
     border-radius: none !important;
 }

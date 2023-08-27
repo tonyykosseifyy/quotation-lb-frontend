@@ -1,26 +1,8 @@
 .form {
-  min-height: 500px;
+  min-height: 520px;
   display: flex; 
   flex-direction: column;
   justify-content: space-between;
-}
-
-.footerRow {
-  display: flex;
-  align-items: center;
-  padding-right: 30px;
-}
-
-.labelText {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.checkBoxDiv {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 33px;
-  align-items: center;
 }
 
 .actionButtons {

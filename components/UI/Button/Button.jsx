@@ -16,11 +16,15 @@ const Button = ({
     type,
     tab,
     width,
+    height,
     icon,
     titleColor,
     display,
     alignItems,
     justifyContent,
+    backgroundColor,
+    border,
+    padding,
 }) => {
     return (
         <button
@@ -41,10 +45,14 @@ const Button = ({
                 paddingLeft: paddingLeft,
                 paddingRight: paddingRight,
                 width: width,
+                height: height,
                 display: display,
                 alignItems: alignItems,
                 justifyContent: justifyContent,
                 color: titleColor,
+                backgroundColor: backgroundColor,
+                border: border,
+                padding: padding,
             }}
             onClick={onClick}
             value={value}

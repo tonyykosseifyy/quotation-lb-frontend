@@ -5,17 +5,6 @@
   justify-content: space-between;
 }
 
-.footerRow {
-  display: flex;
-  align-items: center;
-  padding-right: 30px;
-}
-
-.labelText {
-  font-size: 14px;
-  font-weight: 600;
-}
-
 .actionButtons {
   display: flex;
   flex-wrap: wrap;

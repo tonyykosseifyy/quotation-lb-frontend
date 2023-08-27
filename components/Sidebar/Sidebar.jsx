@@ -14,10 +14,12 @@ const sidebarItems = [
     logo: "/assets/svg/quotation.svg",
     items: [
       {
+        id: 1,
         title: "New Quotation",
         link: "/dashboard/quotations/create",
       },
       {
+        id: 2,
         title: "Quotations Summary",
         link: "/dashboard/quotations/",
       },
@@ -27,11 +29,13 @@ const sidebarItems = [
     title: "Clients",
     logo: "/assets/svg/people.svg",
     items: [
-      // {
-      //     title: "Accounts",
-      //     link: "/dashboard",
-      // },
       {
+          id: 3,
+          title: "Accounts",
+          link: "/dashboard/clients/accounts",
+      },
+      {
+        id: 4,
         title: "Add New Client",
         link: "/dashboard/clients/create",
       },
@@ -42,17 +46,19 @@ const sidebarItems = [
     logo: "/assets/svg/stock.svg",
     items: [
       {
+        id: 5,
         title: "Items",
         link: "/dashboard/stock/items",
       },
       {
+        id: 6,
         title: "Create Items",
-        link: "/dashboard/stock/items/create",
+        name: "createItems"
       },
-      // {
-      //   title: "Combos",
-      //   link: "/dashboard/",
-      // },
+      {
+        // title: "Combos",
+        // link: "/dashboard/",
+      },
       // {
       //     title: "Brands",
       //     link: "/dashboard/",
@@ -115,16 +121,19 @@ export default function Sidebar() {
   const toggleOpen = () => {
     setOpen(!open);
   };
+
   return (
     <div className={open ? styles.openContainer : styles.closedContainer}>
       <button className={open ? styles.controlButton : styles.controlButtonClosed} onClick={toggleOpen}>
         {<ChevronLeft />}
       </button>
-      <div className={styles.logoContainer}>
-        <Link href='/dashboard' style={{ textDecoration: "none" }}>
-          <img src='/assets/svg/logo/svg/logo-no-background.svg' alt='Logo' className={open ? styles.logo : styles.logoClosed} />
-        </Link>
-      </div>
+      {open && (
+        <div className={styles.logoContainer}>
+          <Link href='/dashboard' style={{ textDecoration: "none" }}>
+            <img src='/assets/svg/logo/svg/logo-no-background.svg' alt='Logo' className={open ? styles.logo : styles.logoClosed} />
+          </Link>
+        </div>
+      )}
       <div className={open ? styles.list : styles.listClosed}>
         {sidebarItems.map((sidebarItem, index) => (
           <SidebarItem key={index} sidebarItem={sidebarItem} open={open} />

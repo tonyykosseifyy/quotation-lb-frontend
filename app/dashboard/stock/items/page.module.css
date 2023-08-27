@@ -18,8 +18,21 @@
   width: 100%;
 }
 
+.dropDownMenu  {
+  padding: 0px !important;
+}
+
+.dropDownMenu *  {
+  border-radius: 0 !important;
+}
+
+.dropDownItem {
+  background-color: white !important;
+}
+
 .dropDownItem:hover {
-  background-color: rgba(90, 148, 249, 0.2);
+  background-color: var(--table-row-babyblue-background-clr) !important;
+  border-radius: none !important;
 }
 
 .singleCard{
@@ -47,4 +60,10 @@
     justify-content: space-between;
     gap: 0;
   }
+}
+  
+.paginationDiv {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
 }

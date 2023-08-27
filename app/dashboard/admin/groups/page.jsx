@@ -5,12 +5,10 @@ import styles from "./page.module.css";
 import ModalComponent from "@/components/Modal/Modal";
 import { useForm } from "react-hook-form";
 import Button from "@/components/UI/Button/Button";
-import DataTable from "react-data-table-component";
-import Trashcan from "@/components/UI/Icons/Trashcan";
-import Plus from "@/components/UI/Icons/Plus";
 import { groupsGeneral } from "@/data/admin";
+import GeneralTab from "@/components/AdminTabs/GeneralTab";
 
-const Groups = () => {
+const GroupsModal = ({ setIsModalOpen }) => {
   
     const groupsGeneralDuplicate = [...groupsGeneral];
 
@@ -18,7 +16,7 @@ const Groups = () => {
     const [buttonState, setButtonState] = useState("general");
     const [generalTableRows, setGeneralTableRows]= useState(groupsGeneralDuplicate);
 
-    const handleExtraInfoChange = (e) => {
+    const handleTabChange = (e) => {
         setButtonState(() => e.target.value);
     };
 
@@ -44,73 +42,6 @@ const Groups = () => {
         } 
     };
 
-    const groupsGeneralTableColumns = [
-        {
-            name: "Code",
-            maxWidth: "100px",
-            selector: (row) => row.code,
-            allowOverflow: true,
-        },
-        {
-            name: "Name",
-            maxWidth: "auto",
-            selector: (row) => row.name,
-        },
-        {
-            name: "",
-            maxWidth: "30px",
-            cell: (row) => (
-                <div style={{ cursor: "pointer" }}>
-                    <Trashcan
-                        fillColor={"var(--primary-clr)"}
-                        onClick={() => generalHandleDeleteRow(row.id)}
-                    />
-                </div>
-            ),
-            center: true,
-        },
-    ];
-      
-    const customStyles = {
-        headRow: {
-            style: {
-                backgroundColor: "var(--primary-clr)",
-                color: "white",
-                fontSize: "13px",
-                fontWeight: 600,
-                borderRadius: 5,
-                borderTopLeftRadius: 0,
-                minHeight: "40px !important",
-                paddingLeft: "20px",
-            },
-        },
-        rows: {
-            style: {
-                minHeight: "5px !important",
-                borderBottom: "none !important",
-                paddingLeft: "20px",
-            },
-        },
-        cells: {
-            style: {
-                fontSize: 12,
-                fontWeight: 700,
-                color: "var(--secondary-text-clr)",
-                paddingTop: "0px !important",
-                height: "45px !important",
-            },
-        },
-    };
-
-    const conditionalRowStyles = [
-        {
-            when: (row) => row.id === 1, 
-            style: {
-                backgroundColor: "var(--table-row-background-clr)",
-            },
-        },
-    ];
-
     const {
         register,
         handleSubmit,
@@ -125,7 +56,7 @@ const Groups = () => {
             title="Groups" 
             titlePaddingBottom="20px"
             isOpen={showModal} 
-            onRequestClose={() => setShowModal(false)} 
+            onRequestClose={() => {setShowModal(false), setIsModalOpen(false)}} 
             style={modalStyle}
         >
             <form id="groups" 
@@ -133,12 +64,12 @@ const Groups = () => {
                 className={`${styles.form}`}>
                 <>
                     <div className="mt-3">
-                        <div className={`d-flex-wrap`}>
+                        <div>
                             <Button
                                 title="General"
                                 rounded={true}
                                 fillBackground={buttonState === "general"}
-                                onClick={handleExtraInfoChange}
+                                onClick={handleTabChange}
                                 value="general"
                                 type="button"
                                 width="180px"
@@ -148,35 +79,19 @@ const Groups = () => {
                                 title="Items"
                                 rounded={true}
                                 fillBackground={buttonState === "items"}
-                                onClick={handleExtraInfoChange}
+                                onClick={handleTabChange}
                                 type="button"
-                                value="rates"
+                                value="items"
                                 width="180px"
                                 tab
                             />
                         </div>
                         {buttonState === "general" && (
-                            <>
-                                <DataTable 
-                                    columns={groupsGeneralTableColumns}
-                                    data={generalTableRows}
-                                    customStyles={customStyles}
-                                    conditionalRowStyles={conditionalRowStyles}
-                                />
-                                <div
-                                    // onClick={() => { }}
-                                    className={`${styles.footerRow} pt-3`}>
-                                        <Plus fillColor='var(--primary-clr-light)' />
-                                        <div
-                                            style={{
-                                                fontSize: "12px",
-                                                paddingLeft: "8px",
-                                            }}
-                                        >
-                                            New Type
-                                        </div>
-                                </div>
-                            </>  
+                            <GeneralTab 
+                                data={generalTableRows} 
+                                footerText="New Type" 
+                                generalHandleDeleteRow={generalHandleDeleteRow}
+                            />  
                         )}
                         {/* { buttonState === "items" && (
                             <>
@@ -192,7 +107,7 @@ const Groups = () => {
                               Discard
                           </div>
                           <div className="">
-                              <Button title="Save" rounded={false} fillBackground={true} paddingTop={10} paddingBottom={10} paddingRight={64} paddingLeft={64} />
+                              <Button title="Save" rounded={false} fillBackground={true} width='162px' height='40px'/>
                           </div>
                     </div>
                 </>  
@@ -201,4 +116,4 @@ const Groups = () => {
   );
 };
 
-export default Groups;
+export default GroupsModal;

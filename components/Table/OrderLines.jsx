@@ -20,7 +20,7 @@ const permissions = {
 
 const OrderLinesRows = ({ control, register, fields, append, remove, move, indices, isFooterShown = false, footerList, footerPaddingTop, footerPaddingLeft, tableWidth, fieldsWatch, setValue, handleQuotationTotalChange }) => {
   useEffect(() => {
-    if (indices.oldIndex) {
+    if (indices?.oldIndex) {
       move(indices.oldIndex, indices.newIndex);
     }
   }, [indices]);
@@ -93,7 +93,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
           </div>
           <div className={`${styles.rowsLayout} mt-3`}>
             <ul id='itemRows' className={`${styles.itemRows}`}>
-              {fields.map((field, fieldIdx) => {
+              {fields?.map((field, fieldIdx) => {
                 return (
                   <li key={field.id} id={fieldIdx}>
                     <div className={`${styles.singleItemRow} d-flex align-items-center`}>
@@ -116,6 +116,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                             <InputContainer
                               placeholderColor
                               placeholderStyle
+                              inputfontWeight={input.inputfontWeight}
                               inputBorderColor={input.inputBorderColor}
                               placeholderWeight={input.placeholderWeight}
                               inputPlaceholder={input.inputPlaceholder}
