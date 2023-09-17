@@ -74,6 +74,14 @@ const CreateQuotation = () => {
     getValues,
   } = useForm();
 
+  useEffect(() => {
+    if (createQuotationData) {
+      setValue("paymentTerms", createQuotationData.paymentTerms[0]);
+      setValue("priceList", createQuotationData.pricelists[0]);
+      setValue("currency", createQuotationData.currencies[0]);
+    }
+  }, [createQuotationData, setValue]);
+
   const { fields, append, remove, move } = useFieldArray({
     name: "orderLines",
     control: control,
@@ -132,7 +140,6 @@ const CreateQuotation = () => {
     });
     const vatValue = getValues("vat");
     storeData["total"] = Number(vatValue / VAT + vatValue).toFixed(2);
-    console.log(storeData);
     mutation.mutate(storeData);
   };
 
@@ -184,7 +191,7 @@ const CreateQuotation = () => {
         <div className={`${styles.quotationInfo} border border-2 rounded p-4`}>
           <div className={`${styles.inputRow}`}>
             <div className='d-flex flex-column flex-md-row align-items-md-center' style={{ gap: "27px" }}>
-              <div className={`${styles.quotationNumber}`}> #Q0000001 </div>
+              <div className={`${styles.quotationNumber}`}> #{createQuotationData.quotationNumber} </div>
               <div className={`d-flex align-items-center ${styles.refPaddingLeft}`}>
                 <div className={`${styles.labelText} pe-2`}> Ref: </div>
                 <InputContainer inputPlaceholder='MANUAL REFERENCE' inputType='text' inputName='manualReference' inputId='manualReference' control={control} register={register} />
@@ -216,7 +223,7 @@ const CreateQuotation = () => {
             <InputContainer label='Validity' inputType='text' inputName='validity' inputId='validity' control={control} register={register} />
             <InputContainer label='Payment Terms' inputPlaceholder='' inputType='select' inputName='paymentTerms' selectOptions={createQuotationData.paymentTerms} optionName='title' control={control} register={register} />
             <InputContainer label='Pricelist' inputPlaceholder='' inputType='select' inputName='priceList' selectOptions={createQuotationData.pricelists} optionName='title' control={control} register={register} />
-            <InputContainer label='Currency' inputPlaceholder='USD' inputType='select' inputName='currency' control={control} register={register} />
+            <InputContainer label='Currency' inputPlaceholder='USD' inputType='select' inputName='currency' selectOptions={createQuotationData.currencies} control={control} register={register} />
           </div>
         </div>
         <div className={`d-flex mt-3`}>
