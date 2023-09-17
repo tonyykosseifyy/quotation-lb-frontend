@@ -1,3 +1,3 @@
 export const formatRevenue = (revenue) => {
-    return revenue.toFixed(2);
+  return revenue.toFixed(2);
 };
