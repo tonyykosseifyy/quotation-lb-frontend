@@ -235,17 +235,18 @@ const Input = ({
                 control: (baseStyles, state) => ({
                   ...baseStyles,
                   borderRadius: 5,
-                  borderColor: inputBorderColor ? "var(--input-border-2)" : "var(--input-border)",
+                  borderColor: inputBorderColor ? "var(--primary-clr)" : "var(--input-border)",
                   "&:hover": {
                     borderColor: "none",
                   },
                   "&:focus": {
-                    borderColor: "var(--input-border)",
+                    borderColor: "var(--primary-clr)",
                   },
                   "&:active": {
-                    borderColor: "var(--input-border)",
+                    borderColor: "var(--primary-clr)",
                   },
                   backgroundColor: "transparent",
+                  boxShadow: "",
                 }),
                 valueContainer: (baseStyles, state) => ({
                   ...baseStyles,
@@ -303,15 +304,15 @@ const Input = ({
                   control: (baseStyles, state) => ({
                     ...baseStyles,
                     borderRadius: 5,
-                    borderColor: "var(--input-border)",
+                    borderColor: "var(--input-border-2)",
                     "&:hover": {
                       borderColor: "none",
                     },
                     "&:focus": {
-                      borderColor: "var(--input-border)",
+                      borderColor: "var(--input-border-2)",
                     },
                     "&:active": {
-                      borderColor: "var(--input-border)",
+                      borderColor: "var(--input-border-2)",
                     },
                     backgroundColor: "transparent",
                   }),

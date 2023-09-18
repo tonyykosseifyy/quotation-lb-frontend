@@ -75,47 +75,47 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
 :root {
-    --primary-clr: #4472c4;
-    --primary-clr-light: #0071BC;
-    --primary-clr-darker: #204ea4;
-    --primary-background-clr: #FAFAFA;
-    --primary-text-clr: #535353;
-    --secondary-text-clr: #7D7D7D;
-    --placeholder-text-clr: #C8C8C8;
-    --input-border: rgba(68, 114, 196, 0.2);
-    --input-border-2: #6D90D0;
-    --select-option-background-clr: #E8ECF5;
-    --table-row-border-clr: #E9E9E9;
-    --table-data-text-clr: #868686;
-    --modal-overlay-background-clr: rgba(65, 65, 65, 0.3);
-    --bigCircle-background-clr: rgba(191, 219, 238, 0.3);
-    --drag-and-drop-border-clr: #C4C4C4;
-    --tab-button-background-clr: #F4F4F4;
-    --table-row-background-clr: rgba(191, 191, 191, 0.4);
-    --table-row-babyblue-background-clr: #DEF1FF;
-    --modal-background-clr: rgba(250, 250, 250, 1);
-    --inactive-progress-bar-text-clr: #DEDEDE;
-    ;
+  --primary-clr: #417d7a;
+  --primary-clr-light: #0071bc;
+  --primary-clr-darker: #204ea4;
+  --primary-background-clr: #fafafa;
+  --primary-text-clr: #535353;
+  --secondary-text-clr: #7d7d7d;
+  --placeholder-text-clr: #c8c8c8;
+  --input-border: rgba(68, 114, 196, 0.2);
+  --input-border-2: #c8c8c8;
+  --select-option-background-clr: #e8ecf5;
+  --table-row-border-clr: #e9e9e9;
+  --table-data-text-clr: #868686;
+  --modal-overlay-background-clr: rgba(65, 65, 65, 0.3);
+  --bigCircle-background-clr: #e3eceb;
+  --drag-and-drop-border-clr: #c4c4c4;
+  --tab-button-background-clr: #f4f4f4;
+  --table-row-background-clr: rgba(191, 191, 191, 0.4);
+  --table-row-babyblue-background-clr: #def1ff;
+  --table-row-lightgreen-background-clr: #ecf2f2;
+  --modal-background-clr: rgba(250, 250, 250, 1);
+  --inactive-progress-bar-text-clr: #dedede;
 }
 
 @font-face {
-    font-family: poppins;
-    src: url(../public/assets/fonts/Poppins-Regular.ttf);
+  font-family: poppins;
+  src: url(../public/assets/fonts/Poppins-Regular.ttf);
 }
 
 @font-face {
-    font-family: "Open Sans";
-    src: url(../public/assets/fonts/OpenSans-Regular.ttf);
+  font-family: "Open Sans";
+  src: url(../public/assets/fonts/OpenSans-Regular.ttf);
 }
 
 * {
-    box-sizing: border-box;
-    padding: 0;
-    margin: 0;
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
 body {
-    min-height: 100vh;
-    font-family: 'Open Sans', sans-serif;
-    color: var(--primary-text-clr);
+  min-height: 100vh;
+  font-family: "Open Sans", sans-serif;
+  color: var(--primary-text-clr);
 }

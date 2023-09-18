@@ -5,11 +5,12 @@ import Plus from "../Icons/Plus";
 const AddButton = ({ label, onClick }) => {
   return (
     <div onClick={onClick} className={`${styles.footerRow}`}>
-      <Plus fillColor='var(--primary-clr-light)' />
+      <Plus fillColor='var(--primary-clr)' />
       <div
         style={{
-          fontSize: "12px",
+          fontSize: "14px",
           paddingLeft: "8px",
+          fontWeight: "500",
         }}>
         {label}
       </div>

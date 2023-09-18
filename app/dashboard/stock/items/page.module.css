@@ -18,11 +18,11 @@
   width: 100%;
 }
 
-.dropDownMenu  {
+.dropDownMenu {
   padding: 0px !important;
 }
 
-.dropDownMenu *  {
+.dropDownMenu * {
   border-radius: 0 !important;
 }
 
@@ -31,11 +31,11 @@
 }
 
 .dropDownItem:hover {
-  background-color: var(--table-row-babyblue-background-clr) !important;
+  background-color: var(--table-row-lightgreen-background-clr) !important;
   border-radius: none !important;
 }
 
-.singleCard{
+.singleCard {
   background-color: white;
   border-radius: 8px;
   border-color: white;
@@ -43,13 +43,13 @@
   padding: 21px 16px 16px 15px;
 }
 
-.cardTitle{
+.cardTitle {
   font-size: 15px;
   font-weight: 800;
   color: var(--primary-clr);
 }
 
-.cardBodyText{
+.cardBodyText {
   font-size: 12px;
   font-weight: 400;
 }
@@ -61,7 +61,7 @@
     gap: 0;
   }
 }
-  
+
 .paginationDiv {
   margin-top: 10px;
   display: flex;

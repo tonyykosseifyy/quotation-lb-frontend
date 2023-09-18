@@ -89,6 +89,8 @@ const CreateQuotation = () => {
 
   const fieldsWatch = watch("orderLines");
 
+  const clientIdWatch = watch("clientId");
+
   const salespersonWatch = watch("salespersonId");
   const globalDiscountPercentageWatch = watch("globalDiscountPercentage");
   const specialDiscountPercentageWatch = watch("specialDiscountPercentage");
@@ -213,9 +215,18 @@ const CreateQuotation = () => {
             <div className={`d-flex flex-column flex-md-row align-items-md-start ${styles.contactDetailsGap}`}>
               <div className={`${styles.labelText}`}> Contact Details</div>
               <div className='d-flex flex-column' style={{ gap: "5px" }}>
-                <div> Street, Building, Floor </div>
-                <div> Phone Number </div>
-                <div> VAT# </div>
+                <div>
+                  {" "}
+                  Street, Building, Floor <b>{clientIdWatch && clientIdWatch.street && ` : ${clientIdWatch.street}, ${clientIdWatch.floor_and_building ?? ""}`}</b>
+                </div>
+                <div>
+                  {" "}
+                  Phone Number <b>{clientIdWatch && clientIdWatch.phone_number && ` : ${clientIdWatch.phone_code ?? ""} ${clientIdWatch.phone_number ?? ""}`}</b>
+                </div>
+                <div>
+                  {" "}
+                  VAT# <b>{clientIdWatch && clientIdWatch.tax_id && ` : ${clientIdWatch.tax_id}`}</b>
+                </div>
               </div>
             </div>
           </div>
