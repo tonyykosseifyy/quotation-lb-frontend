@@ -13,3 +13,11 @@ export const calculateTotalAfterDiscounts = (total, discounts = []) => {
 export const calculateCommission = (total, commission) => {
   return (total * commission) / 100;
 };
+
+export const calculateDiscountAmount = (total, discounts = []) => {
+  let discountedTotal = 0;
+  discounts.forEach((discount) => {
+    discountedTotal += (discount / 100) * total;
+  });
+  return discountedTotal;
+};

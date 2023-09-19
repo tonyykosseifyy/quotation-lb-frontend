@@ -4,6 +4,9 @@ import { Inter } from "next/font/google";
 ``;
 import Head from "next/head";
 import { ReactQueryProvider } from "@/app/ReactQueryProvider";
+
+import LoadingProvider from "@/providers/LoadingProvider";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -19,7 +22,10 @@ export default function RootLayout({ children }) {
           <link rel='icon' href='/favicon.ico' />
           <meta name='viewport' content='width=device-width, initial-scale=1' />
         </Head>
-        <body>{children}</body>
+
+        <body id='app'>
+          <LoadingProvider>{children}</LoadingProvider>
+        </body>
       </html>
     </ReactQueryProvider>
   );

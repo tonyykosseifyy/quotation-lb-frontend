@@ -10,9 +10,9 @@ import OrderLinesRows from "@/components/Table/OrderLines";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 import Input from "@/components/UI/InputContainer/Input";
-import { calculateCommission, calculateTotalAfterDiscounts } from "@/helpers/calculate";
+import { calculateCommission, calculateDiscountAmount, calculateTotalAfterDiscounts } from "@/helpers/calculate";
 import ProgressStepsBar from "@/components/ProgressStepsBar/ProgressStepsBar";
-import { formatNumbersWithSeperator } from "@/helpers/formatRevenue";
+import { formatNumber } from "@/helpers/formatNumber";
 
 const permissions = {
   "edit salesperson cashing method in quotation": false,
@@ -21,6 +21,8 @@ const permissions = {
 };
 
 const VAT = 0.11;
+
+const VAT_LEB_RATE = 85300;
 
 const storeClient = async (payload) => {
   const response = await axiosClient.post(`/quotations`, payload, {
@@ -142,6 +144,9 @@ const CreateQuotation = () => {
     });
     const vatValue = getValues("vat");
     storeData["total"] = Number(vatValue / VAT + vatValue).toFixed(2);
+
+    delete storeData["globalDiscount"];
+    delete storeData["specialDiscount"];
     mutation.mutate(storeData);
   };
 
@@ -295,7 +300,7 @@ const CreateQuotation = () => {
                       register={register}
                       isDisabled={true}
                       setValue={setValue}
-                      initialValue={calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch])}
+                      initialValue={calculateDiscountAmount(quotationTotalBeforeVat, [globalDiscountPercentageWatch])}
                     />
                   </div>
                 </div>
@@ -313,7 +318,7 @@ const CreateQuotation = () => {
                       register={register}
                       isDisabled={true}
                       setValue={setValue}
-                      initialValue={calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch])}
+                      initialValue={calculateDiscountAmount(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch]), [specialDiscountPercentageWatch])}
                     />
                   </div>
                 </div>
@@ -330,7 +335,7 @@ const CreateQuotation = () => {
                       register={register}
                       isDisabled={true}
                       setValue={setValue}
-                      initialValue={calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]) * VAT * 89000}
+                      initialValue={formatNumber(calculateDiscountAmount(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]), [VAT * 100]) * VAT_LEB_RATE)}
                     />
                     <Input
                       inputPlaceholder=''
@@ -342,7 +347,7 @@ const CreateQuotation = () => {
                       register={register}
                       isDisabled={true}
                       setValue={setValue}
-                      initialValue={calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]) * VAT}
+                      initialValue={calculateDiscountAmount(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]), [VAT * 100])}
                     />
                   </div>
                 </div>

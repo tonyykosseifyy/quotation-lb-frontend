@@ -27,8 +27,6 @@ const CreateClient = () => {
 
   const createClientData = createClientResponse.data?.data.data;
 
-  console.log(createClientData);
-
   const [showPlusIconAndhideInfo, setShowPlusIconAndHideInfo] = useState(true);
 
   const {

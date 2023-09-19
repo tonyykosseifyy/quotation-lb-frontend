@@ -108,7 +108,7 @@ const storeItem = async (payload) => {
   return response.data;
 };
 
-const CreateItems = () => {
+const CreateItems = ({ closeModal }) => {
   const [buttonState, setButtonState] = useState("general");
   const [state, setState] = useState({
     subRef: "",
@@ -435,8 +435,13 @@ const CreateItems = () => {
     },
   });
 
+  const handleRequestClose = () => {
+    setShowModal(false);
+    closeModal("createItems");
+  };
+
   return (
-    <ModalComponent title="Product's Name" titlePaddingBottom='20px' isOpen={showModal} onRequestClose={() => setShowModal(false)} style={modalStyle}>
+    <ModalComponent title="Product's Name" titlePaddingBottom='20px' isOpen={showModal} onRequestClose={handleRequestClose} style={modalStyle}>
       <div className={`d-flex-wrap`}>
         {buttonTabs.map(({ title, fillBackground, value }) => {
           return <Button key={title} title={title} fillBackground={fillBackground} onClick={handleExtraInfo} value={value} type='button' paddingLeft='35px' paddingRight='35px' tab />;
