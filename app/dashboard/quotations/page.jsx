@@ -18,6 +18,7 @@ import useDebounce from "@/hooks/useDebounce";
 import { useRouter } from "next/navigation";
 import { Routes } from "@/router/routes";
 import { ApiEndpoint } from "@/api/apiEndpoints";
+import { toast } from "react-toastify";
 
 const deleteQuotation = async (id) => {
   const response = await axiosClient.delete(ApiEndpoint.deleteQuotation(id));
@@ -53,6 +54,8 @@ const Page = () => {
   const deleteMutation = useMutation(deleteQuotation, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["quotations", page, perPage, debouncedSearch] });
+      console.log("Wow");
+      toast("Wow");
     },
   });
 

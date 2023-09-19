@@ -6,6 +6,7 @@ import Head from "next/head";
 import { ReactQueryProvider } from "@/app/ReactQueryProvider";
 
 import LoadingProvider from "@/providers/LoadingProvider";
+import ToastProvider from "@/providers/ToastProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,7 +25,9 @@ export default function RootLayout({ children }) {
         </Head>
 
         <body id='app'>
-          <LoadingProvider>{children}</LoadingProvider>
+          <ToastProvider>
+            <LoadingProvider>{children}</LoadingProvider>
+          </ToastProvider>
         </body>
       </html>
     </ReactQueryProvider>
