@@ -1,49 +1,49 @@
 .nav {
-    padding-left: 46px;
-    padding-right: 40px;
-    display: flex;
-    justify-content: space-between;
+  padding-left: 46px;
+  padding-right: 40px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .options {
-    display: flex;
-    gap: 37px;
-    align-items: center;
+  display: flex;
+  gap: 37px;
+  align-items: center;
 }
 
 .option {
-    font-size: 14px;
-    font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .userInfo {
-    display: flex;
-    align-items: center;
-    gap: 24px;
+  display: flex;
+  align-items: center;
+  gap: 24px;
 }
 
 .userContainer {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
-.dropDownMenu  {
-    padding: 0px !important;
+.dropDownMenu {
+  padding: 0px !important;
 }
 
-.dropDownMenu *  {
-    border-radius: 0 !important;
+.dropDownMenu * {
+  border-radius: 0 !important;
 }
 
 .dropdownItem:hover {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .configurationDropDownItem {
-    background-color: white !important;
+  background-color: white !important;
 }
 
 .configurationDropDownItem:hover {
-    background-color: var(--table-row-babyblue-background-clr) !important;
-    border-radius: none !important;
+  background-color: var(--table-row-lightgreen-background-clr) !important;
+  border-radius: none !important;
 }

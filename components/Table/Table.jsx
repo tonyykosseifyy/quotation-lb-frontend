@@ -8,7 +8,6 @@ import { formatId } from "@/helpers/formatId";
 import { formatDate } from "@/helpers/formatDate";
 import { formatRevenue } from "@/helpers/formatRevenue";
 import Search from "@/components/UI/Search/Search";
-import { head } from "axios";
 
 const Table = ({
   title,
@@ -152,7 +151,7 @@ const Table = ({
                           {headings.find((heading) => keyName in heading)?.[keyName].nullText && headings.find((heading) => keyName in heading)?.[keyName].nullText}
                         </td>
                       )
-                    ) : null
+                    ) : null,
                   )}
                   {showDetails && (
                     <td>

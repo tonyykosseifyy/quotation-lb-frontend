@@ -12,6 +12,7 @@ import { useForm } from "react-hook-form";
 import { dummyDropdownOptions, dummyItems } from "@/data/dummyItems";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
+import AddButton from "@/components/UI/AddButton/AddButton";
 
 const storeClient = async (payload) => {
   const response = await axiosClient.post(`/clients`, payload);
@@ -26,9 +27,7 @@ const CreateClient = () => {
 
   const createClientData = createClientResponse.data?.data.data;
 
-  console.log(createClientData);
-
-  const [ showPlusIconAndhideInfo, setShowPlusIconAndHideInfo ] = useState(true)
+  const [showPlusIconAndhideInfo, setShowPlusIconAndHideInfo] = useState(true);
 
   const {
     register,
@@ -176,18 +175,11 @@ const CreateClient = () => {
             <div className={`${styles.extraInfoDetails}`}>
               {state.extraInfo === "contact" && (
                 <>
-                  { showPlusIconAndhideInfo? 
-                  (
-                    <div className={`${styles.plusIconRow} pt-3`} >
-                      <span style={{ cursor: "pointer" }}>
-                        <Plus fillColor='var(--primary-clr-light)' onClick={ () => setShowPlusIconAndHideInfo(false)} />
-                      </span>
-                      <div style={{ fontSize: "14px", paddingLeft: "8px", fontWeight: "500" }} >
-                          Add Contact
-                      </div>
+                  {showPlusIconAndhideInfo ? (
+                    <div className={`${styles.plusIconRow} pt-3`}>
+                      <AddButton label='Add Contact' />
                     </div>
-                  ) : 
-                  (
+                  ) : (
                     <div className={`${styles.contactDiv}`}>
                       <div className={`${styles.contactDivButtons} mb-1`}>
                         <div className=''>
@@ -197,9 +189,7 @@ const CreateClient = () => {
                           <RadioButton inputName='addressType' labelText='Delivery Address' inputId='deliveryAddress' value='delivery' isChecked={state.addressType === "delivery"} onChange={handleAddressTypeChange} />
                         </div>
                       </div>
-                      <div style={{ fontSize: "12px", fontWeight: "400" }} >
-                        Contact Selection used to add the contact information of personnel within the company (e.g., CEO, CFO, ...).
-                      </div>
+                      <div style={{ fontSize: "12px", fontWeight: "400" }}>Contact Selection used to add the contact information of personnel within the company (e.g., CEO, CFO, ...).</div>
                       <div className={`${styles.infoDiv} pt-4`}>
                         <div className={`${styles.inputRow}`}>
                           <InputContainer label='Name' inputPlaceholder='' inputType='text' inputName='name' register={register} control={control} />
@@ -239,17 +229,15 @@ const CreateClient = () => {
                       <div className={`${styles.inputTextArea} pt-5`}>
                         <InputContainer inputPlaceholder='note...' inputType='textarea' inputName='note' alignLabelInput={false} height={130} width={100} widthUnit='%' spaceBetween={false} register={register} />
                       </div>
-                      <div className={`${styles.plusIconRow} pt-4`} >
+                      <div className={`${styles.plusIconRow} pt-4`}>
                         <span style={{ cursor: "pointer" }}>
                           <Plus fillColor='var(--primary-clr-light)' />
                         </span>
-                        <div style={{ fontSize: "14px", paddingLeft: "8px", fontWeight: "500" }} >
-                            Add New Contact
-                        </div>
+                        <div style={{ fontSize: "14px", paddingLeft: "8px", fontWeight: "500" }}>Add New Contact</div>
                       </div>
                     </div>
                   )}
-                </>  
+                </>
               )}
               {state.extraInfo === "sales" && (
                 <div className={`${styles.contactDiv}`}>

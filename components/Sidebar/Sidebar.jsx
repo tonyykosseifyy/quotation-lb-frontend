@@ -7,6 +7,7 @@ import Link from "next/link";
 import { Tooltip } from "@nextui-org/react";
 import SidebarItemCard from "@/components/Sidebar/SidebarItemCard";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
+import { Routes } from "@/router/routes";
 
 const sidebarItems = [
   {
@@ -16,12 +17,12 @@ const sidebarItems = [
       {
         id: 1,
         title: "New Quotation",
-        link: "/dashboard/quotations/create",
+        link: Routes.NewQuotation,
       },
       {
         id: 2,
         title: "Quotations Summary",
-        link: "/dashboard/quotations/",
+        link: Routes.QuotationsSummary,
       },
     ],
   },
@@ -30,14 +31,14 @@ const sidebarItems = [
     logo: "/assets/svg/people.svg",
     items: [
       {
-          id: 3,
-          title: "Accounts",
-          link: "/dashboard/clients/accounts",
+        id: 3,
+        title: "Accounts",
+        link: Routes.ClientAccounts,
       },
       {
         id: 4,
         title: "Add New Client",
-        link: "/dashboard/clients/create",
+        link: Routes.CreateClient,
       },
     ],
   },
@@ -48,12 +49,12 @@ const sidebarItems = [
       {
         id: 5,
         title: "Items",
-        link: "/dashboard/stock/items",
+        link: Routes.ItemsSummary,
       },
       {
         id: 6,
         title: "Create Items",
-        name: "createItems"
+        name: "createItems",
       },
       {
         // title: "Combos",
@@ -90,7 +91,7 @@ const sidebarItems = [
   {
     title: "Admin Panel",
     logo: "/assets/svg/admin-panel.svg",
-    link: "https://backend.rooster-me.com",
+    link: Routes.AdminPanel,
   },
   // {
   //     title: "Account Settings",
@@ -129,7 +130,7 @@ export default function Sidebar() {
       </button>
       {open && (
         <div className={styles.logoContainer}>
-          <Link href='/dashboard' style={{ textDecoration: "none" }}>
+          <Link href={Routes.Home} style={{ textDecoration: "none" }}>
             <img src='/assets/svg/logo/svg/logo-no-background.svg' alt='Logo' className={open ? styles.logo : styles.logoClosed} />
           </Link>
         </div>

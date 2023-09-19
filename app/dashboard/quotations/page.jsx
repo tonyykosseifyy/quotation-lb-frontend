@@ -12,9 +12,18 @@ import { formatId } from "@/helpers/formatId";
 import { formatDate } from "@/helpers/formatDate";
 import { Status } from "@/components/Table/Status";
 import FourArrows from "@/components/UI/Icons/FourArrows";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 import useDebounce from "@/hooks/useDebounce";
+import { useRouter } from "next/navigation";
+import { Routes } from "@/router/routes";
+import { ApiEndpoint } from "@/api/apiEndpoints";
+import { toast } from "react-toastify";
+
+const deleteQuotation = async (id) => {
+  const response = await axiosClient.delete(ApiEndpoint.deleteQuotation(id));
+  return response.data;
+};
 
 const Page = () => {
   const [search, setSearch] = useState("");
@@ -24,6 +33,8 @@ const Page = () => {
   const [perPage, setPerPage] = useState(10);
   const [page, setPage] = useState(1);
   const debouncedSearch = useDebounce(search, 500);
+
+  const queryClient = useQueryClient();
 
   const getQuotationsResponse = useQuery({
     queryKey: ["quotations", page, perPage, debouncedSearch],
@@ -40,6 +51,14 @@ const Page = () => {
 
   const quotationsData = getQuotationsResponse.data?.data;
 
+  const deleteMutation = useMutation(deleteQuotation, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ["quotations", page, perPage, debouncedSearch] });
+      console.log("Wow");
+      toast("Wow");
+    },
+  });
+
   useEffect(() => {
     setFilteredQuotations(quotationsData?.data);
     setTotalRows(quotationsData?.meta.total);
@@ -55,9 +74,13 @@ const Page = () => {
   const handlePerRowsChange = async (newPerPage) => {
     setPerPage(newPerPage);
   };
+
+  const route = useRouter();
+
   const handleCreateQuotation = () => {
-    //
+    route.push(Routes.NewQuotation);
   };
+
   const handleExtraInfoChange = (e) => {
     setButtonState(() => e.target.value);
   };
@@ -83,7 +106,7 @@ const Page = () => {
   };
 
   const handleDeleteQuotation = (id) => {
-    console.log(id);
+    deleteMutation.mutate(id);
   };
 
   const columns = [

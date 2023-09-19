@@ -136,7 +136,6 @@ const Input = ({
             }),
           }}
           readOnly={isDisabled}
-          onChange={onChange}
         />
       )}
       {inputType === "textarea" && (
@@ -171,7 +170,7 @@ const Input = ({
       )}
       {inputType === "select" && (
         <Controller
-          name={registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName}
+          name={inputName}
           control={control}
           render={({ field }) => (
             <Select
@@ -196,15 +195,10 @@ const Input = ({
                   ...baseStyles,
                   fontSize: 14,
                   fontWeight: 400,
-                  padding: "2px 4px",
-                }),
-                dropdownIndicator: (baseStyles, state) => ({
-                  ...baseStyles,
-                  padding: "8px 0",
                 }),
                 placeholder: (baseStyles, state) => ({
                   ...baseStyles,
-                  color: placeholderColor ? placeholderColor : "#C8C8C8",
+                  color: placeholderColor ? "#868686" : "#C8C8C8",
                   fontStyle: placeholderStyle ? "normal" : "italic",
                   fontWeight: placeholderWeight ? placeholderWeight : "",
                   fontSize: fontSize ? fontSize : "14px",
@@ -216,7 +210,7 @@ const Input = ({
               }}
               placeholder={inputPlaceholder}
               options={selectOptions}
-              getOptionLabel={(option) => ucfirst(option[optionName])}
+              getOptionLabel={(option) => option[optionName]}
               getOptionValue={(option) => option[optionId]}
               isSearchable={isSearchable}
               components={{
@@ -225,8 +219,6 @@ const Input = ({
               defaultValue={initialValue}
               required={isRequired}
               isDisabled={isDisabled}
-              value={value}
-              onChange={onChange}
             />
           )}
         />
@@ -243,17 +235,18 @@ const Input = ({
                 control: (baseStyles, state) => ({
                   ...baseStyles,
                   borderRadius: 5,
-                  borderColor: inputBorderColor ? "var(--input-border-2)" : "var(--input-border)",
+                  borderColor: inputBorderColor ? "var(--primary-clr)" : "var(--input-border)",
                   "&:hover": {
                     borderColor: "none",
                   },
                   "&:focus": {
-                    borderColor: "var(--input-border)",
+                    borderColor: "var(--primary-clr)",
                   },
                   "&:active": {
-                    borderColor: "var(--input-border)",
+                    borderColor: "var(--primary-clr)",
                   },
                   backgroundColor: "transparent",
+                  boxShadow: "",
                 }),
                 valueContainer: (baseStyles, state) => ({
                   ...baseStyles,
@@ -311,15 +304,15 @@ const Input = ({
                   control: (baseStyles, state) => ({
                     ...baseStyles,
                     borderRadius: 5,
-                    borderColor: "var(--input-border)",
+                    borderColor: "var(--input-border-2)",
                     "&:hover": {
                       borderColor: "none",
                     },
                     "&:focus": {
-                      borderColor: "var(--input-border)",
+                      borderColor: "var(--input-border-2)",
                     },
                     "&:active": {
-                      borderColor: "var(--input-border)",
+                      borderColor: "var(--input-border-2)",
                     },
                     backgroundColor: "transparent",
                   }),

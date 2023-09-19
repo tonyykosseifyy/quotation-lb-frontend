@@ -1,8 +1,8 @@
-.dropDownMenu  {
+.dropDownMenu {
   padding: 0px !important;
 }
 
-.dropDownMenu *  {
+.dropDownMenu * {
   border-radius: 0 !important;
 }
 
@@ -11,6 +11,6 @@
 }
 
 .dropDownItem:hover {
-  background-color: var(--table-row-babyblue-background-clr) !important;
+  background-color: var(--table-row-lightgreen-background-clr) !important;
   border-radius: none !important;
 }

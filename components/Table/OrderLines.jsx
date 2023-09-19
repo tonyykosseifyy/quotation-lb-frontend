@@ -10,6 +10,7 @@ import { ucfirst } from "@/helpers/formatString";
 import axiosClient from "@/api/axiosClient";
 import debounce from "lodash.debounce";
 import { calculateTotal } from "@/helpers/calculate";
+import AddButton from "../UI/AddButton/AddButton";
 
 const permissions = {
   "edit item description in quotation": true,
@@ -198,14 +199,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                       append({ type: id });
                     }}
                     className={`${styles.footerRow}`}>
-                    <Plus fillColor='var(--primary-clr-light)' />
-                    <div
-                      style={{
-                        fontSize: "12px",
-                        paddingLeft: "8px",
-                      }}>
-                      {ucfirst(name)}
-                    </div>
+                    <AddButton label={ucfirst(name)} />
                   </div>
                 );
               })}

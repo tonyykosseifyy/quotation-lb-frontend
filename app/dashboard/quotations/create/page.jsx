@@ -10,8 +10,9 @@ import OrderLinesRows from "@/components/Table/OrderLines";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 import Input from "@/components/UI/InputContainer/Input";
-import { calculateCommission, calculateTotalAfterDiscounts } from "@/helpers/calculate";
+import { calculateCommission, calculateDiscountAmount, calculateTotalAfterDiscounts } from "@/helpers/calculate";
 import ProgressStepsBar from "@/components/ProgressStepsBar/ProgressStepsBar";
+import { formatNumber } from "@/helpers/formatNumber";
 
 const permissions = {
   "edit salesperson cashing method in quotation": false,
@@ -20,6 +21,8 @@ const permissions = {
 };
 
 const VAT = 0.11;
+
+const VAT_LEB_RATE = 85300;
 
 const storeClient = async (payload) => {
   const response = await axiosClient.post(`/quotations`, payload, {
@@ -73,6 +76,14 @@ const CreateQuotation = () => {
     getValues,
   } = useForm();
 
+  useEffect(() => {
+    if (createQuotationData) {
+      setValue("paymentTerms", createQuotationData.paymentTerms[0]);
+      setValue("priceList", createQuotationData.pricelists[0]);
+      setValue("currency", createQuotationData.currencies[0]);
+    }
+  }, [createQuotationData, setValue]);
+
   const { fields, append, remove, move } = useFieldArray({
     name: "orderLines",
     control: control,
@@ -80,32 +91,31 @@ const CreateQuotation = () => {
 
   const fieldsWatch = watch("orderLines");
 
+  const clientIdWatch = watch("clientId");
+
   const salespersonWatch = watch("salespersonId");
   const globalDiscountPercentageWatch = watch("globalDiscountPercentage");
-  const globalDiscountWatch = watch("globalDiscount");
   const specialDiscountPercentageWatch = watch("specialDiscountPercentage");
-  const specialDiscountWatch = watch("specialDiscount");
-  const vatWatch = watch("vat");
   const commissionRateWatch = watch("commissionRate");
 
   const buttons = [
     {
-      title: 'Preview',
-      value: 'preview',
+      title: "Preview",
+      value: "preview",
     },
     {
-      title: 'Send By Email',
-      value: 'send by email',
+      title: "Send By Email",
+      value: "send by email",
       onClick: () => setActiveStep(2),
     },
     {
-      title: 'Confirm',
-      value: 'confirm',
+      title: "Confirm",
+      value: "confirm",
       onClick: () => setActiveStep(3),
     },
     {
-      title: 'Cancel',
-      value: 'cancel',
+      title: "Cancel",
+      value: "cancel",
       onClick: () => setActiveStep(1),
     },
   ];
@@ -134,7 +144,9 @@ const CreateQuotation = () => {
     });
     const vatValue = getValues("vat");
     storeData["total"] = Number(vatValue / VAT + vatValue).toFixed(2);
-    console.log(storeData);
+
+    delete storeData["globalDiscount"];
+    delete storeData["specialDiscount"];
     mutation.mutate(storeData);
   };
 
@@ -158,35 +170,68 @@ const CreateQuotation = () => {
     <div className={`container m-0`}>
       <form id='createQuotation' onSubmit={handleSubmit(onSubmit)}>
         <div>
-          <div className={styles.title} style={{ color: "var(--primary-clr)" }}>Create New Quotation</div>
-        </div>
-        <div className="d-flex flex-column flex-lg-row mt-2 justify-content-md-between gap-3">
-          <div className="d-flex gap-2">
-            { buttons.map (({ title, value, onClick }) => 
-              <Button key={title} title={title} value={value} onClick={onClick} 
-                backgroundColor='var(--tab-button-background-clr)' border='none' rounded={true} padding='10px'
-                type='button' fontSize='13px' fontWeight={600} titleColor='var(--primary-text-clr)' 
-              />
-            )}
+          <div className={styles.title} style={{ color: "var(--primary-clr)" }}>
+            Create New Quotation
           </div>
-          <ProgressStepsBar activeStep={activeStep}/>
+        </div>
+        <div className='d-flex flex-column flex-lg-row mt-2 justify-content-md-between gap-3'>
+          <div className='d-flex gap-2'>
+            {buttons.map(({ title, value, onClick }) => (
+              <Button
+                key={title}
+                title={title}
+                value={value}
+                onClick={onClick}
+                backgroundColor='var(--tab-button-background-clr)'
+                border='none'
+                rounded={true}
+                padding='10px'
+                type='button'
+                fontSize='13px'
+                fontWeight={600}
+                titleColor='var(--primary-text-clr)'
+              />
+            ))}
+          </div>
+          <ProgressStepsBar activeStep={activeStep} />
         </div>
         <div className={`${styles.quotationInfo} border border-2 rounded p-4`}>
           <div className={`${styles.inputRow}`}>
-            <div className="d-flex flex-column flex-md-row align-items-md-center" style={{ gap: "27px" }}>
-              <div className={`${styles.quotationNumber}`}> #Q0000001 </div>
+            <div className='d-flex flex-column flex-md-row align-items-md-center' style={{ gap: "27px" }}>
+              <div className={`${styles.quotationNumber}`}> #{createQuotationData.quotationNumber} </div>
               <div className={`d-flex align-items-center ${styles.refPaddingLeft}`}>
                 <div className={`${styles.labelText} pe-2`}> Ref: </div>
                 <InputContainer inputPlaceholder='MANUAL REFERENCE' inputType='text' inputName='manualReference' inputId='manualReference' control={control} register={register} />
               </div>
             </div>
-            <InputContainer label='Customer Name' spaceBetween={false} isRequired={true} inputPlaceholder='Search...' inputType='select' inputName='clientId' selectOptions={createQuotationData.clients} control={control} register={register} width='65' widthUnit="%"/>
+            <InputContainer
+              label='Customer Name'
+              spaceBetween={false}
+              isRequired={true}
+              inputPlaceholder='Search...'
+              inputType='select'
+              inputName='clientId'
+              selectOptions={createQuotationData.clients}
+              control={control}
+              register={register}
+              width='65'
+              widthUnit='%'
+            />
             <div className={`d-flex flex-column flex-md-row align-items-md-start ${styles.contactDetailsGap}`}>
               <div className={`${styles.labelText}`}> Contact Details</div>
-              <div className="d-flex flex-column" style={{ gap: "5px" }}>
-                <div> Street, Building, Floor </div>
-                <div> Phone Number </div>
-                <div> VAT# </div>
+              <div className='d-flex flex-column' style={{ gap: "5px" }}>
+                <div>
+                  {" "}
+                  Street, Building, Floor <b>{clientIdWatch && clientIdWatch.street && ` : ${clientIdWatch.street}, ${clientIdWatch.floor_and_building ?? ""}`}</b>
+                </div>
+                <div>
+                  {" "}
+                  Phone Number <b>{clientIdWatch && clientIdWatch.phone_number && ` : ${clientIdWatch.phone_code ?? ""} ${clientIdWatch.phone_number ?? ""}`}</b>
+                </div>
+                <div>
+                  {" "}
+                  VAT# <b>{clientIdWatch && clientIdWatch.tax_id && ` : ${clientIdWatch.tax_id}`}</b>
+                </div>
               </div>
             </div>
           </div>
@@ -194,12 +239,12 @@ const CreateQuotation = () => {
             <InputContainer label='Validity' inputType='text' inputName='validity' inputId='validity' control={control} register={register} />
             <InputContainer label='Payment Terms' inputPlaceholder='' inputType='select' inputName='paymentTerms' selectOptions={createQuotationData.paymentTerms} optionName='title' control={control} register={register} />
             <InputContainer label='Pricelist' inputPlaceholder='' inputType='select' inputName='priceList' selectOptions={createQuotationData.pricelists} optionName='title' control={control} register={register} />
-            <InputContainer label='Currency' inputPlaceholder='USD' inputType='select' inputName='currency' control={control} register={register} />
+            <InputContainer label='Currency' inputPlaceholder='USD' inputType='select' inputName='currency' selectOptions={createQuotationData.currencies} control={control} register={register} />
           </div>
         </div>
         <div className={`d-flex mt-3`}>
-            <Button title='Order lines' fillBackground={buttonState === "order"} onClick={handleTabChange} value='order' type='button' width='180px' tab />
-            <Button title='Other Information' fillBackground={buttonState === "information"} onClick={handleTabChange} value='information' width='180px' type='button' tab />
+          <Button title='Order lines' fillBackground={buttonState === "order"} onClick={handleTabChange} value='order' type='button' width='180px' tab />
+          <Button title='Other Information' fillBackground={buttonState === "information"} onClick={handleTabChange} value='information' width='180px' type='button' tab />
         </div>
         <div>
           <div className={`${buttonState !== "order" && styles.hidden}`}>
@@ -243,25 +288,43 @@ const CreateQuotation = () => {
                 </div>
                 <div className={styles.totalInputs}>
                   <div style={{ paddingTop: "2px" }}> Global Disc (%)</div>
-                  <div className="d-flex flex-row gap-2">
-                    <Input inputPlaceholder='0.00%' inputType='text' inputName='globalDiscountPercentage' width={130} control={control} register={register} setValue={setValue} textAlign='end'/>
-                    <Input inputPlaceholder='USD 0.00' inputType='text' inputName='globalDiscount' textAlign='end' width={130} control={control} register={register} isDisabled={true} setValue={setValue} 
-                      initialValue={calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch]) } 
+                  <div className='d-flex flex-row gap-2'>
+                    <Input inputPlaceholder='0.00%' defaultValue={0} inputType='text' inputName='globalDiscountPercentage' width={130} control={control} register={register} setValue={setValue} textAlign='end' />
+                    <Input
+                      inputPlaceholder='USD 0.00'
+                      inputType='text'
+                      inputName='globalDiscount'
+                      textAlign='end'
+                      width={130}
+                      control={control}
+                      register={register}
+                      isDisabled={true}
+                      setValue={setValue}
+                      initialValue={calculateDiscountAmount(quotationTotalBeforeVat, [globalDiscountPercentageWatch])}
                     />
                   </div>
                 </div>
                 <div className={styles.totalInputs}>
                   <div style={{ paddingTop: "2px" }}> Special Disc (%)</div>
-                  <div className="d-flex flex-row gap-2">
-                    <Input inputPlaceholder='0.00%' inputType='text' inputName='specialDiscountPercentage' width={130} control={control} register={register} setValue={setValue} textAlign='end' />
-                    <Input inputPlaceholder='USD 0.00' inputType='text' inputName='specialDiscount' textAlign='end' width={130} control={control} register={register} isDisabled={true} setValue={setValue} 
-                      initialValue={calculateTotalAfterDiscounts(quotationTotalBeforeVat, [specialDiscountPercentageWatch])}  
+                  <div className='d-flex flex-row gap-2'>
+                    <Input inputPlaceholder='0.00%' defaultValue={0} inputType='text' inputName='specialDiscountPercentage' width={130} control={control} register={register} setValue={setValue} textAlign='end' />
+                    <Input
+                      inputPlaceholder='USD 0.00'
+                      inputType='text'
+                      inputName='specialDiscount'
+                      textAlign='end'
+                      width={130}
+                      control={control}
+                      register={register}
+                      isDisabled={true}
+                      setValue={setValue}
+                      initialValue={calculateDiscountAmount(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch]), [specialDiscountPercentageWatch])}
                     />
                   </div>
                 </div>
                 <div className={styles.totalInputs}>
                   <div style={{ paddingTop: "2px" }}> VAT 11%</div>
-                  <div className="d-flex flex-row gap-2">
+                  <div className='d-flex flex-row gap-2'>
                     <Input
                       inputPlaceholder='LBP 123.567'
                       inputType='text'
@@ -272,7 +335,7 @@ const CreateQuotation = () => {
                       register={register}
                       isDisabled={true}
                       setValue={setValue}
-                      initialValue={calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]) * VAT * 89000}
+                      initialValue={formatNumber(calculateDiscountAmount(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]), [VAT * 100]) * VAT_LEB_RATE)}
                     />
                     <Input
                       inputPlaceholder=''
@@ -284,7 +347,7 @@ const CreateQuotation = () => {
                       register={register}
                       isDisabled={true}
                       setValue={setValue}
-                      initialValue={calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]) * VAT}
+                      initialValue={calculateDiscountAmount(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]), [VAT * 100])}
                     />
                   </div>
                 </div>
@@ -306,7 +369,7 @@ const CreateQuotation = () => {
                       paddingTop: "3px",
                     }}>
                     {"USD "}
-                    {Number(vatWatch / VAT + vatWatch).toFixed(2)}{" "}
+                    {Number(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch, VAT * 100])).toFixed(2)}{" "}
                   </div>
                 </div>
               </div>
