@@ -6,5 +6,6 @@
     "jsxSingleQuote": true,
     "jsxBracketSameLine": true,
     "jsxTrailingComma": "none",
-    "arrowParens": "always"
+    "arrowParens": "always",
+    "singleAttributePerLine": true
 }

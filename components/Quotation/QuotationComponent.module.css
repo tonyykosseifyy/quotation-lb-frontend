@@ -1,0 +1,228 @@
+.container {
+  padding: 40px;
+}
+
+.title,
+.quotationNumber {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.quotationInfo {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: row;
+  gap: 18px;
+}
+
+.inputRow,
+.inputRow2 {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.labelText {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.contactDetailsGap {
+  gap: 15px;
+}
+
+.hidden {
+  display: none;
+}
+
+.extraInfoDetails {
+  border-radius: 5px;
+  padding-bottom: 67px;
+  background-color: white;
+}
+
+.table {
+  display: flex;
+  flex-direction: column;
+}
+
+.tableInputRow {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  padding-top: 23px;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
+.tableColumns {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.sortableGhostBlue {
+  background-color: lightblue;
+}
+
+.salesTableTitleContainer,
+.invoiceTableTitleContainer {
+  background-color: var(--primary-clr);
+  border-radius: 5px;
+  /* border-top: 10px solid var(--primary-clr); */
+}
+
+.invoiceTableTitleContainer {
+  margin-top: 25px;
+}
+
+.tableTitles {
+  color: white;
+  padding: 12px 0px 12px 25px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.termsAndConditionsContainer {
+  margin-top: 20px;
+  font-size: 14px;
+  border: 2px;
+  border-radius: 8px;
+  padding: 31px 14px 28px 45px;
+  background-color: white;
+}
+
+.termsAndConditionsInputContainer {
+  padding-top: 20px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.newTermsAndConditionsLink {
+  padding-top: 8px;
+  color: var(--primary-clr);
+  font-weight: 400;
+  text-decoration: underline;
+}
+
+.totalAmountContainer {
+  background-color: var(--bigCircle-background-clr);
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+
+.totalBeforeVatColumn {
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  gap: 3px;
+  color: var(--table-data-text-clr);
+  font-weight: 600;
+}
+
+.totalInputs {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.createInvoiceButtonDiv {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: 45px;
+}
+
+@media only screen and (max-width: 1200px) {
+  .quotationInfo {
+    flex-direction: column;
+  }
+}
+
+@media only screen and (min-width: 685px) {
+  .tableInputRow {
+    padding-right: 0px;
+  }
+
+  .totalInputs {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 100px;
+  }
+}
+
+@media only screen and (min-width: 767px) {
+  .tableInputRow {
+    padding-right: 0px;
+  }
+
+  .contactDetailsGap {
+    gap: 65px;
+  }
+
+  .inputRow2 {
+    width: 57%;
+  }
+
+  .refPaddingLeft {
+    padding-left: 37px;
+  }
+
+  .totalAmountContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+  }
+}
+
+@media only screen and (min-width: 820px) {
+  .title {
+    font-size: 25px;
+  }
+}
+
+@media only screen and (min-width: 992px) {
+  .inputRow2 {
+    width: 42%;
+  }
+
+  .totalAmountContainer {
+    padding: 20px 97px 30px 30px;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .inputRow {
+    width: 50%;
+  }
+
+  .inputRow2 {
+    width: 30%;
+  }
+
+  .quotationInfo {
+    gap: 20px;
+  }
+
+  .table {
+    flex-direction: row;
+  }
+
+  .salesTableTitleContainer {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-top-right-radius: 0px !important;
+    border-bottom-right-radius: 0px !important;
+  }
+
+  .invoiceTableTitleContainer {
+    border-top-left-radius: 0px !important;
+    border-bottom-left-radius: 0px !important;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    margin-top: 0px !important;
+  }
+}

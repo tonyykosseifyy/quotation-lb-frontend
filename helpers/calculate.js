@@ -4,10 +4,15 @@ export const calculateTotal = (unitPrice, quantity, discount) => {
 
 export const calculateTotalAfterDiscounts = (total, discounts = []) => {
   discounts.forEach((discount) => {
-    total *= 1 + discount / 100;
+    total *= 1 - discount / 100;
   });
 
   return total;
+};
+
+export const addVat = (total, vat) => {
+  const totalAmount = total + (total * vat) / 100;
+  return totalAmount;
 };
 
 export const calculateCommission = (total, commission) => {

@@ -16,8 +16,14 @@ const Option = (props) => {
   return (
     <div>
       <components.Option {...props}>
-        <input type='checkbox' checked={isSelected} onChange={() => null} />{" "}
-        <label className='ps-2' style={{ color: "black" }}>
+        <input
+          type='checkbox'
+          checked={isSelected}
+          onChange={() => null}
+        />{" "}
+        <label
+          className='ps-2'
+          style={{ color: "black" }}>
           {label}
         </label>
       </components.Option>
@@ -227,7 +233,7 @@ const Input = ({
         <Controller
           name={registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName}
           control={control}
-          defaultValue={null}
+          defaultValue={initialValue}
           render={({ field }) => (
             <AsyncSelect
               {...field}
@@ -280,7 +286,12 @@ const Input = ({
         />
       )}
       {inputType === "checkBoxSelect" && (
-        <div className='d-inline-block' data-toggle='popover' data-trigger='focus' data-content='' style={{ width: "209px" }}>
+        <div
+          className='d-inline-block'
+          data-toggle='popover'
+          data-trigger='focus'
+          data-content=''
+          style={{ width: "209px" }}>
           <Controller
             name={inputName}
             control={control}
@@ -342,13 +353,35 @@ const Input = ({
       {inputType === "phone" && (
         <div className={styles.phoneContainer}>
           <div className={styles.countrySelect}>
-            <PhoneCodeSelect codeName={codeName} changeCodeValue={changeCodeValue} />
+            <PhoneCodeSelect
+              codeName={codeName}
+              changeCodeValue={changeCodeValue}
+            />
           </div>
 
-          <input required={isRequired} className={styles.inputText} name={inputName} type='text' id={inputId} {...register(inputName, { required: isRequired })} />
+          <input
+            required={isRequired}
+            className={styles.inputText}
+            name={inputName}
+            type='text'
+            id={inputId}
+            {...register(inputName, { required: isRequired })}
+          />
         </div>
       )}
-      {inputType === "image" && <ImageUpload register={register} registerArrayName={registerArrayName} registerArrayKey={registerArrayKey} registerArrayIndex={registerArrayIndex} isRequired={isRequired} inputName={inputName} setValue={setValue} />}
+      {inputType === "image" && (
+        <ImageUpload
+          register={register}
+          registerArrayName={registerArrayName}
+          registerArrayKey={registerArrayKey}
+          registerArrayIndex={registerArrayIndex}
+          isRequired={isRequired}
+          inputName={inputName}
+          setValue={setValue}
+          initialValue={initialValue}
+          isDisabled={isDisabled}
+        />
+      )}
     </div>
   );
 };

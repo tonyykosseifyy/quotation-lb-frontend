@@ -2,12 +2,22 @@ import React, { useEffect, useState } from "react";
 import styles from "./ImageUpload.module.css";
 import { useDropzone } from "react-dropzone";
 
-export const ImageUpload = ({ register, registerArrayName, registerArrayIndex, registerArrayKey, inputName, isRequired, extraValidations, setValue }) => {
+export const ImageUpload = ({ register, registerArrayName, registerArrayIndex, registerArrayKey, inputName, isRequired, extraValidations, setValue, initialValue, isDisabled }) => {
   const [files, setFiles] = useState([]);
-  const [showEdit, setShowEdit] = useState(true);
+  const [showEdit, setShowEdit] = useState(!isDisabled);
+
+  useEffect(() => {
+    if (initialValue) {
+      setFiles([
+        Object.assign(initialValue, {
+          preview: initialValue,
+        }),
+      ]);
+    }
+  }, [initialValue]);
 
   const handleShowEditToggle = () => {
-    setShowEdit((prev) => !prev);
+    if (!isDisabled) setShowEdit((prev) => !prev);
   };
 
   const { getRootProps, getInputProps } = useDropzone({
@@ -38,7 +48,9 @@ export const ImageUpload = ({ register, registerArrayName, registerArrayIndex, r
   return (
     <div className=''>
       {showEdit && (
-        <div {...getRootProps()} className={styles.dragAndDropContainer}>
+        <div
+          {...getRootProps()}
+          className={styles.dragAndDropContainer}>
           <input
             {...getInputProps()}
             {...register(registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName, {
@@ -46,7 +58,10 @@ export const ImageUpload = ({ register, registerArrayName, registerArrayIndex, r
               ...extraValidations,
             })}
           />
-          <img src='/assets/svg/upload.svg' alt='upload icon' />
+          <img
+            src='/assets/svg/upload.svg'
+            alt='upload icon'
+          />
           <div className={`${styles.dragAndDropText}`}>
             Drag and Drop your image here or{" "}
             <span
@@ -61,21 +76,26 @@ export const ImageUpload = ({ register, registerArrayName, registerArrayIndex, r
         </div>
       )}
       <aside className={styles.thumbsContainer}>
-        {files.map((file) => (
-          <div className={styles.thumb} key={file.name} onClick={handleShowEditToggle}>
-            <div className={styles.thumbInner}>
-              <img
-                src={file.preview}
-                className={styles.fileImg}
-                // Revoke data uri after image is loaded
-                onLoad={() => {
-                  URL.revokeObjectURL(file.preview);
-                }}
-                alt=''
-              />
+        {files.map((file) => {
+          return (
+            <div
+              className={styles.thumb}
+              key={file.name}
+              onClick={handleShowEditToggle}>
+              <div className={styles.thumbInner}>
+                <img
+                  src={file.preview}
+                  className={styles.fileImg}
+                  // Revoke data uri after image is loaded
+                  onLoad={() => {
+                    URL.revokeObjectURL(file.preview);
+                  }}
+                  alt=''
+                />
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </aside>
     </div>
   );

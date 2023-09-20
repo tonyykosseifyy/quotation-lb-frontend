@@ -1,5 +1,6 @@
 export const Routes = {
   Home: "/dashboard",
+  ViewQuotation: "/dashboard/quotations/${id}",
   NewQuotation: "/dashboard/quotations/create",
   QuotationsSummary: "/dashboard/quotations/",
   ClientAccounts: "/dashboard/clients/accounts",

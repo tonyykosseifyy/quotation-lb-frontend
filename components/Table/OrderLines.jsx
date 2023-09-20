@@ -19,7 +19,7 @@ const permissions = {
   "edit combo unit price in quotation": true,
 };
 
-const OrderLinesRows = ({ control, register, fields, append, remove, move, indices, isFooterShown = false, footerList, footerPaddingTop, footerPaddingLeft, tableWidth, fieldsWatch, setValue, handleQuotationTotalChange }) => {
+const OrderLinesRows = ({ control, register, fields, append, remove, move, indices, isFooterShown = false, footerList, footerPaddingTop, footerPaddingLeft, tableWidth, fieldsWatch, setValue, handleQuotationTotalChange, isDisabled, action }) => {
   useEffect(() => {
     if (indices?.oldIndex) {
       move(indices.oldIndex, indices.newIndex);
@@ -32,8 +32,8 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
 
   const getOptionName = (type) => {
     const lineType = getLineTypeByTypeId(type);
-    if (lineType.name === "item") {
-      return "mainCode";
+    if (lineType?.name === "item") {
+      return action !== "create" ? "main_code" : "mainCode";
     } else if (lineType.name === "combo") {
       return "code";
     }
@@ -84,19 +84,27 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
   return (
     <>
       <div className={`${styles.tableDiv} overflow-auto`}>
-        <div className={`overflow-auto`} style={{ width: tableWidth }}>
+        <div
+          className={`overflow-auto`}
+          style={{ width: tableWidth }}>
           <div className={`${styles.headerLayout}`}>
             {createQuotationHeaderList.map((header, index) => (
-              <span key={index} style={{ flex: header.flex }}>
+              <span
+                key={index}
+                style={{ flex: header.flex }}>
                 {header.title}
               </span>
             ))}
           </div>
           <div className={`${styles.rowsLayout} mt-3`}>
-            <ul id='itemRows' className={`${styles.itemRows}`}>
+            <ul
+              id='itemRows'
+              className={`${styles.itemRows}`}>
               {fields?.map((field, fieldIdx) => {
                 return (
-                  <li key={field.id} id={fieldIdx}>
+                  <li
+                    key={field.id}
+                    id={fieldIdx}>
                     <div className={`${styles.singleItemRow} d-flex align-items-center`}>
                       <span
                         style={{
@@ -104,85 +112,97 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                         }}>
                         <FourArrows />
                       </span>
-                      {rowInputFlexList[field.type - 1].inputs.map((input, index) => (
+                      {rowInputFlexList[field.type - 1].inputs.map((input, index) => {
+                        const inpType = input.inputName === "item" || input.inputName === "combo" ? "select" : input.inputType;
+
+                        return (
+                          <span
+                            key={index}
+                            style={{
+                              flex: input.flex,
+                              paddingRight: index === rowInputFlexList[field.type - 1].inputs.length - 1 ? "0px" : "5px",
+                            }}>
+                            {input.customHtml ? (
+                              input.customHtml
+                            ) : (
+                              <InputContainer
+                                placeholderColor
+                                placeholderStyle
+                                inputfontWeight={input.inputfontWeight}
+                                inputBorderColor={input.inputBorderColor}
+                                placeholderWeight={input.placeholderWeight}
+                                inputPlaceholder={input.inputPlaceholder}
+                                textAlign={input.textAlign}
+                                inputType={inpType}
+                                inputName={input.inputName}
+                                inputId={input.inputName}
+                                width='100'
+                                height='100'
+                                heightUnit='%'
+                                widthUnit='%'
+                                fontWeight='700'
+                                fontSize='12px'
+                                selectOptions={input.selectOptions}
+                                optionName={getOptionName(field.type)}
+                                control={control}
+                                register={register}
+                                registerArrayName={"orderLines"}
+                                registerArrayKey={input.inputName}
+                                registerArrayIndex={fieldIdx}
+                                loadOptions={input.inputName === "item" ? loadItemOptions : loadComboOptions}
+                                isSearchable={input.isSearchable}
+                                initialValue={
+                                  action !== "create"
+                                    ? inpType === "image" || inpType === "select"
+                                      ? field[input.inputName]
+                                      : undefined
+                                    : input.inputName === "total"
+                                    ? handleTotal(fieldsWatch[fieldIdx][input.inputName], fieldsWatch[fieldIdx][input.referenceKeyUnitPrice], fieldsWatch[fieldIdx]["quantity"], fieldsWatch[fieldIdx]["discount"])
+                                    : input.referenceKey != null
+                                    ? fieldsWatch[fieldIdx][input.referenceKey]
+                                    : null
+                                }
+                                defaultValue={input.defaultValue}
+                                isDisabled={isDisabled || input.isDisabled || (input.permission && !permissions[input.permission])}
+                                setValue={setValue}
+                                referenceInput={fieldsWatch[fieldIdx][input.referenceKey]}
+                                referenceKey={input.referenceKey}
+                                inputKey={input.inputKey}
+                              />
+                            )}
+                          </span>
+                        );
+                      })}
+                      <>
                         <span
-                          key={index}
                           style={{
-                            flex: input.flex,
-                            paddingRight: index === rowInputFlexList[field.type - 1].inputs.length - 1 ? "0px" : "5px",
+                            flex: 0.7,
+                            textAlign: "center",
                           }}>
-                          {input.customHtml ? (
-                            input.customHtml
-                          ) : (
-                            <InputContainer
-                              placeholderColor
-                              placeholderStyle
-                              inputfontWeight={input.inputfontWeight}
-                              inputBorderColor={input.inputBorderColor}
-                              placeholderWeight={input.placeholderWeight}
-                              inputPlaceholder={input.inputPlaceholder}
-                              textAlign={input.textAlign}
-                              inputType={input.inputType}
-                              inputName={input.inputName}
-                              inputId={input.inputName}
-                              width='100'
-                              height='100'
-                              heightUnit='%'
-                              widthUnit='%'
-                              fontWeight='700'
-                              fontSize='12px'
-                              selectOptions={input.selectOptions}
-                              optionName={getOptionName(field.type)}
-                              control={control}
-                              register={register}
-                              registerArrayName={"orderLines"}
-                              registerArrayKey={input.inputName}
-                              registerArrayIndex={fieldIdx}
-                              loadOptions={input.inputName === "item" ? loadItemOptions : loadComboOptions}
-                              isSearchable={input.isSearchable}
-                              initialValue={
-                                input.inputName === "total"
-                                  ? handleTotal(fieldsWatch[fieldIdx][input.inputName], fieldsWatch[fieldIdx][input.referenceKeyUnitPrice], fieldsWatch[fieldIdx]["quantity"], fieldsWatch[fieldIdx]["discount"])
-                                  : input.referenceKey != null
-                                  ? fieldsWatch[fieldIdx][input.referenceKey]
-                                  : null
-                              }
-                              defaultValue={input.defaultValue}
-                              isDisabled={input.isDisabled || (input.permission && !permissions[input.permission])}
-                              setValue={setValue}
-                              referenceInput={fieldsWatch[fieldIdx][input.referenceKey]}
-                              referenceKey={input.referenceKey}
-                              inputKey={input.inputKey}
+                          {!isDisabled && <Ellipsis />}
+                        </span>
+                        <span
+                          style={{
+                            flex: 0.5,
+                            textAlign: "center",
+                          }}>
+                          {!isDisabled && (
+                            <Trashcan
+                              onClick={() => {
+                                remove(fieldIdx);
+                              }}
+                              fillColor={"var(--primary-clr)"}
                             />
                           )}
                         </span>
-                      ))}
-                      <span
-                        style={{
-                          flex: 0.7,
-                          textAlign: "center",
-                        }}>
-                        <Ellipsis />
-                      </span>
-                      <span
-                        style={{
-                          flex: 0.5,
-                          textAlign: "center",
-                        }}>
-                        <Trashcan
-                          onClick={() => {
-                            remove(fieldIdx);
-                          }}
-                          fillColor={"var(--primary-clr)"}
-                        />
-                      </span>
+                      </>
                     </div>
                   </li>
                 );
               })}
             </ul>
           </div>
-          {isFooterShown ? (
+          {isFooterShown && !isDisabled ? (
             <div
               style={{
                 display: "flex",

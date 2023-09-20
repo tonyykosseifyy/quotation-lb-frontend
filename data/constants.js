@@ -210,3 +210,6 @@ export const numbering = {
   6: "Six",
   7: "Seven",
 };
+
+export const VAT = 0.11;
+export const VAT_LEB_RATE = 85300;

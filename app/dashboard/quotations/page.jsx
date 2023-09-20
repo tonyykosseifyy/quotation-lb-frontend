@@ -36,6 +36,8 @@ const Page = () => {
 
   const queryClient = useQueryClient();
 
+  const router = useRouter();
+
   const getQuotationsResponse = useQuery({
     queryKey: ["quotations", page, perPage, debouncedSearch],
     queryFn: () =>
@@ -73,10 +75,12 @@ const Page = () => {
     setPerPage(newPerPage);
   };
 
-  const route = useRouter();
-
   const handleCreateQuotation = () => {
-    route.push(Routes.NewQuotation);
+    router.push(Routes.NewQuotation);
+  };
+
+  const handleRowClick = (id) => {
+    router.push(Routes.ViewQuotation.replace("${id}", id));
   };
 
   const handleExtraInfoChange = (e) => {
@@ -156,7 +160,13 @@ const Page = () => {
     {
       name: "Status",
       center: true,
-      selector: (row) => <Status status={statusIndicator} statusText={row.status} centerStatus />,
+      selector: (row) => (
+        <Status
+          status={statusIndicator}
+          statusText={row.status}
+          centerStatus
+        />
+      ),
     },
     {
       name: "More Options",
@@ -167,7 +177,12 @@ const Page = () => {
       name: "",
       width: "60px",
       center: true,
-      selector: (row) => <Trashcan fillColor={"var(--primary-clr)"} onClick={() => handleDeleteQuotation(row.id)} />,
+      selector: (row) => (
+        <Trashcan
+          fillColor={"var(--primary-clr)"}
+          onClick={() => handleDeleteQuotation(row.id)}
+        />
+      ),
     },
   ];
 
@@ -214,7 +229,12 @@ const Page = () => {
       <div className={styles.header}>
         <div className={styles.title}>Quotations</div>
         <div>
-          <Button title='Create New Quotation' fillBackground={true} rounded={true} onClick={handleCreateQuotation} />
+          <Button
+            title='Create New Quotation'
+            fillBackground={true}
+            rounded={true}
+            onClick={handleCreateQuotation}
+          />
         </div>
       </div>
       <div className={styles.searchDiv}>
@@ -235,7 +255,15 @@ const Page = () => {
         />
       </div>
       <div className={`${styles.buttonsDiv}`}>
-        <Button title='All Quotations' rounded={true} fillBackground={buttonState === "all"} onClick={handleExtraInfoChange} value='all' type='button' tab />
+        <Button
+          title='All Quotations'
+          rounded={true}
+          fillBackground={buttonState === "all"}
+          onClick={handleExtraInfoChange}
+          value='all'
+          type='button'
+          tab
+        />
       </div>
       <DataTable
         columns={columns}
@@ -249,6 +277,9 @@ const Page = () => {
         paginationTotalRows={totalRows}
         onChangeRowsPerPage={handlePerRowsChange}
         onChangePage={handlePageChange}
+        onRowClicked={(row) => {
+          handleRowClick(row.id);
+        }}
       />
     </div>
   );
