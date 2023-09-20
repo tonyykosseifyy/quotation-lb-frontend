@@ -6,7 +6,7 @@ import Modal from "react-modal";
 
 const ModalComponent = ({ isOpen, onRequestClose, style, title, titlePaddingBottom, children }) => {
   return (
-    <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={style} appElement={document.getElementById("app")}>
+    <Modal isOpen={isOpen} onRequestClose={onRequestClose} style={style}>
       <div className={`${styles.xIcon}`}>
         <span onClick={onRequestClose}>
           <img src='/assets/svg/xIcon.svg' alt='close modal' />

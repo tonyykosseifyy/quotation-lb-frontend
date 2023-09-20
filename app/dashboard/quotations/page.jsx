@@ -54,8 +54,6 @@ const Page = () => {
   const deleteMutation = useMutation(deleteQuotation, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["quotations", page, perPage, debouncedSearch] });
-      console.log("Wow");
-      toast("Wow");
     },
   });
 
