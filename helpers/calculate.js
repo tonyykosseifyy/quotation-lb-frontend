@@ -4,7 +4,7 @@ export const calculateTotal = (unitPrice, quantity, discount) => {
 
 export const calculateTotalAfterDiscounts = (total, discounts = []) => {
   discounts.forEach((discount) => {
-    total *= 1 - discount / 100;
+    total *= 1 + discount / 100;
   });
 
   return total;
