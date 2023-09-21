@@ -56,6 +56,7 @@ const Page = () => {
   const deleteMutation = useMutation(deleteQuotation, {
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["quotations", page, perPage, debouncedSearch] });
+      toast(data.message);
     },
   });
 
@@ -87,7 +88,6 @@ const Page = () => {
     setButtonState(() => e.target.value);
   };
 
-  // const filteredQuotations = quotations.filter((quotation) => quotation.customer && quotation.customer.toLowerCase().includes(search.toLowerCase()));
   const createdAtSort = (rowA, rowB) => {
     const a = rowA.createdAtDate;
     const b = rowB.createdAtDate;

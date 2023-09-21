@@ -7,7 +7,7 @@ export default function ToastProvider({ children }) {
   return (
     <>
       {children}
-      <ToastContainer />
+      <ToastContainer progressStyle={{ background: "var(--primary-clr)" }} />
     </>
   );
 }

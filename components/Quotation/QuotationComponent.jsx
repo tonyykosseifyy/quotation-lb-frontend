@@ -61,13 +61,17 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
       termsAndConditions: quotationData.termsAndConditions,
       globalDiscountPercentage: quotationData.globalDiscount,
       specialDiscountPercentage: quotationData.specialDiscount,
+      specialDiscount: quotationData.specialDiscountAmount,
       salespersonId: quotationData.salesperson,
       commissionMethodId: quotationData.commissionMethod,
       cashingMethodId: quotationData.cashingMethod,
       commissionRate: quotationData.commissionRate,
       commissionTotal: quotationData.commissionTotal,
+      vatLebanese: quotationData.vatLebanese,
     },
   });
+
+  console.log(quotationData);
 
   const { fields, append, remove, move } = useFieldArray({
     name: "orderLines",
@@ -214,11 +218,11 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                 style={{ gap: "5px" }}>
                 <div>
                   {" "}
-                  Street, Building, Floor <b>{clientIdWatch && clientIdWatch.street && ` : ${clientIdWatch.street}, ${clientIdWatch.floor_and_building ?? ""}`}</b>
+                  Street, Building, Floor <b>{clientIdWatch && `${clientIdWatch.street ?? ""} ${clientIdWatch.street && clientIdWatch.floor_and_building ? "," : ""} ${clientIdWatch.floor_and_building ?? ""} `}</b>
                 </div>
                 <div>
                   {" "}
-                  Phone Number <b>{clientIdWatch && clientIdWatch.phone_number && ` : ${clientIdWatch.phone_code ?? ""} ${clientIdWatch.phone_number ?? ""}`}</b>
+                  Phone Number <b>{clientIdWatch && ` : ${clientIdWatch.phone_code ?? ""} ${clientIdWatch.phone_number ?? ""}`}</b>
                 </div>
                 <div>
                   {" "}
@@ -331,9 +335,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                     isDisabled={shouldDisableComponents}
                   />
                 </div>
-                <div className={`${styles.newTermsAndConditionsLink}`}>
-                  <i>Or Create new Terms & Conditions</i>
-                </div>
+                <div className={`${styles.newTermsAndConditionsLink}`}>{!shouldDisableComponents && <i>Or Create new Terms & Conditions</i>}</div>
               </div>
             </div>
 
@@ -345,6 +347,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                     inputPlaceholder=''
                     inputType='text'
                     inputName='totalBeforeVat'
+                    defaultValue={action === "create" ? null : quotationData.totalBeforeVat}
                     textAlign='end'
                     width={130}
                     control={control}
@@ -359,7 +362,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                   <div className='d-flex flex-row gap-2'>
                     <Input
                       inputPlaceholder='0.00%'
-                      defaultValue={0}
+                      defaultValue={action === "create" ? 0 : null}
                       inputType='text'
                       inputName='globalDiscountPercentage'
                       width={130}
@@ -373,6 +376,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                       inputPlaceholder='USD 0.00'
                       inputType='text'
                       inputName='globalDiscount'
+                      defaultValue={action === "create" ? null : quotationData.globalDiscountAmount}
                       textAlign='end'
                       width={130}
                       control={control}
@@ -388,7 +392,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                   <div className='d-flex flex-row gap-2'>
                     <Input
                       inputPlaceholder='0.00%'
-                      defaultValue={0}
+                      defaultValue={action === "create" ? 0 : null}
                       inputType='text'
                       inputName='specialDiscountPercentage'
                       width={130}
@@ -403,6 +407,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                       inputType='text'
                       inputName='specialDiscount'
                       textAlign='end'
+                      defaultValue={action === "create" ? null : quotationData.specialDiscountAmount}
                       width={130}
                       control={control}
                       register={register}
@@ -413,25 +418,27 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                   </div>
                 </div>
                 <div className={styles.totalInputs}>
-                  <div style={{ paddingTop: "2px" }}> VAT 11%</div>
+                  <div style={{ paddingTop: "2px" }}> VAT {VAT * 100}%</div>
                   <div className='d-flex flex-row gap-2'>
                     <Input
-                      inputPlaceholder='LBP 123.567'
+                      inputPlaceholder='LBP 123,567'
                       inputType='text'
                       inputName='vatLebanese'
+                      defaultValue={action === "create" ? null : quotationData.vatLebanese}
                       textAlign='end'
                       width={130}
                       control={control}
                       register={register}
                       isDisabled={true}
                       setValue={setValue}
-                      initialValue={Number(addVat(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]), [VAT * 100]) * VAT_LEB_RATE).toLocaleString()}
+                      initialValue={formatNumber(Number(addVat(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]), [VAT * 100]) * VAT_LEB_RATE).toFixed(0))}
                     />
                     <Input
                       inputPlaceholder=''
                       inputType='text'
                       inputName='vat'
                       textAlign='end'
+                      defaultValue={action === "create" ? null : quotationData.vat}
                       width={130}
                       control={control}
                       register={register}
@@ -459,7 +466,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                       paddingTop: "3px",
                     }}>
                     {"USD "}
-                    {shouldDisableComponents ? quotationData.total : Number(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch, VAT * 100])).toFixed(2)}{" "}
+                    {shouldDisableComponents ? quotationData.total : Number(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]) * (1 + VAT)).toFixed(2)}{" "}
                   </div>
                 </div>
               </div>

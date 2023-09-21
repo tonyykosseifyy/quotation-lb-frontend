@@ -147,12 +147,13 @@ const Input = ({
       {inputType === "textarea" && (
         <textarea
           required={isRequired}
-          className={styles.inputText}
+          className={`${styles.inputText} ${isDisabled ? styles.inputDisabled : ""}`}
           name={inputName}
           id={inputId}
           style={{ resize: canResize ? "" : "none", fontSize: "12px", fontWeight: placeholderWeight }}
           placeholder={inputPlaceholder}
           {...register(inputName, { required: isRequired })}
+          readOnly={isDisabled}
         />
       )}
       {inputType === "number" && (

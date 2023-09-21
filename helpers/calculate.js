@@ -12,7 +12,7 @@ export const calculateTotalAfterDiscounts = (total, discounts = []) => {
 
 export const addVat = (total, vat) => {
   const totalAmount = total + (total * vat) / 100;
-  return totalAmount;
+  return Math.abs(total - totalAmount);
 };
 
 export const calculateCommission = (total, commission) => {

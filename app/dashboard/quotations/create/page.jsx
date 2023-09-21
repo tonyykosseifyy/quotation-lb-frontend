@@ -1,13 +1,15 @@
 "use client";
 
 import React, { useState } from "react";
-import { useForm } from "react-hook-form";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 
 import QuotationComponent from "@/components/Quotation/QuotationComponent";
-import { VAT } from "@/data/constants";
+import { VAT, VAT_LEB_RATE } from "@/data/constants";
 import { calculateTotalAfterDiscounts } from "@/helpers/calculate";
+import { Routes } from "@/router/routes";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const permissions = {
   "edit salesperson cashing method in quotation": true,
@@ -26,6 +28,9 @@ const storeClient = async (payload) => {
 
 const CreateQuotation = () => {
   const [resetForm, setResetForm] = useState(false);
+
+  const router = useRouter();
+
   const createQuotationResponse = useQuery({
     queryKey: ["createQuotation"],
     queryFn: () => axiosClient.get(`/quotations/create`),
@@ -46,17 +51,19 @@ const CreateQuotation = () => {
 
     storeData["total"] = Number(calculateTotalAfterDiscounts(storeData["totalBeforeVat"], [Number(storeData["globalDiscountPercentage"]), Number(storeData["specialDiscountPercentage"]), VAT * 100])).toFixed(2);
 
-    delete storeData["globalDiscount"];
-    delete storeData["specialDiscount"];
+    storeData["vatLebanese"] = storeData["vat"] * VAT_LEB_RATE;
     if (isNaN(storeData["total"])) {
       storeData["total"] = 0;
     }
+
     mutation.mutate(storeData);
   };
 
   const mutation = useMutation(storeClient, {
     onSuccess: (data) => {
       setResetForm(true);
+      toast(data.message);
+      router.push(Routes.QuotationsSummary);
     },
   });
 

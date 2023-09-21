@@ -72,6 +72,7 @@ export const rowInputFlexList = [
         inputName: "quantity",
         inputKey: "quantity",
         referenceKey: "item",
+        defaultValue: 1,
         inputPlaceholder: "1.00",
         inputBorderColor: "var(--input-border-2)",
         textAlign: "center",

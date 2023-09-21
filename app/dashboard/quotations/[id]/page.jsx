@@ -46,8 +46,6 @@ const ViewQuotation = () => {
 
   getQuotationData["lineTypes"] = getLineTypesData;
 
-  console.log(getQuotationData);
-
   return (
     <QuotationComponent
       action='view'
@@ -55,7 +53,6 @@ const ViewQuotation = () => {
       title='View Quotation'
       quotationData={getQuotationData}
     />
-    // <div>hi</div>
   );
 };
 
