@@ -216,14 +216,8 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               <div
                 className='d-flex flex-column'
                 style={{ gap: "5px" }}>
-                <div>
-                  {" "}
-                  Street, Building, Floor <b>{clientIdWatch && `${clientIdWatch.street ?? ""} ${clientIdWatch.street && clientIdWatch.floor_and_building ? "," : ""} ${clientIdWatch.floor_and_building ?? ""} `}</b>
-                </div>
-                <div>
-                  {" "}
-                  Phone Number <b>{clientIdWatch && ` : ${clientIdWatch.phone_code ?? ""} ${clientIdWatch.phone_number ?? ""}`}</b>
-                </div>
+                <div> {clientIdWatch ? `${clientIdWatch.street ?? ""} ${clientIdWatch.street && clientIdWatch.floor_and_building ? "," : ""} ${clientIdWatch.floor_and_building ?? ""} ` : "Street, Building, Floor"}</div>
+                <div> {clientIdWatch ? ` ${clientIdWatch.phone_code ?? ""} ${clientIdWatch.phone_number ?? ""}` : "Phone Number"}</div>
                 <div>
                   {" "}
                   VAT# <b>{clientIdWatch && clientIdWatch.tax_id && ` : ${clientIdWatch.tax_id}`}</b>

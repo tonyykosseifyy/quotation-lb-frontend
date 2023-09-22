@@ -165,8 +165,17 @@ const Products = () => {
                 // selectionMode="multiple"
                 className={styles.dropDownMenu}>
                 {(item) => (
-                  <Dropdown.Item key={item.inputName} className={styles.dropDownItem}>
-                    <CheckBox inputName={item.inputName} labelText={item.labelText} inputId={item.inputName} value={item.inputName} isChecked={checkboxValues.value} onChange={(event) => handleCheckboxChange(event)} />
+                  <Dropdown.Item
+                    key={item.inputName}
+                    className={styles.dropDownItem}>
+                    <CheckBox
+                      inputName={item.inputName}
+                      labelText={item.labelText}
+                      inputId={item.inputName}
+                      value={item.inputName}
+                      isChecked={checkboxValues.value}
+                      onChange={(event) => handleCheckboxChange(event)}
+                    />
                   </Dropdown.Item>
                 )}
               </Dropdown.Menu>
@@ -174,10 +183,17 @@ const Products = () => {
           </>
         </div>
         <div>
-          <Button title='Create New Product' fillBackground={true} rounded={true} onClick={() => setShowModal(true)} />
+          <Button
+            title='Create New Product'
+            fillBackground={true}
+            rounded={true}
+            onClick={() => setShowModal(true)}
+          />
         </div>
       </div>
-      <div className='d-flex flex-column flex-md-row justify-content-between mt-4' style={{ gap: "15px" }}>
+      <div
+        className='d-flex flex-column flex-md-row justify-content-between mt-4'
+        style={{ gap: "15px" }}>
         <div className={styles.searchDiv}>
           <Search
             value={search}
@@ -196,7 +212,9 @@ const Products = () => {
             handleSearch={handleSearch}
           />
         </div>
-        <div className='d-flex' style={{ gap: "22px" }}>
+        <div
+          className='d-flex'
+          style={{ gap: "22px" }}>
           <InputContainer
             inputPlaceholder='Filter by'
             inputType='select'
@@ -211,7 +229,9 @@ const Products = () => {
             register={register}
             width={"112"}
           />
-          <div className='d-flex d-inline-block' style={{ gap: "12px" }}>
+          <div
+            className='d-flex d-inline-block'
+            style={{ gap: "12px" }}>
             <span style={{ cursor: "pointer" }}>
               <Dropdown placement='bottom-right'>
                 <Dropdown.Trigger>
@@ -219,20 +239,32 @@ const Products = () => {
                     <img src='/assets/svg/settings.svg' />
                   </div>
                 </Dropdown.Trigger>
-                <Dropdown.Menu aria-label='Static Actions' items={settingsOptions} onAction={(actionKey) => console.log({ actionKey })} className={styles.dropDownMenu}>
+                <Dropdown.Menu
+                  aria-label='Static Actions'
+                  items={settingsOptions}
+                  onAction={(actionKey) => console.log({ actionKey })}
+                  className={styles.dropDownMenu}>
                   {(item) => (
-                    <Dropdown.Item key={item.key} className={styles.dropDownItem}>
+                    <Dropdown.Item
+                      key={item.key}
+                      className={styles.dropDownItem}>
                       {item.name}
                     </Dropdown.Item>
                   )}
                 </Dropdown.Menu>
               </Dropdown>
             </span>
-            <span className='pt-2 pt-md-1' style={{ cursor: "pointer" }} onClick={() => setView("grid")}>
-              <GridIcon fillColor={view === "grid" ? "#4472c4" : "#535353"} />
+            <span
+              className='pt-2 pt-md-1'
+              style={{ cursor: "pointer" }}
+              onClick={() => setView("grid")}>
+              <GridIcon fillColor={view === "grid"} />
             </span>
-            <span className='pt-2 pt-md-1' style={{ cursor: "pointer" }} onClick={() => setView("list")}>
-              <ListIcon fillColor={view === "list" ? "#4472c4" : "#535353"} />
+            <span
+              className='pt-2 pt-md-1'
+              style={{ cursor: "pointer" }}
+              onClick={() => setView("list")}>
+              <ListIcon fillColor={view === "list"} />
             </span>
           </div>
         </div>
@@ -241,11 +273,20 @@ const Products = () => {
         <>
           <div className='row pt-3'>
             {filteredItems?.map((item) => (
-              <div key={item.id} className='col-12 col-md-6 col-lg-4 mt-4'>
+              <div
+                key={item.id}
+                className='col-12 col-md-6 col-lg-4 mt-4'>
                 <div className={`card ${styles.singleCard}`}>
                   <div className='card-body p-0'>
                     <div className='d-flex align-items-center'>
-                      {item.img && <img src={item.src} className='rounded-circle mt-1' width='56px' height='56px' />}
+                      {item.img && (
+                        <img
+                          src={item.src}
+                          className='rounded-circle mt-1'
+                          width='56px'
+                          height='56px'
+                        />
+                      )}
                       <div className='ps-3 w-100'>
                         <div className='d-flex justify-content-between'>
                           <div className={`card-title ${styles.cardTitle}`}>{item.mainCode}</div>
@@ -269,7 +310,10 @@ const Products = () => {
           </div>
           {filteredItems?.length > 0 && (
             <div className={styles.paginationDiv}>
-              <PaginationComponent total={Math.ceil(totalRows / perPage)} handleChange={setPage} />
+              <PaginationComponent
+                total={Math.ceil(totalRows / perPage)}
+                handleChange={setPage}
+              />
             </div>
           )}
         </>
