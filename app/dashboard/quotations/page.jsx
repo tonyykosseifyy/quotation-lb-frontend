@@ -81,7 +81,7 @@ const Page = () => {
   };
 
   const handleRowClick = (id) => {
-    router.push(Routes.ViewQuotation.replace("${id}", id));
+    // router.push(Routes.ViewQuotation.replace("${id}", id));
   };
 
   const handleExtraInfoChange = (e) => {
