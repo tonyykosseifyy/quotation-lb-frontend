@@ -81,6 +81,15 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
     callback(data);
   }, 500);
 
+  const checkAndRemoveEmptyLine = () => {
+    const index = fieldsWatch.length - 1;
+    const lastField = fieldsWatch[index];
+    const lineType = getLineTypeByTypeId(lastField?.type);
+    if ((lineType?.name === "item" && lastField.item == null) || (lineType?.name === "combo" && lastField.combo == null)) {
+      remove(index);
+    }
+  };
+
   return (
     <>
       <div className={`${styles.tableDiv} overflow-auto`}>
@@ -215,6 +224,9 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                   <div
                     key={id}
                     onClick={() => {
+                      if (fieldsWatch.length > 0) {
+                        checkAndRemoveEmptyLine();
+                      }
                       append({ type: id });
                     }}
                     className={`${styles.footerRow}`}>
