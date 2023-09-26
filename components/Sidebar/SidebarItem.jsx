@@ -26,26 +26,27 @@ const SidebarItem = ({ sidebarItem, open }) => {
 
   return (
     <>
-      <Tooltip
-        content={
-          <SidebarItemCard
-            title={sidebarItem.title}
-            items={sidebarItem.items}
-            link={sidebarItem.link}
-            openModal={openModal}
-          />
-        }
-        leaveDelay={100}
-        hideArrow={true}
-        isDisabled={open}
-        placement={"rightStart"}
-        offset={10}
-        style={{ width: "100%" }}
-        css={{ borderRadius: 0, padding: 0 }}>
-        <div
-          className={styles.listItem}
-          style={{ width: "100%" }}>
-          <div className={styles.listItemContainer}>
+      <div className={styles.listItemContainer}>
+        <Tooltip
+          content={
+            !open && (
+              <SidebarItemCard
+                title={sidebarItem.title}
+                items={sidebarItem.items}
+                link={sidebarItem.link}
+                openModal={openModal}
+              />
+            )
+          }
+          leaveDelay={100}
+          hideArrow={true}
+          placement={"rightStart"}
+          offset={10}
+          style={{ width: "100%" }}
+          css={{ borderRadius: 0, padding: 0 }}>
+          <div
+            className={styles.listItem}
+            style={{ width: "100%" }}>
             <div className={styles.itemLogo}>
               <img
                 src={sidebarItem.logo}
@@ -83,8 +84,8 @@ const SidebarItem = ({ sidebarItem, open }) => {
               </div>
             )}
           </div>
-        </div>
-      </Tooltip>
+        </Tooltip>
+      </div>
       {isModalOpen.createItems && <CreateItemsModal closeModal={closeModal} />}
     </>
   );
