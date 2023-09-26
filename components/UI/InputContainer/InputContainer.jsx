@@ -47,6 +47,7 @@ const InputContainer = ({
   inputKey,
   decimalDigits,
   inputfontWeight,
+  autoFocus,
 }) => {
   return (
     <div
@@ -101,6 +102,7 @@ const InputContainer = ({
         inputKey={inputKey}
         decimalDigits={decimalDigits}
         inputfontWeight={inputfontWeight}
+        autoFocus={autoFocus}
       />
     </div>
   );

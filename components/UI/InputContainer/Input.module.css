@@ -1,39 +1,42 @@
 .input:focus-visible {
-    border: none;
+  border: none;
 }
 
 .inputDisabled {
-    cursor: not-allowed;
+  cursor: not-allowed;
 }
 
 .inputText {
-    font-weight: 400;
-    font-size: 14px;
-    padding: 10px;
-    height: 100%;
-    border-radius: 5px;
-    border: 1px solid var(--input-border);
-    width: 100%;
-    background-color: transparent;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 10px;
+  height: 100%;
+  border-radius: 5px;
+  border: 1px solid var(--input-border);
+  width: 100%;
+  background-color: transparent;
 }
 
 .inputText:focus {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--input-border);
-    border-color: transparent;
+  outline: none;
+  box-shadow: 0 0 0 2px var(--input-border);
+  border-color: transparent;
 }
 
+.inputTextarea {
+  height: 100px;
+}
 
 .indicationContainer {
-    color: var(--primary-text-clr);
+  color: var(--primary-text-clr);
 }
 
 .phoneContainer {
-    position: relative;
-    display: flex;
-    gap: 5px;
+  position: relative;
+  display: flex;
+  gap: 5px;
 }
 
 .countrySelect {
-    width: 45%;
+  width: 45%;
 }

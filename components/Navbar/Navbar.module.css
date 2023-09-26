@@ -16,6 +16,15 @@
   font-weight: 600;
 }
 
+.optionLink {
+  text-decoration: inherit;
+  color: inherit;
+}
+
+.optionLink:hover {
+  color: inherit;
+}
+
 .userInfo {
   display: flex;
   align-items: center;

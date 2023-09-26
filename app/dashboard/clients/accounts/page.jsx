@@ -13,15 +13,18 @@ import { Dropdown } from "@nextui-org/react";
 import Link from "next/link";
 import GeneralTab from "@/components/ClientsAccount/GeneralTab";
 import TransactionsTab from "@/components/ClientsAccount/TransactionsTab";
+import useDebounce from "@/hooks/useDebounce";
 
 const ListOfClients = () => {
   const [search, setSearch] = useState("");
+  const [buttonState, setButtonState] = useState("general");
+  const [selectedClient, setSelectedClient] = useState(null);
+
+  const debouncedSearch = useDebounce(search, 500);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
-
-  const [buttonState, setButtonState] = useState("general");
 
   const handleTabChange = (e) => {
     setButtonState(() => e.target.value);
@@ -29,14 +32,7 @@ const ListOfClients = () => {
 
   const [view, setView] = useState("grid");
 
-  const {
-    register,
-    handleSubmit,
-    watch,
-    control,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const { register, control } = useForm();
 
   return (
     <div className={`container m-0`}>
@@ -152,8 +148,19 @@ const ListOfClients = () => {
           tab
         />
       </div>
-      {buttonState === "general" && <GeneralTab />}
-      {buttonState === "transactions" && <TransactionsTab />}
+      {buttonState === "general" && (
+        <GeneralTab
+          debouncedSearch={debouncedSearch}
+          selectedClient={selectedClient}
+          setSelectedClient={setSelectedClient}
+        />
+      )}
+      {buttonState === "transactions" && (
+        <TransactionsTab
+          debouncedSearch={debouncedSearch}
+          selectedClient={selectedClient}
+        />
+      )}
       {/* { view === "grid" && ()} */}
       {/* { view === "list" && ()} */}
     </div>

@@ -114,7 +114,7 @@ const Page = () => {
   const columns = [
     {
       name: "Number",
-      maxWidth: "100px",
+      maxWidth: "120px",
       selector: (row) => row.quotationNumber,
       sortable: true,
     },

@@ -10,6 +10,7 @@ import { calculateTotalAfterDiscounts } from "@/helpers/calculate";
 import { Routes } from "@/router/routes";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 
 const permissions = {
   "edit salesperson cashing method in quotation": true,
@@ -55,8 +56,8 @@ const CreateQuotation = () => {
     if (isNaN(storeData["total"])) {
       storeData["total"] = 0;
     }
-
-    mutation.mutate(storeData);
+    console.log(storeData);
+    // mutation.mutate(storeData);
   };
 
   const mutation = useMutation(storeClient, {
@@ -64,6 +65,9 @@ const CreateQuotation = () => {
       setResetForm(true);
       toast(data.message);
       router.push(Routes.QuotationsSummary);
+    },
+    onError: (data) => {
+      toast(data.message);
     },
   });
 

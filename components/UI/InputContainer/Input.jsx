@@ -1,14 +1,14 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./Input.module.css";
 import Select, { components } from "react-select";
 import { Controller } from "react-hook-form";
 import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
 import AsyncSelect from "react-select/async";
-import { useDropzone } from "react-dropzone";
 import { ImageUpload } from "@/components/UI/InputContainer/ImageUpload";
 import { ucfirst } from "@/helpers/formatString";
+import ReactTextareaAutosize from "react-textarea-autosize";
 
 const Option = (props) => {
   const { innerProps, label, isSelected } = props;
@@ -72,8 +72,10 @@ const Input = ({
   referenceKey,
   inputKey = null,
   inputfontWeight,
+  autoFocus = false,
 }) => {
   const [extraValidations, setExtraValidations] = useState({});
+  const [textareaValue, setTextareaValue] = useState("");
 
   useEffect(() => {
     const targetedInputName = registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName;
@@ -106,7 +108,7 @@ const Input = ({
     <div
       className={`${styles.input}`}
       style={{
-        height: `${height}${heightUnit}`,
+        height: height === "none" ? "auto" : `${height}${heightUnit}`,
         width: `${width}${widthUnit}`,
       }}>
       {inputType === "text" && (
@@ -142,10 +144,11 @@ const Input = ({
             }),
           }}
           readOnly={isDisabled}
+          autoFocus={autoFocus}
         />
       )}
       {inputType === "textarea" && (
-        <textarea
+        <ReactTextareaAutosize
           required={isRequired}
           className={`${styles.inputText} ${isDisabled ? styles.inputDisabled : ""}`}
           name={inputName}

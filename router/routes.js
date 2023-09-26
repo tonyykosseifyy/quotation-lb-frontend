@@ -6,5 +6,4 @@ export const Routes = {
   ClientAccounts: "/dashboard/clients/accounts",
   CreateClient: "/dashboard/clients/create",
   ItemsSummary: "/dashboard/stock/items",
-  AdminPanel: "https://backend.rooster-me.com",
 };

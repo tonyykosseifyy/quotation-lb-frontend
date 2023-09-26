@@ -28,7 +28,9 @@ const Products = () => {
   const [page, setPage] = useState(1);
   const [view, setView] = useState("grid");
   const debouncedSearch = useDebounce(search, 500);
-  const [showModal, setShowModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState({
+    createItems: false,
+  });
 
   const getItemsResponse = useQuery({
     queryKey: ["quotations", page, perPage, debouncedSearch],
@@ -146,6 +148,20 @@ const Products = () => {
     reset,
   } = useForm();
 
+  const openModal = (modalName) => {
+    setIsModalOpen((prevState) => ({
+      ...prevState,
+      [modalName]: true,
+    }));
+  };
+
+  const closeModal = (modalName) => {
+    setIsModalOpen((prevState) => ({
+      ...prevState,
+      [modalName]: false,
+    }));
+  };
+
   return (
     <div className={`container m-0`}>
       <div className={`${styles.header} pt-4`}>
@@ -187,7 +203,7 @@ const Products = () => {
             title='Create New Product'
             fillBackground={true}
             rounded={true}
-            onClick={() => setShowModal(true)}
+            onClick={() => openModal("createItems")}
           />
         </div>
       </div>
@@ -333,7 +349,7 @@ const Products = () => {
           />
         </div>
       )}
-      {showModal && <CreateItemsModal setIsModalOpen={setShowModal} />}
+      {isModalOpen.createItems && <CreateItemsModal closeModal={closeModal} />}
     </div>
   );
 };

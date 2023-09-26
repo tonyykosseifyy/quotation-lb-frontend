@@ -12,6 +12,6 @@ export const generalTableData = [
 ];
 
 export const transactionsTableData = [
-  // { id: 1, date: "20/06/2023", serialNumber: "Q0000001", manualRef: "manual Ref", docType: "Quotation", transactionLabel: "Quotation Q0000001/Client name", currency: "USD", debit: "debit", credit: "credit", value: "1,500.00" },
-  // { id: 2, date: "20/06/2023", serialNumber: "Q0000010", manualRef: "manual Ref", docType: "Quotation", transactionLabel: "Quotation Q0000010/Client name", currency: "LBP", debit: "debit", credit: "credit", value: "10,500.00" },
+  { id: 1, date: "20/06/2023", serialNumber: "Q0000001", manualRef: "manual Ref", docType: "Quotation", transactionLabel: "Quotation Q0000001/Client name", currency: "USD", debit: "debit", credit: "credit", value: "1,500.00" },
+  { id: 2, date: "20/06/2023", serialNumber: "Q0000010", manualRef: "manual Ref", docType: "Quotation", transactionLabel: "Quotation Q0000010/Client name", currency: "LBP", debit: "debit", credit: "credit", value: "10,500.00" },
 ];

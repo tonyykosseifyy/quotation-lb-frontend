@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import { moreOptions } from "@/data/clientsAccount";
 import Ellipsis from "@/components/UI/Icons/Ellipsis";
@@ -8,13 +8,29 @@ import DataTable from "react-data-table-component";
 import { Dropdown } from "@nextui-org/react";
 import CheckBox from "@/components/UI/CheckBox/Checkbox";
 import { generalTableData } from "@/data/clientsAccount";
+import { useClients } from "@/hooks/clients/useClients";
 
-const GeneralTab = () => {
+const GeneralTab = ({ debouncedSearch, selectedClient, setSelectedClient }) => {
+  const [perPage, setPerPage] = useState(10);
+  const [page, setPage] = useState(1);
   const [checkboxValues, setCheckboxValues] = useState({
     phoneNumber: false,
     balanceUSD: false,
     balanceLBP: false,
   });
+  const [totalRows, setTotalRows] = useState(0);
+  const [filteredClients, setFilteredClients] = useState([]);
+
+  const paginationComponentOptions = {
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "All",
+  };
+
+  const paginationRowsPerPageOptions = [10, 20, 50];
+
+  const getClientsResponse = useClients(page, perPage, debouncedSearch);
+
+  const clientsData = getClientsResponse.data?.data;
 
   const handleCheckboxChange = (event) => {
     const { name, checked } = event.target;
@@ -36,10 +52,22 @@ const GeneralTab = () => {
     );
   };
 
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
+  const handlePerRowsChange = async (newPerPage) => {
+    setPerPage(newPerPage);
+  };
+
+  const handleRowClick = (id) => {
+    setSelectedClient(id);
+  };
+
   const [columns, setColumns] = useState([
     {
       name: "Code",
-      selector: (row) => row.code,
+      selector: (row) => row.clientNumber,
       allowOverflow: true,
       width: "100px",
       isVisible: true,
@@ -53,7 +81,9 @@ const GeneralTab = () => {
     {
       name: "Phone Number",
       width: "130px",
-      selector: (row) => row.phoneNumber,
+      selector: (row) => {
+        return `${row.phoneCode ?? ""} ${row.phoneNumber ?? ""}`;
+      },
       right: true,
       isVisible: true,
     },
@@ -78,84 +108,99 @@ const GeneralTab = () => {
       isVisible: true,
       selector: (row) => (
         <div className={styles.dropdownContainer}>
-          <Dropdown placement='bottom-right'>
-            <Dropdown.Trigger>
-              <div>
-                <Ellipsis />
-              </div>
-            </Dropdown.Trigger>
-            <Dropdown.Menu aria-label='Static Actions' items={moreOptions} onAction={(actionKey) => handleAction(actionKey, row.id)} className={styles.dropDownMenu}>
+          {/* <Dropdown placement='bottom-right'>
+            <Dropdown.Trigger> */}
+          <div>
+            <Ellipsis />
+          </div>
+          {/* </Dropdown.Trigger>
+            <Dropdown.Menu
+              aria-label='Static Actions'
+              items={moreOptions}
+              onAction={(actionKey) => {}}
+              className={styles.dropDownMenu}>
               {(item) => (
-                <Dropdown.Item key={item.key} className={styles.dropDownItem}>
+                <Dropdown.Item
+                  key={item.key}
+                  className={styles.dropDownItem}>
                   {item.name}
                 </Dropdown.Item>
               )}
             </Dropdown.Menu>
-          </Dropdown>
+          </Dropdown> */}
         </div>
       ),
     },
-    {
-      name: (
-        <>
-          <Dropdown placement='bottom-right'>
-            <Dropdown.Trigger>
-              <div>
-                <img src='/assets/svg/tableIcon.svg' alt='dropdown menu with checkbox' />
-              </div>
-            </Dropdown.Trigger>
-            <Dropdown.Menu
-              aria-label='Static Actions'
-              // closeOnSelect={false}
-              // selectionMode="multiple"
-              className={styles.dropDownMenu}>
-              <Dropdown.Item key='phone_number' className={styles.dropDownItem}>
-                <CheckBox
-                  inputName='phoneNumber'
-                  labelText='Phone Number'
-                  inputId='phoneNumber'
-                  value='phoneNumber'
-                  isChecked={checkboxValues.value}
-                  onChange={(event) => {
-                    handleCheckboxChange(event);
-                    handleShowHideCol("Phone Number");
-                  }}
-                />
-              </Dropdown.Item>
-              <Dropdown.Item key='balance_USD' className={styles.dropDownItem}>
-                <CheckBox
-                  inputName='balanceUSD'
-                  labelText='Balance USD'
-                  inputId='balanceUSD'
-                  value='balanceUSD'
-                  isChecked={checkboxValues.value}
-                  onChange={(event) => {
-                    handleCheckboxChange(event);
-                    handleShowHideCol("Balance USD");
-                  }}
-                />
-              </Dropdown.Item>
-              <Dropdown.Item key='balance_LBP' className={styles.dropDownItem}>
-                <CheckBox
-                  inputName='balanceLBP'
-                  labelText='Balance LBP'
-                  inputId='balanceLBP'
-                  value='balanceLBP'
-                  isChecked={checkboxValues.value}
-                  onChange={(event) => {
-                    handleCheckboxChange(event);
-                    handleShowHideCol("Balance LBP");
-                  }}
-                />
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </>
-      ),
-      isVisible: true,
-      width: "60px",
-      right: true,
-    },
+    // {
+    //   name: (
+    //     <>
+    //       <Dropdown placement='bottom-right'>
+    //         <Dropdown.Trigger>
+    //           <div>
+    //             <img
+    //               src='/assets/svg/tableIcon.svg'
+    //               alt='dropdown menu with checkbox'
+    //             />
+    //           </div>
+    //         </Dropdown.Trigger>
+    //         <Dropdown.Menu
+    //           aria-label='Static Actions'
+    //           // closeOnSelect={false}
+    //           // selectionMode="multiple"
+    //           className={styles.dropDownMenu}>
+    //           <Dropdown.Item
+    //             key='phone_number'
+    //             className={styles.dropDownItem}>
+    //             <CheckBox
+    //               inputName='phoneNumber'
+    //               labelText='Phone Number'
+    //               inputId='phoneNumber'
+    //               value='phoneNumber'
+    //               isChecked={checkboxValues.value}
+    //               onChange={(event) => {
+    //                 handleCheckboxChange(event);
+    //                 handleShowHideCol("Phone Number");
+    //               }}
+    //             />
+    //           </Dropdown.Item>
+    //           <Dropdown.Item
+    //             key='balance_USD'
+    //             className={styles.dropDownItem}>
+    //             <CheckBox
+    //               inputName='balanceUSD'
+    //               labelText='Balance USD'
+    //               inputId='balanceUSD'
+    //               value='balanceUSD'
+    //               isChecked={checkboxValues.value}
+    //               onChange={(event) => {
+    //                 handleCheckboxChange(event);
+    //                 handleShowHideCol("Balance USD");
+    //               }}
+    //             />
+    //           </Dropdown.Item>
+    //           <Dropdown.Item
+    //             key='balance_LBP'
+    //             className={styles.dropDownItem}>
+    //             <CheckBox
+    //               inputName='balanceLBP'
+    //               labelText='Balance LBP'
+    //               inputId='balanceLBP'
+    //               value='balanceLBP'
+    //               isChecked={checkboxValues.value}
+    //               onChange={(event) => {
+    //                 handleCheckboxChange(event);
+    //                 handleShowHideCol("Balance LBP");
+    //               }}
+    //             />
+    //           </Dropdown.Item>
+    //         </Dropdown.Menu>
+    //       </Dropdown>
+    //     </>
+    //   ),
+    //   isVisible: true,
+    //   width: "60px",
+    //   right: true,
+    // },
   ]);
 
   const [updateData, setUpdateData] = useState(generalTableData);
@@ -215,16 +260,37 @@ const GeneralTab = () => {
 
   const conditionalRowStyles = [
     {
-      when: (row) => row.id === 1,
+      when: (row) => row.id === selectedClient,
       style: {
         backgroundColor: "var(--table-row-lightgreen-background-clr)",
       },
     },
   ];
 
+  useEffect(() => {
+    setFilteredClients(clientsData?.data);
+    setTotalRows(clientsData?.meta.total);
+  }, [clientsData?.data]);
+
   return (
     <>
-      <DataTable columns={visibleColumns} data={updateData} customStyles={customStyles} conditionalRowStyles={conditionalRowStyles} />
+      <DataTable
+        columns={visibleColumns}
+        data={filteredClients}
+        customStyles={customStyles}
+        conditionalRowStyles={conditionalRowStyles}
+        pagination
+        paginationComponentOptions={paginationComponentOptions}
+        paginationRowsPerPageOptions={paginationRowsPerPageOptions}
+        defaultSortFieldId={1}
+        paginationServer
+        paginationTotalRows={totalRows}
+        onChangeRowsPerPage={handlePerRowsChange}
+        onChangePage={handlePageChange}
+        onRowClicked={(row) => {
+          handleRowClick(row.id);
+        }}
+      />
     </>
   );
 };

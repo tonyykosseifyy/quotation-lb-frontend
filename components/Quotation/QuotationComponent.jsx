@@ -50,6 +50,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     formState: { errors },
     getValues,
     reset,
+    setFocus,
   } = useForm({
     defaultValues: {
       manualReference: quotationData.reference,
@@ -70,8 +71,6 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
       vatLebanese: quotationData.vatLebanese,
     },
   });
-
-  console.log(quotationData);
 
   const { fields, append, remove, move } = useFieldArray({
     name: "orderLines",
@@ -111,6 +110,10 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     reset();
   };
 
+  const checkKeyDown = (e) => {
+    if (e.key === "Enter") e.preventDefault();
+  };
+
   useEffect(() => {
     if (quotationData && !shouldDisableComponents) {
       setValue("paymentTerm", quotationData.paymentTerms[0]);
@@ -146,9 +149,15 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     }
   }, [resetForm]);
 
+  useEffect(() => {
+    setFocus("clientId");
+  }, [setFocus]);
+
   return (
     <div className={`container m-0`}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        onKeyDown={checkKeyDown}>
         <div>
           <div
             className={styles.title}
@@ -210,17 +219,19 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               width='65'
               widthUnit='%'
               isDisabled={shouldDisableComponents}
+              isSearchable={true}
+              autoFocus={true}
             />
             <div className={`d-flex flex-column flex-md-row align-items-md-start ${styles.contactDetailsGap}`}>
               <div className={`${styles.labelText}`}> Contact Details</div>
               <div
                 className='d-flex flex-column'
                 style={{ gap: "5px" }}>
-                <div> {clientIdWatch ? `${clientIdWatch.street ?? ""} ${clientIdWatch.street && clientIdWatch.floor_and_building ? "," : ""} ${clientIdWatch.floor_and_building ?? ""} ` : "Street, Building, Floor"}</div>
-                <div> {clientIdWatch ? ` ${clientIdWatch.phone_code ?? ""} ${clientIdWatch.phone_number ?? ""}` : "Phone Number"}</div>
+                <div> {clientIdWatch && `${clientIdWatch.street ?? ""} ${clientIdWatch.street && clientIdWatch.floor_and_building ? "," : ""} ${clientIdWatch.floor_and_building ?? ""} `}</div>
+                <div> {clientIdWatch && ` ${clientIdWatch.phone_code ?? ""} ${clientIdWatch.phone_number ?? ""}`}</div>
                 <div>
                   {" "}
-                  VAT# <b>{clientIdWatch && clientIdWatch.tax_id && ` : ${clientIdWatch.tax_id}`}</b>
+                  <b>{clientIdWatch && clientIdWatch.tax_id && ` VAT# : ${clientIdWatch.tax_id}`}</b>
                 </div>
               </div>
             </div>
@@ -323,7 +334,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                     inputType='textarea'
                     inputName='termsAndConditions'
                     width='1230'
-                    height='73'
+                    height='none'
                     control={control}
                     register={register}
                     isDisabled={shouldDisableComponents}
@@ -468,7 +479,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
             {!shouldDisableComponents && (
               <div className={`${styles.createInvoiceButtonDiv}`}>
                 <Button
-                  title='Create Invoice'
+                  title='Create Quotation'
                   rounded={false}
                   fillBackground={true}
                   fontSize={14}

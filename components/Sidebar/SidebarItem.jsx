@@ -25,44 +25,68 @@ const SidebarItem = ({ sidebarItem, open }) => {
   };
 
   return (
-    <div className={styles.listItem}>
+    <>
       <Tooltip
-        content={<SidebarItemCard title={sidebarItem.title} items={sidebarItem.items} link={sidebarItem.link} openModal={openModal} />}
+        content={
+          <SidebarItemCard
+            title={sidebarItem.title}
+            items={sidebarItem.items}
+            link={sidebarItem.link}
+            openModal={openModal}
+          />
+        }
+        leaveDelay={100}
+        hideArrow={true}
         isDisabled={open}
         placement={"rightStart"}
-        hideArrow={true}
-        offset={25}
+        offset={10}
+        style={{ width: "100%" }}
         css={{ borderRadius: 0, padding: 0 }}>
-        <div className={styles.listItemContainer}>
-          <div className={styles.itemLogo}>
-            <img src={sidebarItem.logo} alt={sidebarItem.title} />
-          </div>
-          {open && (
-            <div>
-              <Link href={sidebarItem.link ?? "#"} style={{ textDecoration: "none" }}>
-                <div className={styles.itemText}>{sidebarItem.title}</div>
-              </Link>
-              {sidebarItem.items && (
-                <div className={styles.subHeaders}>
-                  {sidebarItem.items?.map((item, index) =>
-                    item.link ? (
-                      <Link href={item.link} style={{ textDecoration: "none" }} key={index}>
-                        <div className={styles.subHeader}>{item.title}</div>
-                      </Link>
-                    ) : (
-                      <div key={index} onClick={() => openModal(item.name)} className={styles.subHeader}>
-                        {item.title}{" "}
-                      </div>
-                    ),
-                  )}
-                </div>
-              )}
+        <div
+          className={styles.listItem}
+          style={{ width: "100%" }}>
+          <div className={styles.listItemContainer}>
+            <div className={styles.itemLogo}>
+              <img
+                src={sidebarItem.logo}
+                alt={sidebarItem.title}
+              />
             </div>
-          )}
+            {open && (
+              <div>
+                <Link
+                  href={sidebarItem.link ?? "#"}
+                  style={{ textDecoration: "none" }}>
+                  <div className={styles.itemText}>{sidebarItem.title}</div>
+                </Link>
+                {sidebarItem.items && (
+                  <div className={styles.subHeaders}>
+                    {sidebarItem.items?.map((item, index) =>
+                      item.link ? (
+                        <Link
+                          href={item.link}
+                          style={{ textDecoration: "none" }}
+                          key={index}>
+                          <div className={styles.subHeader}>{item.title}</div>
+                        </Link>
+                      ) : (
+                        <div
+                          key={index}
+                          onClick={() => openModal(item.name)}
+                          className={styles.subHeader}>
+                          {item.title}{" "}
+                        </div>
+                      ),
+                    )}
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       </Tooltip>
       {isModalOpen.createItems && <CreateItemsModal closeModal={closeModal} />}
-    </div>
+    </>
   );
 };
 

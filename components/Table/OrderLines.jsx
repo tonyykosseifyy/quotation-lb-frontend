@@ -113,7 +113,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                         <FourArrows />
                       </span>
                       {rowInputFlexList[field.type - 1].inputs.map((input, index) => {
-                        const inpType = (action === "view" && input.inputName === "item") || input.inputName === "combo" ? "select" : input.inputType;
+                        const inpType = action === "view" && (input.inputName === "item" || input.inputName === "combo") ? "select" : input.inputType;
                         return (
                           <span
                             key={index}

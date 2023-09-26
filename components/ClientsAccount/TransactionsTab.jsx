@@ -1,25 +1,56 @@
 "use client";
 
-import React, { useState } from "react";
-import styles from "./page.module.css";
+import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
 import { Dropdown } from "@nextui-org/react";
 import CheckBox from "@/components/UI/CheckBox/Checkbox";
-import { transactionsTableData } from "@/data/clientsAccount";
+import { formatDate } from "@/helpers/formatDate";
+import { useQuery } from "@tanstack/react-query";
+import axiosClient from "@/api/axiosClient";
 
-const TransactionsTab = () => {
+const TransactionsTab = ({ debouncedSearch, selectedClient }) => {
+  const [perPage, setPerPage] = useState(10);
+  const [page, setPage] = useState(1);
   const [checkboxValues, setCheckboxValues] = useState({
-    phoneNumber: false,
-    balanceUSD: false,
-    balanceLBP: false,
+    date: false,
+    manualReference: false,
+    quotationNumber: false,
+    transactionLabel: false,
+    currency: false,
+    total: false,
+  });
+  const [totalRows, setTotalRows] = useState(0);
+  const [filteredQuotations, setFilteredQuotations] = useState([]);
+
+  const paginationComponentOptions = {
+    selectAllRowsItem: true,
+    selectAllRowsItemText: "All",
+  };
+
+  const paginationRowsPerPageOptions = [10, 20, 50];
+
+  const getQuotationsResponse = useQuery({
+    queryKey: ["clientQuotations", selectedClient, page, perPage, debouncedSearch],
+    queryFn: () =>
+      axiosClient.get(`quotations/clients/${selectedClient}`, {
+        params: {
+          page: page,
+          perPage: perPage,
+          search: debouncedSearch,
+        },
+      }),
+    keepPreviousData: true,
   });
 
-  const handleCheckboxChange = (event) => {
-    const { name, checked } = event.target;
-    setCheckboxValues((prevState) => ({
-      ...prevState,
-      [name]: checked,
-    }));
+  const quotationsData = getQuotationsResponse.data?.data;
+
+  const handleCheckboxChange = (name) => {
+    setCheckboxValues((prevState) => {
+      return {
+        ...prevState,
+        [name]: !prevState[name],
+      };
+    });
   };
 
   const handleShowHideCol = (columnName) => {
@@ -34,123 +65,114 @@ const TransactionsTab = () => {
     );
   };
 
+  const handlePageChange = (page) => {
+    setPage(page);
+  };
+
+  const handlePerRowsChange = async (newPerPage) => {
+    setPerPage(newPerPage);
+  };
+
+  const handleRowClick = (id) => {
+    // router.push(Routes.ViewQuotation.replace("${id}", id));
+  };
+
   const [columns, setColumns] = useState([
     {
       name: "Date",
-      selector: (row) => row.date,
+      selector: (row) => formatDate(row.createdAt.split("T")[0], "/"),
       allowOverflow: true,
       width: "100px",
       isVisible: true,
     },
     {
       name: "Serial #",
-      width: "100px",
-      selector: (row) => row.serialNumber,
+      maxWidth: "120px",
+      selector: (row) => row.quotationNumber,
       isVisible: true,
     },
     {
-      name: "Manual Ref",
-      width: "130px",
-      selector: (row) => row.manualRef,
+      name: "Manual Reference",
+      maxWidth: "150px",
+      selector: (row) => row.manualReference,
       isVisible: true,
     },
     {
       name: "Doctype",
       width: "110px",
-      selector: (row) => row.docType,
+      selector: (row) => "Quotation",
       isVisible: true,
     },
     {
       name: "Transaction Label",
       maxWidth: "auto",
-      selector: (row) => row.transactionLabel,
+      selector: (row) => `${row.quotationNumber} / ${row.client.name}`,
       isVisible: true,
     },
     {
       name: "Currency",
       width: "100px",
       isVisible: true,
-      selector: (row) => row.currency,
+      selector: (row) => row.currency.name,
     },
-    {
-      name: "Debit",
-      width: "90px",
-      isVisible: true,
-      selector: (row) => row.debit,
-    },
-    {
-      name: "Credit",
-      width: "90px",
-      isVisible: true,
-      selector: (row) => row.credit,
-    },
+    // {
+    //   name: "Debit",
+    //   width: "90px",
+    //   isVisible: true,
+    //   selector: (row) => row.debit,
+    // },
+    // {
+    //   name: "Credit",
+    //   width: "90px",
+    //   isVisible: true,
+    //   selector: (row) => row.credit,
+    // },
     {
       name: "Value",
       width: "90px",
       isVisible: true,
-      selector: (row) => row.value,
+      selector: (row) => row.total,
     },
-    {
-      name: (
-        <>
-          <Dropdown placement='bottom-right'>
-            <Dropdown.Trigger>
-              <div>
-                <img src='/assets/svg/tableIcon.svg' alt='dropdown menu with checkbox' />
-              </div>
-            </Dropdown.Trigger>
-            <Dropdown.Menu
-              aria-label='Static Actions'
-              // closeOnSelect={false}
-              // selectionMode="multiple"
-              className={styles.dropDownMenu}>
-              <Dropdown.Item key='manual_ref' className={styles.dropDownItem}>
-                <CheckBox
-                  inputName='manualRef'
-                  labelText='Manual Ref'
-                  inputId='manualRef'
-                  value='manualRef'
-                  isChecked={checkboxValues.value}
-                  onChange={(event) => {
-                    handleCheckboxChange(event);
-                    handleShowHideCol("Manual Ref");
-                  }}
-                />
-              </Dropdown.Item>
-              <Dropdown.Item key='debit' className={styles.dropDownItem}>
-                <CheckBox
-                  inputName='debit'
-                  labelText='Debit'
-                  inputId='debit'
-                  value='debit'
-                  isChecked={checkboxValues.value}
-                  onChange={(event) => {
-                    handleCheckboxChange(event);
-                    handleShowHideCol("Debit");
-                  }}
-                />
-              </Dropdown.Item>
-              <Dropdown.Item key='credit' className={styles.dropDownItem}>
-                <CheckBox
-                  inputName='credit'
-                  labelText='Credit'
-                  inputId='credit'
-                  value='credit'
-                  isChecked={checkboxValues.value}
-                  onChange={(event) => {
-                    handleCheckboxChange(event);
-                    handleShowHideCol("Credit");
-                  }}
-                />
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </>
-      ),
-      isVisible: true,
-      width: "60px",
-      right: true,
-    },
+    // {
+    //   name: (
+    //     <>
+    //       <Dropdown placement='bottom-right'>
+    //         <Dropdown.Trigger>
+    //           <div>
+    //             <img
+    //               src='/assets/svg/tableIcon.svg'
+    //               alt='dropdown menu with checkbox'
+    //             />
+    //           </div>
+    //         </Dropdown.Trigger>
+    //         <Dropdown.Menu
+    //           aria-label='Static Actions'
+    //           closeOnSelect={false}
+    //           selectionMode='multiple'
+    //           className={styles.dropDownMenu}>
+    //           <Dropdown.Item
+    //             key='manual_ref'
+    //             className={styles.dropDownItem}>
+    //             <CheckBox
+    //               inputName='manualRef'
+    //               labelText='Manual Ref'
+    //               inputId='manualRef'
+    //               value='manualRef'
+    //               isChecked={checkboxValues.value}
+    //               onChange={() => {
+    //                 handleCheckboxChange("manualReference");
+    //                 handleShowHideCol("Manual Reference");
+    //               }}
+    //             />
+    //           </Dropdown.Item>
+    //         </Dropdown.Menu>
+    //       </Dropdown>
+    //     </>
+    //   ),
+    //   isVisible: true,
+    //   width: "60px",
+    //   right: true,
+    // },
   ]);
 
   const visibleColumns = columns.filter((col) => col.isVisible === true);
@@ -195,9 +217,30 @@ const TransactionsTab = () => {
     },
   ];
 
+  useEffect(() => {
+    setFilteredQuotations(quotationsData?.data);
+    setTotalRows(quotationsData?.meta.total);
+  }, [quotationsData?.data]);
+
   return (
     <>
-      <DataTable columns={visibleColumns} data={transactionsTableData} customStyles={customStyles} conditionalRowStyles={conditionalRowStyles} />
+      <DataTable
+        columns={visibleColumns}
+        data={filteredQuotations}
+        customStyles={customStyles}
+        conditionalRowStyles={conditionalRowStyles}
+        pagination
+        paginationComponentOptions={paginationComponentOptions}
+        paginationRowsPerPageOptions={paginationRowsPerPageOptions}
+        defaultSortFieldId={1}
+        paginationServer
+        paginationTotalRows={totalRows}
+        onChangeRowsPerPage={handlePerRowsChange}
+        onChangePage={handlePageChange}
+        onRowClicked={(row) => {
+          handleRowClick(row.id);
+        }}
+      />
     </>
   );
 };

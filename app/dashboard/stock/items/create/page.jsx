@@ -25,11 +25,17 @@ import Input from "@/components/UI/InputContainer/Input";
 
 const InputField = ({ watchedValues, register, label, inputName, inputNameQuantity, referenceField }) => {
   return (
-    <div className='d-flex flex-column flex-md-row align-items-md-center pe-md-5' style={{ gap: "10px" }}>
-      <div className={`${styles.labelText}`} style={{ width: "126px" }}>
+    <div
+      className='d-flex flex-column flex-md-row align-items-md-center pe-md-5'
+      style={{ gap: "10px" }}>
+      <div
+        className={`${styles.labelText}`}
+        style={{ width: "126px" }}>
         {label}
       </div>
-      <div className='d-flex flex-row align-items-center' style={{ gap: "10px" }}>
+      <div
+        className='d-flex flex-row align-items-center'
+        style={{ gap: "10px" }}>
         <input
           name={inputName}
           {...register(inputName, {
@@ -40,9 +46,18 @@ const InputField = ({ watchedValues, register, label, inputName, inputNameQuanti
         />
         {inputNameQuantity && (
           <>
-            <InputContainer inputPlaceholder='' isRequired={true} inputType='text' inputName={inputNameQuantity} register={register} width='154' />
+            <InputContainer
+              inputPlaceholder=''
+              isRequired={true}
+              inputType='text'
+              inputName={inputNameQuantity}
+              register={register}
+              width='154'
+            />
             {referenceField && (
-              <div className='ps-3' style={{ fontWeight: "700", fontSize: "13px" }}>
+              <div
+                className='ps-3'
+                style={{ fontWeight: "700", fontSize: "13px" }}>
                 {`${watchedValues[referenceField] ?? ""} PER ${watchedValues[inputName] ?? ""}`}
               </div>
             )}
@@ -83,7 +98,7 @@ const customStyles = {
 const modalStyle = {
   overlay: {
     backgroundColor: "var(--modal-overlay-background-clr)",
-    zIndex: 100,
+    zIndex: 200,
   },
   content: {
     top: "50%",
@@ -186,7 +201,12 @@ const CreateItems = ({ closeModal }) => {
       name: "Print on Invoice",
       grow: 2,
       selector: (row, index) => {
-        return <CheckBox onChange={() => handleCodePrintChange(index)} isChecked={row.print} />;
+        return (
+          <CheckBox
+            onChange={() => handleCodePrintChange(index)}
+            isChecked={row.print}
+          />
+        );
       },
       allowOverflow: true,
       center: true,
@@ -197,7 +217,17 @@ const CreateItems = ({ closeModal }) => {
       selector: (row, index) => (
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           {row.icon}
-          {row.type !== "main" ? <Input inputType={"text"} register={register} registerArrayName={"itemCodes"} registerArrayKey={"code"} registerArrayIndex={index} /> : row.code}
+          {row.type !== "main" ? (
+            <Input
+              inputType={"text"}
+              register={register}
+              registerArrayName={"itemCodes"}
+              registerArrayKey={"code"}
+              registerArrayIndex={index}
+            />
+          ) : (
+            row.code
+          )}
         </div>
       ),
     },
@@ -219,7 +249,13 @@ const CreateItems = ({ closeModal }) => {
       name: "",
       grow: 0.1,
       center: true,
-      selector: (row, index) => row.type !== "main" && <Trashcan fillColor={"var(--primary-clr)"} onClick={() => handleDeleteCode(index)} />,
+      selector: (row, index) =>
+        row.type !== "main" && (
+          <Trashcan
+            fillColor={"var(--primary-clr)"}
+            onClick={() => handleDeleteCode(index)}
+          />
+        ),
     },
   ];
 
@@ -441,14 +477,34 @@ const CreateItems = ({ closeModal }) => {
   };
 
   return (
-    <ModalComponent title="Product's Name" titlePaddingBottom='20px' isOpen={showModal} onRequestClose={handleRequestClose} style={modalStyle}>
+    <ModalComponent
+      title="Product's Name"
+      titlePaddingBottom='20px'
+      isOpen={showModal}
+      onRequestClose={handleRequestClose}
+      style={modalStyle}>
       <div className={`d-flex-wrap`}>
         {buttonTabs.map(({ title, fillBackground, value }) => {
-          return <Button key={title} title={title} fillBackground={fillBackground} onClick={handleExtraInfo} value={value} type='button' paddingLeft='35px' paddingRight='35px' tab />;
+          return (
+            <Button
+              key={title}
+              title={title}
+              fillBackground={fillBackground}
+              onClick={handleExtraInfo}
+              value={value}
+              type='button'
+              paddingLeft='35px'
+              paddingRight='35px'
+              tab
+            />
+          );
         })}
       </div>
       <div>
-        <form id='createNewProduct' onSubmit={handleSubmit(onSubmit)} className={`${styles.form}`}>
+        <form
+          id='createNewProduct'
+          onSubmit={handleSubmit(onSubmit)}
+          className={`${styles.form}`}>
           <div>
             {buttonState === "general" && (
               <>
@@ -456,29 +512,86 @@ const CreateItems = ({ closeModal }) => {
                   <div className={`row ${styles.circle} pe-5 ps-2`}>
                     <div className={styles.bigCircle}>
                       <div className={styles.smallCircle}>
-                        <img src='/assets/svg/plus-blue.svg' alt='' />
+                        <img
+                          src='/assets/svg/plus-blue.svg'
+                          alt=''
+                        />
                       </div>
                     </div>
                   </div>
                   <div className={`row ${styles.circle}`}>
                     <div className={styles.bigCircle}>
                       <div className={styles.smallCircle}>
-                        <img src='/assets/svg/plus-blue.svg' alt='' />
+                        <img
+                          src='/assets/svg/plus-blue.svg'
+                          alt=''
+                        />
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className={`pt-4`}>
-                  <div className={`d-flex flex-column flex-md-row`} style={{ gap: "15px" }}>
+                  <div
+                    className={`d-flex flex-column flex-md-row`}
+                    style={{ gap: "15px" }}>
                     <div className={`${styles.inputRow}`}>
-                      <InputContainer label='Type' isRequired={true} inputPlaceholder='' inputType='select' inputName='itemTypeId' selectOptions={createItemData?.itemTypes} register={register} control={control} />
-                      <InputContainer label='Code' isRequired={true} inputPlaceholder='' inputType='text' inputName='mainCode' register={register} onChange={handleMainCodeChange} />
-                      <InputContainer label='Short Description' inputPlaceholder='' inputType='text' inputName='shortDescription' register={register} />
-                      <InputContainer label='Taxation' inputPlaceholder='' inputType='select' inputName='taxationGroupId' selectOptions={createItemData?.taxationGroups} register={register} control={control} optionName={"code"} />
+                      <InputContainer
+                        label='Type'
+                        isRequired={true}
+                        inputPlaceholder=''
+                        inputType='select'
+                        inputName='itemTypeId'
+                        selectOptions={createItemData?.itemTypes}
+                        register={register}
+                        control={control}
+                      />
+                      <InputContainer
+                        label='Code'
+                        isRequired={true}
+                        inputPlaceholder=''
+                        inputType='text'
+                        inputName='mainCode'
+                        register={register}
+                        onChange={handleMainCodeChange}
+                      />
+                      <InputContainer
+                        label='Short Description'
+                        inputPlaceholder=''
+                        inputType='text'
+                        inputName='shortDescription'
+                        register={register}
+                      />
+                      <InputContainer
+                        label='Taxation'
+                        inputPlaceholder=''
+                        inputType='select'
+                        inputName='taxationGroupId'
+                        selectOptions={createItemData?.taxationGroups}
+                        register={register}
+                        control={control}
+                        optionName={"code"}
+                      />
                     </div>
                     <div className={`d-flex flex-column pt-md-5 ps-md-3 ${styles.descriptionAndLanguageInputColumn}`}>
-                      <InputContainer label='Main Description' isRequired={true} inputPlaceholder='' inputType='text' inputName='mainDescription' width={70} widthUnit='%' register={register} />
-                      <InputContainer label='Second Language' inputPlaceholder='' inputType='text' inputName='secondLanguageDescription' width={70} widthUnit='%' register={register} />
+                      <InputContainer
+                        label='Main Description'
+                        isRequired={true}
+                        inputPlaceholder=''
+                        inputType='text'
+                        inputName='mainDescription'
+                        width={70}
+                        widthUnit='%'
+                        register={register}
+                      />
+                      <InputContainer
+                        label='Second Language'
+                        inputPlaceholder=''
+                        inputType='text'
+                        inputName='secondLanguageDescription'
+                        width={70}
+                        widthUnit='%'
+                        register={register}
+                      />
                     </div>
                   </div>
                   <div className='d-flex flex-column pt-4'>
@@ -486,8 +599,14 @@ const CreateItems = ({ closeModal }) => {
                     <div className={`${styles.subRefRadioButtons} pt-2`}>
                       {createItemData?.subrefs.map((subref) => {
                         return (
-                          <div key={subref.id} className=''>
-                            <RadioButton inputName='subRef' labelText={ucfirst(subref.name)} value={subref.id} />
+                          <div
+                            key={subref.id}
+                            className=''>
+                            <RadioButton
+                              inputName='subRef'
+                              labelText={ucfirst(subref.name)}
+                              value={subref.id}
+                            />
                           </div>
                         );
                       })}
@@ -496,12 +615,30 @@ const CreateItems = ({ closeModal }) => {
                   <div className={`${styles.checkBoxDiv} pt-4`}>
                     {checkboxInfo.map(({ inputName, labelText }) => {
                       return (
-                        <div key={inputName} className=''>
-                          <CheckBox inputName={inputName} labelText={labelText} inputId={inputName} isChecked={checkboxValues.value} onChange={handleCheckboxChange} labelFontWeight={600} />
+                        <div
+                          key={inputName}
+                          className=''>
+                          <CheckBox
+                            inputName={inputName}
+                            labelText={labelText}
+                            inputId={inputName}
+                            isChecked={checkboxValues.value}
+                            onChange={handleCheckboxChange}
+                            labelFontWeight={600}
+                          />
                         </div>
                       );
                     })}
-                    {checkboxValues.discontinued === true && <InputContainer label='' isRequired={true} inputPlaceholder='DATE' inputType='text' inputName='lastAllowedPurchaseDate' register={register} />}
+                    {checkboxValues.discontinued === true && (
+                      <InputContainer
+                        label=''
+                        isRequired={true}
+                        inputPlaceholder='DATE'
+                        inputType='text'
+                        inputName='lastAllowedPurchaseDate'
+                        register={register}
+                      />
+                    )}
                   </div>
                 </div>
               </>
@@ -529,10 +666,17 @@ const CreateItems = ({ closeModal }) => {
                           <AddButton label={"Create Code"} />
                         </div>
                       </Dropdown.Trigger>
-                      <Dropdown.Menu aria-label='Static Actions' items={altCodesDropdownItems} className={styles.dropDownMenu}>
+                      <Dropdown.Menu
+                        aria-label='Static Actions'
+                        items={altCodesDropdownItems}
+                        className={styles.dropDownMenu}>
                         {(item, dropdownIndex) => (
-                          <Dropdown.Item key={dropdownIndex} className={styles.altCodesDropdownItem}>
-                            <div className={styles.altCodesDropdownItemName} onClick={() => handleCreateAltCode(item.key, item.icon)}>
+                          <Dropdown.Item
+                            key={dropdownIndex}
+                            className={styles.altCodesDropdownItem}>
+                            <div
+                              className={styles.altCodesDropdownItemName}
+                              onClick={() => handleCreateAltCode(item.key, item.icon)}>
                               {item.icon} {item.name}
                             </div>
                           </Dropdown.Item>
@@ -545,11 +689,15 @@ const CreateItems = ({ closeModal }) => {
             )}
             {buttonState === "grouping" && (
               <>
-                <div className={`row pt-5`} style={{ gap: "15px" }}>
+                <div
+                  className={`row pt-5`}
+                  style={{ gap: "15px" }}>
                   {itemGroupFields.map((field, index) => {
                     return (
                       <>
-                        <div className={`${styles.inputRow3} col-sm-6`} key={field.id}>
+                        <div
+                          className={`${styles.inputRow3} col-sm-6`}
+                          key={field.id}>
                           <InputContainer
                             label={`Grouping ${numbering[index + 1]}`}
                             isRequired={true}
@@ -601,33 +749,84 @@ const CreateItems = ({ closeModal }) => {
             )}
             {buttonState === "procurement" && (
               <>
-                <div className={`d-flex flex-column flex-md-row pt-5 pb-md-5`} style={{ gap: "20px", width: "100%" }}>
-                  <div className='d-flex flex-column flex-md-row align-items-md-center pe-md-5' style={{ gap: "10px" }}>
+                <div
+                  className={`d-flex flex-column flex-md-row pt-5 pb-md-5`}
+                  style={{ gap: "20px", width: "100%" }}>
+                  <div
+                    className='d-flex flex-column flex-md-row align-items-md-center pe-md-5'
+                    style={{ gap: "10px" }}>
                     <div className={`${styles.labelText} pe-5`}>Unit Cost</div>
-                    <div className='d-flex flex-row' style={{ gap: "10px" }}>
-                      <InputContainer inputPlaceholder='100.50' inputType='number' inputName='unitCost' register={register} textAlign='end' decimalDigits={2} />
-                      <InputContainer inputPlaceholder='USD' inputType='select' inputName='currencyId' selectOptions={createItemData?.currencies} register={register} control={control} width={80} textAlign='end' />
+                    <div
+                      className='d-flex flex-row'
+                      style={{ gap: "10px" }}>
+                      <InputContainer
+                        inputType='number'
+                        inputName='unitCost'
+                        register={register}
+                        textAlign='end'
+                        decimalDigits={2}
+                      />
+                      <InputContainer
+                        inputPlaceholder='USD'
+                        inputType='select'
+                        inputName='currencyId'
+                        selectOptions={createItemData?.currencies}
+                        register={register}
+                        control={control}
+                        width={80}
+                        textAlign='end'
+                      />
                     </div>
                   </div>
                   <div style={{ width: "15%" }}>
-                    <InputContainer label='Decimal Cost' inputPlaceholder='2' inputType='number' inputName='decimalCost' register={register} width={60} textAlign='end' />
+                    <InputContainer
+                      label='Decimal Cost'
+                      inputPlaceholder='2'
+                      inputType='number'
+                      inputName='decimalCost'
+                      register={register}
+                      width={60}
+                      textAlign='end'
+                    />
                   </div>
                 </div>
               </>
             )}
             {buttonState === "pricing" && (
               <>
-                <div className={`d-flex flex-column flex-md-row pt-5`} style={{ gap: "20px" }}>
-                  <div className={`d-flex flex-column`} style={{ gap: "20px", width: "35%" }}>
+                <div
+                  className={`d-flex flex-column flex-md-row pt-5`}
+                  style={{ gap: "20px" }}>
+                  <div
+                    className={`d-flex flex-column`}
+                    style={{ gap: "20px", width: "35%" }}>
                     <div style={{ width: "100%" }}>
-                      <InputContainer label='Unit Price' inputPlaceholder='' inputType='number' inputName='unitPrice' register={register} />
+                      <InputContainer
+                        label='Unit Price'
+                        inputPlaceholder=''
+                        inputType='number'
+                        inputName='unitPrice'
+                        register={register}
+                      />
                     </div>
                     <div style={{ width: "100%" }}>
-                      <InputContainer label='Disc. line limit %' inputPlaceholder='' inputType='text' inputName='lineDiscountLimit' register={register} />
+                      <InputContainer
+                        label='Disc. line limit %'
+                        inputPlaceholder=''
+                        inputType='text'
+                        inputName='lineDiscountLimit'
+                        register={register}
+                      />
                     </div>
                   </div>
                   <div style={{ width: "35%" }}>
-                    <InputContainer label='Decimal Price' inputPlaceholder='' inputType='number' inputName='decimalPrice' register={register} />
+                    <InputContainer
+                      label='Decimal Price'
+                      inputPlaceholder=''
+                      inputType='number'
+                      inputName='decimalPrice'
+                      register={register}
+                    />
                   </div>
                 </div>
               </>
@@ -638,21 +837,33 @@ const CreateItems = ({ closeModal }) => {
                   <div className='d-flex flex-column ps-md-3'>
                     <div className={`pb-2 ${styles.subRefTitle}`}>Transactional Quantity</div>
                     <div>
-                      <DataTable columns={transactionTableColumns} data={transactionalQuantity} customStyles={customStyles} conditionalRowStyles={transactionalQuantityConditionalRowStyles} />
+                      <DataTable
+                        columns={transactionTableColumns}
+                        data={transactionalQuantity}
+                        customStyles={customStyles}
+                        conditionalRowStyles={transactionalQuantityConditionalRowStyles}
+                      />
                     </div>
                   </div>
 
                   <div className={`d-flex flex-column ${styles.warehousesDiv}`}>
                     <div className={`pb-2 ${styles.subRefTitle}`}>Warehouses</div>
                     <div>
-                      <DataTable columns={warehousesTableColumns} data={warehouses} customStyles={customStyles} conditionalRowStyles={warehousesConditionalRowStyles} />
+                      <DataTable
+                        columns={warehousesTableColumns}
+                        data={warehouses}
+                        customStyles={customStyles}
+                        conditionalRowStyles={warehousesConditionalRowStyles}
+                      />
                     </div>
                   </div>
                 </div>
               </>
             )}
             {buttonState === "shipping" && (
-              <div className='pt-5 d-flex flex-column' style={{ gap: "15px" }}>
+              <div
+                className='pt-5 d-flex flex-column'
+                style={{ gap: "15px" }}>
                 <div style={{ width: "345px" }}>
                   <InputContainer
                     label='Package type'
@@ -679,8 +890,18 @@ const CreateItems = ({ closeModal }) => {
                     referenceField={field.referenceField}
                   />
                 ))}
-                <div className='pt-3' style={{ width: "180px" }}>
-                  <InputContainer label='Decimal Quantity' inputPlaceholder='' inputType='number' inputName='decimalQuantity' register={register} width='50' height='35' />
+                <div
+                  className='pt-3'
+                  style={{ width: "180px" }}>
+                  <InputContainer
+                    label='Decimal Quantity'
+                    inputPlaceholder=''
+                    inputType='number'
+                    inputName='decimalQuantity'
+                    register={register}
+                    width='50'
+                    height='35'
+                  />
                 </div>
               </div>
             )}
@@ -694,7 +915,15 @@ const CreateItems = ({ closeModal }) => {
               Discard
             </div>
             <div className=''>
-              <Button title='Save' rounded={false} fillBackground={true} paddingTop={10} paddingBottom={10} paddingRight={64} paddingLeft={64} />
+              <Button
+                title='Save'
+                rounded={false}
+                fillBackground={true}
+                paddingTop={10}
+                paddingBottom={10}
+                paddingRight={64}
+                paddingLeft={64}
+              />
             </div>
           </div>
         </form>
