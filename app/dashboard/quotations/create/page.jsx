@@ -56,8 +56,7 @@ const CreateQuotation = () => {
     if (isNaN(storeData["total"])) {
       storeData["total"] = 0;
     }
-    console.log(storeData);
-    // mutation.mutate(storeData);
+    mutation.mutate(storeData);
   };
 
   const mutation = useMutation(storeClient, {
