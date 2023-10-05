@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./QuotationComponent.module.css";
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import Button from "@/components/UI/Button/Button";
@@ -11,12 +11,13 @@ import { useFieldArray, useForm } from "react-hook-form";
 import Sortable from "sortablejs";
 import { VAT, VAT_LEB_RATE } from "@/data/constants";
 
-const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData, permissions = [], resetForm, setResetForm = () => {} }) => {
+const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData, permissions = [], resetForm, setResetForm = () => {}, ...props }) => {
   const [buttonState, setButtonState] = useState("order");
   const [indices, setIndices] = useState({ oldIndex: null, newIndex: null });
   const [quotationTotalBeforeVat, setQuotationTotalBeforeVat] = useState(0);
   const [activeStep, setActiveStep] = useState(1);
 
+  console.log(props);
   const shouldDisableComponents = action === "view";
 
   const actionButtons = [
@@ -119,8 +120,15 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
       setValue("paymentTerm", quotationData.paymentTerms[0]);
       setValue("priceList", quotationData.pricelists[0]);
       setValue("currency", quotationData.currencies[0]);
+      console.log("sdww", props.createdClient && props.createdClient.isNew);
     }
   }, [quotationData, setValue]);
+
+  useEffect(() => {
+    if (props.createdClient && props.createdClient.isNew) {
+      setValue("clientId", props.createdClient);
+    }
+  }, [props.createdClient]);
 
   useEffect(() => {
     if (quotationData && action !== "create") {
@@ -154,7 +162,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
   }, [setFocus]);
 
   return (
-    <div className={`container m-0`}>
+    <div>
       <form
         onSubmit={handleSubmit(onSubmit)}
         onKeyDown={checkKeyDown}>
@@ -211,16 +219,21 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               spaceBetween={false}
               isRequired={true}
               inputPlaceholder='Search...'
-              inputType='select'
-              inputName='clientId'
-              selectOptions={quotationData.clients}
+              inputType={"asyncCreatableSelect"}
+              inputName={"clientId"}
+              width='100'
+              height='100'
+              heightUnit='%'
+              widthUnit='%'
+              fontWeight='700'
+              fontSize='12px'
               control={control}
               register={register}
-              width='65'
-              widthUnit='%'
+              loadOptions={props.loadClientOptions}
               isDisabled={shouldDisableComponents}
-              isSearchable={true}
-              autoFocus={true}
+              setValue={setValue}
+              onCreateOption={props.handleCreateClient}
+              defaultOptions={props.defaultClientOptions}
             />
             <div className={`d-flex flex-column flex-md-row align-items-md-start ${styles.contactDetailsGap}`}>
               <div className={`${styles.labelText}`}> Contact Details</div>
@@ -317,7 +330,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               footerList={quotationData.lineTypes}
               footerPaddingTop={"43px"}
               footerPaddingLeft={"48px"}
-              tableWidth={"1296px"}
+              tableWidth={"100%"}
               fieldsWatch={fieldsWatch}
               setValue={setValue}
               handleQuotationTotalChange={handleQuotationTotalChange}

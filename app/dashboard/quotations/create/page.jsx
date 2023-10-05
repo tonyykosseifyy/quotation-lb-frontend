@@ -10,7 +10,10 @@ import { calculateTotalAfterDiscounts } from "@/helpers/calculate";
 import { Routes } from "@/router/routes";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
-import { useForm } from "react-hook-form";
+import debounce from "lodash.debounce";
+import { storeClient } from "@/controllers/clients.controller";
+import { useClients } from "@/hooks/clients/useClients";
+import { storeQuotation } from "@/controllers/quotations.controller";
 
 const permissions = {
   "edit salesperson cashing method in quotation": true,
@@ -18,19 +21,17 @@ const permissions = {
   "edit salesperson commission in quotation": true,
 };
 
-const storeClient = async (payload) => {
-  const response = await axiosClient.post(`/quotations`, payload, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  return response.data;
-};
-
 const CreateQuotation = () => {
   const [resetForm, setResetForm] = useState(false);
+  const [createdClient, setCreatedClient] = useState({});
 
   const router = useRouter();
+
+  const { mutate: mutateClient } = useMutation(storeClient, {
+    onSuccess: (data) => {
+      setCreatedClient({ ...data.data, isNew: true });
+    },
+  });
 
   const createQuotationResponse = useQuery({
     queryKey: ["createQuotation"],
@@ -56,10 +57,11 @@ const CreateQuotation = () => {
     if (isNaN(storeData["total"])) {
       storeData["total"] = 0;
     }
-    mutation.mutate(storeData);
+    // mutation.mutate(storeData);
+    console.log(storeData);
   };
 
-  const mutation = useMutation(storeClient, {
+  const mutation = useMutation(storeQuotation, {
     onSuccess: (data) => {
       setResetForm(true);
       toast(data.message);
@@ -69,6 +71,35 @@ const CreateQuotation = () => {
       toast(data.message);
     },
   });
+
+  const loadClientOptions = (inputValue, callback) => {
+    debouncedLoadClientOptions(inputValue, callback);
+  };
+  const debouncedLoadClientOptions = debounce(async (inputValue, callback) => {
+    const response = await axiosClient.get(`clients`, {
+      params: {
+        perPage: 5,
+        isPaginated: false,
+        name: inputValue,
+      },
+    });
+    const data = await response.data.data;
+
+    callback(data);
+  }, 500);
+
+  const getClientsDefaultResponse = useClients(1, 5, "");
+
+  const clientsDefaultData = getClientsDefaultResponse.data?.data;
+
+  const handleCreateClient = (name) => {
+    const payload = {
+      name,
+      clientType: "individual",
+      addressType: "contact",
+    };
+    mutateClient(payload);
+  };
 
   if (createQuotationResponse.isLoading) {
     return <>Loading...</>;
@@ -88,6 +119,10 @@ const CreateQuotation = () => {
       permissions={permissions}
       resetForm={resetForm}
       setResetForm={setResetForm}
+      loadClientOptions={loadClientOptions}
+      handleCreateClient={handleCreateClient}
+      defaultClientOptions={clientsDefaultData?.data}
+      createdClient={createdClient}
     />
   );
 };

@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./Input.module.css";
 import Select, { components } from "react-select";
+import AsyncCreatableSelect from "react-select/async-creatable";
 import { Controller } from "react-hook-form";
 import PhoneCodeSelect from "@/components/UI/InputContainer/PhoneCodeSelect";
 import AsyncSelect from "react-select/async";
@@ -73,9 +74,10 @@ const Input = ({
   inputKey = null,
   inputfontWeight,
   autoFocus = false,
+  onCreateOption = () => {},
+  defaultOptions,
 }) => {
   const [extraValidations, setExtraValidations] = useState({});
-  const [textareaValue, setTextareaValue] = useState("");
 
   useEffect(() => {
     const targetedInputName = registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName;
@@ -282,9 +284,61 @@ const Input = ({
               components={{
                 IndicatorSeparator: () => null,
               }}
-              required={isRequired}
-              value={value}
-              defaultValue={initialValue}
+            />
+          )}
+        />
+      )}
+      {inputType === "asyncCreatableSelect" && (
+        <Controller
+          name={registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName}
+          control={control}
+          defaultValue={initialValue}
+          render={({ field }) => (
+            <AsyncCreatableSelect
+              {...field}
+              styles={{
+                control: (baseStyles, state) => ({
+                  ...baseStyles,
+                  borderRadius: 5,
+                  borderColor: inputBorderColor ? "var(--primary-clr)" : "var(--input-border)",
+                  "&:hover": {
+                    borderColor: "none",
+                  },
+                  "&:focus": {
+                    borderColor: "var(--primary-clr)",
+                  },
+                  "&:active": {
+                    borderColor: "var(--primary-clr)",
+                  },
+                  backgroundColor: "transparent",
+                  boxShadow: "",
+                }),
+                valueContainer: (baseStyles, state) => ({
+                  ...baseStyles,
+                  fontSize: 14,
+                  fontWeight: 400,
+                }),
+                placeholder: (baseStyles, state) => ({
+                  ...baseStyles,
+                  color: placeholderColor ? "#868686" : "#C8C8C8",
+                  fontStyle: placeholderStyle ? "normal" : "italic",
+                  fontWeight: placeholderWeight ? placeholderWeight : "",
+                  fontSize: fontSize ? fontSize : "14px",
+                  dropdownIndicator: (baseStyles, state) => ({
+                    ...baseStyles,
+                    color: dropdownArrowColor ? dropdownArrowColor : "var(--primary-text-clr)",
+                  }),
+                }),
+              }}
+              placeholder={inputPlaceholder}
+              loadOptions={loadOptions}
+              getOptionLabel={(option) => (option.__isNew__ ? option["label"] : option[optionName])}
+              getOptionValue={(option) => (option.__isNew__ ? option["value"] : option[optionId])}
+              components={{
+                IndicatorSeparator: () => null,
+              }}
+              onCreateOption={onCreateOption}
+              defaultOptions={defaultOptions}
             />
           )}
         />

@@ -48,6 +48,8 @@ const InputContainer = ({
   decimalDigits,
   inputfontWeight,
   autoFocus,
+  onCreateOption,
+  defaultOptions,
 }) => {
   return (
     <div
@@ -103,6 +105,8 @@ const InputContainer = ({
         decimalDigits={decimalDigits}
         inputfontWeight={inputfontWeight}
         autoFocus={autoFocus}
+        onCreateOption={onCreateOption}
+        defaultOptions={defaultOptions}
       />
     </div>
   );

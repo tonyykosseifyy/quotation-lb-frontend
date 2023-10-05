@@ -3,7 +3,6 @@ import InputContainer from "../UI/InputContainer/InputContainer";
 import FourArrows from "@/components/UI/Icons/FourArrows";
 import Trashcan from "@/components/UI/Icons/Trashcan";
 import Ellipsis from "@/components/UI/Icons/Ellipsis";
-import Plus from "@/components/UI/Icons/Plus";
 import { createQuotationHeaderList, rowInputFlexList } from "@/data/constants";
 import styles from "./OrderLines.module.css";
 import { ucfirst } from "@/helpers/formatString";

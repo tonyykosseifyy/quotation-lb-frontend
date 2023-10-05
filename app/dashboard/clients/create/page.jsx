@@ -13,11 +13,7 @@ import { dummyDropdownOptions, dummyItems } from "@/data/dummyItems";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 import AddButton from "@/components/UI/AddButton/AddButton";
-
-const storeClient = async (payload) => {
-  const response = await axiosClient.post(`/clients`, payload);
-  return response.data;
-};
+import { storeClient } from "@/controllers/clients.controller";
 
 const CreateClient = () => {
   const createClientResponse = useQuery({
@@ -121,56 +117,215 @@ const CreateClient = () => {
         <div className={`row ${styles.circle}`}>
           <div className={styles.bigCircle}>
             <div className={styles.smallCircle}>
-              <img src='/assets/svg/plus-blue.svg' alt='' />
+              <img
+                src='/assets/svg/plus-blue.svg'
+                alt=''
+              />
             </div>
           </div>
         </div>
-        <form id='createClient' onSubmit={handleSubmit(onSubmit)}>
+        <form
+          id='createClient'
+          onSubmit={handleSubmit(onSubmit)}>
           <div className={`row ${styles.clientType}`}>
-            <div className='col-lg-1 col-sm-12' style={{ marginRight: 40, paddingLeft: 0 }}>
-              <RadioButton inputName='clientType' isChecked={state.clientType === "individual"} labelText='Individual' inputId='individual' value='individual' onChange={handleClientTypeChange} />
+            <div
+              className='col-lg-1 col-sm-12'
+              style={{ marginRight: 40, paddingLeft: 0 }}>
+              <RadioButton
+                inputName='clientType'
+                isChecked={state.clientType === "individual"}
+                labelText='Individual'
+                inputId='individual'
+                value='individual'
+                onChange={handleClientTypeChange}
+              />
             </div>
-            <div className='col-lg-1 col-sm-12' style={{ paddingLeft: 0 }}>
-              <RadioButton inputName='clientType' isChecked={state.clientType === "company"} labelText='Company' inputId='company' value='company' onChange={handleClientTypeChange} />
+            <div
+              className='col-lg-1 col-sm-12'
+              style={{ paddingLeft: 0 }}>
+              <RadioButton
+                inputName='clientType'
+                isChecked={state.clientType === "company"}
+                labelText='Company'
+                inputId='company'
+                value='company'
+                onChange={handleClientTypeChange}
+              />
             </div>
           </div>
           <div>
-            <div className='d-flex flex-column' style={{ maxWidth: "850px" }}>
+            <div
+              className='d-flex flex-column'
+              style={{ maxWidth: "850px" }}>
               <div className={`${styles.serialNumber} pb-5`}>{createClientData.clientNumber}</div>
               <div className={`pb-5`}>
-                <InputContainer label='Client Name' isRequired={true} inputPlaceholder='' inputType='text' inputName='name' register={register} control={control} width={77} widthUnit={"%"} />
+                <InputContainer
+                  label='Client Name'
+                  isRequired={true}
+                  inputPlaceholder=''
+                  inputType='text'
+                  inputName='name'
+                  register={register}
+                  control={control}
+                  width={77}
+                  widthUnit={"%"}
+                />
               </div>
             </div>
-            <div className={"d-flex flex-column flex-lg-row"} style={{ gap: "40px" }}>
-              <div className='d-flex flex-column' style={{ gap: "18px", width: "80%" }}>
-                <InputContainer label='Reference' inputPlaceholder='' inputType='text' inputName='reference' register={register} control={control} />
+            <div
+              className={"d-flex flex-column flex-lg-row"}
+              style={{ gap: "40px" }}>
+              <div
+                className='d-flex flex-column'
+                style={{ gap: "18px", width: "80%" }}>
+                <InputContainer
+                  label='Reference'
+                  inputPlaceholder=''
+                  inputType='text'
+                  inputName='reference'
+                  register={register}
+                  control={control}
+                />
                 {state.clientType === "individual" && (
                   <>
-                    <InputContainer label='Title' inputPlaceholder='Doctor, Miss, Mister' inputType='select' inputName='title' selectOptions={titles} register={register} control={control} />
-                    <InputContainer label='Job Position' inputPlaceholder='Sales Director, Sales..' inputType='text' inputName='jobPosition' register={register} />
+                    <InputContainer
+                      label='Title'
+                      inputPlaceholder='Doctor, Miss, Mister'
+                      inputType='select'
+                      inputName='title'
+                      selectOptions={titles}
+                      register={register}
+                      control={control}
+                    />
+                    <InputContainer
+                      label='Job Position'
+                      inputPlaceholder='Sales Director, Sales..'
+                      inputType='text'
+                      inputName='jobPosition'
+                      register={register}
+                    />
                   </>
                 )}
-                <InputContainer label='Tax ID' inputPlaceholder='' inputType='text' inputName='taxId' register={register} />
+                <InputContainer
+                  label='Tax ID'
+                  inputPlaceholder=''
+                  inputType='text'
+                  inputName='taxId'
+                  register={register}
+                />
               </div>
-              <div className='d-flex flex-column' style={{ gap: "18px", width: "80%" }}>
-                <InputContainer label='Phone' inputPlaceholder='' inputType='phone' codeName='phoneCode' changeCodeValue={changeCodeValue} inputName='phone' selectOptions={dummyDropdownOptions} register={register} control={control} />
-                <InputContainer label='Mobile' inputPlaceholder='' inputType='phone' codeName='mobileCode' changeCodeValue={changeCodeValue} inputName='mobile' selectOptions={dummyDropdownOptions} register={register} control={control} />
-                <InputContainer label='Email' inputPlaceholder='example@gmail.com' inputType='text' inputName='email' register={register} />
-                <InputContainer label='Website' inputPlaceholder='www.example.com' inputType='text' inputName='website' register={register} control={control} />
+              <div
+                className='d-flex flex-column'
+                style={{ gap: "18px", width: "80%" }}>
+                <InputContainer
+                  label='Phone'
+                  inputPlaceholder=''
+                  inputType='phone'
+                  codeName='phoneCode'
+                  changeCodeValue={changeCodeValue}
+                  inputName='phone'
+                  selectOptions={dummyDropdownOptions}
+                  register={register}
+                  control={control}
+                />
+                <InputContainer
+                  label='Mobile'
+                  inputPlaceholder=''
+                  inputType='phone'
+                  codeName='mobileCode'
+                  changeCodeValue={changeCodeValue}
+                  inputName='mobile'
+                  selectOptions={dummyDropdownOptions}
+                  register={register}
+                  control={control}
+                />
+                <InputContainer
+                  label='Email'
+                  inputPlaceholder='example@gmail.com'
+                  inputType='text'
+                  inputName='email'
+                  register={register}
+                />
+                <InputContainer
+                  label='Website'
+                  inputPlaceholder='www.example.com'
+                  inputType='text'
+                  inputName='website'
+                  register={register}
+                  control={control}
+                />
               </div>
-              <div className='d-flex flex-column' style={{ gap: "18px", width: "80%" }}>
-                <InputContainer label='Floor, Bldg' inputPlaceholder='' inputType='text' inputName='floorBldg' register={register} control={control} />
-                <InputContainer label='Street' inputPlaceholder='' inputType='text' inputName='street' register={register} control={control} />
-                <InputContainer label='City' inputPlaceholder='' inputType='text' inputName='city' register={register} control={control} />
-                <InputContainer label='Country' inputPlaceholder='' inputType='select' inputName='country' selectOptions={dummyItems} register={register} control={control} />
+              <div
+                className='d-flex flex-column'
+                style={{ gap: "18px", width: "80%" }}>
+                <InputContainer
+                  label='Floor, Bldg'
+                  inputPlaceholder=''
+                  inputType='text'
+                  inputName='floorBldg'
+                  register={register}
+                  control={control}
+                />
+                <InputContainer
+                  label='Street'
+                  inputPlaceholder=''
+                  inputType='text'
+                  inputName='street'
+                  register={register}
+                  control={control}
+                />
+                <InputContainer
+                  label='City'
+                  inputPlaceholder=''
+                  inputType='text'
+                  inputName='city'
+                  register={register}
+                  control={control}
+                />
+                <InputContainer
+                  label='Country'
+                  inputPlaceholder=''
+                  inputType='select'
+                  inputName='country'
+                  selectOptions={dummyItems}
+                  register={register}
+                  control={control}
+                />
               </div>
             </div>
           </div>
           <div className={`${styles.extraInfo}`}>
             <div className={`d-flex`}>
-              <Button title='Contacts & Addresses' rounded={true} fillBackground={state.extraInfo === "contact"} onClick={handleExtraInfoChange} value='contact' type='button' width='189px' tab />
-              <Button title='Sales' rounded={true} fillBackground={state.extraInfo === "sales"} onClick={handleExtraInfoChange} type='button' value='sales' width='189px' tab />
-              <Button title='Internal Note' rounded={true} fillBackground={state.extraInfo === "internalNote"} onClick={handleExtraInfoChange} value='internalNote' type='button' width='189px' tab />
+              <Button
+                title='Contacts & Addresses'
+                rounded={true}
+                fillBackground={state.extraInfo === "contact"}
+                onClick={handleExtraInfoChange}
+                value='contact'
+                type='button'
+                width='189px'
+                tab
+              />
+              <Button
+                title='Sales'
+                rounded={true}
+                fillBackground={state.extraInfo === "sales"}
+                onClick={handleExtraInfoChange}
+                type='button'
+                value='sales'
+                width='189px'
+                tab
+              />
+              <Button
+                title='Internal Note'
+                rounded={true}
+                fillBackground={state.extraInfo === "internalNote"}
+                onClick={handleExtraInfoChange}
+                value='internalNote'
+                type='button'
+                width='189px'
+                tab
+              />
             </div>
             <div className={`${styles.extraInfoDetails}`}>
               {state.extraInfo === "contact" && (
@@ -183,18 +338,53 @@ const CreateClient = () => {
                     <div className={`${styles.contactDiv}`}>
                       <div className={`${styles.contactDivButtons} mb-1`}>
                         <div className=''>
-                          <RadioButton inputName='addressType' labelText='Contact' inputId='contact' value='contact' isChecked={state.addressType === "contact"} onChange={handleAddressTypeChange} />
+                          <RadioButton
+                            inputName='addressType'
+                            labelText='Contact'
+                            inputId='contact'
+                            value='contact'
+                            isChecked={state.addressType === "contact"}
+                            onChange={handleAddressTypeChange}
+                          />
                         </div>
                         <div className=''>
-                          <RadioButton inputName='addressType' labelText='Delivery Address' inputId='deliveryAddress' value='delivery' isChecked={state.addressType === "delivery"} onChange={handleAddressTypeChange} />
+                          <RadioButton
+                            inputName='addressType'
+                            labelText='Delivery Address'
+                            inputId='deliveryAddress'
+                            value='delivery'
+                            isChecked={state.addressType === "delivery"}
+                            onChange={handleAddressTypeChange}
+                          />
                         </div>
                       </div>
                       <div style={{ fontSize: "12px", fontWeight: "400" }}>Contact Selection used to add the contact information of personnel within the company (e.g., CEO, CFO, ...).</div>
                       <div className={`${styles.infoDiv} pt-4`}>
                         <div className={`${styles.inputRow}`}>
-                          <InputContainer label='Name' inputPlaceholder='' inputType='text' inputName='name' register={register} control={control} />
-                          <InputContainer label='Title' inputPlaceholder='Doctor, Miss, Mister' inputType='select' inputName='title' selectOptions={titles} register={register} control={control} />
-                          <InputContainer label='Job Position' inputPlaceholder='Sales Director, Sales..' inputType='text' inputName='jobPosition' register={register} />
+                          <InputContainer
+                            label='Name'
+                            inputPlaceholder=''
+                            inputType='text'
+                            inputName='name'
+                            register={register}
+                            control={control}
+                          />
+                          <InputContainer
+                            label='Title'
+                            inputPlaceholder='Doctor, Miss, Mister'
+                            inputType='select'
+                            inputName='title'
+                            selectOptions={titles}
+                            register={register}
+                            control={control}
+                          />
+                          <InputContainer
+                            label='Job Position'
+                            inputPlaceholder='Sales Director, Sales..'
+                            inputType='text'
+                            inputName='jobPosition'
+                            register={register}
+                          />
                         </div>
                         <div className={`${styles.inputRow} ${styles.inputRow2}`}>
                           <InputContainer
@@ -220,14 +410,37 @@ const CreateClient = () => {
                             register={register}
                             control={control}
                           />
-                          <InputContainer label='Email' inputPlaceholder='example@gmail.com' inputType='text' inputName='emailContact' register={register} />
+                          <InputContainer
+                            label='Email'
+                            inputPlaceholder='example@gmail.com'
+                            inputType='text'
+                            inputName='emailContact'
+                            register={register}
+                          />
                         </div>
                         <div className={`${styles.inputRow3} ${styles.inputRow2}`}>
-                          <InputContainer label='Ext' inputPlaceholder='' inputType='text' inputName='ext' width='80' register={register} />
+                          <InputContainer
+                            label='Ext'
+                            inputPlaceholder=''
+                            inputType='text'
+                            inputName='ext'
+                            width='80'
+                            register={register}
+                          />
                         </div>
                       </div>
                       <div className={`${styles.inputTextArea} pt-5`}>
-                        <InputContainer inputPlaceholder='note...' inputType='textarea' inputName='note' alignLabelInput={false} height={130} width={100} widthUnit='%' spaceBetween={false} register={register} />
+                        <InputContainer
+                          inputPlaceholder='note...'
+                          inputType='textarea'
+                          inputName='note'
+                          alignLabelInput={false}
+                          height={130}
+                          width={100}
+                          widthUnit='%'
+                          spaceBetween={false}
+                          register={register}
+                        />
                       </div>
                       <div className={`${styles.plusIconRow} pt-4`}>
                         <span style={{ cursor: "pointer" }}>
@@ -243,9 +456,38 @@ const CreateClient = () => {
                 <div className={`${styles.contactDiv}`}>
                   <div className={`${styles.infoDiv}`}>
                     <div className={`${styles.inputRow4}`}>
-                      <InputContainer label='Sales Person' inputPlaceholder='' inputType='select' inputName='salesperson' selectOptions={createClientData.salespeople} isRequired={true} register={register} control={control} />
-                      <InputContainer label='Payment Terms' inputPlaceholder='' inputType='select' inputName='paymentTerm' selectOptions={createClientData.paymentTerms} isRequired={true} register={register} control={control} optionName={"title"} />
-                      <InputContainer label='Pricelist' inputPlaceholder='' inputType='select' inputName='pricelist' selectOptions={createClientData.pricelists} isRequired={true} register={register} control={control} optionName={"title"} />
+                      <InputContainer
+                        label='Sales Person'
+                        inputPlaceholder=''
+                        inputType='select'
+                        inputName='salesperson'
+                        selectOptions={createClientData.salespeople}
+                        isRequired={true}
+                        register={register}
+                        control={control}
+                      />
+                      <InputContainer
+                        label='Payment Terms'
+                        inputPlaceholder=''
+                        inputType='select'
+                        inputName='paymentTerm'
+                        selectOptions={createClientData.paymentTerms}
+                        isRequired={true}
+                        register={register}
+                        control={control}
+                        optionName={"title"}
+                      />
+                      <InputContainer
+                        label='Pricelist'
+                        inputPlaceholder=''
+                        inputType='select'
+                        inputName='pricelist'
+                        selectOptions={createClientData.pricelists}
+                        isRequired={true}
+                        register={register}
+                        control={control}
+                        optionName={"title"}
+                      />
                     </div>
                   </div>
                 </div>
@@ -254,16 +496,38 @@ const CreateClient = () => {
                 <div className={`${styles.contactDiv}`}>
                   <div className={`${styles.infoDiv}`}>
                     <div className={`${styles.inputTextArea}`}>
-                      <InputContainer label='Internal Note' inputPlaceholder='' inputType='textarea' inputName='internalNote' alignLabelInput={false} height={130} width={88} widthUnit='%' spaceBetween={false} isRequired={true} register={register} />
+                      <InputContainer
+                        label='Internal Note'
+                        inputPlaceholder=''
+                        inputType='textarea'
+                        inputName='internalNote'
+                        alignLabelInput={false}
+                        height={130}
+                        width={88}
+                        widthUnit='%'
+                        spaceBetween={false}
+                        isRequired={true}
+                        register={register}
+                      />
                     </div>
                   </div>
                 </div>
               )}
               <div className={`${styles.actionButtons}`}>
-                <div className={styles.discard} onClick={() => reset()}>
+                <div
+                  className={styles.discard}
+                  onClick={() => reset()}>
                   Discard
                 </div>
-                <Button title='Save' rounded={false} fillBackground={true} paddingTop={10} paddingBottom={10} paddingRight={64} paddingLeft={64} />
+                <Button
+                  title='Save'
+                  rounded={false}
+                  fillBackground={true}
+                  paddingTop={10}
+                  paddingBottom={10}
+                  paddingRight={64}
+                  paddingLeft={64}
+                />
               </div>
             </div>
           </div>
