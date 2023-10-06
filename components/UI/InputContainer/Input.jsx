@@ -155,7 +155,7 @@ const Input = ({
           className={`${styles.inputText} ${isDisabled ? styles.inputDisabled : ""}`}
           name={inputName}
           id={inputId}
-          style={{ resize: canResize ? "" : "none", fontSize: "12px", fontWeight: placeholderWeight }}
+          style={{ resize: canResize ? "" : "none", fontSize: "12px", fontWeight: placeholderWeight, width: "100%" }}
           placeholder={inputPlaceholder}
           {...register(inputName, { required: isRequired })}
           readOnly={isDisabled}
@@ -284,6 +284,7 @@ const Input = ({
               components={{
                 IndicatorSeparator: () => null,
               }}
+              required={isRequired}
             />
           )}
         />
@@ -339,6 +340,7 @@ const Input = ({
               }}
               onCreateOption={onCreateOption}
               defaultOptions={defaultOptions}
+              required={isRequired}
             />
           )}
         />

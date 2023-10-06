@@ -57,8 +57,7 @@ const CreateQuotation = () => {
     if (isNaN(storeData["total"])) {
       storeData["total"] = 0;
     }
-    // mutation.mutate(storeData);
-    console.log(storeData);
+    mutation.mutate(storeData);
   };
 
   const mutation = useMutation(storeQuotation, {
@@ -68,7 +67,11 @@ const CreateQuotation = () => {
       router.push(Routes.QuotationsSummary);
     },
     onError: (data) => {
-      toast(data.message);
+      if (data.response.status === 422) {
+        toast(data.response.data.message);
+      } else {
+        toast(data.message);
+      }
     },
   });
 

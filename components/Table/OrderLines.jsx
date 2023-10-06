@@ -10,6 +10,8 @@ import axiosClient from "@/api/axiosClient";
 import debounce from "lodash.debounce";
 import { calculateTotal } from "@/helpers/calculate";
 import AddButton from "../UI/AddButton/AddButton";
+import { useMutation } from "@tanstack/react-query";
+import { storeItem } from "@/controllers/items.controller";
 
 const permissions = {
   "edit item description in quotation": true,
@@ -41,9 +43,12 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
   const handleTotal = (oldTotal, unitPrice, quantity, discount) => {
     if (unitPrice == null || quantity == null) return 0;
     if (oldTotal != null) {
+      console.log("oldTotal", oldTotal);
+
       handleQuotationTotalChange("subtract", oldTotal);
     }
     const newTotal = calculateTotal(unitPrice, quantity, discount);
+    console.log("new", newTotal);
     handleQuotationTotalChange("add", newTotal);
 
     return newTotal;
@@ -83,9 +88,29 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
   const checkAndRemoveEmptyLine = () => {
     const index = fieldsWatch.length - 1;
     const lastField = fieldsWatch[index];
+    console.log(lastField);
     const lineType = getLineTypeByTypeId(lastField?.type);
-    if ((lineType?.name === "item" && lastField.item == null) || (lineType?.name === "combo" && lastField.combo == null)) {
+    if ((lineType?.name === "item" && lastField.item == null) || (lineType?.name === "combo" && lastField.combo == null) || (lineType?.name === "image" && lastField.image == null)) {
       remove(index);
+    }
+  };
+
+  const { mutate: mutateItem } = useMutation(storeItem, {
+    onSuccess: (data, variables) => {
+      console.log("variables", variables);
+      const { inputName } = variables;
+      setValue(inputName, data.data);
+    },
+  });
+
+  const handleCreateResource = (name, resourceName, inputName) => {
+    if (resourceName === "item") {
+      const payload = {
+        itemTypeId: 1,
+        mainCode: name,
+        inputName: inputName,
+      };
+      mutateItem(payload, { inputName });
     }
   };
 
@@ -175,6 +200,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                                 referenceInput={fieldsWatch[fieldIdx][input.referenceKey]}
                                 referenceKey={input.referenceKey}
                                 inputKey={input.inputKey}
+                                onCreateOption={(name) => handleCreateResource(name, input.inputName, `orderLines.${fieldIdx}.${input.inputName}`)}
                               />
                             )}
                           </span>

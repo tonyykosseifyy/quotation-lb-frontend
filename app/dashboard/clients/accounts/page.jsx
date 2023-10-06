@@ -35,7 +35,7 @@ const ListOfClients = () => {
   const { register, control } = useForm();
 
   return (
-    <div className={`container m-0`}>
+    <div>
       <div className={`${styles.header} pt-4`}>
         <div className={`${styles.title}`}>List of Clients</div>
         <Link

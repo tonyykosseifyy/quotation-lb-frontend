@@ -22,6 +22,7 @@ import { Dropdown } from "@nextui-org/react";
 import { altCodesDropdownItems } from "@/data/itemAltCodes";
 import Ellipsis from "@/components/UI/Icons/Ellipsis";
 import Input from "@/components/UI/InputContainer/Input";
+import { storeItem } from "@/controllers/items.controller";
 
 const InputField = ({ watchedValues, register, label, inputName, inputNameQuantity, referenceField }) => {
   return (
@@ -112,15 +113,6 @@ const modalStyle = {
     overflow: "auto",
     height: "650px",
   },
-};
-
-const storeItem = async (payload) => {
-  const response = await axiosClient.post(`/items`, payload, {
-    headers: {
-      "Content-Type": "multipart/form-data",
-    },
-  });
-  return response.data;
 };
 
 const CreateItems = ({ closeModal }) => {

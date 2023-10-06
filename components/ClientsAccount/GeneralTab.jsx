@@ -69,7 +69,7 @@ const GeneralTab = ({ debouncedSearch, selectedClient, setSelectedClient }) => {
       name: "Code",
       selector: (row) => row.clientNumber,
       allowOverflow: true,
-      width: "100px",
+      maxWidth: "100px",
       isVisible: true,
     },
     {
@@ -80,7 +80,7 @@ const GeneralTab = ({ debouncedSearch, selectedClient, setSelectedClient }) => {
     },
     {
       name: "Phone Number",
-      width: "130px",
+      maxWidth: "130px",
       selector: (row) => {
         return `${row.phoneCode ?? ""} ${row.phoneNumber ?? ""}`;
       },
@@ -89,21 +89,21 @@ const GeneralTab = ({ debouncedSearch, selectedClient, setSelectedClient }) => {
     },
     {
       name: "Balance USD",
-      width: "150px",
+      maxWidth: "150px",
       selector: (row) => row.balanceUSD,
       right: true,
       isVisible: true,
     },
     {
       name: "Balance LBP",
-      width: "150px",
+      maxWidth: "150px",
       selector: (row) => row.balanceLBP,
       right: true,
       isVisible: true,
     },
     {
       name: "More Options",
-      width: "120px",
+      maxWidth: "120px",
       center: true,
       isVisible: true,
       selector: (row) => (

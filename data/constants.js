@@ -45,7 +45,7 @@ export const rowInputFlexList = [
   {
     inputs: [
       {
-        inputType: "async-select",
+        inputType: "asyncCreatableSelect",
         inputName: "item",
         inputPlaceholder: "Item 1",
         inputBorderColor: "var(--input-border-2)",

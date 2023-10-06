@@ -1,30 +1,30 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    gap: 10px;
-    align-items: start;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: start;
+  width: 100%;
 }
 
 .alignItemsStart {
-    align-items: start !important;
+  align-items: start !important;
 }
 
 .labelText {
-    font-size: 14px;
-    font-weight: 600;
+  font-size: 14px;
+  font-weight: 600;
 }
 
-
 @media only screen and (min-width: 768px) {
-    .container {
-        flex-direction: row;
-        align-items: center;
-        gap: 0
-    }
+  .container {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+  }
 
-    .justifyStart {
-        justify-content: start;
-        gap: 48px;
-    }
+  .justifyStart {
+    justify-content: start;
+    gap: 48px;
+  }
 }

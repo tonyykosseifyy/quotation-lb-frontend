@@ -17,7 +17,6 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
   const [quotationTotalBeforeVat, setQuotationTotalBeforeVat] = useState(0);
   const [activeStep, setActiveStep] = useState(1);
 
-  console.log(props);
   const shouldDisableComponents = action === "view";
 
   const actionButtons = [
@@ -120,7 +119,6 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
       setValue("paymentTerm", quotationData.paymentTerms[0]);
       setValue("priceList", quotationData.pricelists[0]);
       setValue("currency", quotationData.currencies[0]);
-      console.log("sdww", props.createdClient && props.createdClient.isNew);
     }
   }, [quotationData, setValue]);
 
@@ -200,7 +198,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
             <div
               className='d-flex flex-column flex-md-row align-items-md-center'
               style={{ gap: "27px" }}>
-              <div className={`${styles.quotationNumber}`}> # {quotationData.quotationNumber} </div>
+              <div className={`${styles.quotationNumber}`}>{quotationData.quotationNumber}</div>
               <div className={`d-flex align-items-center ${styles.refPaddingLeft}`}>
                 <div className={`${styles.labelText} pe-2`}> Ref: </div>
                 <InputContainer
@@ -346,7 +344,8 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                     inputPlaceholder='Terms & Conditions'
                     inputType='textarea'
                     inputName='termsAndConditions'
-                    width='1230'
+                    width='100'
+                    widthUnit='%'
                     height='none'
                     control={control}
                     register={register}
