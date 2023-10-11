@@ -23,6 +23,8 @@ import { altCodesDropdownItems } from "@/data/itemAltCodes";
 import Ellipsis from "@/components/UI/Icons/Ellipsis";
 import Input from "@/components/UI/InputContainer/Input";
 import { storeItem } from "@/controllers/items.controller";
+import * as yup from "yup";
+import { toast } from "react-toastify";
 
 const InputField = ({ watchedValues, register, label, inputName, inputNameQuantity, referenceField }) => {
   return (
@@ -133,6 +135,11 @@ const CreateItems = ({ closeModal }) => {
   const handleExtraInfo = (e) => {
     setButtonState(() => e.target.value);
   };
+
+  const schema = yup.object().shape({
+    mainDescription: yup.string().required().label("Main description"),
+    unitPrice: yup.number().required().label("Unit price"),
+  });
 
   const {
     register,
@@ -334,42 +341,50 @@ const CreateItems = ({ closeModal }) => {
     debouncedHandleMainCodeChange(event);
   };
 
-  const onSubmit = (data, e) => {
-    const convertToNumber = (fields) => {
-      fields.forEach((field) => {
-        if (data[field]) {
-          data[field] = Number(data[field]);
+  const onSubmit = async (data, e) => {
+    try {
+      const validationResult = await schema.validate(data, { abortEarly: false });
+      console.log(validationResult);
+      const convertToNumber = (fields) => {
+        fields.forEach((field) => {
+          if (data[field]) {
+            data[field] = Number(data[field]);
+          }
+        });
+      };
+
+      convertToNumber(["unitCost", "decimalCost", "unitPrice", "decimalPrice", "decimalQuantity"]);
+
+      if (data.itemGroups != null) {
+        data.itemGroups = data.itemGroups.map((item) => item.itemGroupId.id);
+      }
+
+      const createNewProductInfo = {
+        ...data,
+        subRef: state.subRef,
+        canBeSold: checkboxValues.canBeSold,
+        canBePurchased: checkboxValues.canBePurchased,
+        warranty: checkboxValues.warranty,
+        discontinued: checkboxValues.discontinued,
+      };
+
+      createNewProductInfo["itemCodes"] = createNewProductInfo["itemCodes"].map((obj) => {
+        const { icon, ...newObj } = obj;
+        return newObj;
+      });
+
+      Object.keys(createNewProductInfo).forEach(function (key) {
+        if (createNewProductInfo[key] && typeof createNewProductInfo[key] === "object" && Array.isArray(createNewProductInfo[key]) === false) {
+          createNewProductInfo[key] = createNewProductInfo[key].id;
         }
       });
-    };
-
-    convertToNumber(["unitCost", "decimalCost", "unitPrice", "decimalPrice", "decimalQuantity"]);
-
-    if (data.itemGroups != null) {
-      data.itemGroups = data.itemGroups.map((item) => item.itemGroupId.id);
+      console.log(createNewProductInfo);
+      // mutation.mutate(createNewProductInfo);
+    } catch (err) {
+      err.inner.forEach((error) => {
+        toast(error.message);
+      });
     }
-
-    const createNewProductInfo = {
-      ...data,
-      subRef: state.subRef,
-      canBeSold: checkboxValues.canBeSold,
-      canBePurchased: checkboxValues.canBePurchased,
-      warranty: checkboxValues.warranty,
-      discontinued: checkboxValues.discontinued,
-    };
-
-    createNewProductInfo["itemCodes"] = createNewProductInfo["itemCodes"].map((obj) => {
-      const { icon, ...newObj } = obj;
-      return newObj;
-    });
-
-    Object.keys(createNewProductInfo).forEach(function (key) {
-      if (createNewProductInfo[key] && typeof createNewProductInfo[key] === "object" && Array.isArray(createNewProductInfo[key]) === false) {
-        createNewProductInfo[key] = createNewProductInfo[key].id;
-      }
-    });
-    console.log(createNewProductInfo);
-    // mutation.mutate(createNewProductInfo);
   };
 
   const handleCheckboxChange = (event) => {
@@ -551,7 +566,6 @@ const CreateItems = ({ closeModal }) => {
                         inputPlaceholder=''
                         inputType='text'
                         inputName='shortDescription'
-                        isRequired={true}
                         register={register}
                       />
                       <InputContainer
