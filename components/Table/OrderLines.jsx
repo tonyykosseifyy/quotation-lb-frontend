@@ -140,8 +140,12 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                     id={fieldIdx}>
                     <div className={`${styles.singleItemRow} d-flex align-items-center`}>
                       <span
+                        className='sortHandle'
                         style={{
                           flex: 0.3,
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
                         }}>
                         <FourArrows />
                       </span>

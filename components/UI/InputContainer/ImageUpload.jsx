@@ -75,28 +75,30 @@ export const ImageUpload = ({ register, registerArrayName, registerArrayIndex, r
           </div>
         </div>
       )}
-      <aside className={styles.thumbsContainer}>
-        {files.map((file) => {
-          return (
-            <div
-              className={styles.thumb}
-              key={file.name}
-              onClick={handleShowEditToggle}>
-              <div className={styles.thumbInner}>
-                <img
-                  src={file.preview}
-                  className={styles.fileImg}
-                  // Revoke data uri after image is loaded
-                  onLoad={() => {
-                    URL.revokeObjectURL(file.preview);
-                  }}
-                  alt=''
-                />
+      {files.length > 0 && (
+        <aside className={styles.thumbsContainer}>
+          {files.map((file) => {
+            return (
+              <div
+                className={styles.thumb}
+                key={file.name}
+                onClick={handleShowEditToggle}>
+                <div className={styles.thumbInner}>
+                  <img
+                    src={file.preview}
+                    className={styles.fileImg}
+                    // Revoke data uri after image is loaded
+                    onLoad={() => {
+                      URL.revokeObjectURL(file.preview);
+                    }}
+                    alt=''
+                  />
+                </div>
               </div>
-            </div>
-          );
-        })}
-      </aside>
+            );
+          })}
+        </aside>
+      )}
     </div>
   );
 };

@@ -144,6 +144,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
         onUpdate: function (evt) {
           setIndices({ oldIndex: evt.oldIndex, newIndex: evt.newIndex });
         },
+        handle: ".sortHandle",
       });
     }
   }, [fields]);

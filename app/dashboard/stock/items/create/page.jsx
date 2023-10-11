@@ -368,8 +368,8 @@ const CreateItems = ({ closeModal }) => {
         createNewProductInfo[key] = createNewProductInfo[key].id;
       }
     });
-
-    mutation.mutate(createNewProductInfo);
+    console.log(createNewProductInfo);
+    // mutation.mutate(createNewProductInfo);
   };
 
   const handleCheckboxChange = (event) => {
@@ -551,6 +551,7 @@ const CreateItems = ({ closeModal }) => {
                         inputPlaceholder=''
                         inputType='text'
                         inputName='shortDescription'
+                        isRequired={true}
                         register={register}
                       />
                       <InputContainer
@@ -798,6 +799,7 @@ const CreateItems = ({ closeModal }) => {
                         inputPlaceholder=''
                         inputType='number'
                         inputName='unitPrice'
+                        isRequired={true}
                         register={register}
                       />
                     </div>
