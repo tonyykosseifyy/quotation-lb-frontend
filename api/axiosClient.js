@@ -1,3 +1,4 @@
+import useAuthStore from "@/store/store";
 import axios from "axios";
 
 const axiosClient = axios.create({
@@ -5,8 +6,8 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use((config) => {
-  // const token = localStorage.getItem("accessToken");
-  config.headers.Authorization = `Bearer ${process.env.NEXT_PUBLIC_ACCESS_TOKEN}`;
+  const token = useAuthStore.getState().token;
+  config.headers.Authorization = `Bearer ${token}`;
   config.headers.Accept = "application/json";
   return config;
 });
@@ -18,7 +19,9 @@ axiosClient.interceptors.response.use(
   (error) => {
     const { response } = error;
     if (response.status === 401) {
-      localStorage.removeItem("accessToken");
+      useAuthStore.setState(() => ({ isAuthenticated: false }));
+      useAuthStore.setState(() => ({ user: false }));
+      useAuthStore.setState(() => ({ setToken: false }));
     }
 
     throw error;

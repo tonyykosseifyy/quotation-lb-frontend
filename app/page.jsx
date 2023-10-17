@@ -1,5 +1,5 @@
 "use client";
-import { Routes } from "@/router/routes";
+import { Routes } from "@/routes/routes";
 import { useEffect } from "react";
 
 const Home = () => {

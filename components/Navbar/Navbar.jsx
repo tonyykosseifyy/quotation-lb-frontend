@@ -13,7 +13,12 @@ import SalesmenModal from "@/app/dashboard/admin/salesmen/page";
 import StockWarehousesModal from "@/app/dashboard/admin/stock-warehouses/page";
 import PriceListsModal from "@/app/dashboard/admin/price-lists/page";
 import Link from "next/link";
-import { Routes } from "@/router/routes";
+import { Routes } from "@/routes/routes";
+import useAuthStore from "@/store/store";
+import { useRouter } from "next/navigation";
+import { QueryClient, useMutation } from "@tanstack/react-query";
+import { logout } from "@/controllers/auth.controller";
+import { toast } from "react-toastify";
 
 const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState({
@@ -24,6 +29,8 @@ const Navbar = () => {
     warehouses: false,
     priceLists: false,
   });
+
+  const { user } = useAuthStore();
 
   const openModal = (modalName) => {
     setIsModalOpen((prevState) => ({
@@ -53,6 +60,29 @@ const Navbar = () => {
     } else if (actionKey === "7") {
       openModal("priceLists");
     }
+  };
+
+  const router = useRouter();
+
+  const queryClient = new QueryClient();
+  const { setIsAuthenticated, setUser, setToken } = useAuthStore();
+
+  const { mutate: mutateLogout, isLoading: isLoadingLogout } = useMutation(logout, {
+    onSuccess: (data) => {
+      setUser(null);
+      setIsAuthenticated(false);
+      setToken(null);
+      queryClient.invalidateQueries();
+      router.replace(Routes.Login);
+      toast(data.message);
+    },
+    onError: (error) => {
+      toast(error.response.data.message);
+    },
+  });
+
+  const handleLogout = () => {
+    mutateLogout();
   };
 
   return (
@@ -99,7 +129,7 @@ const Navbar = () => {
             <div className={styles.userContainer}>
               <User
                 src='https://i.pravatar.cc/150?u=a042581f4e29026704d'
-                name='Ariana Wattson'
+                name={user?.name}
                 squared
                 size='sm'
               />
@@ -109,11 +139,11 @@ const Navbar = () => {
           </Dropdown.Trigger>
           <Dropdown.Menu
             aria-label='User menu actions'
-            onAction={(actionKey) => console.log({ actionKey })}>
+            onAction={handleLogout}>
             <Dropdown.Item
               key='hi'
               className={styles.dropdownItem}>
-              Hi
+              Logout
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>

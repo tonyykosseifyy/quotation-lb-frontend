@@ -1,5 +1,7 @@
 import React from "react";
 import styles from "./Button.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
 
 const Button = ({
   title,
@@ -16,6 +18,7 @@ const Button = ({
   type,
   tab,
   width,
+  widthUnit = "px",
   height,
   icon,
   titleColor,
@@ -26,6 +29,7 @@ const Button = ({
   border,
   padding,
   isDisabled,
+  loading = false,
 }) => {
   return (
     <button
@@ -44,7 +48,7 @@ const Button = ({
         paddingBottom: paddingBottom,
         paddingLeft: paddingLeft,
         paddingRight: paddingRight,
-        width: width,
+        width: `${width}${widthUnit}`,
         height: height,
         display: display,
         alignItems: alignItems,
@@ -58,7 +62,17 @@ const Button = ({
       value={value}
       type={type ? type : "submit"}
       disabled={isDisabled}>
-      {icon && icon} {title}
+      {loading ? (
+        <FontAwesomeIcon
+          icon={faCircleNotch}
+          size='xs'
+          spin
+        />
+      ) : (
+        <div>
+          {icon && icon} {title}
+        </div>
+      )}
     </button>
   );
 };

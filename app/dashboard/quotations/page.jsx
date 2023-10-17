@@ -16,7 +16,7 @@ import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 import useDebounce from "@/hooks/useDebounce";
 import { useRouter } from "next/navigation";
-import { Routes } from "@/router/routes";
+import { Routes } from "@/routes/routes";
 import { ApiEndpoint } from "@/api/apiEndpoints";
 import { toast } from "react-toastify";
 

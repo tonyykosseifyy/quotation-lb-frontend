@@ -7,7 +7,7 @@ import Link from "next/link";
 import { Tooltip } from "@nextui-org/react";
 import SidebarItemCard from "@/components/Sidebar/SidebarItemCard";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
-import { Routes } from "@/router/routes";
+import { Routes } from "@/routes/routes";
 
 const sidebarItems = [
   {

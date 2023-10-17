@@ -1,0 +1,115 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.innerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex: 1;
+}
+
+.leftSection {
+  background: white;
+  flex: 1;
+  height: 100%;
+}
+
+.login {
+  padding: 30px 30px 40px 30px;
+  border-radius: 5px;
+  background: white;
+  height: 100%;
+  margin: auto;
+}
+
+.header {
+  border-bottom: 1px solid var(--primary-clr-extra-dark);
+  text-align: center;
+  padding: 20px;
+  margin-top: 10px;
+  font-weight: 700;
+  color: var(--primary-clr-extra-dark);
+  font-size: 50px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+  height: 70%;
+  justify-content: center;
+  align-items: center;
+}
+
+.loginFormContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 60%;
+}
+
+.loginButtonContainer {
+  display: flex;
+  justify-content: center;
+}
+
+.rightSection {
+  background: var(--primary-clr);
+  flex: 1;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.topRight {
+  top: 0;
+  right: 0;
+}
+
+.bottomLeft {
+  bottom: 0;
+  left: 0;
+  transform: rotate(180deg);
+}
+
+@media screen and (max-width: 1600px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .innerContainer {
+    width: 100%;
+  }
+
+  .rightSection {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .leftSection {
+    width: 100%;
+  }
+
+  .rightSection {
+    display: none;
+  }
+}

@@ -43,7 +43,7 @@ const Input = ({
   changeCodeValue,
   inputName,
   isRequired = false,
-  inputType,
+  inputType = "text",
   selectOptions,
   inputId,
   height = 37,
@@ -76,6 +76,7 @@ const Input = ({
   autoFocus = false,
   onCreateOption = () => {},
   defaultOptions,
+  marginTop,
 }) => {
   const [extraValidations, setExtraValidations] = useState({});
 
@@ -112,13 +113,14 @@ const Input = ({
       style={{
         height: height === "none" ? "auto" : `${height}${heightUnit}`,
         width: `${width}${widthUnit}`,
+        marginTop: marginTop,
       }}>
-      {inputType === "text" && (
+      {["text", "email", "password"].includes(inputType) && (
         <input
           required={isRequired}
           className={`${styles.inputText} ${inputBorder} ${isDisabled ? styles.inputDisabled : ""}`}
           name={inputName}
-          type='text'
+          type={inputType}
           id={inputId}
           placeholder={inputPlaceholder}
           {...(register
@@ -130,7 +132,7 @@ const Input = ({
             : {})}
           style={{
             fontWeight: inputfontWeight ? 700 : 600,
-            fontSize: "12px",
+            fontSize: fontSize ? fontSize : "12px",
             textAlign: textAlign ? textAlign : "start",
             borderColor: inputBorderColor ? "var(--input-border-2)" : "var(--input-border)",
             placeholder: (baseStyles, state) => ({
@@ -155,7 +157,7 @@ const Input = ({
           className={`${styles.inputText} ${isDisabled ? styles.inputDisabled : ""}`}
           name={inputName}
           id={inputId}
-          style={{ resize: canResize ? "" : "none", fontSize: "12px", fontWeight: placeholderWeight, width: "100%" }}
+          style={{ resize: canResize ? "" : "none", fontSize: fontSize ? fontSize : "12px", fontWeight: placeholderWeight, width: "100%" }}
           placeholder={inputPlaceholder}
           {...register(inputName, { required: isRequired })}
           readOnly={isDisabled}
@@ -174,7 +176,7 @@ const Input = ({
           {...register(inputName, { required: isRequired }, { valueAsNumber: true })}
           style={{
             fontWeight: placeholderWeight ? placeholderWeight : "600",
-            fontSize: "12px",
+            fontSize: fontSize ? fontSize : "12px",
             textAlign: textAlign ? textAlign : "start",
             borderColor: inputBorderColor ? "var(--input-border-2)" : "var(--input-border)",
           }}
@@ -389,7 +391,7 @@ const Input = ({
                   }),
                   valueContainer: (baseStyles, state) => ({
                     ...baseStyles,
-                    fontSize: 14,
+                    fontSize: fontSize ? fontSize : 14,
                     fontWeight: 400,
                     padding: "2px 4px",
                   }),

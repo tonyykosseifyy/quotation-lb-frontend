@@ -50,19 +50,25 @@ const InputContainer = ({
   autoFocus,
   onCreateOption,
   defaultOptions,
+  stackLabelInput = false,
+  marginTop,
 }) => {
   return (
     <div
       className={`${styles.container} 
                 ${!alignLabelInput ? styles.alignItemsStart : ""}
                 ${!spaceBetween ? styles.justifyStart : ""}
-            `}>
+            `}
+      style={{ flexDirection: stackLabelInput ? "column" : "row" }}>
       {label && (
-        <label className={styles.labelText}>
+        <label
+          className={styles.labelText}
+          style={{ fontSize: fontSize ? fontSize : "14px" }}>
           {label} {isRequired && "*"}
         </label>
       )}
       <Input
+        marginTop={marginTop}
         isRequired={isRequired}
         inputPlaceholder={inputPlaceholder}
         inputType={inputType}

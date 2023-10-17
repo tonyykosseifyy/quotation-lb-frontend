@@ -78,6 +78,7 @@
   --primary-clr: #417d7a;
   --primary-clr-light: #0071bc;
   --primary-clr-darker: #2e5754;
+  --primary-clr-extra-dark: #1a3c40;
   --primary-background-clr: #fafafa;
   --primary-text-clr: #535353;
   --secondary-text-clr: #7d7d7d;
@@ -96,6 +97,7 @@
   --table-row-lightgreen-background-clr: #ecf2f2;
   --modal-background-clr: rgba(250, 250, 250, 1);
   --inactive-progress-bar-text-clr: #dedede;
+  --light-gray: #d6d3e4;
 }
 
 @font-face {

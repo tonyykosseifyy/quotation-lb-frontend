@@ -1,4 +1,5 @@
 export const Routes = {
+  Login: "/login",
   Home: "/dashboard",
   ViewQuotation: "/dashboard/quotations/${id}",
   NewQuotation: "/dashboard/quotations/create",

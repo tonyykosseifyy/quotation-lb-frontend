@@ -84,10 +84,10 @@ const CreateClient = () => {
       addressType: prevState.addressType,
     }));
   };
-  const handleExtraInfoChange = (e) => {
+  const handleExtraInfoChange = (value) => {
     setState((prevState) => ({
       clientType: prevState.clientType,
-      extraInfo: e.target.value,
+      extraInfo: value,
       addressType: prevState.addressType,
     }));
   };
@@ -110,7 +110,7 @@ const CreateClient = () => {
 
   return (
     <div>
-      <div className={`container m-0`}>
+      <div>
         <div className='row'>
           <div className={styles.title}>Create New Client</div>
         </div>
@@ -300,7 +300,7 @@ const CreateClient = () => {
                 title='Contacts & Addresses'
                 rounded={true}
                 fillBackground={state.extraInfo === "contact"}
-                onClick={handleExtraInfoChange}
+                onClick={() => handleExtraInfoChange("contact")}
                 value='contact'
                 type='button'
                 width='189px'
@@ -310,7 +310,7 @@ const CreateClient = () => {
                 title='Sales'
                 rounded={true}
                 fillBackground={state.extraInfo === "sales"}
-                onClick={handleExtraInfoChange}
+                onClick={() => handleExtraInfoChange("sales")}
                 type='button'
                 value='sales'
                 width='189px'
@@ -320,7 +320,7 @@ const CreateClient = () => {
                 title='Internal Note'
                 rounded={true}
                 fillBackground={state.extraInfo === "internalNote"}
-                onClick={handleExtraInfoChange}
+                onClick={() => handleExtraInfoChange("internalNote")}
                 value='internalNote'
                 type='button'
                 width='189px'
@@ -435,9 +435,9 @@ const CreateClient = () => {
                           inputType='textarea'
                           inputName='note'
                           alignLabelInput={false}
-                          height={130}
                           width={100}
                           widthUnit='%'
+                          height='none'
                           spaceBetween={false}
                           register={register}
                         />
@@ -502,9 +502,9 @@ const CreateClient = () => {
                         inputType='textarea'
                         inputName='internalNote'
                         alignLabelInput={false}
-                        height={130}
                         width={88}
                         widthUnit='%'
+                        height='none'
                         spaceBetween={false}
                         isRequired={true}
                         register={register}

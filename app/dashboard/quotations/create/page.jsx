@@ -7,7 +7,7 @@ import axiosClient from "@/api/axiosClient";
 import QuotationComponent from "@/components/Quotation/QuotationComponent";
 import { VAT, VAT_LEB_RATE } from "@/data/constants";
 import { calculateTotalAfterDiscounts } from "@/helpers/calculate";
-import { Routes } from "@/router/routes";
+import { Routes } from "@/routes/routes";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 import debounce from "lodash.debounce";

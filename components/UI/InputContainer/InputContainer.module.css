@@ -11,6 +11,10 @@
   align-items: start !important;
 }
 
+.stackLabelInput {
+  flex-direction: column;
+}
+
 .labelText {
   font-size: 14px;
   font-weight: 600;
