@@ -163,7 +163,7 @@ const Products = () => {
   };
 
   return (
-    <div className={`container m-0`}>
+    <div>
       <div className={`${styles.header} pt-4`}>
         <div className='d-flex'>
           <div className={`${styles.title}`}>Products</div>

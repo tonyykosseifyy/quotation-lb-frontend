@@ -101,8 +101,8 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     }
   };
 
-  const handleTabChange = (e) => {
-    setButtonState(() => e.target.value);
+  const handleTabChange = (value) => {
+    setButtonState(value);
   };
 
   const handleSubmitSuccess = () => {
@@ -296,7 +296,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
           <Button
             title='Order lines'
             fillBackground={buttonState === "order"}
-            onClick={handleTabChange}
+            onClick={() => handleTabChange("order")}
             value='order'
             type='button'
             width='180px'
@@ -305,7 +305,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
           <Button
             title='Other Information'
             fillBackground={buttonState === "information"}
-            onClick={handleTabChange}
+            onClick={() => handleTabChange("information")}
             value='information'
             width='180px'
             type='button'

@@ -26,8 +26,8 @@ const ListOfClients = () => {
     setSearch(e.target.value);
   };
 
-  const handleTabChange = (e) => {
-    setButtonState(() => e.target.value);
+  const handleTabChange = (value) => {
+    setButtonState(value);
   };
 
   const [view, setView] = useState("grid");
@@ -131,7 +131,7 @@ const ListOfClients = () => {
           title='General'
           rounded={true}
           fillBackground={buttonState === "general"}
-          onClick={handleTabChange}
+          onClick={() => handleTabChange("general")}
           value='general'
           type='button'
           width='180px'
@@ -141,7 +141,7 @@ const ListOfClients = () => {
           title='Transactions'
           rounded={true}
           fillBackground={buttonState === "transactions"}
-          onClick={handleTabChange}
+          onClick={() => handleTabChange("transactions")}
           type='button'
           value='transactions'
           width='180px'

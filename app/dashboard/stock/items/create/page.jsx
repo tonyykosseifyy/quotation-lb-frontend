@@ -132,8 +132,8 @@ const CreateItems = ({ closeModal }) => {
   const [packageType, setPackageType] = useState(null);
   const [packageTypeName, setPackageTypeName] = useState("");
 
-  const handleExtraInfo = (e) => {
-    setButtonState(() => e.target.value);
+  const handleExtraInfo = (value) => {
+    setButtonState(value);
   };
 
   const schema = yup.object().shape({
@@ -497,7 +497,7 @@ const CreateItems = ({ closeModal }) => {
               key={title}
               title={title}
               fillBackground={fillBackground}
-              onClick={handleExtraInfo}
+              onClick={() => handleExtraInfo(value)}
               value={value}
               type='button'
               paddingLeft='35px'
