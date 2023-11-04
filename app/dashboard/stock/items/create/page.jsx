@@ -378,8 +378,7 @@ const CreateItems = ({ closeModal }) => {
           createNewProductInfo[key] = createNewProductInfo[key].id;
         }
       });
-      console.log(createNewProductInfo);
-      // mutation.mutate(createNewProductInfo);
+      mutation.mutate(createNewProductInfo);
     } catch (err) {
       err.inner.forEach((error) => {
         toast(error.message);
