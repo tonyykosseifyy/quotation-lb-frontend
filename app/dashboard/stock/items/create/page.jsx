@@ -344,7 +344,6 @@ const CreateItems = ({ closeModal }) => {
   const onSubmit = async (data, e) => {
     try {
       const validationResult = await schema.validate(data, { abortEarly: false });
-      console.log(validationResult);
       const convertToNumber = (fields) => {
         fields.forEach((field) => {
           if (data[field]) {

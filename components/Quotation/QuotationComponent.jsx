@@ -10,12 +10,16 @@ import { formatNumber } from "@/helpers/formatNumber";
 import { useFieldArray, useForm } from "react-hook-form";
 import Sortable from "sortablejs";
 import { VAT, VAT_LEB_RATE } from "@/data/constants";
+import axiosClient from "@/api/axiosClient";
+import { toast } from "react-toastify";
+import { generatePreviewForUnsubmittedQuotation, handlePreview } from "@/controllers/quotations.controller";
 
 const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData, permissions = [], resetForm, setResetForm = () => {}, ...props }) => {
   const [buttonState, setButtonState] = useState("order");
   const [indices, setIndices] = useState({ oldIndex: null, newIndex: null });
   const [quotationTotalBeforeVat, setQuotationTotalBeforeVat] = useState(0);
   const [activeStep, setActiveStep] = useState(1);
+  const [isLoadingPreview, setIsLoadingPreview] = useState(false);
 
   const shouldDisableComponents = action === "view";
 
@@ -23,21 +27,30 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     {
       title: "Preview",
       value: "preview",
+      onClick: () => handleQuotationPreview(quotationData?.id),
+      shouldDisableComponent: false,
+      isLoading: isLoadingPreview,
     },
     {
       title: "Send By Email",
       value: "send by email",
       onClick: () => setActiveStep(2),
+      shouldDisableComponent: shouldDisableComponents,
+      isLoading: false,
     },
     {
       title: "Confirm",
       value: "confirm",
       onClick: () => setActiveStep(3),
+      shouldDisableComponent: shouldDisableComponents,
+      isLoading: false,
     },
     {
       title: "Cancel",
       value: "cancel",
       onClick: () => setActiveStep(1),
+      shouldDisableComponent: shouldDisableComponents,
+      isLoading: false,
     },
   ];
 
@@ -101,6 +114,22 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     }
   };
 
+  const handleQuotationPreview = async (id) => {
+    // setIsLoadingPreview(true);
+    try {
+      if (id) {
+        await handlePreview(id);
+      } else {
+        const values = getValues();
+        await generatePreviewForUnsubmittedQuotation(values, quotationData.lineTypes);
+      }
+    } catch (err) {
+      console.log(err);
+      // toast.error("Something went wrong");
+    } finally {
+      // setIsLoadingPreview(false);
+    }
+  };
   const handleTabChange = (value) => {
     setButtonState(value);
   };
@@ -174,7 +203,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
         </div>
         <div className='d-flex flex-column flex-lg-row mt-2 justify-content-md-between gap-3'>
           <div className='d-flex gap-2'>
-            {actionButtons.map(({ title, value, onClick }) => (
+            {actionButtons.map(({ title, value, onClick, shouldDisableComponent, isLoading }) => (
               <Button
                 key={title}
                 title={title}
@@ -187,8 +216,9 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                 type='button'
                 fontSize='13px'
                 fontWeight={600}
+                loading={isLoading}
                 titleColor='var(--primary-text-clr)'
-                isDisabled={shouldDisableComponents}
+                isDisabled={shouldDisableComponent}
               />
             ))}
           </div>

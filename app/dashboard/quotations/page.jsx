@@ -19,6 +19,8 @@ import { useRouter } from "next/navigation";
 import { Routes } from "@/routes/routes";
 import { ApiEndpoint } from "@/api/apiEndpoints";
 import { toast } from "react-toastify";
+import { Dropdown } from "@nextui-org/react";
+import { handleDownload, handlePreview } from "@/controllers/quotations.controller";
 
 const deleteQuotation = async (id) => {
   const response = await axiosClient.delete(ApiEndpoint.deleteQuotation(id));
@@ -81,7 +83,7 @@ const Page = () => {
   };
 
   const handleRowClick = (id) => {
-    // router.push(Routes.ViewQuotation.replace("${id}", id));
+    router.push(Routes.ViewQuotation.replace("${id}", id));
   };
 
   const handleExtraInfoChange = (e) => {
@@ -109,6 +111,23 @@ const Page = () => {
 
   const handleDeleteQuotation = (id) => {
     deleteMutation.mutate(id);
+  };
+
+  const handleShowPreview = async (id) => {
+    try {
+      await handlePreview(id);
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
+  };
+
+  const handlePreviewDownload = async (row) => {
+    try {
+      await handleDownload(row);
+    } catch (err) {
+      console.log(err);
+      toast.error("Something went wrong");
+    }
   };
 
   const columns = [
@@ -171,7 +190,39 @@ const Page = () => {
     {
       name: "More Options",
       center: true,
-      selector: (row) => <Ellipsis onClick={() => handleClickMoreOptions(row.id)} />,
+      selector: (row) => (
+        <Dropdown placement='bottom-center'>
+          <Dropdown.Trigger>
+            <div>
+              <Ellipsis />
+            </div>
+          </Dropdown.Trigger>
+          <Dropdown.Menu aria-label='User menu actions'>
+            <Dropdown.Item
+              aria-label='Show Preview'
+              key='preview'
+              className={styles.dropdownItem}>
+              <div
+                onClick={() => {
+                  handleShowPreview(row.id);
+                }}>
+                Show Preview
+              </div>
+            </Dropdown.Item>
+            <Dropdown.Item
+              aria-label='Download as PDF'
+              key='preview'
+              className={styles.dropdownItem}>
+              <div
+                onClick={() => {
+                  handlePreviewDownload(row);
+                }}>
+                Download as PDF
+              </div>
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
+      ),
     },
     {
       name: "",

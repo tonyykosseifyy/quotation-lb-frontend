@@ -1,26 +1,41 @@
 .header {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .title {
-    font-weight: 700;
-    font-size: 18px;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .searchDiv {
-    margin-top: 25px;
+  margin-top: 25px;
 }
 
 .buttonsDiv {
-    margin-top: 70px;
+  margin-top: 70px;
 }
 
 @media only screen and (min-width: 768px) {
-    .header {
-        flex-direction: row;
-        justify-content: space-between;
-        gap: 0;
-    }
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+  }
+}
+
+.dropdownItemName {
+  text-decoration: none;
+  color: var(--secondary-text-clr);
+}
+
+.dropdownItem {
+  background-color: white !important;
+}
+
+.dropdownItem:hover {
+  background-color: var(--primary-clr) !important;
+  color: white;
+  border-radius: none !important;
 }

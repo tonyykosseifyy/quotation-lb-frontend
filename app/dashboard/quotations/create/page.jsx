@@ -41,6 +41,7 @@ const CreateQuotation = () => {
   const createQuotationData = createQuotationResponse.data?.data.data;
 
   const onSubmit = (storeData) => {
+    console.log(storeData);
     storeData.orderLines.forEach((orderLine) => {
       const type = createQuotationData.lineTypes.find((type) => type.id === orderLine.type);
       if (type.name === "item" || type.name === "combo") orderLine[type.name] = orderLine[type.name].id;
