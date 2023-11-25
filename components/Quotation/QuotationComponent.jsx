@@ -115,7 +115,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
   };
 
   const handleQuotationPreview = async (id) => {
-    // setIsLoadingPreview(true);
+    setIsLoadingPreview(true);
     try {
       if (id) {
         await handlePreview(id);
@@ -124,10 +124,9 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
         await generatePreviewForUnsubmittedQuotation(values, quotationData.lineTypes);
       }
     } catch (err) {
-      console.log(err);
-      // toast.error("Something went wrong");
+      toast.error("Something went wrong");
     } finally {
-      // setIsLoadingPreview(false);
+      setIsLoadingPreview(false);
     }
   };
   const handleTabChange = (value) => {
