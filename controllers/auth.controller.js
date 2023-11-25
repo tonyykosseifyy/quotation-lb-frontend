@@ -11,6 +11,7 @@ export const checkAuth = () => {
 };
 
 export const login = async ({ email, password }) => {
+  console.log("base url", process.env.NEXT_PUBLIC_SERVER_APP_BASE_URL);
   const response = await axiosClient.post(`/login`, { email, password });
   return response.data;
 };
