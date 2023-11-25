@@ -5,8 +5,6 @@ const axiosClient = axios.create({
   baseURL: `${process.env.NEXT_PUBLIC_SERVER_APP_BASE_URL}/api`,
 });
 
-console.log("base url", `${process.env.NEXT_PUBLIC_SERVER_APP_BASE_URL}/api`);
-
 axiosClient.interceptors.request.use((config) => {
   const token = useAuthStore.getState().token;
   config.headers.Authorization = `Bearer ${token}`;
