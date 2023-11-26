@@ -76,7 +76,7 @@ const TransactionsTab = ({ debouncedSearch, selectedClient }) => {
   };
 
   const handleRowClick = (id) => {
-    // router.push(Routes.ViewQuotation.replace("${id}", id));
+    router.push(Routes.ViewQuotation.replace("${id}", id));
   };
 
   const [columns, setColumns] = useState([
