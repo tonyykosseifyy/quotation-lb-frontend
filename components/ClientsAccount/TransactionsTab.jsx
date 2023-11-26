@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import DataTable from "react-data-table-component";
-import { Dropdown } from "@nextui-org/react";
 import CheckBox from "@/components/UI/CheckBox/Checkbox";
 import { formatDate } from "@/helpers/formatDate";
 import { useQuery } from "@tanstack/react-query";
