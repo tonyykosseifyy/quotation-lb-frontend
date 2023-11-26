@@ -32,7 +32,7 @@ const ViewQuotation = () => {
   if (getQuotationData && getQuotationData.orderLines?.length > 0) {
     const updatedOrderLines = getQuotationData.orderLines.map((orderLine, index) => {
       if (orderLine.type === 4 && orderLine.image) {
-        const filePath = `${process.env.NEXT_PUBLIC_SERVER_APP_BASE_URL}/storage/${orderLine.image}`;
+        const filePath = orderLine.image;
         return {
           ...orderLine,
           image: filePath,

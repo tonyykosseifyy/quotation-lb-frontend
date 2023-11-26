@@ -251,6 +251,9 @@ const GeneralTab = ({ debouncedSearch, selectedClient, setSelectedClient }) => {
         minHeight: "5px !important",
         borderBottom: "none !important",
         paddingLeft: "20px",
+        "&:hover": {
+          cursor: "pointer",
+        },
       },
     },
     cells: {

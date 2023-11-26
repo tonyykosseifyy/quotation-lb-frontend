@@ -207,6 +207,9 @@ const TransactionsTab = ({ debouncedSearch, selectedClient }) => {
         minHeight: "5px !important",
         borderBottom: "none !important",
         paddingLeft: "20px",
+        "&:hover": {
+          cursor: "pointer",
+        },
       },
     },
     cells: {
@@ -249,7 +252,7 @@ const TransactionsTab = ({ debouncedSearch, selectedClient }) => {
         paginationTotalRows={totalRows}
         onChangeRowsPerPage={handlePerRowsChange}
         onChangePage={handlePageChange}
-        onRowClicked={(row) => {
+        onRowDoubleClicked={(row) => {
           handleRowClick(row.id);
         }}
         progressPending={getQuotationsResponse.isLoading}

@@ -35,6 +35,8 @@ const Page = () => {
   const [totalRows, setTotalRows] = useState(0);
   const [perPage, setPerPage] = useState(10);
   const [page, setPage] = useState(1);
+  const [isRowDropdownShown, setIsRowDropdownShown] = useState({});
+  const [delayHandler, setDelayHandler] = useState(null);
   const debouncedSearch = useDebounce(search, 500);
 
   const queryClient = useQueryClient();
@@ -136,15 +138,38 @@ const Page = () => {
     }
   };
 
+  const handleMouseEnter = (id) => {
+    setIsRowDropdownShown((prev) => {
+      const newState = { ...prev };
+      Object.keys(newState).forEach((key) => {
+        newState[key] = false;
+      });
+      newState[id] = true;
+
+      return newState;
+    });
+    clearTimeout(delayHandler);
+  };
+
+  const handleMouseLeave = (id) => {
+    setDelayHandler(
+      setTimeout(() => {
+        setIsRowDropdownShown((prev) => ({ ...prev, [id]: false }));
+      }, 200),
+    );
+  };
+
   const columns = [
     {
       name: "Number",
       maxWidth: "120px",
+      center: true,
       selector: (row) => row.quotationNumber ?? renderEmptyTableCellPlaceholder(),
       sortable: true,
     },
     {
       name: "Creation Date",
+      center: true,
       maxWidth: "140px",
       selector: (row) => row.createdAtDate ?? renderEmptyTableCellPlaceholder(),
       sortable: true,
@@ -152,16 +177,19 @@ const Page = () => {
     },
     {
       name: "Customer",
+      center: true,
       selector: (row) => row.client?.name ?? renderEmptyTableCellPlaceholder(),
       sortable: true,
     },
     {
       name: "Salesperson",
+      center: true,
       selector: (row) => row.salesperson?.name ?? renderEmptyTableCellPlaceholder(),
       sortable: true,
     },
     {
       name: "Task",
+      center: true,
       selector: (row) => {
         if (row.task) return row.task;
         return (
@@ -180,6 +208,7 @@ const Page = () => {
     {
       name: "Total",
       width: "100px",
+      center: true,
       selector: (row) => row.total ?? renderEmptyTableCellPlaceholder(),
     },
     {
@@ -197,37 +226,43 @@ const Page = () => {
       name: "More Options",
       center: true,
       selector: (row) => (
-        <Dropdown placement='bottom-center'>
-          <Dropdown.Trigger>
-            <div>
-              <Ellipsis />
-            </div>
-          </Dropdown.Trigger>
-          <Dropdown.Menu aria-label='User menu actions'>
-            <Dropdown.Item
-              aria-label='Show Preview'
-              key='preview'
-              className={styles.dropdownItem}>
-              <div
-                onClick={() => {
-                  handleShowPreview(row.id);
-                }}>
-                Show Preview
+        <div
+          onMouseEnter={() => handleMouseEnter(row.id)}
+          onMouseLeave={() => handleMouseLeave(row.id)}>
+          <Dropdown
+            placement='bottom-center'
+            isOpen={isRowDropdownShown[row.id]}>
+            <Dropdown.Trigger>
+              <div>
+                <Ellipsis />
               </div>
-            </Dropdown.Item>
-            <Dropdown.Item
-              aria-label='Download as PDF'
-              key='preview'
-              className={styles.dropdownItem}>
-              <div
-                onClick={() => {
-                  handlePreviewDownload(row);
-                }}>
-                Download as PDF
-              </div>
-            </Dropdown.Item>
-          </Dropdown.Menu>
-        </Dropdown>
+            </Dropdown.Trigger>
+            <Dropdown.Menu aria-label='User menu actions'>
+              <Dropdown.Item
+                aria-label='Show Preview'
+                key='preview'
+                className={styles.dropdownItem}>
+                <div
+                  onClick={() => {
+                    handleShowPreview(row.id);
+                  }}>
+                  Show Preview
+                </div>
+              </Dropdown.Item>
+              <Dropdown.Item
+                aria-label='Download as PDF'
+                key='preview'
+                className={styles.dropdownItem}>
+                <div
+                  onClick={() => {
+                    handlePreviewDownload(row);
+                  }}>
+                  Download as PDF
+                </div>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
       ),
     },
     {
@@ -271,6 +306,9 @@ const Page = () => {
         fontSize: 12,
         fontWeight: 700,
         color: "var(--table-data-text-clr)",
+        "&:hover": {
+          cursor: "pointer",
+        },
       },
     },
     pagination: {
@@ -329,12 +367,12 @@ const Page = () => {
         customStyles={customStyles}
         paginationComponentOptions={paginationComponentOptions}
         paginationRowsPerPageOptions={paginationRowsPerPageOptions}
-        defaultSortFieldId={1}
+        // defaultSortFieldId={1}
         paginationServer
         paginationTotalRows={totalRows}
         onChangeRowsPerPage={handlePerRowsChange}
         onChangePage={handlePageChange}
-        onRowClicked={(row) => {
+        onRowDoubleClicked={(row) => {
           handleRowClick(row.id);
         }}
       />
