@@ -7,6 +7,8 @@ import CheckBox from "@/components/UI/CheckBox/Checkbox";
 import { formatDate } from "@/helpers/formatDate";
 import { useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
+import { renderEmptyTableCellPlaceholder } from "@/helpers/table.Helper";
+import Loader from "../Loader/Loader";
 
 const TransactionsTab = ({ debouncedSearch, selectedClient }) => {
   const [perPage, setPerPage] = useState(10);
@@ -80,40 +82,46 @@ const TransactionsTab = ({ debouncedSearch, selectedClient }) => {
   const [columns, setColumns] = useState([
     {
       name: "Date",
-      selector: (row) => formatDate(row.createdAt.split("T")[0], "/"),
+      selector: (row) => (row.createdAt ? formatDate(row.createdAt.split("T")[0], "/") : renderEmptyTableCellPlaceholder()),
       allowOverflow: true,
       width: "100px",
+      center: true,
       isVisible: true,
     },
     {
       name: "Serial #",
       maxWidth: "120px",
-      selector: (row) => row.quotationNumber,
+      center: true,
+      selector: (row) => row.quotationNumber ?? renderEmptyTableCellPlaceholder(),
       isVisible: true,
     },
     {
       name: "Manual Reference",
       maxWidth: "150px",
-      selector: (row) => row.manualReference,
+      center: true,
+      selector: (row) => row.manualReference ?? renderEmptyTableCellPlaceholder(),
       isVisible: true,
     },
     {
       name: "Doctype",
       width: "110px",
+      center: true,
       selector: (row) => "Quotation",
       isVisible: true,
     },
     {
       name: "Transaction Label",
       maxWidth: "auto",
-      selector: (row) => `${row.quotationNumber} / ${row.client.name}`,
+      center: true,
+      selector: (row) => (row.quotationNumber ? `${row.quotationNumber} / ${row.client.name}` : renderEmptyTableCellPlaceholder()),
       isVisible: true,
     },
     {
       name: "Currency",
       width: "100px",
+      center: true,
       isVisible: true,
-      selector: (row) => row.currency.name,
+      selector: (row) => row.currency?.name ?? renderEmptyTableCellPlaceholder(),
     },
     // {
     //   name: "Debit",
@@ -131,7 +139,8 @@ const TransactionsTab = ({ debouncedSearch, selectedClient }) => {
       name: "Value",
       width: "90px",
       isVisible: true,
-      selector: (row) => row.total,
+      center: true,
+      selector: (row) => row.total ?? renderEmptyTableCellPlaceholder(),
     },
     // {
     //   name: (
@@ -240,6 +249,8 @@ const TransactionsTab = ({ debouncedSearch, selectedClient }) => {
         onRowClicked={(row) => {
           handleRowClick(row.id);
         }}
+        progressPending={getQuotationsResponse.isLoading}
+        progressComponent={<Loader />}
       />
     </>
   );

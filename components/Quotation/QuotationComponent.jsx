@@ -124,7 +124,12 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
         await generatePreviewForUnsubmittedQuotation(values, quotationData.lineTypes);
       }
     } catch (err) {
-      toast.error("Something went wrong");
+      if (err.response.status === 400) {
+        const res = await new Response(err.response.data).text();
+        toast.error(JSON.parse(res).message);
+      } else {
+        toast.error("Something went wrong");
+      }
     } finally {
       setIsLoadingPreview(false);
     }

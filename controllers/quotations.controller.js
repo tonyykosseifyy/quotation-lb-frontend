@@ -53,6 +53,7 @@ export const generatePreviewForUnsubmittedQuotation = async (values) => {
     },
     responseType: "blob",
   });
+  console.log(response);
   const url = URL.createObjectURL(response.data);
   window.open(url, "_blank");
 };

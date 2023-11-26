@@ -98,13 +98,16 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
     },
   });
 
-  const handleCreateResource = (name, resourceName, inputName) => {
+  const handleCreateResource = (name, resourceName, inputName, description, unitPrice) => {
     if (resourceName === "item") {
       const payload = {
         itemTypeId: 1,
         mainCode: name,
+        mainDescription: description,
+        unitPrice,
         inputName: inputName,
       };
+      console.log(payload);
       mutateItem(payload, { inputName });
     }
   };
@@ -199,7 +202,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                                 referenceInput={fieldsWatch[fieldIdx][input.referenceKey]}
                                 referenceKey={input.referenceKey}
                                 inputKey={input.inputKey}
-                                onCreateOption={(name) => handleCreateResource(name, input.inputName, `orderLines.${fieldIdx}.${input.inputName}`)}
+                                onCreateOption={(name) => handleCreateResource(name, input.inputName, `orderLines.${fieldIdx}.${input.inputName}`, fieldsWatch[fieldIdx]["description"], fieldsWatch[fieldIdx]["unitPrice"])}
                               />
                             )}
                           </span>

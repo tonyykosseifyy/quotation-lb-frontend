@@ -21,6 +21,7 @@ import { ApiEndpoint } from "@/api/apiEndpoints";
 import { toast } from "react-toastify";
 import { Dropdown } from "@nextui-org/react";
 import { handleDownload, handlePreview } from "@/controllers/quotations.controller";
+import { renderEmptyTableCellPlaceholder } from "@/helpers/table.Helper";
 
 const deleteQuotation = async (id) => {
   const response = await axiosClient.delete(ApiEndpoint.deleteQuotation(id));
@@ -117,7 +118,10 @@ const Page = () => {
     try {
       await handlePreview(id);
     } catch (err) {
-      toast.error("Something went wrong");
+      if (err.response.status === 400) toast.error(err.response.message);
+      else {
+        toast.error("Something went wrong");
+      }
     }
   };
 
@@ -125,8 +129,10 @@ const Page = () => {
     try {
       await handleDownload(row);
     } catch (err) {
-      console.log(err);
-      toast.error("Something went wrong");
+      if (err.response.status === 400) toast.error(err.response.message);
+      else {
+        toast.error("Something went wrong");
+      }
     }
   };
 
@@ -134,24 +140,24 @@ const Page = () => {
     {
       name: "Number",
       maxWidth: "120px",
-      selector: (row) => row.quotationNumber,
+      selector: (row) => row.quotationNumber ?? renderEmptyTableCellPlaceholder(),
       sortable: true,
     },
     {
       name: "Creation Date",
       maxWidth: "140px",
-      selector: (row) => row.createdAtDate,
+      selector: (row) => row.createdAtDate ?? renderEmptyTableCellPlaceholder(),
       sortable: true,
       sortFunction: createdAtSort,
     },
     {
       name: "Customer",
-      selector: (row) => row.client.name,
+      selector: (row) => row.client?.name ?? renderEmptyTableCellPlaceholder(),
       sortable: true,
     },
     {
       name: "Salesperson",
-      selector: (row) => row.salesperson?.name,
+      selector: (row) => row.salesperson?.name ?? renderEmptyTableCellPlaceholder(),
       sortable: true,
     },
     {
@@ -174,7 +180,7 @@ const Page = () => {
     {
       name: "Total",
       width: "100px",
-      selector: (row) => row.total,
+      selector: (row) => row.total ?? renderEmptyTableCellPlaceholder(),
     },
     {
       name: "Status",

@@ -47,7 +47,6 @@ export const rowInputFlexList = [
       {
         inputType: "asyncCreatableSelect",
         inputName: "item",
-        inputPlaceholder: "Item 1",
         inputBorderColor: "var(--input-border-2)",
         placeholderWeight: 700,
         inputfontWeight: 700,
@@ -60,7 +59,6 @@ export const rowInputFlexList = [
         inputKey: "mainDescription",
         referenceKey: "item",
         permission: "edit item description in quotation",
-        inputPlaceholder: "lorem ipsumlorem ipsum",
         inputBorderColor: "var(--input-border-2)",
         inputValue: "",
         placeholderWeight: 700,
@@ -86,7 +84,6 @@ export const rowInputFlexList = [
         inputKey: "unitPrice",
         referenceKey: "item",
         permission: "edit item unit price in quotation",
-        inputPlaceholder: "150.0",
         inputBorderColor: "var(--input-border-2)",
         textAlign: "center",
         placeholderWeight: 700,
@@ -123,12 +120,12 @@ export const rowInputFlexList = [
       {
         inputType: "async-select",
         inputName: "combo",
-        inputPlaceholder: (
-          <div className={`${orderLinesStyles.row}`}>
-            <img src='/assets/svg/combo.svg' />
-            <span className={`${orderLinesStyles.comboPlaceheolderText}`}> Combo</span>
-          </div>
-        ),
+        // inputPlaceholder: (
+        //   <div className={`${orderLinesStyles.row}`}>
+        //     <img src='/assets/svg/combo.svg' />
+        //     <span className={`${orderLinesStyles.comboPlaceheolderText}`}> Combo</span>
+        //   </div>
+        // ),
         selectOptions: dummyItems,
         placeholderWeight: 600,
         flex: 1,
@@ -139,7 +136,6 @@ export const rowInputFlexList = [
         inputKey: "description",
         referenceKey: "combo",
         permission: "edit combo description in quotation",
-        inputPlaceholder: "lorem ipsumlorem ipsum",
         flex: 4.25,
       },
       {
@@ -160,7 +156,6 @@ export const rowInputFlexList = [
         referenceKey: "combo",
         permission: "edit combo unit price in quotation",
         // isDisabled: true,
-        inputPlaceholder: "150.0",
         textAlign: "center",
         placeholderWeight: 700,
         inputfontWeight: 700,

@@ -9,6 +9,8 @@ import { Dropdown } from "@nextui-org/react";
 import CheckBox from "@/components/UI/CheckBox/Checkbox";
 import { generalTableData } from "@/data/clientsAccount";
 import { useClients } from "@/hooks/clients/useClients";
+import { renderEmptyTableCellPlaceholder } from "@/helpers/table.Helper";
+import Loader from "../Loader/Loader";
 
 const GeneralTab = ({ debouncedSearch, selectedClient, setSelectedClient }) => {
   const [perPage, setPerPage] = useState(10);
@@ -67,7 +69,7 @@ const GeneralTab = ({ debouncedSearch, selectedClient, setSelectedClient }) => {
   const [columns, setColumns] = useState([
     {
       name: "Code",
-      selector: (row) => row.clientNumber,
+      selector: (row) => row.clientNumber ?? renderEmptyTableCellPlaceholder(),
       allowOverflow: true,
       maxWidth: "100px",
       isVisible: true,
@@ -75,14 +77,16 @@ const GeneralTab = ({ debouncedSearch, selectedClient, setSelectedClient }) => {
     {
       name: "Name",
       maxWidth: "auto",
-      selector: (row) => row.name,
+      center: true,
+      selector: (row) => row.name ?? renderEmptyTableCellPlaceholder(),
       isVisible: true,
     },
     {
       name: "Phone Number",
       maxWidth: "130px",
+      center: true,
       selector: (row) => {
-        return `${row.phoneCode ?? ""} ${row.phoneNumber ?? ""}`;
+        return row.phoneNumber ? `${row.phoneCode ?? ""} ${row.phoneNumber ?? ""}` : renderEmptyTableCellPlaceholder();
       },
       right: true,
       isVisible: true,
@@ -90,14 +94,16 @@ const GeneralTab = ({ debouncedSearch, selectedClient, setSelectedClient }) => {
     {
       name: "Balance USD",
       maxWidth: "150px",
-      selector: (row) => row.balanceUSD,
+      center: true,
+      selector: (row) => row.balanceUSD ?? renderEmptyTableCellPlaceholder(),
       right: true,
       isVisible: true,
     },
     {
       name: "Balance LBP",
       maxWidth: "150px",
-      selector: (row) => row.balanceLBP,
+      center: true,
+      selector: (row) => row.balanceLBP ?? renderEmptyTableCellPlaceholder(),
       right: true,
       isVisible: true,
     },
@@ -269,6 +275,7 @@ const GeneralTab = ({ debouncedSearch, selectedClient, setSelectedClient }) => {
 
   useEffect(() => {
     setFilteredClients(clientsData?.data);
+    setSelectedClient(clientsData?.data[0]?.id);
     setTotalRows(clientsData?.meta.total);
   }, [clientsData?.data]);
 
