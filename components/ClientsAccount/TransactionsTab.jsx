@@ -8,6 +8,8 @@ import { useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 import { renderEmptyTableCellPlaceholder } from "@/helpers/table.Helper";
 import Loader from "../Loader/Loader";
+import { Routes } from "@/routes/routes";
+import { useRouter } from "next/navigation";
 
 const TransactionsTab = ({ debouncedSearch, selectedClient }) => {
   const [perPage, setPerPage] = useState(10);
@@ -27,6 +29,8 @@ const TransactionsTab = ({ debouncedSearch, selectedClient }) => {
     selectAllRowsItem: true,
     selectAllRowsItemText: "All",
   };
+
+  const router = useRouter();
 
   const paginationRowsPerPageOptions = [10, 20, 50];
 
