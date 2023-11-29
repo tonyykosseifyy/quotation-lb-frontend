@@ -159,7 +159,11 @@ const Input = ({
           id={inputId}
           style={{ resize: canResize ? "" : "none", fontSize: fontSize ? fontSize : "12px", fontWeight: placeholderWeight, width: "100%" }}
           placeholder={inputPlaceholder}
-          {...register(inputName, { required: isRequired })}
+          {...(register
+            ? register(registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName, {
+                required: isRequired,
+              })
+            : {})}
           readOnly={isDisabled}
         />
       )}
@@ -190,33 +194,48 @@ const Input = ({
             <Select
               {...field}
               styles={{
-                control: (baseStyles, state) => ({
+                control: (baseStyles) => ({
                   ...baseStyles,
                   borderRadius: 5,
-                  borderColor: inputBorderColor ? "var(--input-border-2)" : "var(--input-border)",
+                  borderColor: inputBorderColor ? "var(--primary-clr)" : "var(--input-border)",
                   "&:hover": {
-                    borderColor: "none",
+                    borderColor: "var(--primary-clr)",
                   },
                   "&:focus": {
-                    borderColor: "var(--input-border)",
+                    borderColor: "var(--primary-clr)",
                   },
                   "&:active": {
-                    borderColor: "var(--input-border)",
+                    borderColor: "var(--primary-clr)",
                   },
                   backgroundColor: "transparent",
+                  boxShadow: "",
                 }),
-                valueContainer: (baseStyles, state) => ({
+                option: (styles, { isSelected }) => {
+                  return {
+                    ...styles,
+                    backgroundColor: isSelected ? "var(--primary-clr)" : "transparent",
+                    "&:hover": {
+                      backgroundColor: !isSelected && "var(--primary-clr-light)",
+                      color: "white",
+                    },
+                    ":active": {
+                      ...styles[":active"],
+                      backgroundColor: isSelected ? "var(--primary-clr)" : "transparent",
+                    },
+                  };
+                },
+                valueContainer: (baseStyles) => ({
                   ...baseStyles,
                   fontSize: 14,
                   fontWeight: 400,
                 }),
-                placeholder: (baseStyles, state) => ({
+                placeholder: (baseStyles) => ({
                   ...baseStyles,
                   color: placeholderColor ? "#868686" : "#C8C8C8",
                   fontStyle: placeholderStyle ? "normal" : "italic",
                   fontWeight: placeholderWeight ? placeholderWeight : "",
                   fontSize: fontSize ? fontSize : "14px",
-                  dropdownIndicator: (baseStyles, state) => ({
+                  dropdownIndicator: (baseStyles) => ({
                     ...baseStyles,
                     color: dropdownArrowColor ? dropdownArrowColor : "var(--primary-text-clr)",
                   }),
@@ -246,12 +265,12 @@ const Input = ({
             <AsyncSelect
               {...field}
               styles={{
-                control: (baseStyles, state) => ({
+                control: (baseStyles) => ({
                   ...baseStyles,
                   borderRadius: 5,
                   borderColor: inputBorderColor ? "var(--primary-clr)" : "var(--input-border)",
                   "&:hover": {
-                    borderColor: "none",
+                    borderColor: "var(--primary-clr)",
                   },
                   "&:focus": {
                     borderColor: "var(--primary-clr)",
@@ -262,12 +281,26 @@ const Input = ({
                   backgroundColor: "transparent",
                   boxShadow: "",
                 }),
-                valueContainer: (baseStyles, state) => ({
+                valueContainer: (baseStyles) => ({
                   ...baseStyles,
                   fontSize: 14,
                   fontWeight: 400,
                 }),
-                placeholder: (baseStyles, state) => ({
+                option: (styles, { data, isFocused, isSelected }) => {
+                  return {
+                    ...styles,
+                    backgroundColor: isSelected ? "var(--primary-clr)" : "transparent",
+                    "&:hover": {
+                      backgroundColor: !isSelected && "var(--primary-clr-light)",
+                      color: "white",
+                    },
+                    ":active": {
+                      ...styles[":active"],
+                      backgroundColor: isSelected ? "var(--primary-clr)" : "transparent",
+                    },
+                  };
+                },
+                placeholder: (baseStyles) => ({
                   ...baseStyles,
                   color: placeholderColor ? "#868686" : "#C8C8C8",
                   fontStyle: placeholderStyle ? "normal" : "italic",
@@ -300,27 +333,42 @@ const Input = ({
             <AsyncCreatableSelect
               {...field}
               styles={{
-                control: (baseStyles, state) => ({
+                control: (baseStyles) => ({
                   ...baseStyles,
                   borderRadius: 5,
-                  borderColor: inputBorderColor ? "var(--primary-clr)" : "var(--input-border)",
+                  borderColor: "var(--primary-clr)",
                   "&:hover": {
-                    borderColor: "none",
+                    borderColor: "var(--primary-clr)",
                   },
                   "&:focus": {
                     borderColor: "var(--primary-clr)",
                   },
                   "&:active": {
+                    ...styles[":active"],
                     borderColor: "var(--primary-clr)",
                   },
                   backgroundColor: "transparent",
                   boxShadow: "",
                 }),
-                valueContainer: (baseStyles, state) => ({
+                valueContainer: (baseStyles) => ({
                   ...baseStyles,
                   fontSize: 14,
                   fontWeight: 400,
                 }),
+                option: (styles, { isSelected }) => {
+                  return {
+                    ...styles,
+                    backgroundColor: isSelected ? "var(--primary-clr)" : "transparent",
+                    "&:hover": {
+                      backgroundColor: !isSelected && "var(--primary-clr-light)",
+                      color: "white",
+                    },
+                    ":active": {
+                      ...styles[":active"],
+                      backgroundColor: isSelected ? "var(--primary-clr)" : "transparent",
+                    },
+                  };
+                },
                 placeholder: (baseStyles, state) => ({
                   ...baseStyles,
                   color: placeholderColor ? "#868686" : "#C8C8C8",

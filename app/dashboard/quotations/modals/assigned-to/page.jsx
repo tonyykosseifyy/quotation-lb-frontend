@@ -58,7 +58,6 @@ const assignedToModal = () => {
       phoneContactCode: codes["phoneContactCode"],
       mobileContactCode: codes["mobileContactCode"],
     };
-    console.log(payload);
   };
 
   const codes = {

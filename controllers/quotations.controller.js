@@ -11,6 +11,15 @@ export const storeQuotation = async (payload) => {
   return response.data;
 };
 
+export const updateQuotation = async ({ id, payload }) => {
+  const response = await axiosClient.post(`/quotations/update/${id}`, payload, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
+  return response.data;
+};
+
 export const handlePreview = async (id) => {
   if (id) {
     const response = await axiosClient.get(`/invoices/${id}`, { responseType: "blob" });
@@ -53,7 +62,6 @@ export const generatePreviewForUnsubmittedQuotation = async (values) => {
     },
     responseType: "blob",
   });
-  console.log(response);
   const url = URL.createObjectURL(response.data);
   window.open(url, "_blank");
 };

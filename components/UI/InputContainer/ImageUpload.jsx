@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from "react";
 import styles from "./ImageUpload.module.css";
 import { useDropzone } from "react-dropzone";
+import axiosClient from "@/api/axiosClient";
 
 export const ImageUpload = ({ register, registerArrayName, registerArrayIndex, registerArrayKey, inputName, isRequired, extraValidations, setValue, initialValue, isDisabled }) => {
   const [files, setFiles] = useState([]);
-  const [showEdit, setShowEdit] = useState(!isDisabled);
+  const [showEdit, setShowEdit] = useState(!isDisabled && !initialValue);
 
   useEffect(() => {
     if (initialValue) {
       setFiles([
         Object.assign(initialValue, {
           preview: initialValue,
+          initial: true,
         }),
       ]);
     }
+    return () => {};
   }, [initialValue]);
 
   const handleShowEditToggle = () => {

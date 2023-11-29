@@ -159,6 +159,10 @@ const Page = () => {
     );
   };
 
+  const handleEdit = (id) => {
+    router.push(Routes.EditQuotation.replace("${id}", id));
+  };
+
   const columns = [
     {
       name: "Number",
@@ -238,6 +242,17 @@ const Page = () => {
               </div>
             </Dropdown.Trigger>
             <Dropdown.Menu aria-label='User menu actions'>
+              <Dropdown.Item
+                aria-label='Edit'
+                key='edit'
+                className={styles.dropdownItem}>
+                <div
+                  onClick={() => {
+                    handleEdit(row.id);
+                  }}>
+                  Edit
+                </div>
+              </Dropdown.Item>
               <Dropdown.Item
                 aria-label='Show Preview'
                 key='preview'

@@ -5,15 +5,16 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 
 import QuotationComponent from "@/components/Quotation/QuotationComponent";
-import { VAT, VAT_LEB_RATE } from "@/data/constants";
-import { calculateTotalAfterDiscounts } from "@/helpers/calculate";
-import { Routes } from "@/routes/routes";
-import { useRouter } from "next/navigation";
-import { toast } from "react-toastify";
-import debounce from "lodash.debounce";
-import { storeClient } from "@/controllers/clients.controller";
+import { useParams, useRouter } from "next/navigation";
+import { QuotationAction } from "@/constants/QuotationsActions";
 import { useClients } from "@/hooks/clients/useClients";
-import { storeQuotation } from "@/controllers/quotations.controller";
+import { calculateTotalAfterDiscounts } from "@/helpers/calculate";
+import { VAT, VAT_LEB_RATE } from "@/data/constants";
+import { updateQuotation } from "@/controllers/quotations.controller";
+import { storeClient } from "@/controllers/clients.controller";
+import debounce from "lodash.debounce";
+import { Routes } from "@/routes/routes";
+import { toast } from "react-toastify";
 
 const permissions = {
   "edit salesperson cashing method in quotation": true,
@@ -21,7 +22,9 @@ const permissions = {
   "edit salesperson commission in quotation": true,
 };
 
-const CreateQuotation = () => {
+const EditQuotation = () => {
+  const { id } = useParams();
+
   const [resetForm, setResetForm] = useState(false);
   const [createdClient, setCreatedClient] = useState({});
 
@@ -33,16 +36,16 @@ const CreateQuotation = () => {
     },
   });
 
-  const createQuotationResponse = useQuery({
-    queryKey: ["createQuotation"],
-    queryFn: () => axiosClient.get(`/quotations/create`),
+  let editQuotationResponse = useQuery({
+    queryKey: ["getQuotationById", id],
+    queryFn: () => axiosClient.get(`/quotations/edit/${id}`),
   });
 
-  const createQuotationData = createQuotationResponse.data?.data.data;
+  let editQuotationData = editQuotationResponse.data?.data.data;
 
   const onSubmit = (storeData) => {
     storeData.orderLines.forEach((orderLine) => {
-      const type = createQuotationData.lineTypes.find((type) => type.id === orderLine.type);
+      const type = editQuotationData.lineTypes.find((type) => type.id === orderLine.type);
       if (type.name === "item" || type.name === "combo") orderLine[type.name] = orderLine[type.name].id;
     });
     Object.keys(storeData).forEach(function (key) {
@@ -52,18 +55,21 @@ const CreateQuotation = () => {
     });
 
     storeData["total"] = Number(calculateTotalAfterDiscounts(storeData["totalBeforeVat"], [Number(storeData["globalDiscountPercentage"]), Number(storeData["specialDiscountPercentage"])]) + Number(storeData["vat"])).toFixed(2);
+
     storeData["vatLebanese"] = storeData["vat"] * VAT_LEB_RATE;
+
     if (isNaN(storeData["total"])) {
       storeData["total"] = 0;
     }
-    mutation.mutate(storeData);
+    mutation.mutate({ id, payload: storeData });
   };
 
-  const mutation = useMutation(storeQuotation, {
+  const mutation = useMutation(updateQuotation, {
     onSuccess: (data) => {
       setResetForm(true);
       toast(data.message);
       router.push(Routes.QuotationsSummary);
+      queryClient.invalidateQueries({ queryKey: ["getQuotationById", id] });
     },
     onError: (data) => {
       if (data.response.status === 422) {
@@ -103,21 +109,37 @@ const CreateQuotation = () => {
     mutateClient(payload);
   };
 
-  if (createQuotationResponse.isLoading) {
+  if (editQuotationData && editQuotationData.quotation.orderLines?.length > 0) {
+    const updatedOrderLines = editQuotationData.quotation.orderLines.map((orderLine, index) => {
+      if (orderLine.type === 4 && orderLine.image) {
+        const filePath = orderLine.image;
+        return {
+          ...orderLine,
+          image: filePath,
+        };
+      }
+
+      return { ...orderLine, id: index };
+    });
+    editQuotationData.quotation.orderLines = updatedOrderLines;
+  }
+
+  if (editQuotationResponse.isLoading) {
     return <>Loading...</>;
   }
 
   if (mutation.isLoading) {
-    return <>Storing Quotation</>;
+    return <>Editing Quotation</>;
   }
+
+  editQuotationData = { ...editQuotationData, ...editQuotationData.quotation };
 
   return (
     <QuotationComponent
-      action='create'
-      componentId='create'
+      action={QuotationAction.EDIT}
+      title='Edit Quotation'
+      quotationData={editQuotationData}
       onSubmit={onSubmit}
-      title='Create New Quotation'
-      quotationData={createQuotationData}
       permissions={permissions}
       resetForm={resetForm}
       setResetForm={setResetForm}
@@ -129,4 +151,4 @@ const CreateQuotation = () => {
   );
 };
 
-export default CreateQuotation;
+export default EditQuotation;

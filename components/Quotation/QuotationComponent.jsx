@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./QuotationComponent.module.css";
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import Button from "@/components/UI/Button/Button";
@@ -10,14 +10,14 @@ import { formatNumber } from "@/helpers/formatNumber";
 import { useFieldArray, useForm } from "react-hook-form";
 import Sortable from "sortablejs";
 import { VAT, VAT_LEB_RATE } from "@/data/constants";
-import axiosClient from "@/api/axiosClient";
 import { toast } from "react-toastify";
 import { generatePreviewForUnsubmittedQuotation, handlePreview } from "@/controllers/quotations.controller";
+import { QuotationAction } from "@/constants/QuotationsActions";
 
 const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData, permissions = [], resetForm, setResetForm = () => {}, ...props }) => {
   const [buttonState, setButtonState] = useState("order");
   const [indices, setIndices] = useState({ oldIndex: null, newIndex: null });
-  const [quotationTotalBeforeVat, setQuotationTotalBeforeVat] = useState(0);
+  const [quotationTotalBeforeVat, setQuotationTotalBeforeVat] = useState(quotationData.totalBeforeVat ?? 0);
   const [activeStep, setActiveStep] = useState(1);
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
 
@@ -399,7 +399,6 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                     inputPlaceholder=''
                     inputType='text'
                     inputName='totalBeforeVat'
-                    defaultValue={action === "create" ? null : quotationData.totalBeforeVat}
                     textAlign='end'
                     width={130}
                     control={control}
@@ -476,7 +475,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                       inputPlaceholder='LBP 123,567'
                       inputType='text'
                       inputName='vatLebanese'
-                      defaultValue={action === "create" ? null : quotationData.vatLebanese}
+                      defaultValue={action !== QuotationAction.VIEW ? null : quotationData.vatLebanese}
                       textAlign='end'
                       width={130}
                       control={control}
@@ -490,7 +489,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                       inputType='text'
                       inputName='vat'
                       textAlign='end'
-                      defaultValue={action === "create" ? null : quotationData.vat}
+                      defaultValue={action !== QuotationAction.VIEW ? null : quotationData.vat}
                       width={130}
                       control={control}
                       register={register}
@@ -526,7 +525,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
             {!shouldDisableComponents && (
               <div className={`${styles.createInvoiceButtonDiv}`}>
                 <Button
-                  title='Create Quotation'
+                  title={action == QuotationAction.CREATE ? "Create Quotation" : "Edit Quotation"}
                   rounded={false}
                   fillBackground={true}
                   fontSize={14}

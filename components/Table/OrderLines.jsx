@@ -12,6 +12,7 @@ import { calculateTotal } from "@/helpers/calculate";
 import AddButton from "../UI/AddButton/AddButton";
 import { useMutation } from "@tanstack/react-query";
 import { storeItem } from "@/controllers/items.controller";
+import { QuotationAction } from "@/constants/QuotationsActions";
 
 const permissions = {
   "edit item description in quotation": true,
@@ -34,7 +35,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
   const getOptionName = (type) => {
     const lineType = getLineTypeByTypeId(type);
     if (lineType?.name === "item") {
-      return action !== "create" ? "main_code" : "mainCode";
+      return "mainCode";
     } else if (lineType.name === "combo") {
       return "code";
     }
@@ -107,7 +108,6 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
         unitPrice,
         inputName: inputName,
       };
-      console.log(payload);
       mutateItem(payload, { inputName });
     }
   };
@@ -186,9 +186,11 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                                 loadOptions={input.inputName === "item" ? loadItemOptions : loadComboOptions}
                                 isSearchable={input.isSearchable}
                                 initialValue={
-                                  action !== "create"
+                                  action !== QuotationAction.CREATE
                                     ? inpType === "image" || inpType === "select"
                                       ? field[input.inputName]
+                                      : input.inputName === "total"
+                                      ? handleTotal(fieldsWatch[fieldIdx][input.inputName], fieldsWatch[fieldIdx][input.referenceKeyUnitPrice], fieldsWatch[fieldIdx]["quantity"], fieldsWatch[fieldIdx]["discount"])
                                       : undefined
                                     : input.inputName === "total"
                                     ? handleTotal(fieldsWatch[fieldIdx][input.inputName], fieldsWatch[fieldIdx][input.referenceKeyUnitPrice], fieldsWatch[fieldIdx]["quantity"], fieldsWatch[fieldIdx]["discount"])
@@ -208,29 +210,37 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                           </span>
                         );
                       })}
-                      <>
-                        <span
-                          style={{
-                            flex: 0.7,
-                            textAlign: "center",
-                          }}>
-                          {!isDisabled && <Ellipsis />}
-                        </span>
-                        <span
-                          style={{
-                            flex: 0.5,
-                            textAlign: "center",
-                          }}>
-                          {!isDisabled && (
+                      {!isDisabled && (
+                        <>
+                          <span
+                            style={{
+                              flex: 0.7,
+                              textAlign: "center",
+                            }}>
+                            <Ellipsis />
+                          </span>
+                          <span
+                            style={{
+                              flex: 0.5,
+                              textAlign: "center",
+                            }}>
                             <Trashcan
                               onClick={() => {
                                 remove(fieldIdx);
                               }}
                               fillColor={"var(--primary-clr)"}
                             />
-                          )}
-                        </span>
-                      </>
+                          </span>
+                        </>
+                      )}
+                      {isDisabled && (
+                        <>
+                          <span
+                            style={{
+                              flex: 0.1,
+                            }}></span>
+                        </>
+                      )}
                     </div>
                   </li>
                 );
