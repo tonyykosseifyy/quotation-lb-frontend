@@ -3,9 +3,7 @@ import styles from "./CheckBox.module.css";
 
 const CheckBox = ({ labelText, value, inputName, isChecked, inputId, onChange, labelFontWeight }) => {
   return (
-    <div
-      className={styles.container}
-      onClick={onChange}>
+    <div className={styles.container}>
       <input
         name={inputName}
         value={value}
@@ -13,7 +11,8 @@ const CheckBox = ({ labelText, value, inputName, isChecked, inputId, onChange, l
         className={styles.input}
         id={inputId}
         onChange={onChange}
-        checked={isChecked}
+        // checked={isChecked}
+        defaultChecked={isChecked}
       />
       <label
         htmlFor={inputId}

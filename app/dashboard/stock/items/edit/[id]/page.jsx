@@ -3,13 +3,13 @@
 import React, { useState } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
-import { storeItem } from "@/controllers/items.controller";
+import { updateItem } from "@/controllers/items.controller";
 import { toast } from "react-toastify";
 import ItemModalComponent from "@/components/ItemModalComponent/ItemModalComponent";
 import * as yup from "yup";
 import { ItemAction } from "@/constants/ItemActions";
 
-const CreateItems = ({ closeModal }) => {
+const EditItem = ({ closeModal, id }) => {
   const [state, setState] = useState({
     subRef: "",
   });
@@ -22,14 +22,14 @@ const CreateItems = ({ closeModal }) => {
     discontinued: false,
   });
 
-  const createItemResponse = useQuery({
-    queryKey: ["createItem"],
-    queryFn: () => axiosClient.get(`/items/create`),
+  let editItemResponse = useQuery({
+    queryKey: ["ediItem", [id]],
+    queryFn: () => axiosClient.get(`/items/edit/${id}`),
   });
 
-  const createItemData = createItemResponse.data?.data.data;
+  let editItemData = editItemResponse.data?.data.data;
 
-  const mutation = useMutation(storeItem, {
+  const mutation = useMutation(updateItem, {
     onSuccess: (data) => {
       setIsResettingForm(true);
       setCheckboxValues({
@@ -65,7 +65,7 @@ const CreateItems = ({ closeModal }) => {
         data.itemGroups = data.itemGroups.map((item) => item.itemGroupId.id);
       }
 
-      const createNewProductInfo = {
+      const editProductInfo = {
         ...data,
         subRef: state.subRef,
         canBeSold: checkboxValues.canBeSold,
@@ -74,17 +74,18 @@ const CreateItems = ({ closeModal }) => {
         discontinued: checkboxValues.discontinued,
       };
 
-      createNewProductInfo["itemCodes"] = createNewProductInfo["itemCodes"].map((obj) => {
+      editProductInfo["itemCodes"] = editProductInfo["itemCodes"].map((obj) => {
         const { icon, ...newObj } = obj;
         return newObj;
       });
 
-      Object.keys(createNewProductInfo).forEach(function (key) {
-        if (createNewProductInfo[key] && typeof createNewProductInfo[key] === "object" && Array.isArray(createNewProductInfo[key]) === false) {
-          createNewProductInfo[key] = createNewProductInfo[key].id;
+      Object.keys(editProductInfo).forEach(function (key) {
+        if (editProductInfo[key] && typeof editProductInfo[key] === "object" && Array.isArray(editProductInfo[key]) === false) {
+          editProductInfo[key] = editProductInfo[key].id;
         }
       });
-      mutation.mutate(createNewProductInfo);
+      mutation.mutate(editProductInfo);
+      mutation.mutate({ id, payload: editProductInfo });
     } catch (err) {
       err.inner.forEach((error) => {
         toast(error.message);
@@ -92,15 +93,17 @@ const CreateItems = ({ closeModal }) => {
     }
   };
 
-  if (createItemResponse.isLoading) {
+  if (editItemResponse.isLoading) {
     return <></>;
   }
 
+  editItemData = { ...editItemData, ...editItemData.item };
+
   return (
     <ItemModalComponent
-      action={ItemAction.CREATE}
-      modalName={"createItems"}
-      data={createItemData}
+      action={ItemAction.EDIT}
+      modalName={"editItem"}
+      data={editItemData}
       onSubmit={onSubmit}
       closeModal={closeModal}
       state={state}
@@ -113,4 +116,4 @@ const CreateItems = ({ closeModal }) => {
   );
 };
 
-export default CreateItems;
+export default EditItem;

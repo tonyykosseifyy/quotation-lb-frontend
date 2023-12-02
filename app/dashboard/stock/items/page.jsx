@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./page.module.css";
 import Button from "@/components/UI/Button/Button";
 import Search from "@/components/UI/Search/Search";
-import { useForm } from "react-hook-form";
+import { set, useForm } from "react-hook-form";
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
 import { items, settingsOptions, productsCheckboxOptions } from "@/data/stocks";
 import GridIcon from "@/components/UI/Icons/GridIcon";
@@ -19,6 +19,8 @@ import axiosClient from "@/api/axiosClient";
 import CheckBox from "@/components/UI/CheckBox/Checkbox";
 import CreateItemsModal from "./create/page";
 import PaginationComponent from "@/components/Pagination/Pagination";
+import Ellipsis from "@/components/UI/Icons/Ellipsis";
+import EditItem from "./edit/[id]/page";
 
 const Products = () => {
   const [search, setSearch] = useState("");
@@ -28,8 +30,12 @@ const Products = () => {
   const [page, setPage] = useState(1);
   const [view, setView] = useState("grid");
   const debouncedSearch = useDebounce(search, 500);
+  const [isRowDropdownShown, setIsRowDropdownShown] = useState({});
+  const [delayHandler, setDelayHandler] = useState(null);
+  const [selectedItemToEdit, setSelectedItemToEdit] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState({
     createItems: false,
+    editItem: false,
   });
 
   const getItemsResponse = useQuery({
@@ -62,6 +68,27 @@ const Products = () => {
 
   const handleCreateProduct = () => {
     //
+  };
+
+  const handleMouseEnter = (id) => {
+    setIsRowDropdownShown((prev) => {
+      const newState = { ...prev };
+      Object.keys(newState).forEach((key) => {
+        newState[key] = false;
+      });
+      newState[id] = true;
+
+      return newState;
+    });
+    clearTimeout(delayHandler);
+  };
+
+  const handleMouseLeave = (id) => {
+    setDelayHandler(
+      setTimeout(() => {
+        setIsRowDropdownShown((prev) => ({ ...prev, [id]: false }));
+      }, 200),
+    );
   };
 
   const columns = [
@@ -112,6 +139,33 @@ const Products = () => {
       center: true,
     },
     {
+      name: "More Options",
+      center: true,
+      selector: (row) => (
+        <div
+          onMouseEnter={() => handleMouseEnter(row.id)}
+          onMouseLeave={() => handleMouseLeave(row.id)}>
+          <Dropdown
+            placement='bottom-center'
+            isOpen={isRowDropdownShown[row.id]}>
+            <Dropdown.Trigger>
+              <div>
+                <Ellipsis />
+              </div>
+            </Dropdown.Trigger>
+            <Dropdown.Menu aria-label='User menu actions'>
+              <Dropdown.Item
+                aria-label='Edit'
+                key='edit'
+                className={styles.dropdownItem}>
+                <div onClick={() => openModal("editItem", row.id)}>Edit</div>
+              </Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
+        </div>
+      ),
+    },
+    {
       name: "",
       width: "30px",
     },
@@ -148,11 +202,14 @@ const Products = () => {
     reset,
   } = useForm();
 
-  const openModal = (modalName) => {
+  const openModal = (modalName, id) => {
     setIsModalOpen((prevState) => ({
       ...prevState,
       [modalName]: true,
     }));
+    if (id) {
+      setSelectedItemToEdit(id);
+    }
   };
 
   const closeModal = (modalName) => {
@@ -160,6 +217,7 @@ const Products = () => {
       ...prevState,
       [modalName]: false,
     }));
+    setSelectedItemToEdit(null);
   };
 
   return (
@@ -350,6 +408,12 @@ const Products = () => {
         </div>
       )}
       {isModalOpen.createItems && <CreateItemsModal closeModal={closeModal} />}
+      {isModalOpen.editItem && selectedItemToEdit && (
+        <EditItem
+          closeModal={closeModal}
+          id={selectedItemToEdit}
+        />
+      )}
     </div>
   );
 };

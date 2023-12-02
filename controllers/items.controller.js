@@ -8,3 +8,8 @@ export const storeItem = async (payload) => {
   });
   return response.data;
 };
+
+export const updateItem = async ({ id, payload }) => {
+  const response = await axiosClient.post(`/items/update/${id}`, payload);
+  return response.data;
+};

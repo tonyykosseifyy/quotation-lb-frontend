@@ -1,0 +1,135 @@
+.circle {
+  margin-top: 20px;
+}
+
+.bigCircle {
+  width: 108px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  background: var(--bigCircle-background-clr);
+  display: grid;
+}
+
+.smallCircle {
+  place-self: center;
+  display: grid;
+  width: 80px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  border: 1px dashed var(--primary-clr-light);
+  place-items: center;
+}
+
+.form {
+  min-height: 440px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.subRefRadioButtons,
+.checkBoxDiv {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 33px;
+  align-items: center;
+}
+
+.warehousesDiv {
+  padding-top: 40px;
+}
+
+.actionButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 26px;
+}
+
+.discard {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--primary-clr);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.inputRow,
+.inputRow2 {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.inputRow3 {
+  width: 80%;
+}
+
+.descriptionAndLanguageInputColumn {
+  width: 100%;
+  gap: 15px;
+}
+
+.subRefTitle {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 25px;
+}
+
+.labelText {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media only screen and (min-width: 768px) {
+  .descriptionAndLanguageInputColumn {
+    width: 70%;
+  }
+
+  .inputRow2 {
+    width: 40%;
+  }
+
+  .inputRow3 {
+    width: 50%;
+  }
+
+  .warehousesDiv {
+    padding-left: 100px;
+    padding-top: 0px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .inputRow {
+    width: 40%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  .inputRow3 {
+    width: 34%;
+  }
+}
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.altCodesDropdownItemName {
+  text-decoration: none;
+  color: var(--secondary-text-clr);
+}
+
+.altCodesDropdownItem {
+  background-color: white !important;
+}
+
+.altCodesDropdownItem:hover {
+  background-color: rgba(90, 148, 249, 0.2) !important;
+  border-radius: none !important;
+}
