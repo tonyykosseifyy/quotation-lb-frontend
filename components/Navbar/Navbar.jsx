@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "./Navbar.module.css";
-import { Dropdown, User } from "@nextui-org/react";
+import { Dropdown } from "@nextui-org/react";
 import BellIcon from "@/components/UI/Icons/BellIcon";
 import DownArrow from "@/components/UI/Icons/DownArrow";
 import { configurationDropDownItems } from "@/data/navBar";
@@ -127,13 +127,7 @@ const Navbar = () => {
         <Dropdown placement='bottom-right'>
           <Dropdown.Trigger>
             <div className={styles.userContainer}>
-              <User
-                src='https://i.pravatar.cc/150?u=a042581f4e29026704d'
-                name={user?.name}
-                squared
-                size='sm'
-              />
-
+              <span className={styles.userName}>{user?.name}</span>
               <DownArrow />
             </div>
           </Dropdown.Trigger>
