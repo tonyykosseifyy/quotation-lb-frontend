@@ -67,3 +67,13 @@
   display: flex;
   justify-content: center;
 }
+
+.dropdownItem {
+  background-color: white !important;
+}
+
+.dropdownItem:hover {
+  background-color: var(--primary-clr) !important;
+  color: white;
+  border-radius: none !important;
+}
