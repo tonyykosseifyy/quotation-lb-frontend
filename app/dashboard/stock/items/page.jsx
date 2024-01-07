@@ -39,7 +39,7 @@ const Products = () => {
   });
 
   const getItemsResponse = useQuery({
-    queryKey: ["quotations", page, perPage, debouncedSearch],
+    queryKey: ["items", page, perPage, debouncedSearch],
     queryFn: () =>
       axiosClient.get(`items`, {
         params: {
@@ -399,6 +399,7 @@ const Products = () => {
             data={filteredItems}
             customStyles={customStyles}
             pagination
+            pa
             paginationComponentOptions={paginationComponentOptions}
             defaultSortFieldId={1}
             paginationServer

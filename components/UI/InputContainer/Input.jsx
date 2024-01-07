@@ -12,14 +12,14 @@ import { ucfirst } from "@/helpers/formatString";
 import ReactTextareaAutosize from "react-textarea-autosize";
 
 const Option = (props) => {
-  const { innerProps, label, isSelected } = props;
+  const { label, isSelected } = props;
 
   return (
     <div>
       <components.Option {...props}>
         <input
           type='checkbox'
-          checked={isSelected}
+          checked={isSelected || props.selectProps.value === props.data.id}
           onChange={() => null}
         />{" "}
         <label
@@ -243,9 +243,10 @@ const Input = ({
               }}
               placeholder={inputPlaceholder}
               options={selectOptions}
-              getOptionLabel={(option) => option[optionName]}
+              getOptionLabel={(option) => ucfirst(option[optionName])}
               getOptionValue={(option) => option[optionId]}
               isSearchable={isSearchable}
+              onChange={onChange}
               components={{
                 IndicatorSeparator: () => null,
               }}
@@ -403,14 +404,12 @@ const Input = ({
           data-content=''
           style={{ width: "209px" }}>
           <Controller
-            name={inputName}
+            name={registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName}
             control={control}
-            defaultValue={null}
             render={({ field }) => (
               <Select
                 {...field}
                 options={selectOptions}
-                // isMulti
                 closeMenuOnSelect={true}
                 hideSelectedOptions={false}
                 components={{ Option }}

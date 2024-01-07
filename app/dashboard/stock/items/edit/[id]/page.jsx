@@ -1,15 +1,16 @@
 "use client";
 
 import React, { useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 import { updateItem } from "@/controllers/items.controller";
 import { toast } from "react-toastify";
 import ItemModalComponent from "@/components/ItemModalComponent/ItemModalComponent";
 import * as yup from "yup";
 import { ItemAction } from "@/constants/ItemActions";
-
 const EditItem = ({ closeModal, id }) => {
+  const queryClient = useQueryClient();
+
   const [state, setState] = useState({
     subRef: "",
   });
@@ -21,9 +22,10 @@ const EditItem = ({ closeModal, id }) => {
     warranty: false,
     discontinued: false,
   });
+  const [packageType, setPackageType] = useState(null);
 
   let editItemResponse = useQuery({
-    queryKey: ["ediItem", [id]],
+    queryKey: ["editItem", id],
     queryFn: () => axiosClient.get(`/items/edit/${id}`),
   });
 
@@ -39,6 +41,9 @@ const EditItem = ({ closeModal, id }) => {
         discontinued: false,
         blocked: false,
       });
+      queryClient.invalidateQueries({ queryKey: ["items"] });
+      queryClient.invalidateQueries({ queryKey: ["editItem", id] });
+      toast(data.message);
     },
   });
 
@@ -72,6 +77,7 @@ const EditItem = ({ closeModal, id }) => {
         canBePurchased: checkboxValues.canBePurchased,
         warranty: checkboxValues.warranty,
         discontinued: checkboxValues.discontinued,
+        packageId: packageType,
       };
 
       editProductInfo["itemCodes"] = editProductInfo["itemCodes"].map((obj) => {
@@ -84,7 +90,6 @@ const EditItem = ({ closeModal, id }) => {
           editProductInfo[key] = editProductInfo[key].id;
         }
       });
-      mutation.mutate(editProductInfo);
       mutation.mutate({ id, payload: editProductInfo });
     } catch (err) {
       err.inner.forEach((error) => {
@@ -112,6 +117,8 @@ const EditItem = ({ closeModal, id }) => {
       setCheckboxValues={setCheckboxValues}
       isResettingForm={isResettingForm}
       setIsResettingForm={setIsResettingForm}
+      packageType={packageType}
+      setPackageType={setPackageType}
     />
   );
 };

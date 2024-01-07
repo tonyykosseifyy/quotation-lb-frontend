@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "./Input.module.css";
+import InputContainer from "../InputContainer/InputContainer";
 
 const InputField = ({ watchedValues, register, label, inputName, inputNameQuantity, referenceField }) => {
   return (
@@ -35,7 +36,7 @@ const InputField = ({ watchedValues, register, label, inputName, inputNameQuanti
             {referenceField && (
               <div
                 className='ps-3'
-                style={{ fontWeight: "700", fontSize: "13px" }}>
+                style={{ fontWeight: "700", fontSize: "13px", textWrap: "nowrap" }}>
                 {`${watchedValues[referenceField] ?? ""} PER ${watchedValues[inputName] ?? ""}`}
               </div>
             )}

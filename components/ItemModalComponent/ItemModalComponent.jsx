@@ -27,11 +27,10 @@ import Barcode from "../UI/Icons/Barcode";
 import SupplierCode from "../UI/Icons/SupplierCode";
 import { ItemAction } from "@/constants/ItemActions";
 
-const ItemModalComponent = ({ action, modalName, data, onSubmit, closeModal, state, setState, checkboxValues, setCheckboxValues, isResettingForm, setIsResettingForm }) => {
+const ItemModalComponent = ({ action, modalName, data, onSubmit, closeModal, state, setState, checkboxValues, setCheckboxValues, isResettingForm, setIsResettingForm, packageType, setPackageType }) => {
   const [showModal, setShowModal] = useState(true);
   const [buttonState, setButtonState] = useState("general");
 
-  const [packageType, setPackageType] = useState(null);
   const [packageTypeName, setPackageTypeName] = useState("");
 
   const { register, handleSubmit, watch, control, reset, setValue, getValues } = useForm({
@@ -42,10 +41,10 @@ const ItemModalComponent = ({ action, modalName, data, onSubmit, closeModal, sta
             itemTypeId: data.itemType,
             mainCode: data.mainCode,
             shortDescription: data.shortDescription,
-            taxationGroupId: data.taxation,
+            taxationGroupId: data.taxationGroup,
             mainDescription: data.mainDescription,
             secondLanguageDescription: data.secondLanguageDescription,
-            subRef: data.subref_id,
+            subRef: data.subrefId,
             itemCodes: [
               ...data?.alternativeCodes?.map((code) => {
                 return {
@@ -72,6 +71,7 @@ const ItemModalComponent = ({ action, modalName, data, onSubmit, closeModal, sta
             unitPrice: data.unitPrice,
             lineDiscountLimit: data.lineDiscountLimit,
             decimalPrice: data.decimalPrice,
+            packageId: data.package,
           },
   });
 
@@ -140,7 +140,7 @@ const ItemModalComponent = ({ action, modalName, data, onSubmit, closeModal, sta
     }));
   };
 
-  const handleChange = (selected) => {
+  const handleShippingIdChange = (selected) => {
     setPackageType(selected);
     setPackageTypeName(selected.name);
   };
@@ -281,12 +281,28 @@ const ItemModalComponent = ({ action, modalName, data, onSubmit, closeModal, sta
 
   useEffect(() => {
     if (data.mainCode) {
-      const mainCodeObj = { type: "main", print: data.printMainCode, code: data.mainCode, creationDate: moment(data.createdASt).format("D/M/YYYY") };
+      const mainCodeObj = { type: "main", print: data.printMainCode, code: data.mainCode, creationDate: moment(data.createdAt).format("D/M/YYYY") };
       if (itemCodeFields[0]?.type !== "main") {
         prependAltCode(mainCodeObj);
       } else {
         updateAltCode(0, mainCodeObj);
       }
+    }
+    if (!packageType && data.packageId) {
+      setPackageType(data.packageId);
+      const packageName = data?.packages?.find((obj) => obj.id === data.packageId)?.name;
+      setPackageTypeName(packageName);
+      setValue("packageId", data.package);
+      setValue("packageUnitName", data.packageUnitName);
+      setValue("packageUnitQuantity", data.packageUnitQuantity);
+      setValue("packageSetName", data.packageSetName);
+      setValue("packageSetQuantity", data.packageSetQuantity);
+      setValue("packageSupersetQuantity", data.packageSupersetQuantity);
+      setValue("packageSupersetName", data.packageSupersetName);
+      setValue("packagePaletteName", data.packagePaletteName);
+      setValue("packagePaletteQuantity", data.packagePaletteQuantity);
+      setValue("packageContainerName", data.packageContainerName);
+      setValue("packageContainerQuantity", data.packageContainerQuantity);
     }
   }, [data, setValue]);
 
@@ -684,12 +700,12 @@ const ItemModalComponent = ({ action, modalName, data, onSubmit, closeModal, sta
                     label='Package type'
                     isRequired={true}
                     inputPlaceholder=''
-                    inputType='checkBoxSelect'
-                    inputName='packageType'
+                    inputType='select'
+                    inputName='packageId'
                     register={register}
                     control={control}
-                    onChange={handleChange}
-                    value={packageType}
+                    onChange={handleShippingIdChange}
+                    // value={packageType}
                     selectOptions={data?.packages}
                   />
                 </div>
