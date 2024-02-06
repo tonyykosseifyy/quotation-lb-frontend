@@ -149,7 +149,6 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                       </span>
                       {rowInputFlexList[field.type - 1].inputs.map((input, index) => {
                         const inpType = action === "view" && (input.inputName === "item" || input.inputName === "combo") ? "select" : input.inputType;
-                        console.log("fields", field[input.inputName]);
                         return (
                           <span
                             key={index}

@@ -70,7 +70,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
       clientId: quotationData.client,
       validity: quotationData.validity,
       paymentTerm: quotationData.paymentTerm,
-      priceList: quotationData.pricelist,
+      pricelist: quotationData.pricelist,
       currency: quotationData.currency,
       termsAndConditions: quotationData.termsAndConditions,
       globalDiscountPercentage: quotationData.globalDiscount,
@@ -146,14 +146,6 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
   const checkKeyDown = (e) => {
     if (e.key === "Enter") e.preventDefault();
   };
-
-  useEffect(() => {
-    if (quotationData && !shouldDisableComponents) {
-      setValue("paymentTerm", quotationData.paymentTerms[0]);
-      setValue("priceList", quotationData.pricelists[0]);
-      setValue("currency", quotationData.currencies[0]);
-    }
-  }, [quotationData, setValue]);
 
   useEffect(() => {
     if (props.createdClient && props.createdClient.isNew) {
@@ -301,27 +293,30 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               optionName='title'
               control={control}
               register={register}
+              onChange={(e) => setValue("paymentTerm", e)}
               isDisabled={shouldDisableComponents}
             />
             <InputContainer
               label='Pricelist'
               inputPlaceholder=''
               inputType='select'
-              inputName='priceList'
+              inputName='pricelist'
               selectOptions={quotationData.pricelists}
               optionName='title'
               control={control}
               register={register}
+              onChange={(e) => setValue("pricelist", e)}
               isDisabled={shouldDisableComponents}
             />
             <InputContainer
               label='Currency'
-              inputPlaceholder='USD'
+              inputPlaceholder=''
               inputType='select'
               inputName='currency'
               selectOptions={quotationData.currencies}
               control={control}
               register={register}
+              onChange={(e) => setValue("currency", e)}
               isDisabled={shouldDisableComponents}
             />
           </div>

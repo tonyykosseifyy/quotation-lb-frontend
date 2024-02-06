@@ -44,6 +44,7 @@ const EditQuotation = () => {
   let editQuotationData = editQuotationResponse.data?.data.data;
 
   const onSubmit = (storeData) => {
+    console.log("storeData", storeData);
     storeData.orderLines.forEach((orderLine) => {
       const type = editQuotationData.lineTypes.find((type) => type.id === orderLine.type);
       if (type.name === "item" || type.name === "combo") orderLine[type.name] = orderLine[type.name].id;
