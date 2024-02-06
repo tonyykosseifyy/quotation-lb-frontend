@@ -50,7 +50,7 @@ export const generatePreviewForUnsubmittedQuotation = async (values) => {
     }
   });
 
-  values["total"] = Number(calculateTotalAfterDiscounts(values["totalBeforeVat"], [Number(values["globalDiscountPercentage"]), Number(values["specialDiscountPercentage"]), VAT * 100])).toFixed(2);
+  values["total"] = Number(calculateTotalAfterDiscounts(values["totalBeforeVat"], [Number(values["globalDiscountPercentage"]), Number(values["specialDiscountPercentage"])]) * (1 + VAT)).toFixed(2);
 
   values["vatLebanese"] = values["vat"] * VAT_LEB_RATE;
   if (isNaN(values["total"])) {
