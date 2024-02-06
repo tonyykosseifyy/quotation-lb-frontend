@@ -149,6 +149,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                       </span>
                       {rowInputFlexList[field.type - 1].inputs.map((input, index) => {
                         const inpType = action === "view" && (input.inputName === "item" || input.inputName === "combo") ? "select" : input.inputType;
+                        console.log("fields", field[input.inputName]);
                         return (
                           <span
                             key={index}
@@ -198,7 +199,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                                     ? fieldsWatch[fieldIdx][input.referenceKey]
                                     : null
                                 }
-                                defaultValue={input.defaultValue}
+                                defaultValue={field[input.inputName] ?? input.defaultValue}
                                 isDisabled={isDisabled || input.isDisabled || (input.permission && !permissions[input.permission])}
                                 setValue={setValue}
                                 referenceInput={fieldsWatch[fieldIdx][input.referenceKey]}

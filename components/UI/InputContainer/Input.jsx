@@ -100,10 +100,10 @@ const Input = ({
       }
     }
 
-    if (defaultValue != null) {
-      setValue(targetedInputName, defaultValue);
-    } else if (initialValue != null) {
+    if (initialValue != null) {
       setValue(targetedInputName, inputKey ? initialValue[inputKey] : initialValue);
+    } else if (defaultValue != null) {
+      setValue(targetedInputName, defaultValue);
     }
   }, [initialValue]);
 
