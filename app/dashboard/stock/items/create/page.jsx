@@ -22,6 +22,8 @@ const CreateItems = ({ closeModal }) => {
     discontinued: false,
   });
 
+  const [packageType, setPackageType] = useState(null);
+
   const createItemResponse = useQuery({
     queryKey: ["createItem"],
     queryFn: () => axiosClient.get(`/items/create`),
@@ -109,6 +111,8 @@ const CreateItems = ({ closeModal }) => {
       setCheckboxValues={setCheckboxValues}
       isResettingForm={isResettingForm}
       setIsResettingForm={setIsResettingForm}
+      packageType={packageType}
+      setPackageType={setPackageType}
     />
   );
 };
