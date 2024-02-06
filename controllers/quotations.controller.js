@@ -23,6 +23,7 @@ export const updateQuotation = async ({ id, payload }) => {
 export const handlePreview = async (id) => {
   if (id) {
     const response = await axiosClient.get(`/invoices/${id}`, { responseType: "blob" });
+    console.log(response);
     const url = URL.createObjectURL(response.data);
     window.open(url, "_blank");
   }
