@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import styles from "./QuotationComponent.module.css";
 import InputContainer from "@/components/UI/InputContainer/InputContainer";
@@ -13,8 +15,10 @@ import { VAT, VAT_LEB_RATE } from "@/data/constants";
 import { toast } from "react-toastify";
 import { generatePreviewForUnsubmittedQuotation, handlePreview } from "@/controllers/quotations.controller";
 import { QuotationAction } from "@/constants/QuotationsActions";
-import ReactQuill from "react-quill";
+import dynamic from "next/dynamic";
 import "react-quill/dist/quill.snow.css";
+
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData, permissions = [], resetForm, setResetForm = () => {}, ...props }) => {
   const [buttonState, setButtonState] = useState("order");
