@@ -29,7 +29,6 @@
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.43.9",
     "react-modal": "^3.16.1",
-    "react-quill": "^2.0.0",
     "react-select": "^5.7.3",
     "react-spinners": "^0.13.8",
     "react-textarea-autosize": "^8.5.3",
