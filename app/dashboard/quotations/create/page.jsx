@@ -55,6 +55,12 @@ const CreateQuotation = () => {
     if (isNaN(storeData["total"])) {
       storeData["total"] = 0;
     }
+    if (isNaN(storeData["vat"])) {
+      storeData["vatLebanese"] = 0;
+    }
+    if (isNaN(storeData["vat"])) {
+      storeData["vatLebanese"] = 0;
+    }
     mutation.mutate(storeData);
   };
 

@@ -111,7 +111,6 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
       mutateItem(payload, { inputName });
     }
   };
-
   return (
     <>
       <div className={`${styles.tableDiv} overflow-auto`}>
@@ -119,7 +118,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
           className={`overflow-auto`}
           style={{ width: tableWidth }}>
           <div className={`${styles.headerLayout}`}>
-            {createQuotationHeaderList.map((header, index) => (
+            {createQuotationHeaderList.slice(0, isDisabled ? createQuotationHeaderList.length - 2 : undefined).map((header, index) => (
               <span
                 key={index}
                 style={{ flex: header.flex }}>
@@ -231,14 +230,6 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
                               fillColor={"var(--primary-clr)"}
                             />
                           </span>
-                        </>
-                      )}
-                      {isDisabled && (
-                        <>
-                          <span
-                            style={{
-                              flex: 0.1,
-                            }}></span>
                         </>
                       )}
                     </div>
