@@ -29,13 +29,12 @@ export const handlePreview = async (id) => {
 };
 
 export const handleDownload = async (row) => {
-  const filename = "Invoice-For";
   if (row.id) {
     const response = await axiosClient.get(`/invoices/${row.id}`, { responseType: "blob" });
 
     const link = document.createElement("a");
     link.href = window.URL.createObjectURL(response.data);
-    link.download = `${filename}-${row.client.name}.pdf`;
+    link.download = `${row.quotationNumber}-${row.client.name}.pdf`;
     link.click();
 
     window.URL.revokeObjectURL(link.href);
