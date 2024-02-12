@@ -16,10 +16,10 @@ import { toast } from "react-toastify";
 import { generatePreviewForUnsubmittedQuotation, handlePreview } from "@/controllers/quotations.controller";
 import { QuotationAction } from "@/constants/QuotationsActions";
 import CheckBox from "../UI/CheckBox/Checkbox";
-// import dynamic from "next/dynamic";
-// import "react-quill/dist/quill.snow.css";
+import dynamic from "next/dynamic";
+import "react-quill/dist/quill.snow.css";
 
-// const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 
 const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData, permissions = [], resetForm, setResetForm = () => {}, ...props }) => {
   const [buttonState, setButtonState] = useState("order");
@@ -396,7 +396,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               <div className={`overflow-auto`}>
                 <div style={{ fontSize: "14px", fontWeight: "700" }}>Terms & Conditions</div>
                 <div className={`${styles.termsAndConditionsInputContainer}`}>
-                  <InputContainer
+                  {/* <InputContainer
                     inputPlaceholder='Terms & Conditions'
                     inputType='textarea'
                     inputName='termsAndConditions'
@@ -406,14 +406,14 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                     control={control}
                     register={register}
                     isDisabled={shouldDisableComponents}
-                  />
-                  {/* <ReactQuill
+                  /> */}
+                  <ReactQuill
                     defaultValue={quotationData.termsAndConditions}
                     theme='snow'
                     style={{ width: "100%", minHeight: "150px" }}
                     readOnly={shouldDisableComponents}
                     onChange={(value) => setValue("termsAndConditions", value)}
-                  /> */}
+                  />
                 </div>
                 <div className={`${styles.newTermsAndConditionsLink}`}>{!shouldDisableComponents && <i>Or Create new Terms & Conditions</i>}</div>
               </div>
