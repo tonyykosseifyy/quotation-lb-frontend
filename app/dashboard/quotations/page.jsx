@@ -213,7 +213,7 @@ const Page = () => {
       name: "Total",
       width: "100px",
       center: true,
-      selector: (row) => row.total ?? renderEmptyTableCellPlaceholder(),
+      selector: (row) => `${row.currencySymbol} ${row.total}` ?? renderEmptyTableCellPlaceholder(),
     },
     {
       name: "Status",
