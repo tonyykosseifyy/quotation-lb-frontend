@@ -42,14 +42,14 @@ export const handleDownload = async (row) => {
   }
 };
 
-export const generatePreviewForUnsubmittedQuotation = async (values) => {
+export const generatePreviewForUnsubmittedQuotation = async (values, shouldExemptVat) => {
   Object.keys(values).forEach(function (key) {
     if (values[key] && typeof values[key] === "object" && Array.isArray(values[key]) === false) {
       values[key] = values[key].id;
     }
   });
 
-  values["total"] = Number(calculateTotalAfterDiscounts(values["totalBeforeVat"], [Number(values["globalDiscountPercentage"]), Number(values["specialDiscountPercentage"])]) * (1 + VAT)).toFixed(2);
+  values["total"] = Number(calculateTotalAfterDiscounts(values["totalBeforeVat"], [Number(values["globalDiscountPercentage"]), Number(values["specialDiscountPercentage"])]) * (1 + (shouldExemptVat ? 0 : VAT))).toFixed(2);
 
   values["vatLebanese"] = values["vat"] * VAT_LEB_RATE;
   if (isNaN(values["total"])) {

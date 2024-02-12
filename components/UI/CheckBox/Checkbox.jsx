@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./CheckBox.module.css";
 
-const CheckBox = ({ labelText, value, inputName, isChecked, inputId, onChange, labelFontWeight }) => {
+const CheckBox = ({ labelText, value, inputName, isChecked, inputId, onChange, labelFontWeight, register }) => {
   return (
     <div className={styles.container}>
       <input
@@ -13,6 +13,11 @@ const CheckBox = ({ labelText, value, inputName, isChecked, inputId, onChange, l
         onChange={onChange}
         // checked={isChecked}
         defaultChecked={isChecked}
+        {...(register
+          ? register(inputName, {
+              onChange: onChange,
+            })
+          : {})}
       />
       <label
         htmlFor={inputId}

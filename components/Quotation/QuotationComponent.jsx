@@ -10,11 +10,12 @@ import { addVat, calculateCommission, calculateDiscountAmount, calculateTotalAft
 import ProgressStepsBar from "@/components/ProgressStepsBar/ProgressStepsBar";
 import { formatNumber } from "@/helpers/formatNumber";
 import { useFieldArray, useForm } from "react-hook-form";
-import Sortable from "sortablejs";
+import Sortable, { get } from "sortablejs";
 import { VAT, VAT_LEB_RATE } from "@/data/constants";
 import { toast } from "react-toastify";
 import { generatePreviewForUnsubmittedQuotation, handlePreview } from "@/controllers/quotations.controller";
 import { QuotationAction } from "@/constants/QuotationsActions";
+import CheckBox from "../UI/CheckBox/Checkbox";
 // import dynamic from "next/dynamic";
 // import "react-quill/dist/quill.snow.css";
 
@@ -27,6 +28,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
   const [activeStep, setActiveStep] = useState(1);
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
   const [currencyUsed, setCurrencyUsed] = useState(quotationData?.currency?.name ?? "USD");
+  const [shouldExemptVat, setShouldExemptVat] = useState(quotationData.exemptVat ?? false);
 
   const shouldDisableComponents = action === "view";
 
@@ -89,6 +91,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
       commissionRate: quotationData.commissionRate,
       commissionTotal: quotationData.commissionTotal,
       vatLebanese: quotationData.vatLebanese,
+      exemptVat: quotationData.exemptVat,
     },
   });
 
@@ -128,8 +131,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
         await handlePreview(id);
       } else {
         const values = getValues();
-        console.log(values);
-        await generatePreviewForUnsubmittedQuotation(values, quotationData.lineTypes);
+        await generatePreviewForUnsubmittedQuotation(values, shouldExemptVat);
       }
     } catch (err) {
       if (err.response.status === 400) {
@@ -149,6 +151,11 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
   const handleSubmitSuccess = () => {
     remove();
     reset();
+  };
+
+  const handleExemptVat = () => {
+    setShouldExemptVat((prev) => !prev);
+    setValue("exemptVat", !shouldExemptVat);
   };
 
   const checkKeyDown = (e) => {
@@ -330,6 +337,14 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               }}
               isDisabled={shouldDisableComponents}
             />
+
+            <CheckBox
+              labelFontWeight={500}
+              inputName='exemptVat'
+              labelText='Exempt VAT'
+              register={register}
+              onChange={() => handleExemptVat()}
+            />
           </div>
         </div>
         <div className={`d-flex mt-3`}>
@@ -481,37 +496,39 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                     />
                   </div>
                 </div>
-                <div className={styles.totalInputs}>
-                  <div style={{ paddingTop: "2px" }}> VAT {VAT * 100}%</div>
-                  <div className='d-flex flex-row gap-2'>
-                    <Input
-                      inputPlaceholder='LBP 123,567'
-                      inputType='text'
-                      inputName='vatLebanese'
-                      defaultValue={action !== QuotationAction.VIEW ? null : quotationData.vatLebanese}
-                      textAlign='end'
-                      width={130}
-                      control={control}
-                      register={register}
-                      isDisabled={true}
-                      setValue={setValue}
-                      initialValue={formatNumber(Number(addVat(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]), [VAT * 100]) * VAT_LEB_RATE).toFixed(0))}
-                    />
-                    <Input
-                      inputPlaceholder=''
-                      inputType='text'
-                      inputName='vat'
-                      textAlign='end'
-                      defaultValue={action !== QuotationAction.VIEW ? null : quotationData.vat}
-                      width={130}
-                      control={control}
-                      register={register}
-                      isDisabled={true}
-                      setValue={setValue}
-                      initialValue={Number(addVat(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]), [VAT * 100])).toFixed(2)}
-                    />
+                {!shouldExemptVat && (
+                  <div className={styles.totalInputs}>
+                    <div style={{ paddingTop: "2px" }}> VAT {VAT * 100}%</div>
+                    <div className='d-flex flex-row gap-2'>
+                      <Input
+                        inputPlaceholder='LBP 123,567'
+                        inputType='text'
+                        inputName='vatLebanese'
+                        defaultValue={action !== QuotationAction.VIEW ? null : quotationData.vatLebanese}
+                        textAlign='end'
+                        width={130}
+                        control={control}
+                        register={register}
+                        isDisabled={true}
+                        setValue={setValue}
+                        initialValue={formatNumber(Number(addVat(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]), [VAT * 100]) * VAT_LEB_RATE).toFixed(0))}
+                      />
+                      <Input
+                        inputPlaceholder=''
+                        inputType='text'
+                        inputName='vat'
+                        textAlign='end'
+                        defaultValue={action !== QuotationAction.VIEW ? null : quotationData.vat}
+                        width={130}
+                        control={control}
+                        register={register}
+                        isDisabled={true}
+                        setValue={setValue}
+                        initialValue={Number(addVat(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]), [VAT * 100])).toFixed(2)}
+                      />
+                    </div>
                   </div>
-                </div>
+                )}
                 <div className={styles.totalInputs}>
                   <div
                     style={{
@@ -529,7 +546,8 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                       fontWeight: "800",
                       paddingTop: "3px",
                     }}>
-                    {currencyUsed} {shouldDisableComponents ? quotationData.total : Number(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]) * (1 + VAT)).toFixed(2)}{" "}
+                    {currencyUsed}{" "}
+                    {shouldDisableComponents ? quotationData.total : Number(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]) * (1 + (shouldExemptVat ? 0 : VAT))).toFixed(2)}{" "}
                   </div>
                 </div>
               </div>
