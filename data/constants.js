@@ -91,6 +91,7 @@ export const rowInputFlexList = [
       {
         inputType: "text",
         inputName: "discount",
+        inputKey: "discount",
         defaultValue: 0,
         referenceKey: "item",
         inputBorderColor: "var(--input-border-2)",

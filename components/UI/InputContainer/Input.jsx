@@ -101,7 +101,13 @@ const Input = ({
     }
 
     if (initialValue != null) {
-      setValue(targetedInputName, inputKey ? initialValue[inputKey] : initialValue);
+      if (inputKey ? initialValue[inputKey] : initialValue) {
+        setValue(targetedInputName, inputKey ? initialValue[inputKey] : initialValue);
+      } else {
+        if (defaultValue != null) {
+          setValue(targetedInputName, defaultValue);
+        }
+      }
     } else if (defaultValue != null) {
       setValue(targetedInputName, defaultValue);
     }
