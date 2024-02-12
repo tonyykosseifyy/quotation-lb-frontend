@@ -26,6 +26,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
   const [quotationTotalBeforeVat, setQuotationTotalBeforeVat] = useState(quotationData.totalBeforeVat ?? 0);
   const [activeStep, setActiveStep] = useState(1);
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
+  const [currencyUsed, setCurrencyUsed] = useState(quotationData?.currency?.name ?? "USD");
 
   const shouldDisableComponents = action === "view";
 
@@ -77,7 +78,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
       validity: quotationData.validity,
       paymentTerm: quotationData.paymentTerm,
       pricelist: quotationData.pricelist,
-      currency: quotationData.currency,
+      currency: quotationData.currency ?? quotationData.currencies.find((curr) => curr.name === "USD"),
       termsAndConditions: quotationData.termsAndConditions,
       globalDiscountPercentage: quotationData.globalDiscount,
       specialDiscountPercentage: quotationData.specialDiscount,
@@ -323,7 +324,9 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               selectOptions={quotationData.currencies}
               control={control}
               register={register}
-              onChange={(e) => setValue("currency", e)}
+              onChange={(e) => {
+                setValue("currency", e), setCurrencyUsed(e.name);
+              }}
               isDisabled={shouldDisableComponents}
             />
           </div>
@@ -433,7 +436,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                       isDisabled={shouldDisableComponents}
                     />
                     <Input
-                      inputPlaceholder='USD 0.00'
+                      inputPlaceholder={`${currencyUsed} 0.00`}
                       inputType='text'
                       inputName='globalDiscount'
                       defaultValue={action === "create" ? null : quotationData.globalDiscountAmount}
@@ -463,7 +466,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                       isDisabled={shouldDisableComponents}
                     />
                     <Input
-                      inputPlaceholder='USD 0.00'
+                      inputPlaceholder={`${currencyUsed} 0.00`}
                       inputType='text'
                       inputName='specialDiscount'
                       textAlign='end'
@@ -525,8 +528,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                       fontWeight: "800",
                       paddingTop: "3px",
                     }}>
-                    {"USD "}
-                    {shouldDisableComponents ? quotationData.total : Number(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]) * (1 + VAT)).toFixed(2)}{" "}
+                    {currencyUsed} {shouldDisableComponents ? quotationData.total : Number(calculateTotalAfterDiscounts(quotationTotalBeforeVat, [globalDiscountPercentageWatch, specialDiscountPercentageWatch]) * (1 + VAT)).toFixed(2)}{" "}
                   </div>
                 </div>
               </div>

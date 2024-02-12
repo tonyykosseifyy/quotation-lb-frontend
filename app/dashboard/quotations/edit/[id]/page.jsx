@@ -44,7 +44,6 @@ const EditQuotation = () => {
   let editQuotationData = editQuotationResponse.data?.data.data;
 
   const onSubmit = (storeData) => {
-    console.log("storeData", storeData);
     storeData.orderLines.forEach((orderLine) => {
       const type = editQuotationData.lineTypes.find((type) => type.id === orderLine.type);
       if (type.name === "item" || type.name === "combo") orderLine[type.name] = orderLine[type.name].id;
@@ -62,7 +61,14 @@ const EditQuotation = () => {
     if (isNaN(storeData["total"])) {
       storeData["total"] = 0;
     }
-    mutation.mutate({ id, payload: storeData });
+    mutation.mutate(
+      { id, payload: storeData },
+      {
+        onSuccess: () => {
+          queryClient.invalidateQueries({ queryKey: ["getQuotationById", id] });
+        },
+      },
+    );
   };
 
   const mutation = useMutation(updateQuotation, {
