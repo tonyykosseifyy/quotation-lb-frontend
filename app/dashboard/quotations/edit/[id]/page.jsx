@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axiosClient from "@/api/axiosClient";
 
 import QuotationComponent from "@/components/Quotation/QuotationComponent";
@@ -9,7 +9,7 @@ import { useParams, useRouter } from "next/navigation";
 import { QuotationAction } from "@/constants/QuotationsActions";
 import { useClients } from "@/hooks/clients/useClients";
 import { calculateTotalAfterDiscounts } from "@/helpers/calculate";
-import { VAT, VAT_LEB_RATE } from "@/data/constants";
+import { VAT_LEB_RATE } from "@/data/constants";
 import { updateQuotation } from "@/controllers/quotations.controller";
 import { storeClient } from "@/controllers/clients.controller";
 import debounce from "lodash.debounce";
@@ -24,6 +24,8 @@ const permissions = {
 
 const EditQuotation = () => {
   const { id } = useParams();
+
+  const queryClient = useQueryClient();
 
   const [resetForm, setResetForm] = useState(false);
   const [createdClient, setCreatedClient] = useState({});
@@ -54,7 +56,9 @@ const EditQuotation = () => {
       }
     });
 
-    storeData["total"] = Number(calculateTotalAfterDiscounts(storeData["totalBeforeVat"], [Number(storeData["globalDiscountPercentage"]), Number(storeData["specialDiscountPercentage"])]) + Number(storeData["vat"])).toFixed(2);
+    storeData["total"] = Number(
+      calculateTotalAfterDiscounts(storeData["totalBeforeVat"], [Number(storeData["globalDiscountPercentage"]), Number(storeData["specialDiscountPercentage"])]) + Number(!storeData["exemptVat"] ? storeData["vat"] : 0),
+    ).toFixed(2);
 
     storeData["vatLebanese"] = storeData["vat"] * VAT_LEB_RATE;
 

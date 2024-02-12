@@ -50,7 +50,11 @@ const CreateQuotation = () => {
         storeData[key] = storeData[key].id;
       }
     });
-    storeData["total"] = Number(calculateTotalAfterDiscounts(storeData["totalBeforeVat"], [Number(storeData["globalDiscountPercentage"]), Number(storeData["specialDiscountPercentage"])]) + Number(storeData["vat"])).toFixed(2);
+    storeData["total"] = Number(
+      calculateTotalAfterDiscounts(storeData["totalBeforeVat"], [Number(storeData["globalDiscountPercentage"]), Number(storeData["specialDiscountPercentage"])]) + Number(!storeData["exemptVat"] ? storeData["vat"] : 0),
+    ).toFixed(2);
+
+    console.log(storeData["total"]);
     storeData["vatLebanese"] = storeData["vat"] * VAT_LEB_RATE;
     if (isNaN(storeData["total"])) {
       storeData["total"] = 0;
