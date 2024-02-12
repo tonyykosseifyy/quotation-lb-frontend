@@ -10,16 +10,13 @@ import { addVat, calculateCommission, calculateDiscountAmount, calculateTotalAft
 import ProgressStepsBar from "@/components/ProgressStepsBar/ProgressStepsBar";
 import { formatNumber } from "@/helpers/formatNumber";
 import { useFieldArray, useForm } from "react-hook-form";
-import Sortable, { get } from "sortablejs";
+import Sortable from "sortablejs";
 import { VAT, VAT_LEB_RATE } from "@/data/constants";
 import { toast } from "react-toastify";
 import { generatePreviewForUnsubmittedQuotation, handlePreview } from "@/controllers/quotations.controller";
 import { QuotationAction } from "@/constants/QuotationsActions";
 import CheckBox from "../UI/CheckBox/Checkbox";
-import dynamic from "next/dynamic";
-import "react-quill/dist/quill.snow.css";
-
-const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
+import QuillEditor from "../QuillEditor/QuillEditor";
 
 const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData, permissions = [], resetForm, setResetForm = () => {}, ...props }) => {
   const [buttonState, setButtonState] = useState("order");
@@ -407,7 +404,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
                     register={register}
                     isDisabled={shouldDisableComponents}
                   /> */}
-                  <ReactQuill
+                  <QuillEditor
                     defaultValue={quotationData.termsAndConditions}
                     theme='snow'
                     style={{ width: "100%", minHeight: "150px" }}
