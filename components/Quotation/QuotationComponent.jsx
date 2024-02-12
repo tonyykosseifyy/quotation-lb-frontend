@@ -34,7 +34,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     {
       title: "Preview",
       value: "preview",
-      onClick: () => handleQuotationPreview(quotationData?.id),
+      onClick: () => handleQuotationPreview(currencyUsed, quotationData?.id),
       shouldDisableComponent: false,
       isLoading: isLoadingPreview,
     },
@@ -121,13 +121,14 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     }
   };
 
-  const handleQuotationPreview = async (id) => {
+  const handleQuotationPreview = async (currencyUsed, id) => {
     setIsLoadingPreview(true);
     try {
       if (id && action === QuotationAction.VIEW) {
         await handlePreview(id);
       } else {
         const values = getValues();
+        console.log(values);
         await generatePreviewForUnsubmittedQuotation(values, quotationData.lineTypes);
       }
     } catch (err) {

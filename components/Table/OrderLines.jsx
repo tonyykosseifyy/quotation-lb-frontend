@@ -49,7 +49,7 @@ const OrderLinesRows = ({ control, register, fields, append, remove, move, indic
     const newTotal = calculateTotal(unitPrice, quantity, discount);
     handleQuotationTotalChange("add", newTotal);
 
-    return newTotal;
+    return newTotal.toFixed(2);
   };
 
   const loadItemOptions = (inputValue, callback) => {
