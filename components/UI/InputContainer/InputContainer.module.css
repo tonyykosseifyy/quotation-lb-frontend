@@ -1,0 +1,34 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.alignItemsStart {
+  align-items: flex-start !important;
+}
+
+.stackLabelInput {
+  flex-direction: column;
+}
+
+.labelText {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+@media only screen and (min-width: 768px) {
+  .container {
+    flex-direction: row;
+    align-items: center;
+    gap: 0;
+  }
+
+  .justifyStart {
+    justify-content: flex-start;
+    gap: 48px;
+  }
+}

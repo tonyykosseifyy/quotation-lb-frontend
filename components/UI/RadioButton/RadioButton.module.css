@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.label {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.input {
+    accent-color: var(--primary-clr);
+}
+
+.custom-radio {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    border: 2px solid #ccc; /* Set the default color of the radio button circle */
+    margin-right: 8px; /* Add some space between the radio button and label */
+  }

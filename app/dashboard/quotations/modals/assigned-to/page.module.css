@@ -1,0 +1,83 @@
+.container {
+    padding: 40px;
+}
+
+.title {
+    font-size: 18px;
+    font-weight: 700;
+    padding-top: 18px;
+}
+
+.circleAndInputsContainer{
+    display: flex;
+    flex-direction: column;
+}
+
+.bigCircle {
+    width: 108px;
+    height: 108px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background: var(--bigCircle-background-clr);
+    display: grid;
+}
+
+.smallCircle {
+    place-self: center;
+    display: grid;
+    width: 80px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 1px dashed var(--primary-clr-light);
+    place-items: center;
+}
+
+.inputsContainer{
+    display: flex;
+    flex-direction: column; 
+    width: 100% !important;
+    gap: 25px;
+    padding-left: 0px;
+    padding-top: 30px;
+}
+
+.inputRow2 {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.actionButtons2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 130px;
+    gap: 26px;
+}
+
+.discard {
+    font-weight: 600;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+    color: var(--primary-clr-light);
+}
+
+@media only screen and (min-width: 600px) {
+    .circleAndInputsContainer{
+        flex-direction: row;
+    }  
+    .inputsContainer{
+        padding-left: 67px;
+        padding-top: 0px;
+    }
+}
+
+@media only screen and (min-width: 1140px) {
+    .inputRow2 {
+        width: 40%;
+    }
+}
+

@@ -1,0 +1,39 @@
+.container {
+    width: 100%;
+    display: flex;
+}
+
+.justifyCenter {
+    justify-content: center;
+}
+
+.textStatus {
+    width: 100%;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    font-weight: 700;
+    font-size: 12px;
+    text-align: center;
+    text-transform: capitalize;
+    padding: 2px 14px;
+}
+
+.emptyStatus {
+    width: 11px;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: none;
+}
+
+.warning {
+    background-color: #FFB31F;
+}
+
+.success {
+    background-color: #1CC600;
+}
+
+.danger {
+    background-color: #DB2323;
+}

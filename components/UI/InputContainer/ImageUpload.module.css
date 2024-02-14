@@ -1,0 +1,59 @@
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.dragAndDropContainer {
+  width: 100%;
+  border: 2px;
+  border-radius: 8px;
+  border-style: dashed;
+  border-color: var(--drag-and-drop-border-clr);
+  display: flex;
+  padding: 27px 0px 31px 13px;
+  cursor: pointer;
+}
+
+.dragAndDropText {
+  padding-top: 4px;
+  padding-left: 12px;
+  display: flex;
+  color: var(--table-data-text-clr);
+  font-weight: 500;
+  font-size: 12px;
+}
+
+.inputFileUpload {
+  display: none;
+}
+
+.thumbsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin-top: 16px;
+}
+
+.thumb {
+  display: inline-flex;
+  border-radius: 2px;
+  border: 1px solid #eaeaea;
+  margin-bottom: 8px;
+  margin-right: 8px;
+  height: 250px;
+  padding: 4px;
+  box-sizing: border-box;
+}
+
+.thumbInner {
+  display: flex;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.fileImg {
+  display: block;
+  width: auto;
+  height: 100%;
+}

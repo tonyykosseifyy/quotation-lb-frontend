@@ -1,0 +1,76 @@
+.container {
+  padding: 40px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--primary-clr);
+}
+
+.searchDiv {
+  width: 100%;
+}
+
+.tableDiv {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.headerLayout {
+  background-color: var(--primary-clr);
+  border-radius: 5px;
+  padding: 16px 8px;
+  display: flex;
+  color: white;
+}
+
+.singleCard {
+  background-color: white;
+  border-radius: 8px;
+  border-color: white;
+  border-top: 2px solid var(--primary-clr);
+  padding: 21px 16px 16px 15px;
+}
+
+.cardTitle {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--primary-clr);
+}
+
+.cardBodyText {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.dropDownMenu {
+  padding: 0px !important;
+}
+
+.dropDownMenu * {
+  border-radius: 0 !important;
+}
+
+.dropDownItem {
+  background-color: white !important;
+}
+
+.dropDownItem:hover {
+  background-color: var(--table-row-babyblue-background-clr) !important;
+  border-radius: none !important;
+}
+
+@media only screen and (min-width: 768px) {
+  .header {
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0;
+  }
+}

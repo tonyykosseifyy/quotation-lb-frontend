@@ -1,0 +1,33 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.container {
+    /*display: flex;*/
+    /*flex-direction: column;*/
+    gap: 15px;
+}
+
+.heading {
+    color: var(--primary-clr);
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.container2 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.half {
+    width: 50%;
+}
+
+.chartContainer {
+    display: flex;
+    flex-direction: column-reverse;
+}

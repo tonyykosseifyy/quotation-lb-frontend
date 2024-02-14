@@ -1,0 +1,50 @@
+.container {
+    background-color: white;
+    border-radius: 5px;
+    padding: 11px;
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.cardHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logoContainer {
+    background-color: #ebf3f9;
+    padding: 5px;
+    border-radius: 50%;
+    width: 28px;
+    aspect-ratio: 1/1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.metricTitle {
+    color: var(--primary-text-clr);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.cardValue {
+    font-weight: 700;
+    font-size: 17px;
+    color: var(--primary-text-clr);
+}
+
+.value {
+    display: flex;
+    gap: 5px;
+}
+
+.unit {
+    font-weight: 400;
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

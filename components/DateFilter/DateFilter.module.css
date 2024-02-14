@@ -1,0 +1,18 @@
+/*.container {*/
+/*    !*display: flex;*!*/
+/*    !*flex-direction: row;*!*/
+/*    !*justify-content: space-between;*!*/
+/*}*/
+
+/*.generalFilters {*/
+/*    display: flex;*/
+/*    flex-direction: row;*/
+/*    !*gap: 26px;*!*/
+/*}*/
+
+.dateFilter {
+    text-decoration: none;
+    color: var(--primary-text-clr);
+    margin-right: 5px;
+    cursor: pointer;
+}

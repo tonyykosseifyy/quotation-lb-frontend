@@ -1,0 +1,10 @@
+.chevron {
+    height: 32px;
+    width: 32px;
+}
+
+.activePage {
+    font-weight: 700;
+    color: #ffffff;
+    /* background-color: var(--primary-clr); */
+}

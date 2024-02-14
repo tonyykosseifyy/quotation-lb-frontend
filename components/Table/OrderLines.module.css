@@ -1,0 +1,73 @@
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.innerRow {
+  display: flex;
+  align-items: center;
+}
+
+.rowOfInputContainers {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-left: 14px;
+}
+
+.comboPlaceheolderText {
+  padding-left: 7px;
+  font-style: normal;
+  color: var(--table-data-text-clr);
+}
+
+.tableDiv {
+  background-color: white;
+  border-radius: 8px;
+  overflow-y: auto;
+}
+
+.headerLayout {
+  background-color: var(--primary-clr);
+  border-radius: 5px;
+  padding: 16px 8px;
+  display: flex;
+  color: white;
+}
+
+.itemRows {
+  list-style-type: none; /* Remove default bullet points */
+  padding: 0; /* Remove any default padding */
+  margin: 0; /* Remove any default margin */
+}
+
+.singleItemRow {
+  display: flex;
+  padding: 8px 0px 8px 8px;
+}
+
+.footerRow {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.dragAndDropContainer {
+  width: 100%;
+  border: 2px;
+  border-radius: 8px;
+  border-style: dashed;
+  border-color: var(--drag-and-drop-border-clr);
+  display: flex;
+  padding: 27px 0px 31px 13px;
+}
+
+.dragAndDropText {
+  padding-top: 4px;
+  padding-left: 12px;
+  display: flex;
+  color: var(--table-data-text-clr);
+  font-weight: 500;
+  font-size: 12px;
+}
