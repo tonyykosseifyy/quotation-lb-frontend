@@ -27,4 +27,8 @@ export const configurationDropDownItems = [
     key: 7,
     name: "Price Lists",
   },
+  {
+    key: 8,
+    name: "Payment Terms"
+  }
 ];

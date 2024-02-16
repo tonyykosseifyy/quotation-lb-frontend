@@ -1,7 +1,13 @@
 .footerRow {
   display: flex;
   align-items: center;
-  padding-right: 30px;
+  padding-right: 30px; 
+  border: none;
+  background-color: transparent;
+}
+
+.footerRow:hover {
+  cursor: pointer;
 }
 
 .labelText {

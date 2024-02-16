@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { QueryClient, useMutation } from "@tanstack/react-query";
 import { logout } from "@/controllers/auth.controller";
 import { toast } from "react-toastify";
+import PaymentTermsModal from "@/app/dashboard/admin/payment-terms/page";
 
 const Navbar = () => {
   const [isModalOpen, setIsModalOpen] = useState({
@@ -28,6 +29,7 @@ const Navbar = () => {
     salesmen: false,
     warehouses: false,
     priceLists: false,
+    paymentTerms: false,
   });
 
   const { user } = useAuthStore();
@@ -59,6 +61,8 @@ const Navbar = () => {
       openModal("warehouses");
     } else if (actionKey === "7") {
       openModal("priceLists");
+    } else if (actionKey === "8") {
+      openModal("paymentTerms");
     }
   };
 
@@ -120,6 +124,7 @@ const Navbar = () => {
           {isModalOpen.salesmen && <SalesmenModal setIsModalOpen={() => closeModal("salesmen")} />}
           {isModalOpen.warehouses && <StockWarehousesModal setIsModalOpen={() => closeModal("warehouses")} />}
           {isModalOpen.priceLists && <PriceListsModal setIsModalOpen={() => closeModal("priceLists")} />}
+          {isModalOpen.paymentTerms && <PaymentTermsModal setIsModalOpen={() => closeModal("paymentTerms")} />}
         </div>
       </div>
       <div className={styles.userInfo}>
