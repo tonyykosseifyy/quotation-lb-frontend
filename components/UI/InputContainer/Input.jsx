@@ -534,10 +534,11 @@ const CustomInputWithSelect = (props) => {
     <div style={{ display: "flex", alignItems: "stretch", justifyContent: "space-between", gap: "0px", border: "1px solid #D6DFEF", borderRadius: "5px" }}>
       <input
         required={isRequired}
-        className={`${styles.inputText}`}
+        className={`${styles.inputText} ${styles.special_input} `}
         name={inputName}
         type={inputType}
         id={inputId}
+        type="number"
         placeholder={inputPlaceholder}
         {...(register
           ? register(registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName, {

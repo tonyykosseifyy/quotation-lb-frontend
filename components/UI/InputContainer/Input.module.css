@@ -40,3 +40,13 @@
 .countrySelect {
   width: 45%;
 }
+.special_input::-webkit-outer-spin-button,
+.special_input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.special_input[type=number] {
+  -moz-appearance: textfield;
+}

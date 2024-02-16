@@ -124,3 +124,129 @@
     font-size: 16px;
     color: white;
 }
+.container {
+    background-color: var(--primary-clr);
+    position: relative;
+    transition-duration: 300ms;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 40px 0 0 0;
+}
+
+.openContainer {
+    composes: container;
+    width: 280px;
+}
+
+.closedContainer {
+    composes: container;
+    width: 47px;
+}
+
+.controlButton {
+    color: var(--primary-clr);
+    padding-right: 1px;
+    position: absolute;
+    right: -18px;
+    top: 36px;
+    border: none;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: 6.83px 8.2px 41px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.controlButtonClosed {
+    composes: controlButton;
+    scale: -1;
+}
+
+.controlButton:focus {
+    outline: none;
+}
+
+
+.logoContainer {
+    text-align: center;
+    margin-left: -10px;
+    margin-top: 30px;
+}
+
+.logo {
+    cursor: pointer;
+    width: 100%;
+}
+
+.logoClosed {
+    transform: scale(0);
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    padding-top: 6px;
+    padding-left: 25px;
+    list-style: none;
+    row-gap: 10px;
+    transition-duration: 300ms;
+    width: 100%;
+}
+
+.listClosed {
+    composes: list;
+    row-gap: 15px;
+    width: min-content;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-top: 60px;
+}
+
+.listItemContainer {
+    display: flex;
+    align-items: start;
+    justify-content: center;
+    gap: 20px;
+}
+
+.listItem {
+    color: black;
+    line-height: 1.25rem;
+    display: flex;
+    /* padding: 0.5rem; */
+    margin: 8px;
+    align-items: center;
+    border-radius: 0.375rem;
+    column-gap: 25px;
+    cursor: pointer;
+    position: relative;
+}
+
+.itemLogo {
+    display: flex;
+    align-items: center;
+}
+
+.itemText {
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.subHeaders {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 19px;
+}
+
+.subHeader {
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
+}
