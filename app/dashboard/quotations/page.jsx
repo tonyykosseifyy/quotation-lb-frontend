@@ -228,67 +228,66 @@ const Page = () => {
     },
     {
       name: "More Options",
-      center: true,
+      right: true,
       selector: (row) => (
-        <div
-          onMouseEnter={() => handleMouseEnter(row.id)}
-          onMouseLeave={() => handleMouseLeave(row.id)}>
-          <Dropdown
-            placement='bottom-center'
-            isOpen={isRowDropdownShown[row.id]}>
-            <Dropdown.Trigger>
-              <div>
-                <Ellipsis />
-              </div>
-            </Dropdown.Trigger>
-            <Dropdown.Menu aria-label='User menu actions'>
-              <Dropdown.Item
-                aria-label='Edit'
-                key='edit'
-                className={styles.dropdownItem}>
-                <div
-                  onClick={() => {
-                    handleEdit(row.id);
-                  }}>
-                  Edit
+        <div style={{ display: 'flex' }}>
+        
+          <div 
+            onMouseEnter={() => handleMouseEnter(row.id)}
+            onMouseLeave={() => handleMouseLeave(row.id)}
+            style={{marginRight: 10}}
+            >
+            <Dropdown
+              placement='bottom-center'
+              isOpen={isRowDropdownShown[row.id]}>
+              <Dropdown.Trigger>
+                <div>
+                  <Ellipsis />
                 </div>
-              </Dropdown.Item>
-              <Dropdown.Item
-                aria-label='Show Preview'
-                key='preview'
-                className={styles.dropdownItem}>
-                <div
-                  onClick={() => {
-                    handleShowPreview(row.id);
-                  }}>
-                  Show Preview
-                </div>
-              </Dropdown.Item>
-              <Dropdown.Item
-                aria-label='Download as PDF'
-                key='preview'
-                className={styles.dropdownItem}>
-                <div
-                  onClick={() => {
-                    handlePreviewDownload(row);
-                  }}>
-                  Download as PDF
-                </div>
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
+              </Dropdown.Trigger>
+              <Dropdown.Menu aria-label='User menu actions'>
+                <Dropdown.Item
+                  aria-label='Edit'
+                  key='edit'
+                  className={styles.dropdownItem}>
+                  <div
+                    onClick={() => {
+                      handleEdit(row.id);
+                    }}>
+                    Edit
+                  </div>
+                </Dropdown.Item>
+                <Dropdown.Item
+                  aria-label='Show Preview'
+                  key='preview'
+                  className={styles.dropdownItem}>
+                  <div
+                    onClick={() => {
+                      handleShowPreview(row.id);
+                    }}>
+                    Show Preview
+                  </div>
+                </Dropdown.Item>
+                <Dropdown.Item
+                  aria-label='Download as PDF'
+                  key='preview'
+                  className={styles.dropdownItem}>
+                  <div
+                    onClick={() => {
+                      handlePreviewDownload(row);
+                    }}>
+                    Download as PDF
+                  </div>
+                </Dropdown.Item>
+              </Dropdown.Menu>
+            </Dropdown>
+          </div>
+          <Trashcan
+            fillColor={"var(--primary-clr)"}
+            onClick={() => handleDeleteQuotation(row.id)}
+          />
+
         </div>
-      ),
-    },
-    {
-      name: "",
-      width: "60px",
-      center: true,
-      selector: (row) => (
-        <Trashcan
-          fillColor={"var(--primary-clr)"}
-          onClick={() => handleDeleteQuotation(row.id)}
-        />
       ),
     },
   ];
