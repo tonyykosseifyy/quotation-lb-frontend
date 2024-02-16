@@ -290,7 +290,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
           <div className={`${styles.inputRow2}`}>
             <InputContainer
               label='Validity'
-              inputType='text'
+              inputType='numberSelect'
               inputName='validity'
               inputId='validity'
               control={control}

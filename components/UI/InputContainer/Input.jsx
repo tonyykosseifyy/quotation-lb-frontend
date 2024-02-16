@@ -497,8 +497,108 @@ const Input = ({
           isDisabled={isDisabled}
         />
       )}
+      {inputType === "numberSelect" && (
+        <CustomInputWithSelect />
+      )}
     </div>
   );
 };
+const CustomInputWithSelect = (props) => {
+  const { inputName, isRequired, inputType, inputId, inputPlaceholder, register, registerArrayName, registerArrayIndex, registerArrayKey, onChange, inputfontWeight, fontSize, placeholderColor, placeholderStyle, placeholderWeight, dropdownArrowColor } = props;
+  const [selectedOption, setSelectedOption] = useState(null);
+
+  const options = [
+    { value: 'Days', label: 'Days' },
+    { value: 'Weeks', label: 'Weeks' },
+    { value: 'Months', label: 'Months' },
+  ];
+
+  // Assuming onChange, isRequired, and other variables are defined elsewhere
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'space-between', gap: '0px', border: '1px solid #D6DFEF',borderRadius: '5px' }}>
+      <input
+        required={isRequired}
+        className={`${styles.inputText}`}
+        name={inputName}
+        type={inputType}
+        id={inputId}
+        placeholder={inputPlaceholder}
+        {...(register
+          ? register(registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName, {
+              required: isRequired,
+              ...extraValidations,
+              onChange: onChange, // Make sure this onChange updates the state or performs validations as needed
+            })
+          : {})}
+        style={{
+          fontWeight: inputfontWeight ? 700 : 600,
+          fontSize: fontSize ? fontSize : "12px",
+          border: 'none',
+          width: '35%',
+          height: '38px',
+          outline: 'none',
+          boxShadow: 'none',
+          '&:focus': {
+            border: 'none',
+            outline: 'none'
+          }
+        }}
+      />
+      <Select
+        value={selectedOption}
+        onChange={setSelectedOption}
+        options={options}
+        styles={{
+          control: (baseStyles) => ({
+            ...baseStyles,
+            fontSize: "12px",
+            flex: 1,
+            borderRadius: 5,
+            border: 'none',
+            backgroundColor: "transparent",
+            boxShadow: "none",
+          }),
+          option: (styles, { isSelected }) => {
+            return {
+              ...styles,
+              backgroundColor: isSelected ? "var(--primary-clr)" : "transparent",
+              "&:hover": {
+                backgroundColor: !isSelected && "var(--primary-clr-light)",
+                color: "white",
+              },
+              ":active": {
+                ...styles[":active"],
+                backgroundColor: isSelected ? "var(--primary-clr)" : "transparent",
+              },
+            };
+          },
+          valueContainer: (baseStyles) => ({
+            ...baseStyles,
+            fontSize: 14,
+            fontWeight: 400,
+          }),
+          placeholder: (baseStyles) => ({
+            ...baseStyles,
+            color: placeholderColor ? "#868686" : "#C8C8C8",
+            fontStyle: placeholderStyle ? "normal" : "italic",
+            fontWeight: placeholderWeight ? placeholderWeight : "",
+            fontSize: fontSize ? fontSize : "14px",
+            dropdownIndicator: (baseStyles) => ({
+              ...baseStyles,
+              color: dropdownArrowColor ? dropdownArrowColor : "var(--primary-text-clr)",
+            }),
+          }),
+        }}
+        placeholder="Select unit"
+        components={{
+          IndicatorSeparator: () => null,
+        }}
+      />
+    </div>
+  );
+};
+
+
 
 export default Input;
