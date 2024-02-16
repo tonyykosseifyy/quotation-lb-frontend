@@ -497,26 +497,41 @@ const Input = ({
           isDisabled={isDisabled}
         />
       )}
-      {inputType === "numberSelect" && (
-        <CustomInputWithSelect />
-      )}
+      {inputType === "numberSelect" && <CustomInputWithSelect />}
     </div>
   );
 };
 const CustomInputWithSelect = (props) => {
-  const { inputName, isRequired, inputType, inputId, inputPlaceholder, register, registerArrayName, registerArrayIndex, registerArrayKey, onChange, inputfontWeight, fontSize, placeholderColor, placeholderStyle, placeholderWeight, dropdownArrowColor } = props;
+  const {
+    inputName,
+    isRequired,
+    inputType,
+    inputId,
+    inputPlaceholder,
+    register,
+    registerArrayName,
+    registerArrayIndex,
+    registerArrayKey,
+    onChange,
+    inputfontWeight,
+    fontSize,
+    placeholderColor,
+    placeholderStyle,
+    placeholderWeight,
+    dropdownArrowColor,
+  } = props;
   const [selectedOption, setSelectedOption] = useState(null);
 
   const options = [
-    { value: 'Days', label: 'Days' },
-    { value: 'Weeks', label: 'Weeks' },
-    { value: 'Months', label: 'Months' },
+    { value: "Days", label: "Days" },
+    { value: "Weeks", label: "Weeks" },
+    { value: "Months", label: "Months" },
   ];
 
   // Assuming onChange, isRequired, and other variables are defined elsewhere
 
   return (
-    <div style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'space-between', gap: '0px', border: '1px solid #D6DFEF',borderRadius: '5px' }}>
+    <div style={{ display: "flex", alignItems: "stretch", justifyContent: "space-between", gap: "0px", border: "1px solid #D6DFEF", borderRadius: "5px" }}>
       <input
         required={isRequired}
         className={`${styles.inputText}`}
@@ -534,15 +549,15 @@ const CustomInputWithSelect = (props) => {
         style={{
           fontWeight: inputfontWeight ? 700 : 600,
           fontSize: fontSize ? fontSize : "12px",
-          border: 'none',
-          width: '35%',
-          height: '38px',
-          outline: 'none',
-          boxShadow: 'none',
-          '&:focus': {
-            border: 'none',
-            outline: 'none'
-          }
+          border: "none",
+          width: "35%",
+          height: "38px",
+          outline: "none",
+          boxShadow: "none",
+          "&:focus": {
+            border: "none",
+            outline: "none",
+          },
         }}
       />
       <Select
@@ -555,7 +570,7 @@ const CustomInputWithSelect = (props) => {
             fontSize: "12px",
             flex: 1,
             borderRadius: 5,
-            border: 'none',
+            border: "none",
             backgroundColor: "transparent",
             boxShadow: "none",
           }),
@@ -590,7 +605,7 @@ const CustomInputWithSelect = (props) => {
             }),
           }),
         }}
-        placeholder="Select unit"
+        placeholder='Select unit'
         components={{
           IndicatorSeparator: () => null,
         }}
@@ -598,7 +613,5 @@ const CustomInputWithSelect = (props) => {
     </div>
   );
 };
-
-
 
 export default Input;
