@@ -27,8 +27,8 @@ const style = {
 };
 
 const PaymentTermsModal = ({ setIsModalOpen }) => {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [terms, setTerms] = useState([]);
   const [companyId, setCompanyId] = useState(null);
   const [termModalOpen, setTermModalOpen] = useState(false);
