@@ -64,7 +64,8 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
       isLoading: false,
     },
   ];
-
+  
+  console.log(quotationData.validity, 'quotation validity');
   const {
     watch,
     register,

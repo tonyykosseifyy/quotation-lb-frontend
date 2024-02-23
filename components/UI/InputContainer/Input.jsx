@@ -526,10 +526,11 @@ const CustomInputWithSelect = (props) => {
   const [validity, setValidity] = useState(0); 
 
   useEffect(() => {
-    const interval = value;
-    const [intervalValue, unit] = interval.split(' ');
+    console.log("value in input => ", value);
+    if (!value) return;
+    const [intervalValue, unit] = value.split(' ');
     setValidity(intervalValue);
-    setValidityDate(unit);
+    setValidityDate({ value: unit, label: unit});
   }, [value])
   
   const options = [
@@ -538,7 +539,7 @@ const CustomInputWithSelect = (props) => {
     { value: "Months", label: "Months" },
   ];
   useEffect(() => {
-    onChange(string(validity + " " + validityDate).trim());
+    onChange((validity + " " + validityDate?.value).trim());
   },[validity, validityDate])
 
   return (
@@ -569,7 +570,10 @@ const CustomInputWithSelect = (props) => {
       />
       <Select
         value={validityDate}
-        onChange={(val) => setValidityDate(val)}
+        onChange={(val) => {
+          console.log(val, 'changed')
+          setValidityDate(val)
+        }}
         options={options}
         styles={{
           control: (baseStyles) => ({
