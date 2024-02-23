@@ -17,6 +17,9 @@ import { generatePreviewForUnsubmittedQuotation, handlePreview } from "@/control
 import { QuotationAction } from "@/constants/QuotationsActions";
 import CheckBox from "../UI/CheckBox/Checkbox";
 import QuillEditor from "../QuillEditor/QuillEditor";
+import { paymentTerms } from "@/data/tableData";
+import paymentMethodService from "@/services/paymentMethodServices";
+
 
 const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData, permissions = [], resetForm, setResetForm = () => {}, ...props }) => {
   const [buttonState, setButtonState] = useState("order");
@@ -26,6 +29,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
   const [isLoadingPreview, setIsLoadingPreview] = useState(false);
   const [currencyUsed, setCurrencyUsed] = useState(quotationData?.currency?.name ?? "USD");
   const [shouldExemptVat, setShouldExemptVat] = useState(quotationData.exemptVat ?? false);
+  const [paymentTerms, setPaymentTerms] = useState([]);
 
   const shouldDisableComponents = action === "view";
 
@@ -120,6 +124,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
       });
     }
   };
+  
 
   const handleQuotationPreview = async (currencyUsed, id) => {
     setIsLoadingPreview(true);
@@ -163,6 +168,13 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     if (props.createdClient && props.createdClient.isNew) {
       setValue("clientId", props.createdClient);
     }
+    paymentMethodService.getAllPaymentMethods().then((res) => {
+      setPaymentTerms(res.data);
+      console.log(res.data, 'payment termss');
+    }).catch((err) => {
+      console.log(err);
+    });
+
   }, [props.createdClient]);
 
   useEffect(() => {
@@ -198,6 +210,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     setFocus("clientId");
   }, [setFocus]);
 
+  
   return (
     <div>
       <form
@@ -302,7 +315,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               inputPlaceholder=''
               inputType='select'
               inputName='paymentTerm'
-              selectOptions={quotationData.paymentTerms}
+              selectOptions={paymentTerms}
               optionName='title'
               control={control}
               register={register}
