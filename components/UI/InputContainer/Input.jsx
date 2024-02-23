@@ -32,52 +32,55 @@ const Option = (props) => {
   );
 };
 
-const Input = ({
-  inputPlaceholder = "",
-  placeholderColor,
-  placeholderStyle,
-  placeholderWeight,
-  inputBorder,
-  inputBorderColor,
-  codeName,
-  changeCodeValue,
-  inputName,
-  isRequired = false,
-  inputType = "text",
-  selectOptions,
-  inputId,
-  height = 37,
-  heightUnit = "px",
-  width = 208,
-  widthUnit = "px",
-  fontSize,
-  textAlign,
-  canResize,
-  register,
-  registerArrayName,
-  registerArrayKey,
-  registerArrayIndex,
-  control,
-  value,
-  onChange = null,
-  dropdownArrowColor,
-  optionName = "name",
-  optionId = "id",
-  loadOptions,
-  isSearchable = false,
-  isDisabled = false,
-  initialValue = null,
-  defaultValue,
-  setValue = (name, value) => {},
-  referenceInput,
-  referenceKey,
-  inputKey = null,
-  inputfontWeight,
-  autoFocus = false,
-  onCreateOption = () => {},
-  defaultOptions,
-  marginTop,
-}) => {
+const Input = (props) => {
+  const {
+    inputPlaceholder = "",
+    placeholderColor,
+    placeholderStyle,
+    placeholderWeight,
+    inputBorder,
+    inputBorderColor,
+    codeName,
+    changeCodeValue,
+    inputName,
+    isRequired = false,
+    inputType = "text",
+    selectOptions,
+    inputId,
+    height = 37,
+    heightUnit = "px",
+    width = 208,
+    widthUnit = "px",
+    fontSize,
+    textAlign,
+    canResize,
+    register,
+    registerArrayName,
+    registerArrayKey,
+    registerArrayIndex,
+    control,
+    value,
+    onChange = null,
+    dropdownArrowColor,
+    optionName = "name",
+    optionId = "id",
+    loadOptions,
+    isSearchable = false,
+    isDisabled = false,
+    initialValue = null,
+    defaultValue,
+    setValue = (name, value) => {},
+    referenceInput,
+    referenceKey,
+    inputKey = null,
+    inputfontWeight,
+    autoFocus = false,
+    onCreateOption = () => {},
+    defaultOptions,
+    marginTop,
+    changeNumberSelect
+  } = props;
+
   const [extraValidations, setExtraValidations] = useState({});
 
   useEffect(() => {
@@ -497,10 +500,25 @@ const Input = ({
           isDisabled={isDisabled}
         />
       )}
-      {inputType === "numberSelect" && <CustomInputWithSelect />}
+      {inputType === "numberSelect" && <CustomInputWithSelect {...props} />}
     </div>
   );
 };
+function generateTimeInterval(date) {
+  const now = new Date();
+  const timeDifference = new Date(date) - now;
+  const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+  
+  if (daysDifference >= 30) {
+      const months = Math.floor(daysDifference / 30);
+      return `${months} Months`;
+  } else if (daysDifference >= 7) {
+      const weeks = Math.floor(daysDifference / 7);
+      return `${weeks} Weeks`;
+  } else {
+      return `${daysDifference} Days`;
+  }
+}
 const CustomInputWithSelect = (props) => {
   const {
     inputName,
@@ -508,10 +526,6 @@ const CustomInputWithSelect = (props) => {
     inputType,
     inputId,
     inputPlaceholder,
-    register,
-    registerArrayName,
-    registerArrayIndex,
-    registerArrayKey,
     onChange,
     inputfontWeight,
     fontSize,
@@ -519,16 +533,49 @@ const CustomInputWithSelect = (props) => {
     placeholderStyle,
     placeholderWeight,
     dropdownArrowColor,
+    value
   } = props;
-  const [selectedOption, setSelectedOption] = useState(null);
+  const [validityDate, setValidityDate] = useState(null);
+  const [validity, setValidity] = useState(0); 
 
+  useEffect(() => {
+    const interval = generateTimeInterval(value);
+    const [intervalValue, unit] = interval.split(' ');
+    setValidity(intervalValue);
+    setValidityDate({ value: unit, label: unit });
+
+  }, [value])
+  
   const options = [
     { value: "Days", label: "Days" },
     { value: "Weeks", label: "Weeks" },
     { value: "Months", label: "Months" },
   ];
+  useEffect(() => {
+    let date = new Date();
+    const value = parseInt(validity);
+    switch (validityDate?.value) {
+      case 'Days':
+        date.setDate(date.getDate() + value);
+        break;
+      case 'Weeks':
+        date.setDate(date.getDate() + value * 7);
+        break;
+      case 'Months':
+        date.setMonth(date.getMonth() + value);
+        break;
+      default:
+        break;
+    }
 
-  // Assuming onChange, isRequired, and other variables are defined elsewhere
+    if (isNaN(date.getTime())) {
+      console.error('Invalid date:', date);
+      return;
+  }
+
+  onChange(date.toISOString());
+
+  },[validity, validityDate])
 
   return (
     <div style={{ display: "flex", alignItems: "stretch", justifyContent: "space-between", gap: "0px", border: "1px solid #D6DFEF", borderRadius: "5px" }}>
@@ -540,13 +587,8 @@ const CustomInputWithSelect = (props) => {
         id={inputId}
         type="number"
         placeholder={inputPlaceholder}
-        {...(register
-          ? register(registerArrayName ? `${registerArrayName}.${registerArrayIndex}.${registerArrayKey}` : inputName, {
-              required: isRequired,
-              ...extraValidations,
-              onChange: onChange, // Make sure this onChange updates the state or performs validations as needed
-            })
-          : {})}
+        onChange={(e) => setValidity(e.target.value)}
+        value={validity && validity}
         style={{
           fontWeight: inputfontWeight ? 700 : 600,
           fontSize: fontSize ? fontSize : "12px",
@@ -562,8 +604,8 @@ const CustomInputWithSelect = (props) => {
         }}
       />
       <Select
-        value={selectedOption}
-        onChange={setSelectedOption}
+        value={validityDate}
+        onChange={(val) => setValidityDate(val)}
         options={options}
         styles={{
           control: (baseStyles) => ({

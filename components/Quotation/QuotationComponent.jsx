@@ -20,8 +20,26 @@ import QuillEditor from "../QuillEditor/QuillEditor";
 import { paymentTerms } from "@/data/tableData";
 import paymentMethodService from "@/services/paymentMethodServices";
 
+// function that converts from a number followed by either ENUM(days, weeks, months) to a real javascript date object starting from the time now
+function generateTimeInterval(date) {
+  const now = new Date();
+  const timeDifference = new Date(date) - now;
+  const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
+  
+  if (daysDifference >= 30) {
+      const months = Math.floor(daysDifference / 30);
+      return `${months} Months`;
+  } else if (daysDifference >= 7) {
+      const weeks = Math.floor(daysDifference / 7);
+      return `${weeks} Weeks`;
+  } else {
+      return `${daysDifference} Days`;
+  }
+}
+
 
 const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData, permissions = [], resetForm, setResetForm = () => {}, ...props }) => {
+
   const [buttonState, setButtonState] = useState("order");
   const [indices, setIndices] = useState({ oldIndex: null, newIndex: null });
   const [quotationTotalBeforeVat, setQuotationTotalBeforeVat] = useState(quotationData.totalBeforeVat ?? 0);
@@ -78,7 +96,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     defaultValues: {
       manualReference: quotationData.reference,
       clientId: quotationData.client,
-      validity: quotationData.validity,
+      validity: quotationData.validity ? generateTimeInterval(quotationData.validity) : 0,
       paymentTerm: quotationData.paymentTerm,
       pricelist: quotationData.pricelist,
       currency: quotationData.currency ?? quotationData.currencies.find((curr) => curr.name === "USD"),
@@ -95,6 +113,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
       exemptVat: quotationData.exemptVat,
     },
   });
+  console.log("quotation data => ", quotationData);
 
   const { fields, append, remove, move } = useFieldArray({
     name: "orderLines",
@@ -306,9 +325,14 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               inputType='numberSelect'
               inputName='validity'
               inputId='validity'
+              inputPlaceholder=''
               control={control}
               register={register}
               isDisabled={shouldDisableComponents}
+              onChange={(e) => {
+                setValue("validity", e);
+              }}
+              value={quotationData.validity}
             />
             <InputContainer
               label='Payment Terms'
@@ -319,7 +343,10 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               optionName='title'
               control={control}
               register={register}
-              onChange={(e) => setValue("paymentTerm", e)}
+              onChange={(e) => { 
+                setValue("paymentTerm", e);
+              }
+            }
               isDisabled={shouldDisableComponents}
             />
             <InputContainer
@@ -331,7 +358,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
               optionName='title'
               control={control}
               register={register}
-              onChange={(e) => setValue("pricelist", e)}
+              onChange={(e) => {console.log(e); setValue("pricelist", e)}}
               isDisabled={shouldDisableComponents}
             />
             <InputContainer
