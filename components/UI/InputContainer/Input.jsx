@@ -10,6 +10,7 @@ import AsyncSelect from "react-select/async";
 import { ImageUpload } from "@/components/UI/InputContainer/ImageUpload";
 import { ucfirst } from "@/helpers/formatString";
 import ReactTextareaAutosize from "react-textarea-autosize";
+import { string } from "yup";
 
 const Option = (props) => {
   const { label, isSelected } = props;
@@ -504,21 +505,7 @@ const Input = (props) => {
     </div>
   );
 };
-function generateTimeInterval(date) {
-  const now = new Date();
-  const timeDifference = new Date(date) - now;
-  const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-  
-  if (daysDifference >= 30) {
-      const months = Math.floor(daysDifference / 30);
-      return `${months} Months`;
-  } else if (daysDifference >= 7) {
-      const weeks = Math.floor(daysDifference / 7);
-      return `${weeks} Weeks`;
-  } else {
-      return `${daysDifference} Days`;
-  }
-}
+
 const CustomInputWithSelect = (props) => {
   const {
     inputName,
@@ -539,11 +526,10 @@ const CustomInputWithSelect = (props) => {
   const [validity, setValidity] = useState(0); 
 
   useEffect(() => {
-    const interval = generateTimeInterval(value);
+    const interval = value;
     const [intervalValue, unit] = interval.split(' ');
     setValidity(intervalValue);
-    setValidityDate({ value: unit, label: unit });
-
+    setValidityDate(unit);
   }, [value])
   
   const options = [
@@ -552,29 +538,7 @@ const CustomInputWithSelect = (props) => {
     { value: "Months", label: "Months" },
   ];
   useEffect(() => {
-    let date = new Date();
-    const value = parseInt(validity);
-    switch (validityDate?.value) {
-      case 'Days':
-        date.setDate(date.getDate() + value);
-        break;
-      case 'Weeks':
-        date.setDate(date.getDate() + value * 7);
-        break;
-      case 'Months':
-        date.setMonth(date.getMonth() + value);
-        break;
-      default:
-        break;
-    }
-
-    if (isNaN(date.getTime())) {
-      console.error('Invalid date:', date);
-      return;
-  }
-
-  onChange(date.toISOString());
-
+    onChange(string(validity + " " + validityDate).trim());
   },[validity, validityDate])
 
   return (
@@ -588,7 +552,7 @@ const CustomInputWithSelect = (props) => {
         type="number"
         placeholder={inputPlaceholder}
         onChange={(e) => setValidity(e.target.value)}
-        value={validity && validity}
+        value={validity}
         style={{
           fontWeight: inputfontWeight ? 700 : 600,
           fontSize: fontSize ? fontSize : "12px",

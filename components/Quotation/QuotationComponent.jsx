@@ -20,23 +20,6 @@ import QuillEditor from "../QuillEditor/QuillEditor";
 import { paymentTerms } from "@/data/tableData";
 import paymentMethodService from "@/services/paymentMethodServices";
 
-// function that converts from a number followed by either ENUM(days, weeks, months) to a real javascript date object starting from the time now
-function generateTimeInterval(date) {
-  const now = new Date();
-  const timeDifference = new Date(date) - now;
-  const daysDifference = Math.ceil(timeDifference / (1000 * 60 * 60 * 24));
-  
-  if (daysDifference >= 30) {
-      const months = Math.floor(daysDifference / 30);
-      return `${months} Months`;
-  } else if (daysDifference >= 7) {
-      const weeks = Math.floor(daysDifference / 7);
-      return `${weeks} Weeks`;
-  } else {
-      return `${daysDifference} Days`;
-  }
-}
-
 
 const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData, permissions = [], resetForm, setResetForm = () => {}, ...props }) => {
 
@@ -96,7 +79,7 @@ const QuotationComponent = ({ action, onSubmit = () => {}, title, quotationData,
     defaultValues: {
       manualReference: quotationData.reference,
       clientId: quotationData.client,
-      validity: quotationData.validity ? generateTimeInterval(quotationData.validity) : 0,
+      validity: quotationData.validity ? quotationData.validity : "0 Days",
       paymentTerm: quotationData.paymentTerm,
       pricelist: quotationData.pricelist,
       currency: quotationData.currency ?? quotationData.currencies.find((curr) => curr.name === "USD"),
